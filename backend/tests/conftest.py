@@ -12,7 +12,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 
 os.environ.setdefault(
-    "TEST_DATABASE_URL", "postgresql+psycopg://mailvender:mailvender@localhost:5432/mailvender_test"
+    "TEST_DATABASE_URL", "postgresql+psycopg://mailvender:mailvender@localhost:5434/mailvender_test"
 )
 os.environ["DATABASE_URL"] = os.environ["TEST_DATABASE_URL"]
 os.environ["ENVIRONMENT"] = "test"

@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     environment: str = "development"
-    database_url: str = "postgresql+psycopg://mailvender:mailvender@localhost:5432/mailvender"
+    database_url: str = "postgresql+psycopg://mailvender:mailvender@localhost:5434/mailvender"
 
     # Public URLs. `app_base_url` is the Next.js frontend (links in system
     # emails); `public_api_base_url` is how recipients reach this API

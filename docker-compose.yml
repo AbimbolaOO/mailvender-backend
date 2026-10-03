@@ -1,6 +1,6 @@
 # Local development: `docker compose up`
 #
-#   App (Next.js)      http://localhost:3000      (proxies /api/* to the API)
+#   App (Next.js)      http://localhost:3000      run separately: cd ../mailvender && npm run dev
 #   API docs           http://localhost:8000/docs
 #   Mailpit (inbox)    http://localhost:8025      every email sent locally lands here
 #   MinIO console      http://localhost:9001      mailvender / mailvender-secret
@@ -42,7 +42,8 @@ services:
       POSTGRES_USER: mailvender
       POSTGRES_PASSWORD: mailvender
       POSTGRES_DB: mailvender
-    ports: ["5432:5432"]
+    # Host port 5434 (not 5432) so it doesn't clash with a locally installed Postgres.
+    ports: ["5434:5432"]
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./infra/postgres/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
@@ -120,6 +121,9 @@ services:
     volumes:
       - minio-data:/data
 
+  # One-time setup: creates the bucket and allows public reads of published
+  # images only, then exits (status "exited (0)" is expected). Needed on a fresh
+  # minio-data volume; re-running it is harmless.
   minio-init:
     image: pgsty/mc:latest
     entrypoint: ["/bin/sh", "/init.sh"]
@@ -132,21 +136,25 @@ services:
       - ./infra/minio/policy.json:/policy.json:ro
     depends_on: [minio]
 
-  web:
-    image: node:24-alpine
-    working_dir: /app
-    # Installs only what changed (node_modules lives in a volume), then serves with hot reload.
-    command: sh -c "npm install --no-audit --no-fund && npm run dev -- --hostname 0.0.0.0"
-    restart: on-failure
-    environment:
-      API_INTERNAL_URL: http://api:8000
-      WATCHPACK_POLLING: "true"
-    ports: ["3000:3000"]
-    volumes:
-      - ../mailvender:/app # the frontend lives beside this folder
-      - web-node-modules:/app/node_modules
-    depends_on:
-      api: { condition: service_healthy }
+  # The frontend is hosted separately. To run it here as well, uncomment this
+  # service and the `web-node-modules` volume below. Otherwise run it yourself:
+  #   cd ../mailvender && npm install && npm run dev
+  # (it proxies /api/* to API_INTERNAL_URL, default http://localhost:8000).
+  # web:
+  #   image: node:24-alpine
+  #   working_dir: /app
+  #   # Installs only what changed (node_modules lives in a volume), then serves with hot reload.
+  #   command: sh -c "npm install --no-audit --no-fund && npm run dev -- --hostname 0.0.0.0"
+  #   restart: on-failure
+  #   environment:
+  #     API_INTERNAL_URL: http://api:8000
+  #     WATCHPACK_POLLING: "true"
+  #   ports: ["3000:3000"]
+  #   volumes:
+  #     - ../mailvender:/app # the frontend lives beside this folder
+  #     - web-node-modules:/app/node_modules
+  #   depends_on:
+  #     api: { condition: service_healthy }
 
 networks:
   default:
@@ -160,4 +168,4 @@ volumes:
   postgres-data:
   minio-data:
   dkim-keys:
-  web-node-modules:
+  # web-node-modules:

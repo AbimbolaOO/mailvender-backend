@@ -11,19 +11,33 @@ mailvender-repo/
     ├── backend/           FastAPI + SQLAlchemy 2 + Alembic + PostgreSQL – API and worker
     ├── infra/             Postfix (outbound MTA + bounce intake), OpenDKIM, MinIO setup
     ├── docs/              Runbook, retention policy
-    └── docker-compose.yml The whole stack, including the frontend (mounted from ../mailvender)
+    └── docker-compose.yml The backend stack (the frontend runs separately; its service is kept, commented out)
 ```
+
+## Documentation
+
+| Read this | For |
+| --- | --- |
+| [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) | Plain-language setup, walk-through, how everything works, troubleshooting |
+| [docs/PREREQUISITES.md](docs/PREREQUISITES.md) | Tools to install, knowledge needed, learning resources |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Technical architecture, diagrams, design decisions |
+| [docs/RUNBOOK.md](docs/RUNBOOK.md) | Production: environment, DNS, migrations, backups, key rotation, monitoring |
+| [docs/RETENTION.md](docs/RETENTION.md) | How long each kind of data is kept |
 
 ## Run it locally
 
 ```bash
 cd mailvender-backend
-docker compose up
+docker compose up                         # API, worker, Postgres, Postfix, OpenDKIM, Mailpit, MinIO
+cd ../mailvender && npm install && npm run dev   # the studio, in another terminal
 ```
+
+The `minio-init` container showing "exited (0)" is normal: it creates the
+asset bucket and its public-read rule for published images, then stops.
 
 | What | Where |
 | --- | --- |
-| Studio | http://localhost:3000 – sign up, then open the verification email in Mailpit |
+| Studio (`npm run dev` in `../mailvender`) | http://localhost:3000 – sign up, then open the verification email in Mailpit |
 | Mailpit (every email sent locally) | http://localhost:8025 |
 | API docs / contract | http://localhost:8000/docs · http://localhost:8000/openapi.json |
 | MinIO console | http://localhost:9001 (`mailvender` / `mailvender-secret`) |
@@ -47,7 +61,7 @@ locally or set `SESSION_COOKIE_SECURE=false` for the `api` service.
 
 ```bash
 # Backend: needs PostgreSQL (docker compose up postgres creates mailvender_test)
-cd backend && uv sync && TEST_DATABASE_URL=postgresql+psycopg://mailvender:mailvender@localhost:5432/mailvender_test uv run pytest
+cd backend && uv sync && TEST_DATABASE_URL=postgresql+psycopg://mailvender:mailvender@localhost:5434/mailvender_test uv run pytest
 
 # Frontend
 cd ../mailvender && npm ci && npm run lint && npm run typecheck && npm run build
