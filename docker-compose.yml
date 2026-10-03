@@ -1,0 +1,163 @@
+# Local development: `docker compose up`
+#
+#   App (Next.js)      http://localhost:3000      (proxies /api/* to the API)
+#   API docs           http://localhost:8000/docs
+#   Mailpit (inbox)    http://localhost:8025      every email sent locally lands here
+#   MinIO console      http://localhost:9001      mailvender / mailvender-secret
+#
+# Mail path: worker → Postfix (OpenDKIM milter signs) → Mailpit. No real mail
+# leaves your machine and no AWS credentials are needed.
+
+x-api-env: &api-env
+  ENVIRONMENT: development
+  DATABASE_URL: postgresql+psycopg://mailvender:mailvender@postgres:5432/mailvender
+  APP_BASE_URL: http://localhost:3000
+  PUBLIC_API_BASE_URL: http://localhost:3000/api
+  ALLOWED_ORIGINS: '["http://localhost:3000"]'
+  TRUST_FORWARDED_FOR: "true"
+  # Development-only secrets. Production values come from a secret store.
+  SECRET_KEY: dev-only-insecure-secret-key-change-me-please-0000
+  DKIM_ENCRYPTION_KEY: ZGV2LW9ubHktZGtpbS1lbmNyeXB0aW9uLWtleS0wMDA=
+  INTERNAL_API_TOKEN: dev-internal-token
+  FEEDBACK_LOOP_SECRETS: local:dev-fbl-secret
+  SMTP_HOST: 172.30.0.2 # Postfix on the mail network (relaying is allowed from the worker only)
+  SMTP_PORT: "25"
+  SYSTEM_FROM_EMAIL: Mailvender <no-reply@mailvender.localhost>
+  RETURN_PATH_MX_HOST: feedback.mailvender.localhost
+  SPF_INCLUDE_DOMAIN: _spf.mailvender.localhost
+  DKIM_KEYS_DIR: /var/lib/mailvender-dkim
+  AWS_REGION: us-east-1
+  AWS_ACCESS_KEY_ID: mailvender
+  AWS_SECRET_ACCESS_KEY: mailvender-secret
+  AWS_S3_BUCKET: mailvender-assets
+  AWS_S3_PREFIX: mailvender/
+  AWS_S3_ENDPOINT_URL: http://minio:9000
+  AWS_S3_UPLOAD_ENDPOINT_URL: http://localhost:9000
+  AWS_S3_PUBLIC_BASE_URL: http://localhost:9000/mailvender-assets
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: mailvender
+      POSTGRES_PASSWORD: mailvender
+      POSTGRES_DB: mailvender
+    ports: ["5432:5432"]
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./infra/postgres/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mailvender"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  api:
+    build: ./backend
+    command: api # runs `alembic upgrade head`, then serves
+    environment: *api-env
+    ports: ["8000:8000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  worker:
+    build: ./backend
+    command: worker
+    environment: *api-env
+    user: root # writes DKIM keys to the shared volume
+    volumes:
+      - dkim-keys:/var/lib/mailvender-dkim
+    networks:
+      default:
+      mail:
+        ipv4_address: 172.30.0.10
+    depends_on:
+      api: { condition: service_healthy }
+      postfix: { condition: service_started }
+
+  opendkim:
+    build: ./infra/opendkim
+    volumes:
+      - dkim-keys:/var/lib/mailvender-dkim
+    networks:
+      mail:
+        ipv4_address: 172.30.0.30
+
+  postfix:
+    build: ./infra/postfix
+    environment:
+      POSTFIX_HOSTNAME: mail.mailvender.localhost
+      POSTFIX_RELAYHOST: "[mailpit]:1025" # production: empty (deliver to recipients' MX)
+      POSTFIX_MYNETWORKS: 172.30.0.10/32 # only the worker may relay
+      POSTFIX_SMTP_TLS_LEVEL: none
+      OPENDKIM_HOST: opendkim
+      MAILVENDER_API_URL: http://api:8000
+      INTERNAL_API_TOKEN: dev-internal-token
+    ports: ["2525:25"] # inbound DSNs only, e.g. swaks --server localhost:2525 --to b-…@bounce.<domain>
+    depends_on: [opendkim, mailpit]
+    networks:
+      default:
+      mail:
+        ipv4_address: 172.30.0.2
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports: ["8025:8025"]
+
+  # Official MinIO images are no longer published; pgsty/* are community builds from MinIO's source.
+  minio:
+    image: pgsty/minio:latest
+    command: server /data --console-address :9001
+    environment:
+      MINIO_ROOT_USER: mailvender
+      MINIO_ROOT_PASSWORD: mailvender-secret
+    ports: ["9000:9000", "9001:9001"]
+    volumes:
+      - minio-data:/data
+
+  minio-init:
+    image: pgsty/mc:latest
+    entrypoint: ["/bin/sh", "/init.sh"]
+    environment:
+      MINIO_ROOT_USER: mailvender
+      MINIO_ROOT_PASSWORD: mailvender-secret
+      BUCKET: mailvender-assets
+    volumes:
+      - ./infra/minio/init.sh:/init.sh:ro
+      - ./infra/minio/policy.json:/policy.json:ro
+    depends_on: [minio]
+
+  web:
+    image: node:24-alpine
+    working_dir: /app
+    # Installs only what changed (node_modules lives in a volume), then serves with hot reload.
+    command: sh -c "npm install --no-audit --no-fund && npm run dev -- --hostname 0.0.0.0"
+    restart: on-failure
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      WATCHPACK_POLLING: "true"
+    ports: ["3000:3000"]
+    volumes:
+      - ../mailvender:/app # the frontend lives beside this folder
+      - web-node-modules:/app/node_modules
+    depends_on:
+      api: { condition: service_healthy }
+
+networks:
+  default:
+  mail:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+          ip_range: 172.30.0.128/25 # dynamic addresses stay clear of the fixed ones
+
+volumes:
+  postgres-data:
+  minio-data:
+  dkim-keys:
+  web-node-modules:

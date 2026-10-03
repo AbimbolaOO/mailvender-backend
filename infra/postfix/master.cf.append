@@ -1,0 +1,4 @@
+
+# Bounces (DSNs) to VERP return-path addresses go to the Mailvender API.
+mailvender-dsn unix  -       n       n       -       4       pipe
+  flags=Rq user=nobody argv=/usr/local/bin/dsn-forward ${original_recipient}

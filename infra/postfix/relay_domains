@@ -1,0 +1,2 @@
+# Return-path subdomains (bounce.<customer domain>) are accepted for bounce intake only.
+/^bounce\./ OK

@@ -1,0 +1,2 @@
+/^b-[0-9a-f]{32}@bounce\./ OK
+/./ REJECT This host doesn't accept mail

@@ -1,0 +1,35 @@
+[project]
+name = "mailvender-api"
+version = "0.1.0"
+description = "Mailvender backend: identity, accounts, durable data and authenticated sending."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "sqlalchemy>=2.0.30",
+    "alembic>=1.13",
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "email-validator>=2.1",
+    "argon2-cffi>=23.1",
+    # 47+ wheels crash (SIGILL) on some older Docker VMs on Apple Silicon; revisit when upgrading Docker.
+    "cryptography>=42,<47",
+    "dnspython>=2.6",
+    "boto3>=1.34",
+    "pillow>=10.3",
+    "python-multipart>=0.0.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "httpx>=0.27",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.uv]
+package = false

@@ -1,0 +1,48 @@
+# Mailvender outbound MTA. Placeholders (${...}) are filled by entrypoint.sh.
+#
+# Outbound: only hosts in mynetworks (the Mailvender worker) may relay. Every
+# message passes through the OpenDKIM milter; if the milter is unavailable the
+# message is deferred, never sent unsigned.
+#
+# Inbound: only DSNs to VERP return-path addresses (b-<recipient id>@bounce.<domain>)
+# are accepted; they're piped to the API (see master.cf / dsn-forward). There
+# are no mailboxes.
+
+compatibility_level = 3.6
+myhostname = ${POSTFIX_HOSTNAME}
+mydestination =
+local_recipient_maps =
+inet_interfaces = all
+inet_protocols = ipv4
+mynetworks = 127.0.0.0/8 ${POSTFIX_MYNETWORKS}
+relayhost = ${POSTFIX_RELAYHOST}
+maillog_file = /dev/stdout
+
+smtpd_banner = $myhostname ESMTP
+disable_vrfy_command = yes
+smtpd_helo_required = yes
+message_size_limit = 10485760
+
+# DKIM signing
+smtpd_milters = inet:${OPENDKIM_HOST}:8891
+non_smtpd_milters = $smtpd_milters
+milter_default_action = tempfail
+milter_protocol = 6
+
+# Bounce intake
+relay_domains = regexp:/etc/postfix/relay_domains
+transport_maps = regexp:/etc/postfix/transport
+smtpd_relay_restrictions = permit_mynetworks, check_recipient_access regexp:/etc/postfix/recipient_access, reject_unauth_destination
+smtpd_recipient_restrictions = permit_mynetworks, check_recipient_access regexp:/etc/postfix/recipient_access, reject
+mailvender-dsn_destination_recipient_limit = 1
+
+# TLS (outbound opportunistic; inbound certificate optional – see RUNBOOK)
+smtp_tls_security_level = ${POSTFIX_SMTP_TLS_LEVEL}
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtpd_tls_security_level = may
+smtpd_tls_cert_file = ${POSTFIX_TLS_CERT}
+smtpd_tls_key_file = ${POSTFIX_TLS_KEY}
+
+# Retry policy for remote MX servers (the API worker has its own, for handing off to Postfix)
+maximal_queue_lifetime = 2d
+bounce_queue_lifetime = 2d
