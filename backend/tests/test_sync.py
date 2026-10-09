@@ -122,6 +122,7 @@ def test_dataset_content_lives_in_object_storage_not_postgres(make_user, storage
     content = json.dumps({"localId": "d1", "dataset": {"rows": [["a@example.com"]]}}).encode()
     upload_id, key = upload_content(user, storage, dataset, content)
     assert key.startswith(f"mailvender/sheets/{user.user_id}/{dataset}/") and key.endswith(".json")
+    assert uuid.UUID(key.rsplit("/", 1)[-1].removesuffix(".json"))  # ids only, never the file's name
     assert storage.presigned[-1]["content_type"] == "application/json"
 
     created = put_dataset(user, dataset, 0, upload_id).json()
@@ -201,14 +202,16 @@ def test_inline_datasets_move_to_object_storage(make_user, storage, db) -> None:
 
     user = make_user()
     record_id = uuid.uuid4()
-    data = {"localId": "d1", "dataset": {"name": "Old", "rows": [["a"], ["b"]]}}
+    data = {"localId": "d1", "dataset": {"name": "Old", "sourceFileName": "My leads (2024).csv",
+                                         "rows": [["a"], ["b"]]}}
     db.session.add(m.SyncRecord(account_id=uuid.UUID(user.account_id), collection="datasets", id=record_id,
                                 revision=3, data=data, deleted=False, seq=db.sync.next_seq(),
                                 updated_at=utcnow()))
     db.commit()
     assert SyncService(db, storage).move_inline_content() == 1
     record = user.get(f"/v1/sync/datasets/{record_id}").json()
-    assert record["data"] == {"localId": "d1", "name": "Old", "rowCount": 2} and record["revision"] == 3
+    assert record["data"] == {"localId": "d1", "name": "Old", "sourceFileName": "My leads (2024).csv",
+                              "rowCount": 2} and record["revision"] == 3
     key = next(k for k in storage.objects if f"/sheets/{user.account_id}/{record_id}/" in k)
     assert json.loads(storage.objects[key][0]) == data and key in record["content_url"]
     assert SyncService(db, storage).move_inline_content() == 0

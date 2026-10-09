@@ -6,12 +6,14 @@ browser uploads, `finalize` downloads the object, checks that it really is an
 allowed image within the size limit, re-publishes it under the account's public
 prefix and deletes the private upload. Each user's images live in their own
 folder, ``<prefix>images/<user id>/`` (the account id for API-key uploads).
+Object keys use ids only (``public/<asset id>.<ext>``), so URLs are always safe
+and never reveal what the user called the file; the original name is kept in
+``assets.original_filename`` for display.
 Only finalized paths are publicly readable (bucket policy:
 ``<prefix>images/*/public/*``).
 """
 
 import io
-import re
 import uuid
 from datetime import timedelta
 
@@ -35,12 +37,6 @@ EXTENSIONS = {"image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "imag
 MAX_DIMENSION = 8000
 
 Image.MAX_IMAGE_PIXELS = 40_000_000
-
-
-def safe_filename(name: str) -> str:
-    base = name.rsplit("/", 1)[-1].rsplit("\\", 1)[-1]
-    stem = re.sub(r"[^A-Za-z0-9._-]+", "-", base.rsplit(".", 1)[0]).strip("-.") or "image"
-    return stem[:80]
 
 
 class AssetService:
@@ -121,10 +117,8 @@ class AssetService:
         if width > MAX_DIMENSION or height > MAX_DIMENSION:
             raise reject(f"Images can be up to {MAX_DIMENSION}px wide and tall.", "too_large_dimensions")
 
-        public_key = (
-            f"{self._prefix(asset.created_by or asset.account_id)}/public/{uuid.uuid4().hex}/"
-            f"{safe_filename(asset.original_filename)}.{EXTENSIONS[asset.mime_type]}"
-        )
+        owner_id = asset.created_by or asset.account_id
+        public_key = f"{self._prefix(owner_id)}/public/{asset.id}.{EXTENSIONS[asset.mime_type]}"
         self.storage.put(public_key, body, asset.mime_type, cache_control="public, max-age=31536000, immutable")
         self.storage.delete(asset.upload_key)
         asset.public_key = public_key

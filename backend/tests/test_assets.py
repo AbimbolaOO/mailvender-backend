@@ -41,7 +41,8 @@ def test_finalize_validates_and_publishes(make_user, storage) -> None:  # type: 
     assert (asset["width"], asset["height"], asset["mime_type"]) == (40, 20, "image/png")
     public_key = asset["public_url"].removeprefix("https://cdn.test/")
     assert public_key.startswith(f"mailvender/images/{user.user_id}/public/")
-    assert public_key.endswith("/Logo-Final.png")
+    assert public_key.endswith(f"/public/{asset['id']}.png")
+    assert asset["original_filename"] == "Logo Final.png"
     assert upload_key not in storage.objects and public_key in storage.objects
     assert user.get("/v1/assets").json()["items"][0]["id"] == asset_id
 
@@ -67,3 +68,14 @@ def test_finalize_rejects_unsafe_uploads(make_user, storage) -> None:  # type: i
         assert response.json()["error"]["code"] == code
         assert key not in storage.objects  # never published, upload removed
     assert user.get("/v1/assets").json()["items"] == []
+
+
+def test_public_urls_never_contain_the_users_file_name(make_user, storage) -> None:  # type: ignore[no-untyped-def]
+    user = make_user()
+    name = "Résumé photo #1 (final)/../?.png"
+    upload = request_upload(user, filename=name).json()
+    storage.objects[storage.presigned[-1]["key"]] = (png_bytes(), "image/png")
+    asset = user.post(f"/v1/assets/{upload['asset']['id']}/finalize").json()
+    assert asset["public_url"].endswith(f"/images/{user.user_id}/public/{asset['id']}.png")
+    assert storage.presigned[-1]["key"].rsplit("/", 1)[-1].startswith(asset["id"])
+    assert asset["original_filename"] == name

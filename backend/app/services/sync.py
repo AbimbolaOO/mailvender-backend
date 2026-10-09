@@ -364,6 +364,7 @@ class SyncService:
                 self._storage().put(key, body, CONTENT_TYPE)
                 dataset = data.get("dataset") if isinstance(data.get("dataset"), dict) else {}
                 record.data = {"localId": data.get("localId"), "name": dataset.get("name"),
+                               "sourceFileName": dataset.get("sourceFileName"),
                                "rowCount": len(dataset.get("rows") or [])}
                 record.object_key, record.object_size = key, len(body)
                 self.uow.commit()
