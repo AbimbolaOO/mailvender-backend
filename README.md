@@ -9,7 +9,7 @@ mailvender-repo/
 ├── mailvender/            Next.js studio (frontend)
 └── mailvender-backend/    this folder
     ├── backend/           FastAPI + SQLAlchemy 2 + Alembic + PostgreSQL – API and worker
-    ├── infra/             Postfix (outbound MTA + bounce intake), OpenDKIM, MinIO setup
+    ├── infra/             Postfix (outbound MTA + bounce intake), OpenDKIM, S3 bucket policy and CORS
     ├── docs/              Runbook, retention policy
     └── docker-compose.yml The backend stack (the frontend runs separately; its service is kept, commented out)
 ```
@@ -28,24 +28,31 @@ mailvender-repo/
 
 ```bash
 cd mailvender-backend
-docker compose up                         # API, worker, Postgres, Postfix, OpenDKIM, Mailpit, MinIO
+docker compose up -d --build              # API, worker, Postgres, Postfix, OpenDKIM, Mailpit
 cd ../mailvender && npm install && npm run dev   # the studio, in another terminal
 ```
 
-The `minio-init` container showing "exited (0)" is normal: it creates the
-asset bucket and its public-read rule for published images, then stops.
+Files are stored in the real AWS S3 bucket, so `.env` needs the `AWS_*`
+values (see `.env.example`). One bucket holds both environments:
+
+| Folder | Used by |
+| --- | --- |
+| `dev/` | `docker compose up` (this machine) |
+| `prod/` | `docker compose -f docker-compose.prod.yml up` (production) |
+
+Inside each: `images/<user id>/` (uploaded images) and `sheets/<user id>/`
+(dataset copies).
 
 | What | Where |
 | --- | --- |
 | Studio (`npm run dev` in `../mailvender`) | http://localhost:3000 – sign up, then open the verification email in Mailpit |
 | Mailpit (every email sent locally) | http://localhost:8025 |
 | API docs / contract | http://localhost:8000/docs · http://localhost:8000/openapi.json |
-| MinIO console | http://localhost:9001 (`mailvender` / `mailvender-secret`) |
 
-Migrations run automatically before the API accepts traffic. No AWS
-credentials or real DNS are needed:
+Migrations run automatically before the API accepts traffic. No real DNS is
+needed:
 
-* Images upload to MinIO (an S3-compatible store).
+* Images upload to the bucket's `dev/` folder.
 * Mail goes worker → Postfix → OpenDKIM (DKIM-signed) → Mailpit, never the internet.
 * A local domain can't publish DNS records, so mark it verified for testing:
   `docker compose exec api python -m app.cli dev-verify-domain example.test`

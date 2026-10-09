@@ -65,16 +65,16 @@ def get_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uo
 @router.put("/sync/{collection}/{record_id}", response_model=s.SyncRecordOut, tags=["sync"],
             summary="Create or update a record", description=SYNC_POLICY)
 def put_record(collection: s.Collection, record_id: uuid.UUID, body: s.SyncPutIn, ctx: Ctx,
-               uow: Uow) -> s.SyncRecordOut:
-    record = SyncService(uow).put(ctx, collection, record_id, body.expected_revision, body.data, body.parent_id)
+               uow: Uow, storage: Storage) -> s.SyncRecordOut:
+    record = SyncService(uow, storage).put(ctx, collection, record_id, body.expected_revision, body.data, body.parent_id)
     return s.SyncRecordOut.model_validate(record)
 
 
 @router.delete("/sync/{collection}/{record_id}", response_model=s.SyncRecordOut, tags=["sync"],
                summary="Delete a record (leaves a tombstone)", description=SYNC_POLICY)
-def delete_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uow,
+def delete_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uow, storage: Storage,
                   expected_revision: Annotated[int, Query(ge=1)]) -> s.SyncRecordOut:
-    return s.SyncRecordOut.model_validate(SyncService(uow).delete(ctx, collection, record_id, expected_revision))
+    return s.SyncRecordOut.model_validate(SyncService(uow, storage).delete(ctx, collection, record_id, expected_revision))
 
 
 @router.get("/pages/{page_id}/versions", response_model=s.PageOut[s.SyncRecordOut], tags=["sync"],

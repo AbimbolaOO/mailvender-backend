@@ -7,19 +7,25 @@ here has a usable production default.
 
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Development defaults that must never reach production mail.
+DEV_SECRET_KEY = "dev-only-insecure-secret-key-change-me-please-0000"
+DEV_DKIM_ENCRYPTION_KEY = "ZGV2LW9ubHktZGtpbS1lbmNyeXB0aW9uLWtleS0wMDA="
+DEV_INTERNAL_API_TOKEN = "dev-internal-token"
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    # Blank values (e.g. optional entries left empty in .env) mean "use the default".
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_ignore_empty=True)
 
     environment: str = "development"
     database_url: str = "postgresql+psycopg://mailvender:mailvender@localhost:5434/mailvender"
 
     # Public URLs. `app_base_url` is the Next.js frontend (links in system
     # emails); `public_api_base_url` is how recipients reach this API
-    # (unsubscribe and view-in-browser links), e.g. https://app.example.com/api.
+    # (unsubscribe and view-in-browser links), e.g. https://www.mailvender.com/api.
     app_base_url: str = "http://localhost:3000"
     public_api_base_url: str = "http://localhost:3000/api"
     # Behind the Next.js rewrite / a load balancer, take the client IP from X-Forwarded-For.
@@ -28,11 +34,11 @@ class Settings(BaseSettings):
     allowed_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
     # Secrets. Each must be at least 32 bytes of randomness in production.
-    secret_key: str = "dev-only-insecure-secret-key-change-me-please-0000"
+    secret_key: str = DEV_SECRET_KEY
     # Fernet key (urlsafe base64, 32 bytes) used to encrypt DKIM private keys.
-    dkim_encryption_key: str = "ZGV2LW9ubHktZGtpbS1lbmNyeXB0aW9uLWtleS0wMDA="
+    dkim_encryption_key: str = DEV_DKIM_ENCRYPTION_KEY
     # Shared secret for Postfix → API DSN delivery (`/internal/dsn`).
-    internal_api_token: str = "dev-internal-token"
+    internal_api_token: str = DEV_INTERNAL_API_TOKEN
     # Feedback-loop sources and their HMAC secrets: "name:secret,name2:secret2".
     feedback_loop_secrets: str = ""
 
@@ -100,9 +106,9 @@ class Settings(BaseSettings):
     aws_s3_bucket: str = "mailvender-assets"
     aws_s3_public_base_url: str = "http://localhost:9000/mailvender-assets"
     aws_s3_prefix: str = "mailvender/"
+    # Optional S3-compatible endpoint instead of AWS (e.g. MinIO); blank = AWS.
     aws_s3_endpoint_url: str = ""
-    # Local development only: the endpoint browsers use when it differs from the
-    # API's (e.g. http://localhost:9000 vs http://minio:9000).
+    # The endpoint browsers use when it differs from the API's (custom endpoints only).
     aws_s3_upload_endpoint_url: str = ""
     asset_max_bytes: int = 5 * 1024 * 1024
     asset_upload_url_ttl_seconds: int = 300
@@ -114,6 +120,27 @@ class Settings(BaseSettings):
     retention_delivery_events_days: int = 180
     retention_deleted_account_days: int = 30
     retention_retired_dkim_days: int = 30
+
+    @model_validator(mode="after")
+    def _check_production(self) -> "Settings":
+        """In production, refuse development secrets and mail placeholders (see docs/RUNBOOK.md)."""
+        if not self.is_production:
+            return self
+        problems = []
+        if self.secret_key == DEV_SECRET_KEY or len(self.secret_key) < 32:
+            problems.append("SECRET_KEY must be at least 32 random characters")
+        if self.dkim_encryption_key == DEV_DKIM_ENCRYPTION_KEY:
+            problems.append("DKIM_ENCRYPTION_KEY is the development key")
+        if self.internal_api_token == DEV_INTERNAL_API_TOKEN:
+            problems.append("INTERNAL_API_TOKEN is the development token")
+        for name in ("system_from_email", "return_path_mx_host", "spf_include_domain"):
+            if "localhost" in getattr(self, name):
+                problems.append(f"{name.upper()} is a development placeholder")
+        if self.aws_s3_prefix.startswith("dev/"):
+            problems.append("AWS_S3_PREFIX is the development folder (dev/); production uses prod/")
+        if problems:
+            raise ValueError("invalid production configuration: " + "; ".join(problems))
+        return self
 
     @property
     def feedback_loop_sources(self) -> dict[str, str]:

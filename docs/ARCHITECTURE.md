@@ -100,7 +100,8 @@ flowchart LR
     Worker -. "rechecks" .-> DNS
 ```
 
-**Local development** replaces S3/CDN with MinIO, delivers all mail to
+**Local development** uses the same S3 bucket under a `dev/` folder
+(production uses `prod/`), delivers all mail to
 Mailpit (`POSTFIX_RELAYHOST=[mailpit]:1025`), and runs everything except the
 frontend with `docker compose`.
 
@@ -512,12 +513,12 @@ flowchart LR
 sequenceDiagram
     participant B as Browser
     participant A as API
-    participant S3 as S3 / MinIO
+    participant S3 as S3
     participant C as CDN
 
     B->>A: POST /v1/assets/uploads {filename, content_type, size}
     A->>A: allow png/jpeg/gif/webp, size ≤ 5 MB
-    A->>S3: presigned POST for ‹prefix›accounts/‹acct›/uploads/‹uuid›-‹rand›<br/>conditions: exact key, Content-Type, content-length-range 1..size, 5 min
+    A->>S3: presigned POST for ‹prefix›images/‹user›/uploads/‹uuid›-‹rand›<br/>conditions: exact key, Content-Type, content-length-range 1..size, 5 min
     A-->>B: {url, fields} (no AWS credentials)
     B->>S3: multipart POST (fields + file)
     B->>A: POST /v1/assets/{id}/finalize
@@ -526,7 +527,7 @@ sequenceDiagram
     alt invalid
         A->>S3: delete upload → 422 (never published)
     else valid
-        A->>S3: PUT ‹prefix›accounts/‹acct›/public/‹uuid›/‹safe-name›.‹ext›<br/>Cache-Control immutable
+        A->>S3: PUT ‹prefix›images/‹user›/public/‹uuid›/‹safe-name›.‹ext›<br/>Cache-Control immutable
         A->>S3: delete upload
         A-->>B: asset with public_url (CDN)
     end
@@ -534,7 +535,7 @@ sequenceDiagram
 ```
 
 - The bucket policy allows anonymous `GetObject` **only** on
-  `accounts/*/public/*`. Uploads and unfinalized objects stay private (the E2E
+  `images/*/public/*`. Uploads and unfinalized objects stay private (the E2E
   check confirms 403).
 - Keys are unguessable (random UUIDs) and segregated by account prefix.
 - Delete removes the public object. Emails already delivered keep whatever the
@@ -753,6 +754,7 @@ network has fixed addresses for exactly this reason.
 | **Transactional outbox + worker**                                                   | "202 after durable queueing" with no lost or orphaned messages. Retries and backoff are explicit.                                                   | At-least-once delivery (rare duplicates on crash).                                                            |
 | **One SMTP message per recipient**                                                  | Per-recipient unsubscribe tokens, VERP bounce correlation, individual status.                                                                       | More SMTP transactions than BCC batches. The frontend's batch mode still sends one copy per recipient.        |
 | **Postfix + OpenDKIM milter** (given)                                               | Mature and observable. The API owns authorisation, the MTA only relays. `milter_default_action = tempfail` means mail is never sent unsigned.       | Signing in Python (dkimpy) would remove a moving part but contradicts the requirement.                        |
+| **Postfix rather than Postal or KumoMTA**                                           | Postal is a full mail platform (its own domains, DKIM keys, bounce handling, web UI, MariaDB) that duplicates what the API already owns. Postfix is a pure relay, so domains, keys and bounces keep one source of truth. Production mode adds throttled per-provider transports, a persistent queue and fail-fast checks. | No automatic per-provider backoff or IP pools. KumoMTA is the upgrade path at high volume (see §19). |
 | **DKIM keys encrypted in the DB, decrypted to a private volume**                    | One source of truth, at-rest encryption, rotation through the API. OpenDKIM reads plain files and reloads on SIGUSR1.                               | The volume holds plaintext keys: restrict it to the worker and OpenDKIM. A KMS/HSM could replace Fernet.      |
 | **VERP return path `b-<id>@bounce.<domain>`**                                       | Exact bounce-to-recipient correlation even when DSNs are malformed. SPF aligns relaxed with the From domain.                                        | Requires the customer to publish MX + SPF on `bounce.`.                                                       |
 | **Session cookies (not JWT)**                                                       | Instant revocation (AC: revoked sessions rejected immediately), no token in JS or localStorage.                                                     | A DB lookup per request (indexed, cheap).                                                                     |
@@ -766,7 +768,7 @@ network has fixed addresses for exactly this reason.
 | **Generic sync records + revisions + change feed**                                  | One endpoint family for all collections. Optimistic concurrency without locks. Tombstones propagate deletions.                                      | Whole-record LWW, not field-level merging (documented policy). Large datasets are uploaded whole.             |
 | **Fingerprint scanning on the client**                                              | Minimal intrusion into existing editor stores. Robust to any mutation path.                                                                         | Periodic re-hashing of local data (cheap at these sizes).                                                     |
 | **Immutable audit via DB trigger**                                                  | Guaranteed even against application bugs or manual SQL.                                                                                             | Corrections must be new rows.                                                                                 |
-| **Community MinIO images (`pgsty/*`)**                                              | Official images are no longer distributed. Local only.                                                                                              | Revisit if a maintained official image returns.                                                               |
+| **Community MinIO images (`pgsty/*`)**                                              | Retired: local development now uses the real S3 bucket (`dev/` folder).                                                                                              | Revisit if a maintained official image returns.                                                               |
 | **`cryptography<47` pin**                                                           | Newer wheels crash (SIGILL) on some older Docker VMs on Apple Silicon.                                                                              | Remove once all developer Docker installs are current.                                                        |
 
 ---
@@ -783,5 +785,11 @@ network has fixed addresses for exactly this reason.
   contract tests. It has no automated browser tests yet.
 - Health metrics are computed per request for the operator list. Materialise
   them if the number of accounts grows large.
+- One outbound IP per Postfix host, with static per-provider concurrency
+  limits. Dedicated IPs per customer, IP pools and adaptive backoff when a
+  provider defers (`421 4.7.x`) need an ESP-grade MTA. KumoMTA fits that:
+  it's a pure MTA like Postfix, signs DKIM from files and accepts SMTP from
+  the worker, so it can replace Postfix + OpenDKIM behind `SmtpTransport`
+  without changing the API.
 - Out of scope by design: scheduling, A/B tests, open/click analytics,
   billing, inbound mailboxes.

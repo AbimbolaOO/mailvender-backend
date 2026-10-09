@@ -14,7 +14,7 @@ Next steps: [GETTING_STARTED.md](GETTING_STARTED.md) to run it,
 
 | Tool                                            | Version                    | Used for                                                      | Install                                                                  | Verify                                     |
 | ----------------------------------------------- | -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------ |
-| **Docker Desktop** (includes Docker Compose v2) | Recent (2025+ recommended) | Runs Postgres, API, worker, Postfix, OpenDKIM, Mailpit, MinIO | https://docs.docker.com/get-started/get-docker/                          | `docker info` and `docker compose version` |
+| **Docker Desktop** (includes Docker Compose v2) | Recent (2025+ recommended) | Runs Postgres, API, worker, Postfix, OpenDKIM, Mailpit        | https://docs.docker.com/get-started/get-docker/                          | `docker info` and `docker compose version` |
 | **Node.js** (with npm)                          | 24.x                       | Running the studio, generating API types                      | https://nodejs.org/en/download (or [nvm](https://github.com/nvm-sh/nvm)) | `node --version`                           |
 | **Git**                                         | any recent                 | Source control                                                | https://git-scm.com/downloads                                            | `git --version`                            |
 
@@ -41,8 +41,8 @@ Next steps: [GETTING_STARTED.md](GETTING_STARTED.md) to run it,
 
 ### Ports your machine must have free
 
-`3000` studio · `8000` API · `5434` Postgres · `8025` Mailpit · `9000`/`9001`
-MinIO · `2525` Postfix. If you run a local Postgres, it's probably on `5432`.
+`3000` studio · `8000` API · `5434` Postgres · `8025` Mailpit · `2525`
+Postfix. If you run a local Postgres, it's probably on `5432`.
 The project deliberately uses `5434` to avoid it.
 
 ---
@@ -83,8 +83,7 @@ what you'll use every day; **Deeper** helps when working on that area.
 - **uv:** [Documentation](https://docs.astral.sh/uv/) ·
   [Working on projects](https://docs.astral.sh/uv/guides/projects/)
 - **Mailpit** (local inbox): https://mailpit.axllent.org/docs/
-- **MinIO** (local S3): https://github.com/minio/minio ·
-  [`mc` client](https://github.com/minio/mc)
+- **AWS S3** (file storage; needs `AWS_*` in `.env`): https://docs.aws.amazon.com/s3/
 
 ### Python and the API stack
 

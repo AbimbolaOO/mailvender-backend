@@ -11,6 +11,7 @@ from app.logging import account_id_var, get_logger, log_event
 from app.pagination import Page, PageRequest
 from app.repositories.interfaces import UnitOfWork
 from app.security import generate_api_key, hash_token, new_token, utcnow
+from app.services import emails
 from app.services.common import AccountContext, Actor, app_url, audit, enqueue_system_email, normalize_email
 
 log = get_logger("accounts")
@@ -168,11 +169,8 @@ class AccountService:
         enqueue_system_email(
             self.uow,
             normalized,
-            f"You're invited to {ctx.account.name} on Mailvender",
-            f"{ctx.require_user().email} invited you to join {ctx.account.name} on Mailvender.\n\n"
-            f"Accept: {app_url('/invite?token=' + token)}\n\n"
-            f"Sign in (or sign up) with {normalized} to accept. The link expires in "
-            f"{self.settings.invitation_ttl_hours // 24} days.\n",
+            emails.invitation(ctx.require_user().email, ctx.account.name, normalized,
+                              app_url("/invite?token=" + token), self.settings.invitation_ttl_hours // 24),
             kind="invitation",
         )
         audit(self.uow, ctx.account_id, ctx.actor, "invitation.created", target_type="invitation",

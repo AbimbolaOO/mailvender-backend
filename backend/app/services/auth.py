@@ -10,6 +10,7 @@ from app.errors import ApiError, Forbidden, Unauthenticated, ValidationFailed, f
 from app.logging import get_logger, log_event
 from app.repositories.interfaces import UnitOfWork
 from app.security import hash_password, hash_token, new_token, utcnow, verify_password
+from app.services import emails
 from app.services.common import (
     Actor,
     Limit,
@@ -67,9 +68,7 @@ class AuthService:
             enqueue_system_email(
                 self.uow,
                 normalized,
-                "You already have a Mailvender account",
-                "Someone (hopefully you) tried to sign up with this address, but it already has an "
-                f"account.\n\nSign in: {app_url('/login')}\nForgot your password? {app_url('/forgot-password')}\n",
+                emails.already_registered(app_url("/login"), app_url("/forgot-password")),
                 kind="already_registered",
             )
         else:
@@ -108,10 +107,7 @@ class AuthService:
         enqueue_system_email(
             self.uow,
             user.email,
-            "Verify your email for Mailvender",
-            "Welcome to Mailvender! Confirm your email address to finish creating your account:\n\n"
-            f"{app_url('/verify-email?token=' + token)}\n\n"
-            f"The link expires in {self.settings.email_verification_ttl_hours} hours and works once.\n",
+            emails.verify_email(app_url("/verify-email?token=" + token), self.settings.email_verification_ttl_hours),
             kind="verify_email",
         )
 
@@ -144,6 +140,7 @@ class AuthService:
             audit(self.uow, account.id, Actor.system(), "account.limits_set", target_type="account",
                   target_id=account.id, reason="Default limits for new accounts",
                   hourly=account.hourly_recipient_limit, daily=account.daily_recipient_limit)
+            enqueue_system_email(self.uow, user.email, emails.welcome(app_url("/")), kind="welcome")
         self.uow.commit()
         log_event(log, "auth.email_verified", user_id=str(user.id))
         return user
@@ -221,11 +218,7 @@ class AuthService:
         enqueue_system_email(
             self.uow,
             user.email,
-            "Reset your Mailvender password",
-            "Use this link to choose a new password:\n\n"
-            f"{app_url('/reset-password?token=' + token)}\n\n"
-            f"It expires in {self.settings.password_reset_ttl_minutes} minutes and works once. "
-            "If you didn't ask for this, ignore this email.\n",
+            emails.password_reset(app_url("/reset-password?token=" + token), self.settings.password_reset_ttl_minutes),
             kind="password_reset",
         )
         self.uow.commit()
@@ -242,6 +235,8 @@ class AuthService:
         self.uow.sessions.revoke_for_users([user.id], now)
         audit(self.uow, user.default_account_id, Actor("user", user.id), "user.password_reset",
               target_type="user", target_id=user.id)
+        enqueue_system_email(self.uow, user.email, emails.password_changed(user.email, now, app_url("/forgot-password")),
+                             kind="password_changed")
         self.uow.commit()
         log_event(log, "auth.password_reset", user_id=str(user.id))
 

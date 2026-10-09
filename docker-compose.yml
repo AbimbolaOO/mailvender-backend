@@ -3,10 +3,14 @@
 #   App (Next.js)      http://localhost:3000      run separately: cd ../mailvender && npm run dev
 #   API docs           http://localhost:8000/docs
 #   Mailpit (inbox)    http://localhost:8025      every email sent locally lands here
-#   MinIO console      http://localhost:9001      mailvender / mailvender-secret
 #
 # Mail path: worker → Postfix (OpenDKIM milter signs) → Mailpit. No real mail
-# leaves your machine and no AWS credentials are needed.
+# leaves your machine.
+#
+# Files (images, dataset copies) go to the real AWS S3 bucket under `dev/`;
+# production uses `prod/` in the same bucket. The AWS_* credentials come from
+# .env (the only other values read from it here). Bucket setup: docs/RUNBOOK.md,
+# "Asset storage (S3)".
 
 x-api-env: &api-env
   ENVIRONMENT: development
@@ -26,14 +30,12 @@ x-api-env: &api-env
   RETURN_PATH_MX_HOST: feedback.mailvender.localhost
   SPF_INCLUDE_DOMAIN: _spf.mailvender.localhost
   DKIM_KEYS_DIR: /var/lib/mailvender-dkim
-  AWS_REGION: us-east-1
-  AWS_ACCESS_KEY_ID: mailvender
-  AWS_SECRET_ACCESS_KEY: mailvender-secret
-  AWS_S3_BUCKET: mailvender-assets
-  AWS_S3_PREFIX: mailvender/
-  AWS_S3_ENDPOINT_URL: http://minio:9000
-  AWS_S3_UPLOAD_ENDPOINT_URL: http://localhost:9000
-  AWS_S3_PUBLIC_BASE_URL: http://localhost:9000/mailvender-assets
+  AWS_REGION: ${AWS_REGION:?set AWS_REGION in .env}
+  AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in .env}
+  AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in .env}
+  AWS_S3_BUCKET: ${AWS_S3_BUCKET:?set AWS_S3_BUCKET in .env}
+  AWS_S3_PUBLIC_BASE_URL: ${AWS_S3_PUBLIC_BASE_URL:?set AWS_S3_PUBLIC_BASE_URL in .env}
+  AWS_S3_PREFIX: dev/ # the bucket's development folder; production uses prod/
 
 services:
   postgres:
@@ -110,31 +112,32 @@ services:
     image: axllent/mailpit:latest
     ports: ["8025:8025"]
 
+  # MinIO (local S3) is retired: development uses the real AWS bucket (dev/ folder).
   # Official MinIO images are no longer published; pgsty/* are community builds from MinIO's source.
-  minio:
-    image: pgsty/minio:latest
-    command: server /data --console-address :9001
-    environment:
-      MINIO_ROOT_USER: mailvender
-      MINIO_ROOT_PASSWORD: mailvender-secret
-    ports: ["9000:9000", "9001:9001"]
-    volumes:
-      - minio-data:/data
+  # minio:
+  #   image: pgsty/minio:latest
+  #   command: server /data --console-address :9001
+  #   environment:
+  #     MINIO_ROOT_USER: mailvender
+  #     MINIO_ROOT_PASSWORD: mailvender-secret
+  #   ports: ["9000:9000", "9001:9001"]
+  #   volumes:
+  #     - minio-data:/data
 
   # One-time setup: creates the bucket and allows public reads of published
   # images only, then exits (status "exited (0)" is expected). Needed on a fresh
   # minio-data volume; re-running it is harmless.
-  minio-init:
-    image: pgsty/mc:latest
-    entrypoint: ["/bin/sh", "/init.sh"]
-    environment:
-      MINIO_ROOT_USER: mailvender
-      MINIO_ROOT_PASSWORD: mailvender-secret
-      BUCKET: mailvender-assets
-    volumes:
-      - ./infra/minio/init.sh:/init.sh:ro
-      - ./infra/minio/policy.json:/policy.json:ro
-    depends_on: [minio]
+  # minio-init:
+  #   image: pgsty/mc:latest
+  #   entrypoint: ["/bin/sh", "/init.sh"]
+  #   environment:
+  #     MINIO_ROOT_USER: mailvender
+  #     MINIO_ROOT_PASSWORD: mailvender-secret
+  #     BUCKET: mailvender-assets
+  #   volumes:
+  #     - ./infra/minio/init.sh:/init.sh:ro
+  #     - ./infra/minio/policy.json:/policy.json:ro
+  #   depends_on: [minio]
 
   # The frontend is hosted separately. To run it here as well, uncomment this
   # service and the `web-node-modules` volume below. Otherwise run it yourself:
@@ -166,6 +169,6 @@ networks:
 
 volumes:
   postgres-data:
-  minio-data:
+  # minio-data:
   dkim-keys:
   # web-node-modules:

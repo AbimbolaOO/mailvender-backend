@@ -19,16 +19,22 @@ Contract (also in the OpenAPI description of the sync endpoints):
 
 import base64
 import json
+import logging
 import uuid
 from dataclasses import dataclass
 from typing import Any
 
 from app import models as m
+from app.config import get_settings
 from app.errors import ApiError, NotFound, ValidationFailed, field_error
+from app.logging import get_logger, log_event
 from app.pagination import Page, PageRequest
 from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
 from app.services.common import AccountContext, audit
+from app.services.storage import ObjectStorage
+
+log = get_logger("sync")
 
 COLLECTIONS = ("pages", "workspace", "saved_pages", "components", "brand", "datasets", "versions")
 MAX_CHANGES = 500
@@ -73,14 +79,32 @@ def _conflict(record: m.SyncRecord | None) -> ApiError:
     )
 
 
+def sheet_key(record: m.SyncRecord) -> str:
+    return f"{get_settings().aws_s3_prefix}sheets/{record.created_by or record.account_id}/{record.id}.json"
+
+
 def _check_collection(collection: str) -> None:
     if collection not in COLLECTIONS:
         raise ValidationFailed([field_error("collection", f"Use one of: {', '.join(COLLECTIONS)}.", "invalid")])
 
 
 class SyncService:
-    def __init__(self, uow: UnitOfWork):
+    def __init__(self, uow: UnitOfWork, storage: ObjectStorage | None = None):
         self.uow = uow
+        self.storage = storage
+
+    def _mirror_sheet(self, record: m.SyncRecord) -> None:
+        if record.collection != "datasets" or self.storage is None:
+            return
+        key = sheet_key(record)
+        try:
+            if record.deleted:
+                self.storage.delete(key)
+            else:
+                body = json.dumps(record.data, ensure_ascii=False, separators=(",", ":")).encode()
+                self.storage.put(key, body, "application/json")
+        except Exception as error:  # noqa: BLE001 – the synced record is already committed
+            log_event(log, "sync.sheet_mirror_failed", logging.WARNING, record_id=str(record.id), error=type(error).__name__)
 
     def put(
         self,
@@ -127,6 +151,7 @@ class SyncService:
             record.updated_at = now
             record.updated_by = user_id
         self.uow.commit()
+        self._mirror_sheet(record)
         return record
 
     def delete(self, ctx: AccountContext, collection: str, record_id: uuid.UUID, expected_revision: int) -> m.SyncRecord:
@@ -145,6 +170,7 @@ class SyncService:
             record.updated_at = utcnow()
             record.updated_by = ctx.user.id if ctx.user else None
         self.uow.commit()
+        self._mirror_sheet(record)
         return record
 
     def get(self, ctx: AccountContext, collection: str, record_id: uuid.UUID) -> m.SyncRecord:

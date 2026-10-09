@@ -69,8 +69,6 @@ container (a small isolated box):
 | **postfix**    | The mail server                              | Takes emails from the worker and delivers them. Locally it hands them to Mailpit instead of the internet. Also receives bounce messages. |
 | **opendkim**   | The email signer                             | Adds a digital signature (DKIM) to each email so inboxes trust it.                                                                       |
 | **mailpit**    | A fake inbox for development                 | Catches **every** email sent locally so you can read it in your browser. Nothing reaches real inboxes.                                   |
-| **minio**      | Local file storage (like Amazon S3)          | Stores uploaded images locally.                                                                                                          |
-| **minio-init** | A one-time setup job                         | Creates the image bucket and its "public read" rule, then **stops on purpose**. Showing `exited (0)` is normal.                          |
 
 The **frontend** is _not_ started by Docker. You run it yourself (step 5),
 because it's hosted separately in production.
@@ -83,7 +81,7 @@ How they connect:
                                                      ▼ queues work
                                                   Worker ──► Postfix ──► OpenDKIM (signs)
                                                      │           └──► Mailpit (local inbox)
-                                                     └──► MinIO (images)
+                                                     └──► AWS S3 (images, datasets; dev/ folder)
 ```
 
 ---
@@ -101,7 +99,7 @@ How they connect:
 Details and learning links are in [PREREQUISITES.md](PREREQUISITES.md).
 
 **Ports that must be free:** 3000 (studio), 8000 (API), 5434 (database),
-8025 (Mailpit), 9000 and 9001 (MinIO), 2525 (mail server). If something else
+8025 (Mailpit), 2525 (mail server). If something else
 uses one of them, see [Troubleshooting](#14-troubleshooting).
 
 ---
@@ -326,7 +324,6 @@ sent twice.
 | API docs (try requests here)    | http://localhost:8000/docs                   | —                                  |
 | API contract (machine-readable) | http://localhost:8000/openapi.json           | —                                  |
 | Mailpit (all local email)       | http://localhost:8025                        | —                                  |
-| MinIO console (stored images)   | http://localhost:9001                        | `mailvender` / `mailvender-secret` |
 | Database                        | `localhost:5434`, database `mailvender`      | `mailvender` / `mailvender`        |
 | Test database                   | `localhost:5434`, database `mailvender_test` | `mailvender` / `mailvender`        |
 | Mail server (bounce intake)     | `localhost:2525`                             | —                                  |
@@ -537,8 +534,7 @@ Where things live in the code is explained in [ARCHITECTURE.md](ARCHITECTURE.md)
 | **"Too many attempts"**                                       | Rate limiting. Wait (up to an hour for sign-up/reset, 15 minutes for login), or for local testing clear it: `docker compose exec postgres psql -U mailvender mailvender -c "TRUNCATE rate_limit_counters"`.                                                                              |
 | **DBeaver: `role "mailvender" does not exist`**               | You reached another Postgres on port 5432. Use port **5434**.                                                                                                                                                                                                                            |
 | **`port is already allocated` when starting**                 | Another program uses that port. Stop it, or change the left-hand number in `ports:` in `docker-compose.yml`.                                                                                                                                                                             |
-| **`minio-init` shows "exited (0)"**                           | Normal: it's a one-time setup job.                                                                                                                                                                                                                                                       |
-| **Image upload fails**                                        | Check MinIO is running (`docker compose ps`) and that `minio-init` exited with 0. If you erased volumes, run `docker compose up minio-init`. Only PNG, JPEG, GIF and WebP up to 5 MB are allowed.                                                                                        |
+| **Image upload fails**                                        | Check the `AWS_*` values in `.env` and the bucket's policy and CORS (RUNBOOK, \"Asset storage (S3)\"). Only PNG, JPEG, GIF and WebP up to 5 MB are allowed.                                                                                        |
 | **Test send: "Send from an approved sender"**                 | Add a domain, mark it verified (6.3), add a sender and click **Approve**.                                                                                                                                                                                                                |
 | **Test send stays "Queued"**                                  | Check `docker compose logs worker` and `docker compose logs postfix`. If Postfix says `milter-reject … Service unavailable`, OpenDKIM isn't reachable: `docker compose restart opendkim postfix`.                                                                                        |
 | **"Sending is suspended"**                                    | Limits, bounces or complaints. Make yourself an operator and reinstate it (`POST /v1/operator/accounts/{id}/reinstate`), or for local testing start fresh.                                                                                                                               |
@@ -556,7 +552,11 @@ Local settings are not production settings. Before deploying, read
 [RUNBOOK.md](RUNBOOK.md). It covers the required environment variables (all
 listed in [`../.env.example`](../.env.example)), real secrets, DNS records,
 AWS S3 setup, the mail server, migrations, backups, key rotation and
-monitoring.
+monitoring. For the first deployment of mailvender.com, follow
+[PRODUCTION_SETUP.md](PRODUCTION_SETUP.md) step by step. The production stack is
+[`../docker-compose.prod.yml`](../docker-compose.prod.yml); its section
+"Production mail server" in the runbook lists what the sending host needs
+(static IP, reverse DNS, TLS certificate, port 25).
 
 ---
 
@@ -586,7 +586,7 @@ monitoring.
 | **Sync / revision**              | How designs are kept the same across computers. Each saved version gets a revision number.            |
 | **Tombstone**                    | A marker that a record was deleted, so other devices delete it too.                                   |
 | **Mailpit**                      | A fake inbox for development.                                                                         |
-| **MinIO / S3**                   | File storage. MinIO is the local stand-in for Amazon S3.                                              |
+| **AWS S3**                          | File storage. Local dev uses the bucket's `dev/` folder, production `prod/`.                                           |
 | **Postfix**                      | The mail server that delivers email.                                                                  |
 | **OpenDKIM**                     | The program that adds DKIM signatures.                                                                |
 | **Operator**                     | Mailvender staff who can review and suspend accounts.                                                 |

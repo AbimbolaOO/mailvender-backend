@@ -17,6 +17,7 @@ from app.errors import Forbidden, RateLimited, ValidationFailed, field_error
 from app.logging import get_logger, log_event
 from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
+from app.services.emails import RenderedEmail
 
 log = get_logger("services")
 
@@ -169,12 +170,12 @@ class RateLimiter:
 # ---- System email (verification, password reset, invitations) ----
 
 
-def enqueue_system_email(uow: UnitOfWork, to: str, subject: str, text: str, *, kind: str) -> None:
-    """Queued in the outbox and sent by the worker through Postfix."""
+def enqueue_system_email(uow: UnitOfWork, to: str, email: RenderedEmail, *, kind: str) -> None:
+    """Queued in the outbox and sent by the worker through Postfix (templates in services/emails.py)."""
     uow.outbox.add(
         m.OutboxEvent(
             kind="system_email",
-            payload={"to": to, "subject": subject, "text": text, "template": kind},
+            payload={"to": to, "subject": email.subject, "text": email.text, "html": email.html, "template": kind},
             available_at=utcnow(),
         )
     )

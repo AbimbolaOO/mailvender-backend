@@ -4,8 +4,10 @@ Flow: the browser asks for an upload (`create_upload`) and receives a presigned
 POST scoped to one private object key, content type and size range. After the
 browser uploads, `finalize` downloads the object, checks that it really is an
 allowed image within the size limit, re-publishes it under the account's public
-prefix and deletes the private upload. Only finalized paths are publicly
-readable (bucket policy: ``<prefix>accounts/*/public/*``).
+prefix and deletes the private upload. Each user's images live in their own
+folder, ``<prefix>images/<user id>/`` (the account id for API-key uploads).
+Only finalized paths are publicly readable (bucket policy:
+``<prefix>images/*/public/*``).
 """
 
 import io
@@ -47,8 +49,8 @@ class AssetService:
         self.storage = storage
         self.settings = get_settings()
 
-    def _prefix(self, account_id: uuid.UUID) -> str:
-        return f"{self.settings.aws_s3_prefix}accounts/{account_id}"
+    def _prefix(self, owner_id: uuid.UUID) -> str:
+        return f"{self.settings.aws_s3_prefix}images/{owner_id}"
 
     def create_upload(self, ctx: AccountContext, filename: str, content_type: str,
                       size: int) -> tuple[m.Asset, PresignedUpload]:
@@ -63,7 +65,8 @@ class AssetService:
         if errors:
             raise ValidationFailed(errors)
         asset_id = uuid.uuid4()
-        upload_key = f"{self._prefix(ctx.account_id)}/uploads/{asset_id}-{uuid.uuid4().hex}"
+        owner_id = ctx.user.id if ctx.user else ctx.account_id
+        upload_key = f"{self._prefix(owner_id)}/uploads/{asset_id}-{uuid.uuid4().hex}"
         ttl = self.settings.asset_upload_url_ttl_seconds
         asset = self.uow.assets.add(
             m.Asset(
@@ -119,7 +122,7 @@ class AssetService:
             raise reject(f"Images can be up to {MAX_DIMENSION}px wide and tall.", "too_large_dimensions")
 
         public_key = (
-            f"{self._prefix(ctx.account_id)}/public/{uuid.uuid4().hex}/"
+            f"{self._prefix(asset.created_by or asset.account_id)}/public/{uuid.uuid4().hex}/"
             f"{safe_filename(asset.original_filename)}.{EXTENSIONS[asset.mime_type]}"
         )
         self.storage.put(public_key, body, asset.mime_type, cache_control="public, max-age=31536000, immutable")

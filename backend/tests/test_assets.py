@@ -11,7 +11,7 @@ def test_upload_is_scoped_presigned_and_private(make_user, storage) -> None:  # 
     assert response.status_code == 201
     body = response.json()
     presigned = storage.presigned[-1]
-    assert presigned["key"].startswith(f"mailvender/accounts/{user.account_id}/uploads/")
+    assert presigned["key"].startswith(f"mailvender/images/{user.user_id}/uploads/")
     assert presigned["content_type"] == "image/png"
     assert presigned["max_bytes"] == 200 and presigned["expires_in"] == 300
     assert body["upload"]["fields"]["key"] == presigned["key"]
@@ -40,7 +40,7 @@ def test_finalize_validates_and_publishes(make_user, storage) -> None:  # type: 
     assert asset["status"] == "ready"
     assert (asset["width"], asset["height"], asset["mime_type"]) == (40, 20, "image/png")
     public_key = asset["public_url"].removeprefix("https://cdn.test/")
-    assert public_key.startswith(f"mailvender/accounts/{user.account_id}/public/")
+    assert public_key.startswith(f"mailvender/images/{user.user_id}/public/")
     assert public_key.endswith("/Logo-Final.png")
     assert upload_key not in storage.objects and public_key in storage.objects
     assert user.get("/v1/assets").json()["items"][0]["id"] == asset_id

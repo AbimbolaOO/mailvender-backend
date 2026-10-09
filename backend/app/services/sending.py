@@ -496,5 +496,7 @@ def system_email(payload: dict[str, str]) -> EmailMessage:
     mime["Message-ID"] = f"<{uuid.uuid4()}@{settings.system_from_email.rsplit('@', 1)[-1].strip('>')}>"
     mime["Auto-Submitted"] = "auto-generated"
     mime.set_content(payload["text"])
+    if payload.get("html"):  # events queued before HTML templates have text only
+        mime.add_alternative(payload["html"], subtype="html")
     return mime
 

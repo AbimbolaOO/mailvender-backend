@@ -1,0 +1,117 @@
+# Production: `docker compose -f docker-compose.prod.yml up -d --build`
+#
+# Runs the API, worker and the mail tier (Postfix + OpenDKIM) on one host with
+# a static public IP. PostgreSQL and S3 are managed services; the Next.js app is
+# hosted separately and reaches the API through API_PUBLISH.
+#
+# Domain settings default to mailvender.com (app at https://www.mailvender.com,
+# mail host mail.mailvender.com); set the same variables in .env to override.
+# Step-by-step setup: docs/PRODUCTION_SETUP.md.
+#
+# Before the first start (details in docs/RUNBOOK.md, "Production mail server"):
+#   1. cp .env.example .env and fill in the secrets and DATABASE_URL.
+#   2. Put the TLS certificate for POSTFIX_HOSTNAME in ./certs (fullchain.pem, privkey.pem).
+#   3. Publish PTR, SPF and the return-path MX records; open inbound and outbound port 25
+#      (or set POSTFIX_RELAYHOST + credentials if your provider blocks outbound 25).
+#
+# Mail path: worker → Postfix (OpenDKIM milter signs) → recipients' MX (or the relayhost).
+
+x-restart: &restart
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: { max-size: "50m", max-file: "5" }
+
+x-app: &app
+  <<: *restart
+  build: ./backend
+  env_file: .env
+  environment: &app-env
+    ENVIRONMENT: production
+    APP_BASE_URL: ${APP_BASE_URL:-https://www.mailvender.com}
+    PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-https://www.mailvender.com/api}
+    ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-["https://www.mailvender.com"]}
+    TRUST_FORWARDED_FOR: "true" # behind the Next.js rewrite / reverse proxy
+    SYSTEM_FROM_EMAIL: ${SYSTEM_FROM_EMAIL:-Mailvender <no-reply@mailvender.com>}
+    RETURN_PATH_MX_HOST: ${RETURN_PATH_MX_HOST:-feedback.mailvender.com}
+    SPF_INCLUDE_DOMAIN: ${SPF_INCLUDE_DOMAIN:-_spf.mailvender.com}
+    SMTP_HOST: 172.30.0.2 # Postfix on the mail network (relaying is allowed from the worker only)
+    SMTP_PORT: "25"
+    SMTP_STARTTLS: "false" # private network; Postfix uses TLS towards recipients
+    DKIM_KEYS_DIR: /var/lib/mailvender-dkim
+    # Files go to the AWS bucket's production folder (credentials and bucket from .env);
+    # local development uses dev/ in the same bucket.
+    AWS_S3_PREFIX: prod/
+    AWS_S3_ENDPOINT_URL: ""
+    AWS_S3_UPLOAD_ENDPOINT_URL: ""
+
+services:
+  api:
+    <<: *app
+    command: api # runs `alembic upgrade head`, then serves
+    # Loopback by default: put a reverse proxy / the Next.js host in front of it.
+    ports: ["${API_PUBLISH:-127.0.0.1:8000}:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+
+  worker:
+    <<: *app
+    command: worker
+    user: root # writes DKIM keys to the shared volume
+    volumes:
+      - dkim-keys:/var/lib/mailvender-dkim
+    networks:
+      default:
+      mail:
+        ipv4_address: 172.30.0.10
+    depends_on:
+      api: { condition: service_healthy }
+      postfix: { condition: service_healthy }
+
+  opendkim:
+    <<: *restart
+    build: ./infra/opendkim
+    volumes:
+      - dkim-keys:/var/lib/mailvender-dkim
+    networks:
+      mail:
+        ipv4_address: 172.30.0.30
+
+  postfix:
+    <<: *restart
+    build: ./infra/postfix
+    env_file: .env # POSTFIX_RELAYHOST*, INTERNAL_API_TOKEN
+    environment:
+      POSTFIX_ENVIRONMENT: production # refuses to start with development values
+      POSTFIX_HOSTNAME: ${POSTFIX_HOSTNAME:-mail.mailvender.com} # must match the IP's PTR record and ./certs
+      POSTFIX_MYNETWORKS: 172.30.0.10/32 # only the worker may relay
+      POSTFIX_TLS_CERT: /etc/postfix/certs/fullchain.pem
+      POSTFIX_TLS_KEY: /etc/postfix/certs/privkey.pem
+      OPENDKIM_HOST: opendkim
+      MAILVENDER_API_URL: http://api:8000
+    ports: ["25:25"] # inbound bounces (DSNs) to bounce.<domain>
+    volumes:
+      # The mail queue survives restarts and redeploys: messages accepted from the
+      # worker are only on this volume until the recipient's server takes them.
+      - postfix-queue:/var/spool/postfix
+      - ./certs:/etc/postfix/certs:ro
+    depends_on: [opendkim]
+    networks:
+      default:
+      mail:
+        ipv4_address: 172.30.0.2
+
+networks:
+  default:
+  mail:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+          ip_range: 172.30.0.128/25 # dynamic addresses stay clear of the fixed ones
+
+volumes:
+  dkim-keys:
+  postfix-queue:

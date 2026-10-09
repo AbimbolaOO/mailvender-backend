@@ -1,0 +1,7 @@
+# Direct delivery only: routes the large mailbox providers through throttled
+# copies of the smtp transport (limits in main.cf). Empty next-hop = deliver to
+# the recipient domain's MX. Domains hosted by these providers under their own
+# names (e.g. Google Workspace) use the default transport.
+/@(gmail|googlemail)\.com$/                                   gmail:
+/@(outlook|hotmail|live|msn)\.[a-z.]+$/                       microsoft:
+/@(yahoo|ymail|rocketmail|aol|aim)\.[a-z.]+$/                 yahoo:

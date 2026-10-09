@@ -13,6 +13,7 @@ myhostname = ${POSTFIX_HOSTNAME}
 mydestination =
 local_recipient_maps =
 inet_interfaces = all
+# IPv4 only: sending over IPv6 needs its own PTR records and reputation.
 inet_protocols = ipv4
 mynetworks = 127.0.0.0/8 ${POSTFIX_MYNETWORKS}
 relayhost = ${POSTFIX_RELAYHOST}
@@ -34,15 +35,45 @@ relay_domains = regexp:/etc/postfix/relay_domains
 transport_maps = regexp:/etc/postfix/transport
 smtpd_relay_restrictions = permit_mynetworks, check_recipient_access regexp:/etc/postfix/recipient_access, reject_unauth_destination
 smtpd_recipient_restrictions = permit_mynetworks, check_recipient_access regexp:/etc/postfix/recipient_access, reject
+smtpd_data_restrictions = reject_unauth_pipelining
 mailvender-dsn_destination_recipient_limit = 1
 
-# TLS (outbound opportunistic; inbound certificate optional – see RUNBOOK)
+# Inbound abuse limits (port 25 is public for bounces). The worker is exempt:
+# the *_limit_exceptions default to $mynetworks.
+smtpd_client_connection_count_limit = 20
+smtpd_client_connection_rate_limit = 60
+smtpd_client_message_rate_limit = 120
+smtpd_error_sleep_time = 1s
+smtpd_soft_error_limit = 5
+smtpd_hard_error_limit = 10
+
+# TLS (outbound opportunistic; inbound certificate required in production – see RUNBOOK)
 smtp_tls_security_level = ${POSTFIX_SMTP_TLS_LEVEL}
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_tls_protocols = !SSLv2, !SSLv3
+smtp_tls_mandatory_protocols = >=TLSv1.2
+smtp_tls_loglevel = 1
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 smtpd_tls_security_level = may
 smtpd_tls_cert_file = ${POSTFIX_TLS_CERT}
 smtpd_tls_key_file = ${POSTFIX_TLS_KEY}
+smtpd_tls_protocols = !SSLv2, !SSLv3
+smtpd_tls_mandatory_protocols = >=TLSv1.2
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+tls_preempt_cipherlist = yes
+
+# Per-provider throttling for direct delivery (entrypoint.sh adds
+# provider_transport to transport_maps only when there is no relayhost). The big
+# mailbox providers defer or block senders that open too many connections at
+# once; these limits stay well inside what they accept for a warm IP.
+gmail_destination_concurrency_limit = 10
+microsoft_destination_concurrency_limit = 5
+yahoo_destination_concurrency_limit = 4
 
 # Retry policy for remote MX servers (the API worker has its own, for handing off to Postfix)
 maximal_queue_lifetime = 2d
 bounce_queue_lifetime = 2d
+minimal_backoff_time = 5m
+maximal_backoff_time = 1h

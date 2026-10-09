@@ -2,3 +2,8 @@
 # Bounces (DSNs) to VERP return-path addresses go to the Mailvender API.
 mailvender-dsn unix  -       n       n       -       4       pipe
   flags=Rq user=nobody argv=/usr/local/bin/dsn-forward ${original_recipient}
+
+# Throttled outbound transports for large mailbox providers (see provider_transport).
+gmail     unix  -       -       n       -       -       smtp
+microsoft unix  -       -       n       -       -       smtp
+yahoo     unix  -       -       n       -       -       smtp

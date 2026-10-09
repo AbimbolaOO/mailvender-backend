@@ -95,3 +95,21 @@ def test_version_history_and_restore(make_user) -> None:  # type: ignore[no-unty
     assert versions[0]["data"]["name"] == "Before restoring “Draft 1”"
     assert versions[0]["data"]["doc"] == {"text": "second"}  # current version kept
     assert len(versions) == 2
+
+
+def test_datasets_are_copied_to_the_creators_sheets_folder(make_user, storage) -> None:  # type: ignore[no-untyped-def]
+    import json
+
+    user = make_user()
+    dataset = str(uuid.uuid4())
+    key = f"mailvender/sheets/{user.user_id}/{dataset}.json"
+    put(user, "datasets", dataset, 0, {"localId": "d1", "rows": [{"email": "a@example.com"}]})
+    assert json.loads(storage.objects[key][0])["rows"] == [{"email": "a@example.com"}]
+    assert storage.objects[key][1] == "application/json"
+    put(user, "datasets", dataset, 1, {"localId": "d1", "rows": []})
+    assert json.loads(storage.objects[key][0])["rows"] == []
+    put(user, "pages", str(uuid.uuid4()), 0, {"name": "Not a sheet"})
+    assert [k for k in storage.objects if "/sheets/" in k] == [key]
+
+    assert user.delete(f"/v1/sync/datasets/{dataset}?expected_revision=2").status_code == 200
+    assert key not in storage.objects

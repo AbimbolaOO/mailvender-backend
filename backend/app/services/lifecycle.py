@@ -18,6 +18,7 @@ from app.security import utcnow
 from app.services.assets import AssetService
 from app.services.common import AccountContext, Actor, audit
 from app.services.storage import ObjectStorage
+from app.services.sync import sheet_key
 
 log = get_logger("lifecycle")
 
@@ -203,6 +204,9 @@ class LifecycleService:
 
     def delete_account_assets(self, account_id: uuid.UUID) -> int:
         count = AssetService(self.uow, self.storage).delete_all_for_account(account_id)
+        for record in self.uow.sync.list_all_for_account(account_id):
+            if record.collection == "datasets":
+                self.storage.delete(sheet_key(record))
         audit(self.uow, account_id, Actor.system(), "account.assets_deleted", target_type="account",
               target_id=account_id, count=count)
         return count
