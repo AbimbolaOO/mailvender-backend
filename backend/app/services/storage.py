@@ -21,6 +21,7 @@ class ObjectInfo:
 
 class ObjectStorage(Protocol):
     def presign_upload(self, key: str, content_type: str, max_bytes: int, expires_in: int) -> PresignedUpload: ...
+    def presign_download(self, key: str, expires_in: int) -> str: ...
     def head(self, key: str) -> ObjectInfo | None: ...
     def read(self, key: str, max_bytes: int) -> bytes: ...
     def put(self, key: str, body: bytes, content_type: str, *, cache_control: str | None = None) -> None: ...
@@ -65,6 +66,10 @@ class S3Storage:
             # A POST policy's signature doesn't cover the host, so only the URL changes.
             url = url.replace(self.endpoint, self.upload_endpoint, 1)
         return PresignedUpload(url=url, fields=post["fields"], expires_in=expires_in)
+
+    def presign_download(self, key: str, expires_in: int) -> str:
+        return str(self.client.generate_presigned_url(
+            "get_object", Params={"Bucket": self.bucket, "Key": key}, ExpiresIn=expires_in))
 
     def head(self, key: str) -> ObjectInfo | None:
         from botocore.exceptions import ClientError

@@ -1,3 +1,4 @@
+import json
 import uuid
 
 
@@ -52,7 +53,7 @@ def test_new_device_hydrates_from_snapshot_then_changes(make_user, client) -> No
     from tests.conftest import login
 
     user = make_user()
-    for collection in ("pages", "components", "brand", "datasets", "saved_pages", "workspace"):
+    for collection in ("pages", "components", "brand", "saved_pages", "workspace"):
         put(user, collection, str(uuid.uuid4()), 0, {"from": collection})
     second = login(client, user.email)  # another browser
     pages, cursor = [], None
@@ -64,7 +65,7 @@ def test_new_device_hydrates_from_snapshot_then_changes(make_user, client) -> No
         if not cursor:
             break
     assert sorted(r["collection"] for r in pages) == sorted(
-        ["pages", "components", "brand", "datasets", "saved_pages", "workspace"])
+        ["pages", "components", "brand", "saved_pages", "workspace"])
     put(user, "pages", str(uuid.uuid4()), 0, {"later": True})
     changes = second.get(f"/v1/sync/changes?since={body['watermark']}").json()["records"]
     assert [r["data"] for r in changes] == [{"later": True}]
@@ -97,19 +98,124 @@ def test_version_history_and_restore(make_user) -> None:  # type: ignore[no-unty
     assert len(versions) == 2
 
 
-def test_datasets_are_copied_to_the_creators_sheets_folder(make_user, storage) -> None:  # type: ignore[no-untyped-def]
-    import json
+
+def upload_content(session, storage, record_id, body: bytes, size=None):  # type: ignore[no-untyped-def]
+    """Asks for a content upload and stores `body` the way the browser's presigned POST would."""
+    response = session.post(f"/v1/sync/datasets/{record_id}/content-uploads", json={"size": size or len(body)})
+    assert response.status_code == 201, response.text
+    created = response.json()
+    storage.objects[created["upload"]["fields"]["key"]] = (body, "application/json")
+    return created["upload_id"], created["upload"]["fields"]["key"]
+
+
+def put_dataset(session, record_id, revision, upload_id, summary=None):  # type: ignore[no-untyped-def]
+    return session.put(f"/v1/sync/datasets/{record_id}", json={
+        "expected_revision": revision, "data": summary or {"localId": "d1", "name": "Leads"},
+        "content_upload_id": upload_id})
+
+
+def test_dataset_content_lives_in_object_storage_not_postgres(make_user, storage, db) -> None:  # type: ignore[no-untyped-def]
+    from app import models as m
 
     user = make_user()
     dataset = str(uuid.uuid4())
-    key = f"mailvender/sheets/{user.user_id}/{dataset}.json"
-    put(user, "datasets", dataset, 0, {"localId": "d1", "rows": [{"email": "a@example.com"}]})
-    assert json.loads(storage.objects[key][0])["rows"] == [{"email": "a@example.com"}]
-    assert storage.objects[key][1] == "application/json"
-    put(user, "datasets", dataset, 1, {"localId": "d1", "rows": []})
-    assert json.loads(storage.objects[key][0])["rows"] == []
-    put(user, "pages", str(uuid.uuid4()), 0, {"name": "Not a sheet"})
-    assert [k for k in storage.objects if "/sheets/" in k] == [key]
+    content = json.dumps({"localId": "d1", "dataset": {"rows": [["a@example.com"]]}}).encode()
+    upload_id, key = upload_content(user, storage, dataset, content)
+    assert key.startswith(f"mailvender/sheets/{user.user_id}/{dataset}/") and key.endswith(".json")
+    assert storage.presigned[-1]["content_type"] == "application/json"
 
-    assert user.delete(f"/v1/sync/datasets/{dataset}?expected_revision=2").status_code == 200
-    assert key not in storage.objects
+    created = put_dataset(user, dataset, 0, upload_id).json()
+    assert created["data"] == {"localId": "d1", "name": "Leads"}
+    assert created["content_size"] == len(content) and key in created["content_url"]
+    row = db.session.get(m.SyncRecord, (uuid.UUID(user.account_id), "datasets", uuid.UUID(dataset)))
+    assert row.object_key == key and "dataset" not in row.data
+    assert db.session.query(m.SyncUpload).count() == 0
+    changes = user.get("/v1/sync/changes", params={"since": 0}).json()["records"]
+    assert key in changes[0]["content_url"]
+    assert key in user.get("/v1/sync/snapshot").json()["records"][0]["content_url"]
+
+    # An update stores a new object and removes the old one once committed.
+    upload_id, new_key = upload_content(user, storage, dataset, b'{"localId":"d1","dataset":{"rows":[]}}')
+    assert put_dataset(user, dataset, 1, upload_id).json()["revision"] == 2
+    assert new_key in storage.objects and key not in storage.objects
+
+    # Deleting removes the content too.
+    deleted = user.delete(f"/v1/sync/datasets/{dataset}?expected_revision=2").json()
+    assert deleted["deleted"] and deleted["content_url"] is None and new_key not in storage.objects
+
+
+def test_dataset_writes_need_a_valid_upload(make_user, storage) -> None:  # type: ignore[no-untyped-def]
+    user = make_user()
+    dataset = str(uuid.uuid4())
+    missing = user.put(f"/v1/sync/datasets/{dataset}", json={"expected_revision": 0, "data": {"localId": "d1"}})
+    assert missing.status_code == 422 and missing.json()["error"]["fields"][0]["field"] == "content_upload_id"
+
+    upload_id, key = upload_content(user, storage, dataset, b"{}")
+    other = put_dataset(user, str(uuid.uuid4()), 0, upload_id)  # an upload is bound to its record
+    assert other.status_code == 409 and other.json()["error"]["code"] == "content_upload_invalid"
+    del storage.objects[key]  # the browser's upload never arrived
+    assert put_dataset(user, dataset, 0, upload_id).json()["error"]["code"] == "content_upload_invalid"
+
+    big = {"localId": "d1", "rows": ["x" * 100] * 1000}
+    upload_id, _ = upload_content(user, storage, dataset, b"{}")
+    assert put_dataset(user, dataset, 0, upload_id, summary=big).status_code == 422
+
+    too_large = user.post(f"/v1/sync/datasets/{dataset}/content-uploads", json={"size": 101 * 1024 * 1024})
+    assert too_large.status_code == 422
+    assert user.post(f"/v1/sync/pages/{dataset}/content-uploads", json={"size": 10}).status_code == 422
+    stranger = make_user()
+    assert put_dataset(stranger, dataset, 0, upload_id).json()["error"]["code"] == "content_upload_invalid"
+
+
+def test_a_conflicting_dataset_write_keeps_its_upload_for_the_retry(make_user, storage) -> None:  # type: ignore[no-untyped-def]
+    user = make_user()
+    dataset = str(uuid.uuid4())
+    first, _ = upload_content(user, storage, dataset, b'{"v":1}')
+    assert put_dataset(user, dataset, 0, first).status_code == 200
+    second, key = upload_content(user, storage, dataset, b'{"v":2}')
+    stale = put_dataset(user, dataset, 0, second)
+    assert stale.status_code == 409 and stale.json()["error"]["details"]["current"]["revision"] == 1
+    assert put_dataset(user, dataset, 1, second).status_code == 200 and key in storage.objects
+
+
+def test_expired_uploads_are_cleaned_up(make_user, storage, db) -> None:  # type: ignore[no-untyped-def]
+    from datetime import timedelta
+
+    from app import models as m
+    from app.security import utcnow
+    from app.services.sync import SyncService
+
+    user = make_user()
+    _, key = upload_content(user, storage, str(uuid.uuid4()), b"{}")
+    db.session.query(m.SyncUpload).update({"expires_at": utcnow() - timedelta(hours=2)})
+    db.commit()
+    assert SyncService(db, storage).cleanup_expired_uploads() == 1
+    db.commit()
+    assert key not in storage.objects and db.session.query(m.SyncUpload).count() == 0
+
+
+def test_inline_datasets_move_to_object_storage(make_user, storage, db) -> None:  # type: ignore[no-untyped-def]
+    from app import models as m
+    from app.security import utcnow
+    from app.services.sync import SyncService
+
+    user = make_user()
+    record_id = uuid.uuid4()
+    data = {"localId": "d1", "dataset": {"name": "Old", "rows": [["a"], ["b"]]}}
+    db.session.add(m.SyncRecord(account_id=uuid.UUID(user.account_id), collection="datasets", id=record_id,
+                                revision=3, data=data, deleted=False, seq=db.sync.next_seq(),
+                                updated_at=utcnow()))
+    db.commit()
+    assert SyncService(db, storage).move_inline_content() == 1
+    record = user.get(f"/v1/sync/datasets/{record_id}").json()
+    assert record["data"] == {"localId": "d1", "name": "Old", "rowCount": 2} and record["revision"] == 3
+    key = next(k for k in storage.objects if f"/sheets/{user.account_id}/{record_id}/" in k)
+    assert json.loads(storage.objects[key][0]) == data and key in record["content_url"]
+    assert SyncService(db, storage).move_inline_content() == 0
+
+
+def test_clients_can_report_sync_problems(make_user) -> None:  # type: ignore[no-untyped-def]
+    user = make_user()
+    report = {"kind": "sync_stuck", "status": "other-tab", "pending": 3, "seconds": 600}
+    assert user.post("/v1/client-events", json=report).status_code == 204
+    assert user.post("/v1/client-events", json={**report, "kind": "other"}).status_code == 422

@@ -7106,6 +7106,270 @@
         }
       }
     },
+    "/v1/sync/{collection}/{record_id}/content-uploads": {
+      "post": {
+        "tags": [
+          "sync"
+        ],
+        "summary": "Get a presigned upload for a record's content (datasets)",
+        "description": "POST the JSON to `upload.url` (form `fields`, then `file`), then PUT the record with `content_upload_id`. Unused uploads expire.",
+        "operationId": "create_content_upload_v1_sync__collection___record_id__content_uploads_post",
+        "parameters": [
+          {
+            "name": "collection",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "pages",
+                "workspace",
+                "saved_pages",
+                "components",
+                "brand",
+                "datasets",
+                "versions"
+              ],
+              "type": "string",
+              "title": "Collection"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Record Id"
+            }
+          },
+          {
+            "name": "x-account-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Active account (browser sessions)",
+              "title": "X-Account-Id"
+            },
+            "description": "Active account (browser sessions)"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentUploadIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentUploadOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/client-events": {
+      "post": {
+        "tags": [
+          "sync"
+        ],
+        "summary": "Report a client-side problem (e.g. sync stuck) so it shows up in the server logs",
+        "operationId": "report_client_event_v1_client_events_post",
+        "parameters": [
+          {
+            "name": "x-account-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Active account (browser sessions)",
+              "title": "X-Account-Id"
+            },
+            "description": "Active account (browser sessions)"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientEventIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/pages/{page_id}/versions": {
       "get": {
         "tags": [
@@ -9079,6 +9343,89 @@
         ],
         "title": "ChangesOut"
       },
+      "ClientEventIn": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "sync_stuck",
+              "sync_error"
+            ],
+            "title": "Kind"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Status"
+          },
+          "pending": {
+            "type": "integer",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Pending"
+          },
+          "seconds": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Seconds",
+            "description": "How long the problem has lasted."
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "status",
+          "pending",
+          "seconds"
+        ],
+        "title": "ClientEventIn"
+      },
+      "ContentUploadIn": {
+        "properties": {
+          "size": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Size",
+            "description": "Bytes of the JSON content. The upload is limited to this size."
+          }
+        },
+        "type": "object",
+        "required": [
+          "size"
+        ],
+        "title": "ContentUploadIn"
+      },
+      "ContentUploadOut": {
+        "properties": {
+          "upload_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Id"
+          },
+          "upload": {
+            "$ref": "#/components/schemas/PresignedUploadOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_id",
+          "upload"
+        ],
+        "title": "ContentUploadOut"
+      },
       "DeletionIn": {
         "properties": {
           "confirm_name": {
@@ -10742,7 +11089,21 @@
           "data": {
             "additionalProperties": true,
             "type": "object",
-            "title": "Data"
+            "title": "Data",
+            "description": "The record; for datasets only a small summary (max 64 KB)."
+          },
+          "content_upload_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Upload Id",
+            "description": "Datasets (required): the upload holding the full content, from `.../content-uploads`."
           }
         },
         "type": "object",
@@ -10803,6 +11164,30 @@
               }
             ],
             "title": "Data"
+          },
+          "content_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Url",
+            "description": "Datasets: short-lived URL of the full content (JSON)."
+          },
+          "content_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Size",
+            "description": "Bytes of the content."
           },
           "seq": {
             "type": "integer",

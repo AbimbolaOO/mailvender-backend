@@ -368,12 +368,29 @@ class SyncRecord(Base):
     parent_id: Mapped[uuid.UUID | None]
     revision: Mapped[int] = mapped_column(Integer)
     data: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    # Collections with large content (datasets) keep it in object storage; `data` is then a small summary.
+    object_key: Mapped[str | None] = mapped_column(Text)
+    object_size: Mapped[int | None] = mapped_column(BigInteger)
     deleted: Mapped[bool] = mapped_column(Boolean, default=False)
     seq: Mapped[int] = mapped_column(BigInteger)
     created_at: Mapped[datetime] = _created()
     created_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
     updated_at: Mapped[datetime]
     updated_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
+
+
+class SyncUpload(Base):
+    """A presigned content upload for a sync record, until a write commits it (or it expires)."""
+
+    __tablename__ = "sync_uploads"
+    id: Mapped[uuid.UUID] = _id()
+    account_id: Mapped[uuid.UUID] = _account_fk()
+    collection: Mapped[str] = mapped_column(String(32))
+    record_id: Mapped[uuid.UUID]
+    object_key: Mapped[str] = mapped_column(Text)
+    max_bytes: Mapped[int] = mapped_column(BigInteger)
+    created_at: Mapped[datetime] = _created()
+    expires_at: Mapped[datetime] = mapped_column(index=True)
 
 
 # ---- Data lifecycle ----

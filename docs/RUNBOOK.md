@@ -154,9 +154,11 @@ back to `pending` and its sends are rejected.
   Origin Access Control) is the only public reader. Otherwise apply
   [`infra/bucket-policy.production.json`](../infra/bucket-policy.production.json)
   (public `GetObject` only on `dev/images/*/public/*` and `prod/images/*/public/*`).
-- CORS: allow `POST` from the app origin (browsers upload with presigned POST):
+- CORS: allow `POST` and `GET` from the app origin (browsers upload with presigned POST
+  and download dataset content with presigned GET):
   [`infra/bucket-cors.json`](../infra/bucket-cors.json).
-- Datasets are copied (private) to `<prefix>sheets/<user id>/<dataset id>.json`;
+- Dataset content lives only in S3 (private) at `<prefix>sheets/<user id>/<dataset id>/<random>.json`
+  (Postgres keeps a small summary + the key; each save is a new object, the old one is deleted);
   the bucket policy must not make them public.
 - IAM for the API: `s3:PutObject`, `s3:GetObject`, `s3:DeleteObject` on
   `<bucket>/<prefix>*`.

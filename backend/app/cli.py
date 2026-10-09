@@ -4,6 +4,7 @@
     python -m app.cli run-job retention|dns_recheck|account_health|dkim_key_sync
     python -m app.cli openapi > openapi.json
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
+    python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
 """
 
 import json
@@ -55,6 +56,15 @@ def main(argv: list[str]) -> int:
             domain.last_checked_at = utcnow() + timedelta(days=3650)  # skip DNS rechecks
             uow.commit()
             print(f"{domain.name} marked verified (development only).")
+            return 0
+        if command == "move-dataset-content" and not args:
+            from app.services.storage import S3Storage
+            from app.services.sync import SyncService
+
+            total = 0
+            while moved := SyncService(uow, S3Storage()).move_inline_content():
+                total += moved
+            print(f"Moved {total} dataset(s) to object storage.")
             return 0
         if command == "run-job" and len(args) == 1:
             from app.services.dns import SystemDnsResolver

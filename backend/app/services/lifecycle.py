@@ -18,7 +18,7 @@ from app.security import utcnow
 from app.services.assets import AssetService
 from app.services.common import AccountContext, Actor, audit
 from app.services.storage import ObjectStorage
-from app.services.sync import sheet_key
+from app.services.sync import SyncService
 
 log = get_logger("lifecycle")
 
@@ -137,23 +137,29 @@ class LifecycleService:
         }
         records: dict[str, list[dict[str, Any]]] = {}
         for record in self.uow.sync.list_all_for_account(account.id):
-            records.setdefault(record.collection, []).append(
-                {"id": str(record.id), "parent_id": str(record.parent_id) if record.parent_id else None,
-                 "revision": record.revision, "updated_at": record.updated_at.isoformat(), "data": record.data}
-            )
+            row: dict[str, Any] = {"id": str(record.id), "parent_id": str(record.parent_id) if record.parent_id else None,
+                                   "revision": record.revision, "updated_at": record.updated_at.isoformat(),
+                                   "data": record.data}
+            if record.object_key:
+                # Content kept in object storage (datasets) goes in as its own file.
+                name = f"workspace/{record.collection}/{record.id}.json"
+                files[name] = self.storage.read(record.object_key, (record.object_size or 0) + 1)
+                row["content_file"] = name
+            records.setdefault(record.collection, []).append(row)
         for collection, rows in records.items():
             files[f"workspace/{collection}.json"] = rows
         files["README.txt"] = (
             "Mailvender account export.\n\nworkspace/*.json – pages, components, brand settings, datasets and "
-            "version history (the same JSON the editor stores).\nmessages.json – message metadata and recipient "
+            "version history (the same JSON the editor stores); each dataset's full content is in "
+            "workspace/datasets/<id>.json.\nmessages.json – message metadata and recipient "
             "statuses (email bodies are not included).\nsuppressions.json – addresses that won't receive email "
             "from this account.\n"
         )
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
             for name, content in files.items():
-                archive.writestr(name, content if isinstance(content, str) else json.dumps(content, indent=2,
-                                                                                           default=str))
+                archive.writestr(name, content if isinstance(content, (str, bytes))
+                                 else json.dumps(content, indent=2, default=str))
         body = buffer.getvalue()
         key = f"{self.settings.aws_s3_prefix}exports/{account.id}/{export.id}-{uuid.uuid4().hex}.zip"
         self.storage.put(key, body, "application/zip")
@@ -204,9 +210,7 @@ class LifecycleService:
 
     def delete_account_assets(self, account_id: uuid.UUID) -> int:
         count = AssetService(self.uow, self.storage).delete_all_for_account(account_id)
-        for record in self.uow.sync.list_all_for_account(account_id):
-            if record.collection == "datasets":
-                self.storage.delete(sheet_key(record))
+        SyncService(self.uow, self.storage).delete_account_content(account_id)
         audit(self.uow, account_id, Actor.system(), "account.assets_deleted", target_type="account",
               target_id=account_id, count=count)
         return count
@@ -235,12 +239,14 @@ class LifecycleService:
             report.exports_expired += 1
         for account in self.uow.accounts.deleted_before(now - timedelta(days=s.retention_deleted_account_days)):
             # Workspace data goes; suppressions stay so opted-out people are never emailed again.
+            SyncService(self.uow, self.storage).delete_account_content(account.id)
             self.uow.sync.delete_all_for_account(account.id)
             account.deleted_at = now
             account.physical_address = None
             audit(self.uow, account.id, Actor.system(), "account.purged", target_type="account", target_id=account.id)
             report.accounts_purged += 1
         report.uploads_cleaned = AssetService(self.uow, self.storage).cleanup_abandoned_uploads()
+        report.uploads_cleaned += SyncService(self.uow, self.storage).cleanup_expired_uploads()
         self.uow.commit()
         log_event(log, "retention.completed", **report.__dict__)
         return report

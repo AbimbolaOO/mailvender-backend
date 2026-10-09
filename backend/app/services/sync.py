@@ -22,6 +22,7 @@ import json
 import logging
 import uuid
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import Any
 
 from app import models as m
@@ -32,13 +33,17 @@ from app.pagination import Page, PageRequest
 from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
 from app.services.common import AccountContext, audit
-from app.services.storage import ObjectStorage
+from app.services.storage import ObjectStorage, PresignedUpload
 
 log = get_logger("sync")
 
 COLLECTIONS = ("pages", "workspace", "saved_pages", "components", "brand", "datasets", "versions")
 MAX_CHANGES = 500
 MAX_SNAPSHOT = 200
+# Collections whose content is stored as an object; `data` holds only a summary.
+CONTENT_COLLECTIONS = ("datasets",)
+SUMMARY_MAX_BYTES = 64 * 1024
+CONTENT_TYPE = "application/json"
 
 
 @dataclass
@@ -63,6 +68,7 @@ def record_state(record: m.SyncRecord) -> dict[str, Any]:
         "revision": record.revision,
         "deleted": record.deleted,
         "data": record.data,
+        "content_size": record.object_size,
         "seq": record.seq,
         "updated_at": record.updated_at.isoformat(),
         "created_at": record.created_at.isoformat(),
@@ -79,8 +85,14 @@ def _conflict(record: m.SyncRecord | None) -> ApiError:
     )
 
 
-def sheet_key(record: m.SyncRecord) -> str:
-    return f"{get_settings().aws_s3_prefix}sheets/{record.created_by or record.account_id}/{record.id}.json"
+def _content_key(owner_id: uuid.UUID, record_id: uuid.UUID) -> str:
+    return f"{get_settings().aws_s3_prefix}sheets/{owner_id}/{record_id}/{uuid.uuid4().hex}.json"
+
+
+def _upload_invalid() -> ApiError:
+    # The client uploads again and retries the write.
+    return ApiError("The uploaded content is missing or expired. Upload it again.", code="content_upload_invalid",
+                    status_code=409)
 
 
 def _check_collection(collection: str) -> None:
@@ -93,18 +105,67 @@ class SyncService:
         self.uow = uow
         self.storage = storage
 
-    def _mirror_sheet(self, record: m.SyncRecord) -> None:
-        if record.collection != "datasets" or self.storage is None:
+    def _delete_object(self, key: str | None) -> None:
+        """Best effort: the committed records no longer point at `key`; a leftover object is only storage."""
+        if not key or self.storage is None:
             return
-        key = sheet_key(record)
         try:
-            if record.deleted:
-                self.storage.delete(key)
-            else:
-                body = json.dumps(record.data, ensure_ascii=False, separators=(",", ":")).encode()
-                self.storage.put(key, body, "application/json")
-        except Exception as error:  # noqa: BLE001 – the synced record is already committed
-            log_event(log, "sync.sheet_mirror_failed", logging.WARNING, record_id=str(record.id), error=type(error).__name__)
+            self.storage.delete(key)
+        except Exception as error:  # noqa: BLE001
+            log_event(log, "sync.object_delete_failed", logging.WARNING, key=key, error=type(error).__name__)
+
+    def _storage(self) -> ObjectStorage:
+        assert self.storage is not None, "content collections need object storage"
+        return self.storage
+
+    def content_url(self, record: m.SyncRecord) -> str | None:
+        if record.deleted or not record.object_key or self.storage is None:
+            return None
+        return self.storage.presign_download(record.object_key, get_settings().sync_content_url_ttl_seconds)
+
+    def create_content_upload(self, ctx: AccountContext, collection: str, record_id: uuid.UUID,
+                              size: int) -> tuple[m.SyncUpload, PresignedUpload]:
+        _check_collection(collection)
+        settings = get_settings()
+        if collection not in CONTENT_COLLECTIONS:
+            raise ValidationFailed([field_error("collection", "This collection has no separate content.", "invalid")])
+        if not 0 < size <= settings.dataset_max_bytes:
+            limit = settings.dataset_max_bytes // (1024 * 1024)
+            raise ValidationFailed([field_error("size", f"Data sources can be up to {limit} MB.", "too_large")])
+        record = self.uow.sync.get(ctx.account_id, collection, record_id)
+        owner_id = (record.created_by if record else None) or (ctx.user.id if ctx.user else ctx.account_id)
+        ttl = settings.sync_upload_url_ttl_seconds
+        upload = self.uow.sync.add_upload(m.SyncUpload(
+            account_id=ctx.account_id, collection=collection, record_id=record_id,
+            object_key=_content_key(owner_id, record_id), max_bytes=size, expires_at=utcnow() + timedelta(seconds=ttl),
+        ))
+        presigned = self._storage().presign_upload(upload.object_key, CONTENT_TYPE, size, ttl)
+        self.uow.commit()
+        return upload, presigned
+
+    def _claim_upload(self, ctx: AccountContext, collection: str, record_id: uuid.UUID,
+                      upload_id: uuid.UUID | None, data: dict[str, Any]) -> tuple[m.SyncUpload, int] | None:
+        if collection not in CONTENT_COLLECTIONS:
+            if upload_id is not None:
+                raise ValidationFailed([field_error("content_upload_id", "This collection has no separate content.",
+                                                    "invalid")])
+            return None
+        if upload_id is None:
+            raise ValidationFailed([field_error("content_upload_id", "Upload the content first.", "required")])
+        if len(json.dumps(data)) > SUMMARY_MAX_BYTES:
+            raise ValidationFailed([field_error("data", "Send only a summary; the content goes in the upload.",
+                                                "too_large")])
+        upload = self.uow.sync.get_upload(upload_id, ctx.account_id)
+        if upload is None or upload.collection != collection or upload.record_id != record_id:
+            raise _upload_invalid()
+        info = self._storage().head(upload.object_key)
+        if info is None:
+            raise _upload_invalid()
+        if info.size > upload.max_bytes:
+            self._delete_object(upload.object_key)
+            raise ValidationFailed([field_error("content_upload_id", "The upload is larger than declared.",
+                                                "too_large")])
+        return upload, info.size
 
     def put(
         self,
@@ -114,17 +175,21 @@ class SyncService:
         expected_revision: int,
         data: dict[str, Any],
         parent_id: uuid.UUID | None = None,
+        content_upload_id: uuid.UUID | None = None,
     ) -> m.SyncRecord:
         _check_collection(collection)
         if collection == "versions" and parent_id is None:
             raise ValidationFailed([field_error("parent_id", "Versions need the page's id.", "required")])
         self.uow.sync.lock_account(ctx.account_id)
         record = self.uow.sync.get(ctx.account_id, collection, record_id)
+        if (record.revision if record else 0) != expected_revision:
+            raise _conflict(record)
+        # Validated after the revision check, so a conflicting write keeps its upload for the retry.
+        claimed = self._claim_upload(ctx, collection, record_id, content_upload_id, data)
+        previous_key = record.object_key if record else None
         now = utcnow()
         user_id = ctx.user.id if ctx.user else None
         if record is None:
-            if expected_revision != 0:
-                raise _conflict(None)
             record = self.uow.sync.add(
                 m.SyncRecord(
                     account_id=ctx.account_id,
@@ -141,8 +206,6 @@ class SyncService:
                 )
             )
         else:
-            if record.revision != expected_revision:
-                raise _conflict(record)
             record.revision += 1
             record.data = data
             record.deleted = False
@@ -150,8 +213,13 @@ class SyncService:
             record.seq = self.uow.sync.next_seq()
             record.updated_at = now
             record.updated_by = user_id
+        if claimed:
+            upload, size = claimed
+            record.object_key, record.object_size = upload.object_key, size
+            self.uow.sync.delete_upload(upload)
         self.uow.commit()
-        self._mirror_sheet(record)
+        if record.object_key != previous_key:
+            self._delete_object(previous_key)
         return record
 
     def delete(self, ctx: AccountContext, collection: str, record_id: uuid.UUID, expected_revision: int) -> m.SyncRecord:
@@ -169,8 +237,10 @@ class SyncService:
             record.seq = self.uow.sync.next_seq()
             record.updated_at = utcnow()
             record.updated_by = ctx.user.id if ctx.user else None
+        previous_key = record.object_key
+        record.object_key = record.object_size = None
         self.uow.commit()
-        self._mirror_sheet(record)
+        self._delete_object(previous_key)
         return record
 
     def get(self, ctx: AccountContext, collection: str, record_id: uuid.UUID) -> m.SyncRecord:
@@ -259,3 +329,43 @@ class SyncService:
               version_id=str(version_id))
         self.uow.commit()
         return page
+
+    # ---- Content housekeeping ----
+
+    def delete_account_content(self, account_id: uuid.UUID) -> int:
+        """Deletes the account's content objects and pending uploads (account deletion)."""
+        count = 0
+        for record in self.uow.sync.list_all_for_account(account_id):
+            if record.object_key:
+                self._storage().delete(record.object_key)
+                record.object_key = record.object_size = None
+                count += 1
+        for upload in self.uow.sync.list_uploads_for_account(account_id):
+            self._storage().delete(upload.object_key)
+            self.uow.sync.delete_upload(upload)
+        return count
+
+    def cleanup_expired_uploads(self) -> int:
+        """Uploads never committed by a write (the client went away): delete their objects."""
+        expired = self.uow.sync.list_expired_uploads(utcnow() - timedelta(hours=1), 500)
+        for upload in expired:
+            self._storage().delete(upload.object_key)
+            self.uow.sync.delete_upload(upload)
+        return len(expired)
+
+    def move_inline_content(self, limit: int = 500) -> int:
+        """One-off: moves datasets stored before content lived in object storage out of Postgres."""
+        moved = 0
+        for collection in CONTENT_COLLECTIONS:
+            for record in self.uow.sync.list_inline(collection, limit):
+                data = record.data or {}
+                body = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode()
+                key = _content_key(record.created_by or record.account_id, record.id)
+                self._storage().put(key, body, CONTENT_TYPE)
+                dataset = data.get("dataset") if isinstance(data.get("dataset"), dict) else {}
+                record.data = {"localId": data.get("localId"), "name": dataset.get("name"),
+                               "rowCount": len(dataset.get("rows") or [])}
+                record.object_key, record.object_size = key, len(body)
+                self.uow.commit()
+                moved += 1
+        return moved

@@ -112,6 +112,11 @@ class Settings(BaseSettings):
     aws_s3_upload_endpoint_url: str = ""
     asset_max_bytes: int = 5 * 1024 * 1024
     asset_upload_url_ttl_seconds: int = 300
+    # Dataset content lives in object storage (<prefix>sheets/<user id>/<dataset id>/…); the browser
+    # uploads it with a presigned POST and downloads it with a presigned GET.
+    dataset_max_bytes: int = 100 * 1024 * 1024
+    sync_upload_url_ttl_seconds: int = 900
+    sync_content_url_ttl_seconds: int = 900
 
     # Data lifecycle (see docs/RETENTION.md)
     export_ttl_hours: int = 24

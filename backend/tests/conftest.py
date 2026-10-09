@@ -104,6 +104,9 @@ class FakeStorage:
                                                                      "policy": "p", "x-amz-signature": "s"},
                                expires_in=expires_in)
 
+    def presign_download(self, key: str, expires_in: int) -> str:
+        return f"https://s3.test/bucket/{key}?expires={expires_in}"
+
     def head(self, key: str) -> ObjectInfo | None:
         if key not in self.objects:
             return None

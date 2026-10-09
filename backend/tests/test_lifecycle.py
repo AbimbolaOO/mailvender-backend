@@ -9,12 +9,17 @@ from app.security import utcnow
 from tests.conftest import send, verified_sender
 
 
-def test_export_is_built_downloaded_and_audited(make_user, resolver, worker, db) -> None:  # type: ignore[no-untyped-def]
+def test_export_is_built_downloaded_and_audited(make_user, resolver, worker, storage, db) -> None:  # type: ignore[no-untyped-def]
+    from tests.test_sync import put_dataset, upload_content
+
     user = make_user()
     setup = verified_sender(user, resolver)
     send(user, setup["identity"]["email"], ["r@example.org"])
     user.post("/v1/suppressions", json={"email": "no@example.org"})
     user.put(f"/v1/sync/brand/{uuid.uuid4()}", json={"expected_revision": 0, "data": {"linkColor": "#f00"}})
+    dataset = str(uuid.uuid4())
+    upload_id, _ = upload_content(user, storage, dataset, b'{"rows":[["a"]]}')
+    put_dataset(user, dataset, 0, upload_id)
 
     export = user.post("/v1/account/exports").json()
     assert export["status"] == "pending"
@@ -26,6 +31,8 @@ def test_export_is_built_downloaded_and_audited(make_user, resolver, worker, db)
     assert response.status_code == 200 and response.headers["content-type"] == "application/zip"
     archive = zipfile.ZipFile(io.BytesIO(response.content))
     assert json.loads(archive.read("workspace/brand.json"))[0]["data"] == {"linkColor": "#f00"}
+    datasets = json.loads(archive.read("workspace/datasets.json"))
+    assert json.loads(archive.read(datasets[0]["content_file"])) == {"rows": [["a"]]}
     assert json.loads(archive.read("suppressions.json"))[0]["email"] == "no@example.org"
     messages = json.loads(archive.read("messages.json"))
     assert messages[0]["recipients"][0]["email"] == "r@example.org" and "html" not in messages[0]
@@ -61,6 +68,11 @@ def test_account_deletion(make_user, resolver, worker, transport, storage, db) -
                                                     "size": 100}).json()
     storage.objects[storage.presigned[-1]["key"]] = (png_bytes(), "image/png")
     asset = user.post(f"/v1/assets/{upload['asset']['id']}/finalize").json()
+    from tests.test_sync import put_dataset, upload_content
+
+    dataset = str(uuid.uuid4())
+    put_dataset(user, dataset, 0, upload_content(user, storage, dataset, b"{}")[0])
+    upload_content(user, storage, str(uuid.uuid4()), b"{}")  # never committed
 
     wrong = user.post("/v1/account/deletion", json={"confirm_name": "nope"})
     assert wrong.status_code == 422
@@ -78,7 +90,7 @@ def test_account_deletion(make_user, resolver, worker, transport, storage, db) -
     assert domain.status == "disabled" and domain.disabled_at
     assert db.session.get(m.SenderIdentity, setup["identity"]["id"]).status == "disabled"
     assert db.session.get(m.Asset, asset["id"]).status == "deleted"
-    assert not any("/public/" in k for k in storage.objects)
+    assert not any("/public/" in k or "/sheets/" in k for k in storage.objects)
     actions = [e.action for e in db.session.query(m.AuditEvent).filter_by(account_id=user.account_id)]
     assert "account.deletion_requested" in actions and "account.assets_deleted" in actions
 

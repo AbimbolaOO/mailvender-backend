@@ -644,7 +644,43 @@ class SqlSync(_Repo):
         )
 
     def delete_all_for_account(self, account_id: uuid.UUID) -> int:
+        self.s.execute(delete(m.SyncUpload).where(m.SyncUpload.account_id == account_id))
         return _rows(self.s.execute(delete(m.SyncRecord).where(m.SyncRecord.account_id == account_id)))
+
+    def list_with_objects(self, collection: str, limit: int) -> list[m.SyncRecord]:
+        return list(self.s.execute(
+            select(m.SyncRecord).where(m.SyncRecord.collection == collection, m.SyncRecord.object_key.is_not(None))
+            .limit(limit)
+        ).scalars())
+
+    def list_inline(self, collection: str, limit: int) -> list[m.SyncRecord]:
+        return list(self.s.execute(
+            select(m.SyncRecord).where(m.SyncRecord.collection == collection, m.SyncRecord.deleted.is_(False),
+                                       m.SyncRecord.object_key.is_(None))
+            .limit(limit)
+        ).scalars())
+
+    def add_upload(self, upload: m.SyncUpload) -> m.SyncUpload:
+        self.s.add(upload)
+        self.s.flush()
+        return upload
+
+    def get_upload(self, upload_id: uuid.UUID, account_id: uuid.UUID) -> m.SyncUpload | None:
+        return self.s.execute(
+            select(m.SyncUpload).where(m.SyncUpload.id == upload_id, m.SyncUpload.account_id == account_id)
+        ).scalar_one_or_none()
+
+    def delete_upload(self, upload: m.SyncUpload) -> None:
+        self.s.delete(upload)
+
+    def list_uploads_for_account(self, account_id: uuid.UUID) -> list[m.SyncUpload]:
+        return list(self.s.execute(select(m.SyncUpload).where(m.SyncUpload.account_id == account_id)).scalars())
+
+    def list_expired_uploads(self, before: datetime, limit: int) -> list[m.SyncUpload]:
+        return list(self.s.execute(
+            select(m.SyncUpload).where(m.SyncUpload.expires_at < before).order_by(m.SyncUpload.expires_at)
+            .limit(limit)
+        ).scalars())
 
 
 class SqlExports(_Repo):

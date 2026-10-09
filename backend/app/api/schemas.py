@@ -351,6 +351,8 @@ class SyncRecordOut(Model):
     revision: int
     deleted: bool
     data: dict[str, Any] | None
+    content_url: str | None = Field(None, description="Datasets: short-lived URL of the full content (JSON).")
+    content_size: int | None = Field(None, validation_alias="object_size", description="Bytes of the content.")
     seq: int
     created_at: datetime
     updated_at: datetime
@@ -360,7 +362,26 @@ class SyncRecordOut(Model):
 class SyncPutIn(BaseModel):
     expected_revision: int = Field(ge=0, description="The revision you last saw; 0 to create.")
     parent_id: uuid.UUID | None = Field(None, description="For versions: the page's id.")
-    data: dict[str, Any]
+    data: dict[str, Any] = Field(description="The record; for datasets only a small summary (max 64 KB).")
+    content_upload_id: uuid.UUID | None = Field(
+        None, description="Datasets (required): the upload holding the full content, from `.../content-uploads`.")
+
+
+class ContentUploadIn(BaseModel):
+    size: int = Field(gt=0, description="Bytes of the JSON content. The upload is limited to this size.")
+
+
+class ContentUploadOut(Model):
+    upload_id: uuid.UUID
+    upload: PresignedUploadOut
+
+
+class ClientEventIn(BaseModel):
+    kind: Literal["sync_stuck", "sync_error"]
+    status: str = Field(max_length=32)
+    pending: int = Field(ge=0, le=1_000_000)
+    seconds: int = Field(ge=0, le=10_000_000, description="How long the problem has lasted.")
+    detail: str | None = Field(None, max_length=500)
 
 
 class SnapshotOut(Model):

@@ -1,13 +1,16 @@
 """Cloud sync, version history, export/deletion and the operator API."""
 
+import logging
 import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Response
 
+from app import models as m
 from app.api import schemas as s
 from app.api.deps import Ctx, Operator, OwnerCtx, Uow, get_storage
 from app.errors import ERROR_RESPONSES
+from app.logging import get_logger, log_event
 from app.pagination import MAX_LIMIT, page_request
 from app.services.health import AccountHealth, HealthService
 from app.services.lifecycle import LifecycleService
@@ -15,6 +18,7 @@ from app.services.storage import ObjectStorage
 from app.services.sync import SyncService
 
 router = APIRouter(prefix="/v1", responses=ERROR_RESPONSES)
+log = get_logger("client")
 
 Limit = Annotated[int | None, Query(ge=1, le=MAX_LIMIT)]
 Cursor = Annotated[str | None, Query(max_length=1000)]
@@ -34,40 +38,61 @@ SYNC_POLICY = (
 # ---- Sync ----
 
 
+def _out(record: m.SyncRecord, service: SyncService) -> s.SyncRecordOut:
+    return s.SyncRecordOut.model_validate(record).model_copy(update={"content_url": service.content_url(record)})
+
+
 @router.get("/sync/snapshot", response_model=s.SnapshotOut, tags=["sync"],
             summary="All live records of the account (paged), for a new device", description=SYNC_POLICY)
 def snapshot(
     ctx: Ctx,
     uow: Uow,
+    storage: Storage,
     collections: Annotated[list[str] | None, Query()] = None,
     cursor: Cursor = None,
     limit: Annotated[int, Query(ge=1, le=200)] = 100,
 ) -> s.SnapshotOut:
-    page = SyncService(uow).snapshot(ctx, collections, cursor, limit)
-    return s.SnapshotOut(records=[s.SyncRecordOut.model_validate(r) for r in page.records],
+    service = SyncService(uow, storage)
+    page = service.snapshot(ctx, collections, cursor, limit)
+    return s.SnapshotOut(records=[_out(r, service) for r in page.records],
                          next_cursor=page.next_cursor, watermark=page.watermark)
 
 
 @router.get("/sync/changes", response_model=s.ChangesOut, tags=["sync"],
             summary="Changes (including deletions) after `since`", description=SYNC_POLICY)
-def changes(ctx: Ctx, uow: Uow, since: Annotated[int, Query(ge=0)] = 0,
+def changes(ctx: Ctx, uow: Uow, storage: Storage, since: Annotated[int, Query(ge=0)] = 0,
             limit: Annotated[int, Query(ge=1, le=500)] = 200) -> s.ChangesOut:
-    page = SyncService(uow).changes(ctx, since, limit)
-    return s.ChangesOut(records=[s.SyncRecordOut.model_validate(r) for r in page.records],
+    service = SyncService(uow, storage)
+    page = service.changes(ctx, since, limit)
+    return s.ChangesOut(records=[_out(r, service) for r in page.records],
                         next_since=page.next_since, has_more=page.has_more)
 
 
 @router.get("/sync/{collection}/{record_id}", response_model=s.SyncRecordOut, tags=["sync"])
-def get_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uow) -> s.SyncRecordOut:
-    return s.SyncRecordOut.model_validate(SyncService(uow).get(ctx, collection, record_id))
+def get_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uow,
+               storage: Storage) -> s.SyncRecordOut:
+    service = SyncService(uow, storage)
+    return _out(service.get(ctx, collection, record_id), service)
+
+
+@router.post("/sync/{collection}/{record_id}/content-uploads", status_code=201, response_model=s.ContentUploadOut,
+             tags=["sync"], summary="Get a presigned upload for a record's content (datasets)",
+             description="POST the JSON to `upload.url` (form `fields`, then `file`), then PUT the record with "
+                         "`content_upload_id`. Unused uploads expire.")
+def create_content_upload(collection: s.Collection, record_id: uuid.UUID, body: s.ContentUploadIn, ctx: Ctx,
+                          uow: Uow, storage: Storage) -> s.ContentUploadOut:
+    upload, presigned = SyncService(uow, storage).create_content_upload(ctx, collection, record_id, body.size)
+    return s.ContentUploadOut(upload_id=upload.id, upload=s.PresignedUploadOut.model_validate(presigned))
 
 
 @router.put("/sync/{collection}/{record_id}", response_model=s.SyncRecordOut, tags=["sync"],
             summary="Create or update a record", description=SYNC_POLICY)
 def put_record(collection: s.Collection, record_id: uuid.UUID, body: s.SyncPutIn, ctx: Ctx,
                uow: Uow, storage: Storage) -> s.SyncRecordOut:
-    record = SyncService(uow, storage).put(ctx, collection, record_id, body.expected_revision, body.data, body.parent_id)
-    return s.SyncRecordOut.model_validate(record)
+    service = SyncService(uow, storage)
+    record = service.put(ctx, collection, record_id, body.expected_revision, body.data, body.parent_id,
+                         body.content_upload_id)
+    return _out(record, service)
 
 
 @router.delete("/sync/{collection}/{record_id}", response_model=s.SyncRecordOut, tags=["sync"],
@@ -75,6 +100,14 @@ def put_record(collection: s.Collection, record_id: uuid.UUID, body: s.SyncPutIn
 def delete_record(collection: s.Collection, record_id: uuid.UUID, ctx: Ctx, uow: Uow, storage: Storage,
                   expected_revision: Annotated[int, Query(ge=1)]) -> s.SyncRecordOut:
     return s.SyncRecordOut.model_validate(SyncService(uow, storage).delete(ctx, collection, record_id, expected_revision))
+
+
+@router.post("/client-events", status_code=204, tags=["sync"],
+             summary="Report a client-side problem (e.g. sync stuck) so it shows up in the server logs")
+def report_client_event(body: s.ClientEventIn, ctx: Ctx) -> Response:
+    log_event(log, f"client.{body.kind}", logging.WARNING, status=body.status, pending=body.pending,
+              seconds=body.seconds, detail=body.detail)
+    return Response(status_code=204)
 
 
 @router.get("/pages/{page_id}/versions", response_model=s.PageOut[s.SyncRecordOut], tags=["sync"],
