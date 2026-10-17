@@ -2,3 +2,4 @@
 .DS_Store
 certs/
 try*.sh
+.env.production

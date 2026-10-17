@@ -5,12 +5,28 @@
     python -m app.cli openapi > openapi.json
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
     python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
+    python -m app.cli upload-log <service>/<YYYY>/<MM>/<DD>/<name>.log.gz < file   (infra/log-backup)
 """
 
 import json
+import re
 import sys
 
 from app.repositories.sql import SqlUnitOfWork
+from app.services.storage import ObjectStorage
+
+LOG_KEY = re.compile(r"[a-z0-9-]+/\d{4}/\d{2}/\d{2}/[A-Za-z0-9._-]+\.log\.gz")
+
+
+def upload_log(storage: ObjectStorage, key: str, body: bytes) -> str:
+    """Store a gzipped container log at <prefix>logs/<key> (private, like everything but public images)."""
+    from app.config import get_settings
+
+    if not LOG_KEY.fullmatch(key):
+        raise ValueError(f"invalid log key: {key}")
+    object_key = f"{get_settings().aws_s3_prefix}logs/{key}"
+    storage.put(object_key, body, "application/gzip")
+    return object_key
 
 
 def main(argv: list[str]) -> int:
@@ -22,6 +38,15 @@ def main(argv: list[str]) -> int:
         from app.main import app
 
         print(json.dumps(app.openapi(), indent=2))
+        return 0
+    if command == "upload-log" and len(args) == 1:
+        from app.services.storage import S3Storage
+
+        try:
+            print(upload_log(S3Storage(), args[0], sys.stdin.buffer.read()))
+        except ValueError as error:
+            print(error, file=sys.stderr)
+            return 1
         return 0
 
     from app.db import get_session_factory

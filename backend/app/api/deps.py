@@ -13,6 +13,7 @@ the API checks membership on every request. An API key is bound to its account.
 The account is never taken from the request body.
 """
 
+import hmac
 import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -82,8 +83,20 @@ def get_rate_limiter(factory: Annotated[UnitOfWorkFactory, Depends(get_uow_facto
 Uow = Annotated[UnitOfWork, Depends(get_uow)]
 
 
+PROXY_SECRET_HEADER = "x-mailvender-proxy-secret"
+PROXY_CLIENT_IP_HEADER = "x-mailvender-client-ip"
+
+
 def client_ip(request: Request) -> str:
-    if get_settings().trust_forwarded_for:
+    settings = get_settings()
+    # The frontend proxy (Vercel) vouches for the browser's IP with the shared secret. Other
+    # callers reach the API through Caddy, which sets X-Forwarded-For to their own address.
+    proxied_ip = request.headers.get(PROXY_CLIENT_IP_HEADER, "").strip()
+    if settings.api_proxy_secret and proxied_ip and hmac.compare_digest(
+        request.headers.get(PROXY_SECRET_HEADER, "").encode(), settings.api_proxy_secret.encode()
+    ):
+        return proxied_ip
+    if settings.trust_forwarded_for:
         forwarded = request.headers.get("x-forwarded-for")
         if forwarded:
             return forwarded.split(",")[0].strip()

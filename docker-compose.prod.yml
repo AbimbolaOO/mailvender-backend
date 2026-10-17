@@ -52,7 +52,13 @@ services:
     # Loopback by default: put a reverse proxy / the Next.js host in front of it.
     ports: ["${API_PUBLISH:-127.0.0.1:8000}:8000"]
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')",
+        ]
       interval: 10s
       timeout: 3s
       retries: 30

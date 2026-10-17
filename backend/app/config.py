@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     public_api_base_url: str = "http://localhost:3000/api"
     # Behind the Next.js rewrite / a load balancer, take the client IP from X-Forwarded-For.
     trust_forwarded_for: bool = False
+    # Shared with the frontend host (API_PROXY_SECRET there, e.g. Vercel). A request carrying it
+    # comes from the frontend proxy, so its X-Mailvender-Client-Ip names the browser. Blank = off.
+    api_proxy_secret: str = ""
     max_request_bytes: int = 25 * 1024 * 1024
     allowed_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 

@@ -1,0 +1,12 @@
+# Installed by docs/PRODUCTION_SETUP.md: cp to /etc/systemd/system/, then
+# systemctl enable --now mailvender-log-backup.timer
+[Unit]
+Description=Back up Mailvender container logs to S3 every hour
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

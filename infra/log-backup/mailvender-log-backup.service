@@ -1,0 +1,9 @@
+# Installed by docs/PRODUCTION_SETUP.md: cp to /etc/systemd/system/
+[Unit]
+Description=Back up Mailvender container logs to S3
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mailvender/mailvender-backend/infra/log-backup/backup-logs.sh

@@ -16,7 +16,7 @@
 
 All names are in [`.env.example`](../.env.example). Secrets come from your
 secret store and are never committed: `DATABASE_URL`, `SECRET_KEY`,
-`DKIM_ENCRYPTION_KEY`, `INTERNAL_API_TOKEN`, `FEEDBACK_LOOP_SECRETS`,
+`DKIM_ENCRYPTION_KEY`, `INTERNAL_API_TOKEN`, `API_PROXY_SECRET`, `FEEDBACK_LOOP_SECRETS`,
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`. The API never returns any of
 them; DKIM private keys are encrypted at rest (Fernet) and only decrypted onto
 the OpenDKIM volume.
@@ -143,6 +143,9 @@ back to `pending` and its sends are rejected.
   Rotate only when compromised; announce API-key reissue.
 - **`INTERNAL_API_TOKEN` / feedback-loop secrets**: update Postfix / the FBL
   provider and the API together.
+- **`API_PROXY_SECRET`**: set the new value on the frontend host (Vercel) and in
+  the API's `.env`, then redeploy both. In between, requests via the frontend
+  count against Vercel's IP in the per-IP rate limits.
 - **AWS keys**: create a new IAM key, deploy, then delete the old one.
 
 ## Asset storage (S3)
@@ -172,6 +175,10 @@ back to `pending` and its sends are rejected.
   snapshots + WAL), retained 30 days. Test a restore monthly into a staging
   database and run `alembic current`.
 - S3: versioning on with a 30-day noncurrent-version expiry.
+- Container logs: Docker keeps 250 MB per service; `infra/log-backup/backup-logs.sh`
+  (hourly systemd timer) copies them to `<prefix>logs/<service>/<YYYY>/<MM>/<DD>/`
+  in the bucket as gzip files. They contain email addresses and IPs: keep them
+  private and expire them with a lifecycle rule (PRODUCTION_SETUP step 14).
 - The OpenDKIM volume is derived data – the worker rebuilds it from the
   database within 30 s.
 - Restore order: database → API/worker (migrations no-op) → verify
@@ -180,7 +187,7 @@ back to `pending` and its sends are rejected.
 ## Monitoring and alerting
 
 Logs are JSON lines (`event`, `request_id`, `user_id`, `account_id`,
-`message_id`). Alert on:
+`message_id`), backed up hourly to S3 (see Backup and restore). Alert on:
 
 | Signal            | Source                                                                                                  | Suggested threshold                         |
 | ----------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- |

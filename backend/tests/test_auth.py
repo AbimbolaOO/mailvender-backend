@@ -173,3 +173,25 @@ def test_signup_and_reset_are_rate_limited_per_email(client) -> None:  # type: i
         client.post("/v1/auth/resend-verification", json={"email": "y@example.com"}, headers=CSRF)
     assert client.post("/v1/auth/resend-verification", json={"email": "y@example.com"},
                        headers=CSRF).status_code == 429
+
+
+def _request(headers: dict[str, str]):  # type: ignore[no-untyped-def]
+    from starlette.requests import Request
+
+    return Request({"type": "http", "headers": [(k.lower().encode(), v.encode()) for k, v in headers.items()],
+                    "client": ("172.30.0.1", 1234)})
+
+
+def test_client_ip_trusts_the_frontend_proxy_only_with_the_shared_secret(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    from app.api import deps
+    from app.config import Settings
+
+    monkeypatch.setattr(deps, "get_settings", lambda: Settings(trust_forwarded_for=True, api_proxy_secret="s3cret"))
+    proxied = {"X-Mailvender-Client-Ip": "203.0.113.7", "X-Forwarded-For": "76.76.21.21"}
+    assert deps.client_ip(_request({**proxied, "X-Mailvender-Proxy-Secret": "s3cret"})) == "203.0.113.7"
+    # Wrong or missing secret: the claimed IP is ignored; Caddy's X-Forwarded-For is used.
+    assert deps.client_ip(_request({**proxied, "X-Mailvender-Proxy-Secret": "guess"})) == "76.76.21.21"
+    assert deps.client_ip(_request(proxied)) == "76.76.21.21"
+
+    monkeypatch.setattr(deps, "get_settings", lambda: Settings(trust_forwarded_for=True))
+    assert deps.client_ip(_request({**proxied, "X-Mailvender-Proxy-Secret": ""})) == "76.76.21.21"

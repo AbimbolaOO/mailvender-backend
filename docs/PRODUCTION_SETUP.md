@@ -1,21 +1,24 @@
 # Production setup for mailvender.com
 
-A step-by-step guide to running Mailvender in production at
-**https://www.mailvender.com** and sending real email (for example to your
-Gmail). For the reference behind each step, see [RUNBOOK.md](RUNBOOK.md).
+A step-by-step guide to deploying the Mailvender backend to production and
+sending real email. For the reference behind each step, see
+[RUNBOOK.md](RUNBOOK.md).
 
-At the end you will have:
+The production layout:
 
-| Address                       | What it is                                                     |
-| ----------------------------- | -------------------------------------------------------------- |
-| `https://www.mailvender.com`  | The Mailvender app (Next.js), with the API behind it at `/api` |
-| `mailvender.com`              | Redirects to `www`                                             |
-| `mail.mailvender.com`         | The outbound mail server (Postfix + OpenDKIM)                  |
-| `feedback.mailvender.com`     | Where bounces come back (same server)                          |
-| `_spf.mailvender.com`         | The SPF list of IPs allowed to send for Mailvender             |
+| Address                                 | Where it runs        | What it is                                               |
+| --------------------------------------- | -------------------- | -------------------------------------------------------- |
+| `https://www.mailvender.com`            | Vercel               | The Next.js app; it forwards `/api/*` to the API         |
+| `mailvender.com`                        | Vercel               | Redirects to `www`                                       |
+| `https://api.mailvender.com`            | Hetzner server       | The API (Caddy → FastAPI on `localhost:8000`)            |
+| `mail.mailvender.com`                   | Hetzner server       | The outbound mail server (Postfix + OpenDKIM)            |
+| `feedback.mailvender.com`               | Hetzner server       | Where bounces come back                                  |
+| `_spf.mailvender.com`                   | Cloudflare DNS       | The SPF list of IPs allowed to send for Mailvender       |
 
-Everything runs on **one server**. Below, replace `YOUR_SERVER_IP` with that
-server's public IP address.
+The production server is a **Hetzner Cloud** server with the static IPv4
+address **`2.29.100.188`**. It runs the API, the worker, Postfix and OpenDKIM
+(`docker-compose.prod.yml`). PostgreSQL and S3 are managed services, and the
+frontend is on Vercel, so the server doesn't need Node.js.
 
 > **Why not from your Mac?** Home internet providers block port 25 (the port mail
 > servers use to talk to each other), and Gmail treats home IP addresses as spam
@@ -23,50 +26,190 @@ server's public IP address.
 
 ---
 
+## Deployment status
+
+Where the mailvender.com deployment stands (last checked 2026-10-17). Tick
+items off as you go.
+
+### Done
+
+- [x] DNS in Cloudflare; `www` and `@` serve the frontend from Vercel.
+- [x] Reverse DNS: `2.29.100.188 → mail.mailvender.com` (step 2).
+- [x] DNS records `api`, `mail`, `feedback`, `_spf`, `@` SPF and `_dmarc` (step 4).
+- [x] Server is up; SSH key login with `~/.ssh/hetzner-key` works (step 3).
+- [x] Docker, certbot and Caddy installed; `ufw` active (step 3).
+- [x] Backend copied to `/opt/mailvender/mailvender-backend` (step 5).
+- [x] TLS certificate in `certs/` and the three renewal hooks (step 6).
+
+### To do
+
+- [ ] Step 2: request the port 25 unblock (the server's check still says
+      `port 25 BLOCKED`), turn off auto delete on the primary IP.
+- [ ] Step 1: create the Supabase database (an EU region near Helsinki, e.g.
+      Stockholm or Frankfurt) and copy its connection string.
+- [ ] Step 3: turn off password logins (`PasswordAuthentication` is still `yes`).
+- [ ] Step 7: copy `.env.production` to the server with `scp`.
+- [ ] Step 8: start the stack; `/health/ready` returns `ok`.
+- [ ] Step 9: Caddy serves `https://api.mailvender.com` (ports 80/443 currently refuse connections).
+- [ ] Step 10: set `API_INTERNAL_URL` and `API_PROXY_SECRET` on Vercel and redeploy.
+- [ ] Step 11: sign up and receive the verification email.
+- [ ] Step 12: verify `mailvender.com` as a sending domain (DKIM, `bounce` MX/TXT).
+- [ ] Step 13: test email shows SPF, DKIM and DMARC PASS.
+- [ ] Step 14: enable the hourly log backup.
+
+Steps 3 and 5–9 are best done in one sitting on the server.
+
+---
+
 ## Contents
 
 1. [What you need](#1-what-you-need)
-2. [Prepare the server](#2-prepare-the-server)
-3. [DNS records in Cloudflare](#3-dns-records-in-cloudflare)
-4. [Reverse DNS](#4-reverse-dns)
-5. [Copy the project to the server](#5-copy-the-project-to-the-server)
+2. [Hetzner: server, port 25 and reverse DNS](#2-hetzner-server-port-25-and-reverse-dns)
+3. [Prepare the server](#3-prepare-the-server)
+4. [DNS records in Cloudflare](#4-dns-records-in-cloudflare)
+5. [Copy the backend to the server](#5-copy-the-backend-to-the-server)
 6. [TLS certificate for the mail server](#6-tls-certificate-for-the-mail-server)
-7. [Create the `.env` file](#7-create-the-env-file)
+7. [Copy the `.env` file to the server](#7-copy-the-env-file-to-the-server)
 8. [Start the backend](#8-start-the-backend)
-9. [Start the app with HTTPS](#9-start-the-app-with-https)
-10. [First email to your Gmail](#10-first-email-to-your-gmail)
-11. [Verify mailvender.com as a sending domain](#11-verify-mailvendercom-as-a-sending-domain)
-12. [Send a test and check it](#12-send-a-test-and-check-it)
-13. [Updating after code changes](#13-updating-after-code-changes)
-14. [Troubleshooting](#14-troubleshooting)
+9. [HTTPS for the API](#9-https-for-the-api)
+10. [Point Vercel at the API](#10-point-vercel-at-the-api)
+11. [First email to your Gmail](#11-first-email-to-your-gmail)
+12. [Verify mailvender.com as a sending domain](#12-verify-mailvendercom-as-a-sending-domain)
+13. [Send a test and check it](#13-send-a-test-and-check-it)
+14. [Back up logs to S3](#14-back-up-logs-to-s3)
+15. [Updating after code changes](#15-updating-after-code-changes)
+16. [Troubleshooting](#16-troubleshooting)
 
 ---
 
 ## 1. What you need
 
 - **The domain `mailvender.com`**, with DNS in Cloudflare.
-- **A Linux server (VPS)** with Ubuntu 24.04, at least 2 GB RAM, a **static
-  IPv4 address**, and **port 25 allowed**. Providers such as Hetzner, OVH,
-  Vultr and Linode work, but most block port 25 on new accounts until you open
-  a support ticket asking them to unblock it ("I run a transactional email
-  service; please allow outbound SMTP on port 25"). Do this first, because it
-  can take a few days. AWS, Google Cloud, Azure and DigitalOcean rarely agree.
-- **A PostgreSQL database.** A free [Neon](https://neon.tech) or
-  [Supabase](https://supabase.com) database is fine to start. Copy its
+- **The frontend deployed on Vercel**, serving `mailvender.com` and
+  `www.mailvender.com`.
+- **A Hetzner Cloud server** (step 2): Ubuntu 24.04, at least 2 GB RAM
+  (CX22 is enough), static IPv4 `2.29.100.188`.
+- **A PostgreSQL database.** Hetzner has no managed PostgreSQL; use
+  [Neon](https://neon.tech) or [Supabase](https://supabase.com) in a region
+  close to the server (the server is in Helsinki, `hel1`, so e.g. Stockholm or
+  Frankfurt). Copy its
   connection string.
-- **Optional: an S3 bucket** (AWS S3, Cloudflare R2, …) for image uploads. You
-  can skip it for now; everything except image uploads works without it.
+- **The AWS S3 bucket** (images and dataset content). Required: the production
+  stack stores files under `prod/` in the bucket. Bucket setup:
+  [RUNBOOK.md](RUNBOOK.md).
 
-## 2. Prepare the server
+## 2. Hetzner: server, port 25 and reverse DNS
 
-Log in and install Docker, Node.js 22, certbot and Caddy:
+All of this is in the [Hetzner Console](https://console.hetzner.com).
+
+**Port 25.** Hetzner blocks outbound port 25 (and 465) on new Cloud accounts.
+Request the unblock under **Limits → Request change** (or a support ticket):
+"I run a transactional email service; please allow outbound SMTP on port 25 for
+2.29.100.188." Hetzner usually approves only after the first invoice is paid,
+so ask early. Until then, everything except delivery works; to deliver in the
+meantime, use a relay ([Troubleshooting](#16-troubleshooting)).
+
+**Keep the IP.** Mail reputation belongs to the IP. Under **Networking →
+Primary IPs**, open `2.29.100.188` and turn **auto delete off**, so the IP
+survives if the server is deleted or rebuilt.
+
+**Check the IP isn't blocklisted** at
+[MXToolbox](https://mxtoolbox.com/blacklists.aspx). `2.29.100.188` was clean
+(0 of 60 lists, including Spamhaus and UCEPROTECT) when the server was
+created. Recheck it if delivery suddenly gets worse.
+
+**Reverse DNS.** Reverse DNS (PTR) maps the IP back to a name. Gmail checks
+that `2.29.100.188 → mail.mailvender.com` and `mail.mailvender.com →
+2.29.100.188` match, and that the name matches the Postfix hostname. Mail from
+IPs without it usually goes to spam or is rejected. Only Hetzner can set it,
+because they own the IP: **Primary IPs → `2.29.100.188` → ⋯ → Edit Reverse
+DNS** → `mail.mailvender.com`.
 
 ```sh
-ssh root@YOUR_SERVER_IP
+dig +short -x 2.29.100.188              # → mail.mailvender.com.
+```
 
+The reverse DNS names the **server**, not the sender. Customers still send
+from their own domains; their DKIM, Return-Path and DMARC records (step 12)
+prove that.
+
+**Optional: Hetzner Cloud Firewall.** Allow inbound TCP 22, 25, 80 and 443.
+It works alongside `ufw` (step 3).
+
+## 3. Prepare the server
+
+**Log in with an SSH key.** If you didn't add an SSH key when creating the
+server, Hetzner emailed the root password (or reset it under **Servers → the
+server → Rescue → Reset root password**). All of the following runs on your
+**Mac**.
+
+1. Create a key named `hetzner-key` in `~/.ssh`:
+
+   ```sh
+   ssh-keygen -t ed25519 -f ~/.ssh/hetzner-key
+   ```
+
+   Enter a passphrase when asked (nothing shows while you type) and repeat it.
+   It's done when it prints `Your identification has been saved…` and a box of
+   characters. Two files appear: `~/.ssh/hetzner-key` (the private key, never
+   share it) and `~/.ssh/hetzner-key.pub` (the public key, which goes on the
+   server).
+
+   > Without `-f`, `ssh-keygen` asks where to save the key. Typing just a name
+   > such as `hetzner-key` saves it in the **current folder** (e.g. the project
+   > folder), not in `~/.ssh`, and `ssh-copy-id` then reports
+   > `ERROR: No identities found`. Move it into place:
+   > `mv hetzner-key hetzner-key.pub ~/.ssh/ && chmod 600 ~/.ssh/hetzner-key`.
+   > A private key must never stay in the project folder.
+
+2. Tell SSH to use this key for the server, and to keep the passphrase in the
+   macOS Keychain:
+
+   ```sh
+   cat >> ~/.ssh/config <<'EOF'
+   Host 2.29.100.188
+     User root
+     IdentityFile ~/.ssh/hetzner-key
+     IdentitiesOnly yes
+     UseKeychain yes
+     AddKeysToAgent yes
+   EOF
+   chmod 600 ~/.ssh/config
+   ```
+
+3. Install the public key on the server. This asks for the server's **root
+   password** one last time:
+
+   ```sh
+   ssh-copy-id -i ~/.ssh/hetzner-key.pub root@2.29.100.188
+   ```
+
+4. Save the passphrase in the Keychain (asks for it once), then log in:
+
+   ```sh
+   ssh-add --apple-use-keychain ~/.ssh/hetzner-key
+   ssh root@2.29.100.188
+   ```
+
+   From now on it logs in straight away. If it shows
+   `Enter passphrase for key '…/hetzner-key'`, that's the **key passphrase**
+   from step 1, not the server password: the key login works, and step 4's
+   `ssh-add` stops the prompt. If it asks for `root@2.29.100.188's password`
+   instead, the key isn't installed: repeat step 3.
+
+On the server, turn off password logins (test a new login in a second terminal
+before closing the first):
+
+```sh
+sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+systemctl restart ssh
+```
+
+**Install Docker, certbot and Caddy:**
+
+```sh
 curl -fsSL https://get.docker.com | sh
-curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-apt install -y nodejs certbot caddy dnsutils
+apt install -y certbot caddy dnsutils
 systemctl stop caddy     # it needs port 80 free for step 6; started again in step 9
 
 ufw allow 22,25,80,443/tcp
@@ -79,32 +222,46 @@ Check that the server is allowed to send on port 25:
 timeout 5 bash -c '</dev/tcp/gmail-smtp-in.l.google.com/25' && echo "port 25 OPEN" || echo "port 25 BLOCKED"
 ```
 
-If it says **BLOCKED**, your provider hasn't unblocked port 25 yet. Wait for
-your support ticket, or see "Sending through a relay" in
-[Troubleshooting](#14-troubleshooting).
+**BLOCKED** means Hetzner hasn't unblocked port 25 yet (step 2).
 
-## 3. DNS records in Cloudflare
+## 4. DNS records in Cloudflare
 
-In Cloudflare → **mailvender.com → DNS → Records**:
+In Cloudflare → **mailvender.com → DNS → Records**.
 
-**First, delete the records you added while testing locally.** Anything
-pointing to `feedback.mailvender.localhost` or `_spf.mailvender.localhost`,
-and the old `…._domainkey.mailvender.com` DKIM record. The production
-database generates new values in step 11.
+**Leave the Vercel records alone:** the `@` A record and the `www` CNAME serve
+the frontend.
 
-Then add these records. Set **Proxy status to "DNS only" (grey cloud)** on
-every one. Mail can't pass through Cloudflare's proxy, and Caddy needs a
-direct connection to get its HTTPS certificate.
+**Delete the records you added while testing locally:** anything pointing to
+`feedback.mailvender.localhost` or `_spf.mailvender.localhost`, and any old
+`…._domainkey.mailvender.com` DKIM record. The production database generates
+new values in step 12.
 
-| Type | Name       | Content                                | Proxy    |
-| ---- | ---------- | -------------------------------------- | -------- |
-| A    | `www`      | `YOUR_SERVER_IP`                       | DNS only |
-| A    | `@`        | `YOUR_SERVER_IP`                       | DNS only |
-| A    | `mail`     | `YOUR_SERVER_IP`                       | DNS only |
-| A    | `feedback` | `YOUR_SERVER_IP`                       | DNS only |
-| TXT  | `_spf`     | `v=spf1 ip4:YOUR_SERVER_IP -all`       | –        |
-| TXT  | `@`        | `v=spf1 include:_spf.mailvender.com -all` | –     |
-| TXT  | `_dmarc`   | `v=DMARC1; p=none`                     | –        |
+Then add these. Set **Proxy status to "DNS only" (grey cloud)** on the A
+records: mail can't pass through Cloudflare's proxy, and Caddy needs a direct
+connection to get its HTTPS certificate.
+
+| Type | Name       | Content                                   | Proxy    |
+| ---- | ---------- | ----------------------------------------- | -------- |
+| A    | `api`      | `2.29.100.188`                            | DNS only |
+| A    | `mail`     | `2.29.100.188`                            | DNS only |
+| A    | `feedback` | `2.29.100.188`                            | DNS only |
+| TXT  | `_spf`     | `v=spf1 ip4:2.29.100.188 -all`            | –        |
+| TXT  | `@`        | `v=spf1 include:_spf.mailvender.com -all` | –        |
+| TXT  | `_dmarc`   | `v=DMARC1; p=none`                        | –        |
+
+Type the names and values exactly: no spaces (`_dmarc`, not `_ dmarc`) and a
+lowercase `v=`. Receivers ignore a DMARC record starting with `V=`. Browser
+spell-checkers such as Grammarly can change these as you type.
+
+What the SPF records do:
+
+- **`_spf.mailvender.com`** is the only place the server's IP is written.
+  Every other SPF record, including each customer's `bounce.<their domain>`,
+  points to it with `include:_spf.mailvender.com`. Moving server or adding an
+  IP means editing this one record.
+- **`@` (mailvender.com)** is checked for Mailvender's own system emails
+  (verification, welcome, password reset, invitations). They are sent with
+  `no-reply@mailvender.com` as the Return-Path, so this record must exist.
 
 > **Already receive email at mailvender.com** (Google Workspace, Zoho, …)?
 > A domain may have only **one** SPF record. Don't add a second `@` TXT
@@ -112,51 +269,42 @@ direct connection to get its HTTPS certificate.
 > `v=spf1 include:_spf.google.com include:_spf.mailvender.com -all`. Leave
 > your existing MX records alone.
 
-> **Is www.mailvender.com already hosted elsewhere** (Vercel, Netlify, …)?
-> Then skip the `www` and `@` records and step 9. Run Next.js where it already
-> is, and give the API its own name instead: an A record `api` →
-> `YOUR_SERVER_IP`, `api.mailvender.com { reverse_proxy localhost:8000 }` in
-> the Caddyfile, and `API_INTERNAL_URL=https://api.mailvender.com` on the
-> frontend host.
-
 Check from your Mac (it can take a few minutes):
 
 ```sh
-dig +short mail.mailvender.com          # → YOUR_SERVER_IP
-dig +short TXT _spf.mailvender.com      # → "v=spf1 ip4:YOUR_SERVER_IP -all"
+dig +short api.mailvender.com           # → 2.29.100.188
+dig +short mail.mailvender.com          # → 2.29.100.188
+dig +short TXT _spf.mailvender.com      # → "v=spf1 ip4:2.29.100.188 -all"
+dig +short TXT mailvender.com           # → "v=spf1 include:_spf.mailvender.com -all"
+dig +short TXT _dmarc.mailvender.com    # → "v=DMARC1; p=none"
 ```
 
-## 4. Reverse DNS
+## 5. Copy the backend to the server
 
-Reverse DNS (PTR) maps the IP back to a name. Gmail checks that
-`YOUR_SERVER_IP → mail.mailvender.com` and `mail.mailvender.com →
-YOUR_SERVER_IP` match. Mail from IPs without it usually goes to spam or is
-rejected.
-
-You set it **in your VPS provider's control panel, not in Cloudflare**.
-Look for "Reverse DNS" or "PTR" on the server's IP, and set it to:
-
-```
-mail.mailvender.com
-```
-
-Check it:
+Only `mailvender-backend/` goes to the server. Run this in a terminal on your
+**Mac**, not in the SSH session: if the prompt shows `root@ubuntu-…`, you're
+on the server, where `~/Desktop/mailvender-repo` doesn't exist and rsync fails
+with `change_dir "/root/Desktop/…" failed: No such file or directory`. Open a
+new local tab (Cmd+T) instead.
 
 ```sh
-dig +short -x YOUR_SERVER_IP            # → mail.mailvender.com.
+ssh root@2.29.100.188 'mkdir -p /opt/mailvender'    # first time only: rsync won't create the parent folder
+rsync -a --exclude .venv --exclude .env --exclude .env.production --exclude certs --exclude .git --exclude .vscode --exclude .DS_Store --exclude '__pycache__' \
+  ~/Desktop/mailvender-repo/mailvender-backend/ root@2.29.100.188:/opt/mailvender/mailvender-backend/
 ```
 
-## 5. Copy the project to the server
-
-From your Mac:
+Keep the destination (`root@2.29.100.188:/opt/…`) on the end; the command
+copies nothing without it. Check on the server:
 
 ```sh
-rsync -a --exclude node_modules --exclude .venv --exclude .next --exclude .DS_Store \
-  ~/Desktop/mailvender-repo/ root@YOUR_SERVER_IP:/opt/mailvender/
+ls /opt/mailvender/mailvender-backend    # backend/ infra/ docs/ docker-compose.prod.yml …
 ```
 
-(Or `git clone` your repositories into `/opt/mailvender/mailvender` and
-`/opt/mailvender/mailvender-backend`.)
+`.env` and `certs` are excluded so that later updates (step 15) never
+overwrite the server's production secrets and certificate with your local
+ones. `.env` is created (or copied once) in step 7. `.env.production` (your
+Mac's copy of the production settings, step 7) must never be synced this way.
+`.git` and `.vscode` aren't needed on the server, so they're left out too.
 
 ## 6. TLS certificate for the mail server
 
@@ -195,46 +343,22 @@ EOF
 chmod +x /etc/letsencrypt/renewal-hooks/*/*.sh
 ```
 
-## 7. Create the `.env` file
+## 7. Copy the `.env` file to the server
 
-The production stack already uses mailvender.com for every domain setting
-(see the top of `docker-compose.prod.yml`). You only fill in the database and
-the secrets.
-
-```sh
-cd /opt/mailvender/mailvender-backend
-cp .env.example .env
-
-# Generate the three secrets. Copy each output.
-openssl rand -hex 32                       # → SECRET_KEY
-openssl rand -base64 32 | tr '+/' '-_'     # → DKIM_ENCRYPTION_KEY
-openssl rand -hex 24                       # → INTERNAL_API_TOKEN
-
-nano .env
-```
-
-Fill in these lines and leave the rest empty:
-
-```ini
-ENVIRONMENT=production
-DATABASE_URL=postgresql+psycopg://USER:PASSWORD@HOST:5432/DBNAME?sslmode=require
-SECRET_KEY=<from above>
-DKIM_ENCRYPTION_KEY=<from above>
-INTERNAL_API_TOKEN=<from above>
-```
-
-- **`DATABASE_URL`:** take Neon's/Supabase's connection string and change the
-  start from `postgres://` or `postgresql://` to `postgresql+psycopg://`.
-- **Keep these secrets safe** (e.g. in a password manager). If you lose
-  `DKIM_ENCRYPTION_KEY`, the stored DKIM keys can't be decrypted. If you change
-  `SECRET_KEY`, everyone is signed out and old unsubscribe links stop working.
-- **Optional, for image uploads:** fill in `AWS_REGION`, `AWS_ACCESS_KEY_ID`,
-  `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET`, `AWS_S3_PUBLIC_BASE_URL` (and
-  `AWS_S3_ENDPOINT_URL` for R2 or another S3-compatible service).
+The production settings are in `mailvender-backend/.env.production` on your
+Mac. Copy it to the server as `.env`. Run this on your **Mac**:
 
 ```sh
-chmod 600 .env
+scp ~/Desktop/mailvender-repo/mailvender-backend/.env.production root@2.29.100.188:/opt/mailvender/mailvender-backend/.env
+ssh root@2.29.100.188 'chmod 600 /opt/mailvender/mailvender-backend/.env'
 ```
+
+`scp` copies the file over SSH (encrypted). `chmod 600` makes it readable only
+by root.
+
+To change a setting later, edit `.env.production` on your Mac and run the two
+commands again, then restart on the server:
+`docker compose -f docker-compose.prod.yml up -d`.
 
 ## 8. Start the backend
 
@@ -261,72 +385,74 @@ Check the API answers:
 curl -s http://localhost:8000/health/ready     # → {"status":"ok","database":"ok"}
 ```
 
-## 9. Start the app with HTTPS
+## 9. HTTPS for the API
 
-**Build the frontend.** `API_INTERNAL_URL` is needed at build time as well as
-at run time:
-
-```sh
-cd /opt/mailvender/mailvender
-npm ci
-API_INTERNAL_URL=http://localhost:8000 npm run build
-```
-
-**Run it as a service** so it restarts after crashes and reboots:
-
-```sh
-cat > /etc/systemd/system/mailvender-web.service <<'EOF'
-[Unit]
-Description=Mailvender web app (Next.js)
-After=network.target docker.service
-
-[Service]
-WorkingDirectory=/opt/mailvender/mailvender
-Environment=NODE_ENV=production
-Environment=API_INTERNAL_URL=http://localhost:8000
-ExecStart=/usr/bin/npm start
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl enable --now mailvender-web
-```
-
-**Put HTTPS in front with Caddy.** It gets and renews certificates for
-`www.mailvender.com` automatically:
+Caddy gets and renews the certificate for `api.mailvender.com` automatically
+and forwards requests to the API, which only listens on `localhost:8000`.
+`header_up` sets `X-Forwarded-For` to the address that actually connected, so a
+caller can't fake its IP; requests from Vercel name the visitor with the
+`API_PROXY_SECRET` headers instead (step 10).
 
 ```sh
 cat > /etc/caddy/Caddyfile <<'EOF'
-www.mailvender.com {
-	reverse_proxy localhost:3000
-}
-
-mailvender.com {
-	redir https://www.mailvender.com{uri} permanent
+api.mailvender.com {
+	reverse_proxy localhost:8000 {
+		header_up X-Forwarded-For {remote_host}
+	}
 }
 EOF
 systemctl enable --now caddy
 systemctl reload caddy
 ```
 
+From your Mac:
+
+```sh
+curl -s https://api.mailvender.com/health/ready     # → {"status":"ok","database":"ok"}
+```
+
+## 10. Point Vercel at the API
+
+The frontend forwards `/api/*` to `API_INTERNAL_URL` (`next.config.ts`).
+
+1. In Vercel → the project → **Settings → Environment Variables**, add for
+   **Production**:
+   - `API_INTERNAL_URL` = `https://api.mailvender.com`
+   - `API_PROXY_SECRET` = the same value as in the server's `.env` (mark it
+     **Sensitive**)
+2. **Redeploy.** The rewrite is fixed at build time, so changing the variables
+   alone isn't enough.
+
+`proxy.ts` adds the secret and the visitor's IP to every `/api/*` request
+(and removes any a browser sent itself). To check it works, sign in on
+www.mailvender.com, then in Supabase → **SQL Editor** run:
+
+```sql
+select ip_address, created_at from sessions order by created_at desc limit 1;
+```
+
+`ip_address` should be your own IP (search "what is my IP"). If it's a Vercel
+address, the two `API_PROXY_SECRET` values don't match or Vercel wasn't
+redeployed.
+
 Open **https://www.mailvender.com**. You should see the login page.
 
-## 10. First email to your Gmail
+## 11. First email to your Gmail
 
 1. On https://www.mailvender.com, **sign up with your Gmail address**.
 2. Mailvender sends you a verification email from `no-reply@mailvender.com`.
    **This is your first real email.** Look in your Gmail inbox, and if it isn't
-   there, in **Spam**. New servers have no reputation yet, so spam is normal at
-   first. Click "Not spam".
+   there, in **Spam**. New servers have no reputation yet, and the email isn't
+   DKIM-signed until step 12, so spam is normal at first. Click "Not spam".
 3. Click the link in the email to verify your account and sign in.
 
-Didn't arrive? See [Troubleshooting](#14-troubleshooting).
+Didn't arrive? See [Troubleshooting](#16-troubleshooting).
 
-## 11. Verify mailvender.com as a sending domain
+## 12. Verify mailvender.com as a sending domain
 
-This sets up DKIM signing, which Gmail needs to trust your mail.
+This sets up DKIM signing, which Gmail needs to trust your mail. **Do it
+before inviting real users:** until mailvender.com is verified, the worker has
+no DKIM key for it, so system emails go out unsigned.
 
 1. In the app, open **Settings → Sending domains** and add `mailvender.com`.
 2. The app lists DNS records to add. Add each one in Cloudflare exactly as
@@ -334,7 +460,7 @@ This sets up DKIM signing, which Gmail needs to trust your mail.
    - **TXT** `<selector>._domainkey` → `v=DKIM1; k=rsa; p=…` (DKIM)
    - **MX** `bounce` → `feedback.mailvender.com`, priority 10 (bounces come back here)
    - **TXT** `bounce` → `v=spf1 include:_spf.mailvender.com -all`
-   - **TXT** `_dmarc`: you already added this in step 3; the app checks it.
+   - **TXT** `_dmarc`: you already added this in step 4; the app checks it.
 3. Wait a few minutes and click **Verify**. All records should turn green.
 4. In **Settings → Senders**, approve the address you'll send from, e.g.
    `hello@mailvender.com`.
@@ -342,13 +468,17 @@ This sets up DKIM signing, which Gmail needs to trust your mail.
 From now on, all mail from `@mailvender.com` is DKIM-signed, including the
 verification and password-reset emails.
 
-## 12. Send a test and check it
+Customers go through the same steps for their own domains: their records point
+at `feedback.mailvender.com` and `_spf.mailvender.com`, and their mail is
+signed with their own DKIM key.
+
+## 13. Send a test and check it
 
 1. Open an email in the studio, use **Send test**, and send it to your Gmail.
 2. In Gmail, open the message → **⋮ (More) → Show original**. You want:
 
    ```
-   SPF:   PASS with IP YOUR_SERVER_IP
+   SPF:   PASS with IP 2.29.100.188
    DKIM:  'PASS' with domain mailvender.com
    DMARC: 'PASS'
    ```
@@ -365,29 +495,64 @@ verification and password-reset emails.
 
 - **Warm up the IP.** Start with a few dozen emails a day to people who expect
   them, and increase gradually over 2–4 weeks. Sending a big list from a new IP
-  on day one gets it blocked.
+  on day one gets it blocked. All customers share this IP, so one bad sender
+  hurts everyone: keep new accounts on low limits and watch bounce and
+  complaint rates.
 - Register `mailvender.com` in [Google Postmaster Tools](https://postmaster.google.com/)
-  to see your Gmail reputation, and your IP in
+  to see your Gmail reputation, and `2.29.100.188` in
   [Microsoft SNDS](https://sendersupport.olc.protection.outlook.com/snds/).
 - Once deliverability looks good, tighten DMARC from `p=none` to
   `p=quarantine`.
 
-## 13. Updating after code changes
+## 14. Back up logs to S3
 
-From your Mac, copy the changes (step 5), then on the server:
+Docker keeps only the last 250 MB of logs per service. A systemd timer copies
+them to the bucket every hour, one gzip file per service:
+`s3://mailvender/prod/logs/<service>/<YYYY>/<MM>/<DD>/<service>-<time>.log.gz`.
+The upload runs in the API image with the AWS credentials from `.env`; the
+API's IAM access to `prod/*` already covers `prod/logs/`.
+
+```sh
+cd /opt/mailvender/mailvender-backend
+cp infra/log-backup/mailvender-log-backup.service infra/log-backup/mailvender-log-backup.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now mailvender-log-backup.timer
+
+systemctl start mailvender-log-backup.service      # first run now: uploads everything Docker still has
+journalctl -u mailvender-log-backup.service -n 20  # one "prod/logs/…" line per uploaded file
+systemctl list-timers mailvender-log-backup.timer   # next run
+```
+
+The logs contain email addresses and IP addresses, so they stay private (the
+bucket policy only makes `prod/images/*/public/*` public). Expire them: in
+the AWS Console → S3 → `mailvender` → **Management → Create lifecycle rule**:
+prefix `prod/logs/`, move to Standard-IA after 30 days, expire after 365 days.
+
+To read a backup (from any machine with the AWS CLI and access to the bucket):
+
+```sh
+aws s3 cp s3://mailvender/prod/logs/api/2026/10/17/api-20261017T140000Z.log.gz - | gunzip | less
+```
+
+## 15. Updating after code changes
+
+**Backend:** from your Mac, copy the changes (the rsync in step 5), then on
+the server:
 
 ```sh
 cd /opt/mailvender/mailvender-backend
 docker compose -f docker-compose.prod.yml up -d --build    # migrations run automatically
-
-cd /opt/mailvender/mailvender
-npm ci && API_INTERNAL_URL=http://localhost:8000 npm run build
-systemctl restart mailvender-web
 ```
 
 Queued mail is kept across restarts (the `postfix-queue` volume).
 
-## 14. Troubleshooting
+**Frontend:** deploy on Vercel as usual. Nothing changes on the server.
+
+`infra/log-backup/` comes along with the rsync. Re-run the `cp` and
+`systemctl daemon-reload` from step 14 only if the `.service` or `.timer` file
+changed.
+
+## 16. Troubleshooting
 
 All `docker compose` commands below run in `/opt/mailvender/mailvender-backend`
 with `-f docker-compose.prod.yml`.
@@ -403,19 +568,24 @@ docker compose -f docker-compose.prod.yml exec postfix mailq     # mail waiting 
 | You see in the Postfix log                                  | Meaning and fix                                                                                                                              |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `status=sent (250 …)`                                       | Gmail accepted it. Look in Spam, and under All Mail.                                                                                         |
-| `connect to gmail-smtp-in…:25: Connection timed out`        | Outbound port 25 is blocked by your provider. Get it unblocked, or use a relay (below).                                                      |
-| `status=bounced … 550-5.7.1 … PTR record`                   | Reverse DNS is missing or wrong. Redo step 4.                                                                                                |
-| `status=bounced … 550-5.7.26 … unauthenticated`             | SPF and DKIM both failed. Check the `_spf` and `@` TXT records (step 3) and that the domain is verified (step 11).                            |
+| `connect to gmail-smtp-in…:25: Connection timed out`        | Hetzner still blocks outbound port 25 (step 2). Wait for the unblock, or use a relay (below).                                                |
+| `status=bounced … 550-5.7.1 … PTR record`                   | Reverse DNS is missing or wrong. Redo the reverse DNS part of step 2.                                                                        |
+| `status=bounced … 550-5.7.26 … unauthenticated`             | SPF and DKIM both failed. Check the `_spf` and `@` TXT records (step 4) and that the domain is verified (step 12).                           |
 | `status=deferred … 421-4.7.0 … rate limited` / `suspicious` | Gmail is slowing down a new IP. It retries automatically. Send less and warm up gradually.                                                   |
-| Nothing at all                                              | The worker never handed it over. Check the `worker` logs, that the sender is approved (step 11), and that the recipient isn't suppressed.   |
+| Nothing at all                                              | The worker never handed it over. Check the `worker` logs, that the sender is approved (step 12), and that the recipient isn't suppressed.   |
 
 **A service won't start.** Run `docker compose -f docker-compose.prod.yml logs <service>`.
 The production checks name the setting to fix.
 
+**The site loads but sign-in or every API call fails.** Vercel can't reach the
+API. Check `curl https://api.mailvender.com/health/ready` from your Mac, that
+`API_INTERNAL_URL` is set on Vercel, and that you redeployed after setting it
+(step 10).
+
 **Login works but you're logged out immediately.** You opened the site over
 `http://`. Use `https://www.mailvender.com`; the session cookie is HTTPS-only.
 
-**Sending through a relay (if port 25 stays blocked).** Postfix can hand all
+**Sending through a relay (while port 25 is blocked).** Postfix can hand all
 mail to an email provider's SMTP server instead of delivering it itself (e.g.
 Amazon SES, Brevo, Mailgun). Add to `.env`:
 
@@ -429,3 +599,4 @@ then `docker compose -f docker-compose.prod.yml up -d postfix`. Also add the
 provider's own DNS records (they give you SPF/DKIM values) and verify
 `mailvender.com` with them. The catch: bounces and spam complaints then go to
 the provider, not to Mailvender, so they aren't suppressed automatically yet.
+Remove the three lines once Hetzner opens port 25.
