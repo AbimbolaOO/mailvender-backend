@@ -120,7 +120,7 @@ backend/
 │   ├── logging.py              # JSON logs + request/user/account contextvars
 │   ├── security.py             # Argon2id, token hashing, Fernet, DKIM keygen, signed tokens
 │   ├── pagination.py           # cursor pagination
-│   ├── cli.py                  # make-operator, run-job, openapi, dev-verify-domain
+│   ├── cli.py                  # make-operator, run-job, openapi, dev-verify-domain, platform-dkim
 │   ├── worker.py               # outbox consumer + scheduler + DKIM key sync
 │   ├── api/
 │   │   ├── deps.py             # DI: UoW, adapters, auth, account context
@@ -440,7 +440,9 @@ stateDiagram-v2
 ```
 
 **Key distribution to OpenDKIM.** The worker's `dkim_key_sync` job (every
-30 s) decrypts active keys onto a private volume shared only with OpenDKIM
+30 s) decrypts the active keys of verified domains, plus the platform key for
+Mailvender's own domain (`platform_dkim_keys`, not owned by any account),
+onto a private volume shared only with OpenDKIM
 (`keys/<selector>.private`, `KeyTable`, `SigningTable` written atomically) and
 bumps a `generation` file. OpenDKIM's entrypoint watches it and sends
 `SIGUSR1` to reload. **Rotation:** a pending key is published as `dkim_next`;
@@ -643,6 +645,7 @@ flowchart LR
     O --> J["run_due_jobs()"]
     J --> L
     J --> J1["dns_recheck – 10 min"]
+    J --> J5["platform_dkim – 5 min"]
     J --> J2["account_health – 5 min"]
     J --> J3["retention – 24 h"]
     J --> J4["dkim_key_sync – 30 s"]

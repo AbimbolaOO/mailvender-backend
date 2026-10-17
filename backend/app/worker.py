@@ -27,10 +27,11 @@ from app.repositories.sql import SqlUnitOfWork
 from app.security import decrypt_secret, utcnow
 from app.services.common import UnitOfWorkFactory
 from app.services.dns import DnsResolver, SystemDnsResolver
-from app.services.domains import DomainService
+from app.services.domains import DomainService, is_platform_domain
 from app.services.health import HealthService
 from app.services.lifecycle import LifecycleService
 from app.services.mta import MailTransport, PermanentDeliveryError, SmtpTransport, TemporaryDeliveryError
+from app.services.platform_dkim import PlatformDkimService
 from app.services.sending import DeliveryService, system_email
 from app.services.storage import ObjectStorage, S3Storage
 
@@ -72,6 +73,8 @@ class Worker:
         self.stopping = False
         self.jobs = [
             Job("dns_recheck", timedelta(minutes=10), lambda uow: DomainService(uow, self.resolver).recheck_due()),
+            Job("platform_dkim", timedelta(minutes=5),
+                lambda uow: len(PlatformDkimService(uow, self.resolver).check())),
             Job("account_health", timedelta(minutes=5), lambda uow: HealthService(uow).evaluate_all()),
             Job("retention", timedelta(hours=24), lambda uow: LifecycleService(uow, self.storage).enforce_retention()),
         ]
@@ -180,7 +183,8 @@ class Worker:
 
 
 def sync_dkim_keys(uow: UnitOfWork, directory: Path) -> int:
-    """Writes the active DKIM keys as OpenDKIM KeyTable/SigningTable files.
+    """Writes the active DKIM keys (verified customer domains + the platform domain) as OpenDKIM
+    KeyTable/SigningTable files.
 
     The private keys are decrypted only into this directory, which must be a
     private volume shared with the OpenDKIM container alone. OpenDKIM reloads
@@ -191,15 +195,19 @@ def sync_dkim_keys(uow: UnitOfWork, directory: Path) -> int:
     keys_dir.mkdir(exist_ok=True)
     key_table, signing_table = [], []
     wanted = set()
-    for key, domain in sorted(uow.dkim_keys.list_signing(), key=lambda pair: pair[1].name):
+    signing = [(key, domain.name) for key, domain in uow.dkim_keys.list_signing()
+               if not is_platform_domain(domain.name)]
+    platform = get_settings().platform_domain
+    signing += [(key, platform) for key in uow.platform_dkim_keys.list_for_domain(platform) if key.status == "active"]
+    for key, domain_name in sorted(signing, key=lambda pair: pair[1]):
         filename = f"{key.selector}.private"
         wanted.add(filename)
         path = keys_dir / filename
         if not path.exists():
             path.write_text(decrypt_secret(key.private_key_encrypted))
             os.chmod(path, 0o600)
-        key_table.append(f"{key.selector}._domainkey.{domain.name} {domain.name}:{key.selector}:{path}")
-        signing_table.append(f"*@{domain.name} {key.selector}._domainkey.{domain.name}")
+        key_table.append(f"{key.selector}._domainkey.{domain_name} {domain_name}:{key.selector}:{path}")
+        signing_table.append(f"*@{domain_name} {key.selector}._domainkey.{domain_name}")
     for stale in keys_dir.glob("*.private"):
         if stale.name not in wanted:
             stale.unlink()

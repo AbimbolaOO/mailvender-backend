@@ -230,8 +230,9 @@ class LifecycleService:
         report.sessions_deleted = self.uow.sessions.delete_expired_before(now - timedelta(days=30))
         report.tokens_deleted = self.uow.email_tokens.delete_expired_before(now - timedelta(days=7))
         report.rate_counters_deleted = self.uow.rate_limits.delete_before(now - timedelta(days=2))
-        report.dkim_keys_deleted = self.uow.dkim_keys.delete_retired_before(
-            now - timedelta(days=s.retention_retired_dkim_days))
+        retired_before = now - timedelta(days=s.retention_retired_dkim_days)
+        report.dkim_keys_deleted = (self.uow.dkim_keys.delete_retired_before(retired_before)
+                                    + self.uow.platform_dkim_keys.delete_retired_before(retired_before))
         for export in self.uow.exports.list_expired(now):
             if export.object_key:
                 self.storage.delete(export.object_key)

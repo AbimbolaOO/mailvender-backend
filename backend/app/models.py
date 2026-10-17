@@ -187,6 +187,21 @@ class DkimKey(Base):
     retired_at: Mapped[datetime | None]
 
 
+class PlatformDkimKey(Base):
+    """DKIM keys for Mailvender's own domain (system emails). Not account-owned: `python -m app.cli platform-dkim`."""
+
+    __tablename__ = "platform_dkim_keys"
+    id: Mapped[uuid.UUID] = _id()
+    domain: Mapped[str] = mapped_column(String(253), index=True)
+    selector: Mapped[str] = mapped_column(String(63), unique=True)
+    private_key_encrypted: Mapped[str] = mapped_column(Text)
+    public_key: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(16))  # pending | active | retired
+    created_at: Mapped[datetime] = _created()
+    activated_at: Mapped[datetime | None]
+    retired_at: Mapped[datetime | None]
+
+
 class SenderIdentity(Base):
     __tablename__ = "sender_identities"
     __table_args__ = (UniqueConstraint("account_id", "email"),)

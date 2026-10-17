@@ -256,16 +256,35 @@ class SqlDkimKeys(_Repo):
         )
 
     def list_signing(self) -> list[tuple[m.DkimKey, m.Domain]]:
+        # Only verified domains: an unverified one may not belong to the account that added it.
         rows = self.s.execute(
             select(m.DkimKey, m.Domain)
             .join(m.Domain, m.Domain.id == m.DkimKey.domain_id)
-            .where(m.DkimKey.status == "active", m.Domain.disabled_at.is_(None))
+            .where(m.DkimKey.status == "active", m.Domain.status == "verified", m.Domain.disabled_at.is_(None))
         ).all()
         return [(key, domain) for key, domain in rows]
 
     def delete_retired_before(self, before: datetime) -> int:
         return _rows(self.s.execute(
             delete(m.DkimKey).where(m.DkimKey.status == "retired", m.DkimKey.retired_at < before)
+        ))
+
+
+class SqlPlatformDkimKeys(_Repo):
+    model = m.PlatformDkimKey
+
+    def list_for_domain(self, domain: str) -> list[m.PlatformDkimKey]:
+        return list(
+            self.s.execute(
+                select(m.PlatformDkimKey).where(m.PlatformDkimKey.domain == domain)
+                .order_by(m.PlatformDkimKey.created_at)
+            ).scalars()
+        )
+
+    def delete_retired_before(self, before: datetime) -> int:
+        return _rows(self.s.execute(
+            delete(m.PlatformDkimKey).where(m.PlatformDkimKey.status == "retired",
+                                            m.PlatformDkimKey.retired_at < before)
         ))
 
 
@@ -738,6 +757,7 @@ class SqlUnitOfWork:
         self.api_keys = SqlApiKeys(session)
         self.domains = SqlDomains(session)
         self.dkim_keys = SqlDkimKeys(session)
+        self.platform_dkim_keys = SqlPlatformDkimKeys(session)
         self.sender_identities = SqlSenderIdentities(session)
         self.assets = SqlAssets(session)
         self.messages = SqlMessages(session)

@@ -1,7 +1,9 @@
 """Operational commands.
 
     python -m app.cli make-operator someone@example.com
-    python -m app.cli run-job retention|dns_recheck|account_health|dkim_key_sync
+    python -m app.cli run-job retention|dns_recheck|platform_dkim|account_health|dkim_key_sync
+    python -m app.cli platform-dkim          (DKIM for SYSTEM_FROM_EMAIL's domain: shows the DNS record to publish)
+    python -m app.cli platform-dkim rotate   (starts a key rotation)
     python -m app.cli openapi > openapi.json
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
     python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
@@ -81,6 +83,28 @@ def main(argv: list[str]) -> int:
             domain.last_checked_at = utcnow() + timedelta(days=3650)  # skip DNS rechecks
             uow.commit()
             print(f"{domain.name} marked verified (development only).")
+            return 0
+        if command == "platform-dkim" and args in ([], ["rotate"]):
+            from app.errors import Conflict
+            from app.services.dns import SystemDnsResolver
+            from app.services.platform_dkim import PlatformDkimService
+
+            service = PlatformDkimService(uow, SystemDnsResolver())
+            if args:
+                try:
+                    service.rotate()
+                except Conflict as error:
+                    print(error.message, file=sys.stderr)
+                    return 1
+            print(f"Platform DKIM for {service.domain}\n")
+            for view in service.check():
+                state = {"verified": "published", "missing": "NOT FOUND in DNS", "mismatched": "WRONG value in DNS",
+                         "unchecked": "DNS lookup failed"}[view.dns_status]
+                print(f"{view.key.status:8} {view.key.selector}   {state}")
+                print(f"  TXT  {view.record_name}")
+                print(f"       {view.record_value}\n")
+            print("Publish each record above (TXT, exactly as shown). A pending key becomes active once its\n"
+                  "record is found; the worker checks every 5 minutes, or run this command again.")
             return 0
         if command == "move-dataset-content" and not args:
             from app.services.storage import S3Storage

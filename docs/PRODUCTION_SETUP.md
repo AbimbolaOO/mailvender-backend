@@ -53,8 +53,9 @@ items off as you go.
 - [ ] Step 9: Caddy serves `https://api.mailvender.com` (ports 80/443 currently refuse connections).
 - [ ] Step 10: set `API_INTERNAL_URL` and `API_PROXY_SECRET` on Vercel and redeploy.
 - [ ] Step 11: sign up and receive the verification email.
-- [ ] Step 12: verify `mailvender.com` as a sending domain (DKIM, `bounce` MX/TXT).
-- [ ] Step 13: test email shows SPF, DKIM and DMARC PASS.
+- [ ] Redeploy the backend with the platform DKIM change (step 15).
+- [ ] Step 12: publish the platform DKIM record for `mailvender.com` (`app.cli platform-dkim`).
+- [ ] Step 13: a system email shows SPF, DKIM and DMARC PASS.
 - [ ] Step 14: enable the hourly log backup.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
@@ -74,10 +75,10 @@ Steps 3 and 5–9 are best done in one sitting on the server.
 9. [HTTPS for the API](#9-https-for-the-api)
 10. [Point Vercel at the API](#10-point-vercel-at-the-api)
 11. [First email to your Gmail](#11-first-email-to-your-gmail)
-12. [Verify mailvender.com as a sending domain](#12-verify-mailvendercom-as-a-sending-domain)
-13. [Send a test and check it](#13-send-a-test-and-check-it)
+12. [DKIM for mailvender.com](#12-dkim-for-mailvendercom)
+13. [Check a real email](#13-check-a-real-email)
 14. [Back up logs to S3](#14-back-up-logs-to-s3)
-15. [Updating after code changes](#15-updating-after-code-changes)
+15. [Redeploying after code changes](#15-redeploying-after-code-changes)
 16. [Troubleshooting](#16-troubleshooting)
 
 ---
@@ -448,36 +449,72 @@ Open **https://www.mailvender.com**. You should see the login page.
 
 Didn't arrive? See [Troubleshooting](#16-troubleshooting).
 
-## 12. Verify mailvender.com as a sending domain
+## 12. DKIM for mailvender.com
 
-This sets up DKIM signing, which Gmail needs to trust your mail. **Do it
-before inviting real users:** until mailvender.com is verified, the worker has
-no DKIM key for it, so system emails go out unsigned.
+System emails (verification, welcome, password reset, invitations) go out
+automatically from `no-reply@mailvender.com`. There's nothing to set up in the
+app: `mailvender.com` is reserved, so no account (yours included) can add it
+under **Settings → Sending domains**. Mailvender creates its DKIM key itself;
+you only copy the DNS record into Cloudflare.
 
-1. In the app, open **Settings → Sending domains** and add `mailvender.com`.
-2. The app lists DNS records to add. Add each one in Cloudflare exactly as
-   shown, with **DNS only** where Cloudflare offers the proxy option:
-   - **TXT** `<selector>._domainkey` → `v=DKIM1; k=rsa; p=…` (DKIM)
-   - **MX** `bounce` → `feedback.mailvender.com`, priority 10 (bounces come back here)
-   - **TXT** `bounce` → `v=spf1 include:_spf.mailvender.com -all`
-   - **TXT** `_dmarc`: you already added this in step 4; the app checks it.
-3. Wait a few minutes and click **Verify**. All records should turn green.
-4. In **Settings → Senders**, approve the address you'll send from, e.g.
-   `hello@mailvender.com`.
+> Needs the backend version with `platform-dkim`. If the command below only
+> prints the list of commands (without `platform-dkim` in it), redeploy first
+> (step 15).
 
-From now on, all mail from `@mailvender.com` is DKIM-signed, including the
-verification and password-reset emails.
+**1. Get the DKIM record.** SSH into the server and run:
 
-Customers go through the same steps for their own domains: their records point
-at `feedback.mailvender.com` and `_spf.mailvender.com`, and their mail is
-signed with their own DKIM key.
+```sh
+cd /opt/mailvender/mailvender-backend
+docker compose -f docker-compose.prod.yml exec api python -m app.cli platform-dkim
+```
 
-## 13. Send a test and check it
+It creates the key the first time and prints the record:
 
-1. Open an email in the studio, use **Send test**, and send it to your Gmail.
+```text
+Platform DKIM for mailvender.com
+
+pending  mvsys202610abc123   NOT FOUND in DNS
+  TXT  mvsys202610abc123._domainkey.mailvender.com
+       v=DKIM1; k=rsa; p=MIIBIjANBgkq…
+```
+
+**2. Add it in Cloudflare.** **DNS → Records → Add record**:
+
+| Field   | Value                                                                       |
+| ------- | --------------------------------------------------------------------------- |
+| Type    | `TXT`                                                                       |
+| Name    | `mvsys202610abc123._domainkey` (your selector; Cloudflare adds `.mailvender.com`) |
+| Content | the whole `v=DKIM1; k=rsa; p=…` line, copied in one piece                   |
+
+Copy the `p=` value completely: it's about 400 characters on one line. If your
+terminal wraps it, select the full line; a missing character makes the record
+`WRONG value in DNS`.
+
+**3. Check it's active.** Within 5 minutes the worker finds the record and
+activates the key. Run the command from step 1 again; you want:
+
+```text
+active   mvsys202610abc123   published
+```
+
+From then on, all mail from `@mailvender.com` is DKIM-signed.
+
+**Rotating the key** (e.g. yearly): run `python -m app.cli platform-dkim rotate`
+the same way, publish the new record it shows, and keep the old one. Once the
+new record is found, the new key takes over; then delete the old record.
+
+**Customer domains** are different: customers add them in the app under
+**Settings → Sending domains**, publish the records it shows (DKIM, plus
+`bounce` MX and TXT pointing at `feedback.mailvender.com` and
+`_spf.mailvender.com`), click **Verify**, and approve their senders.
+
+## 13. Check a real email
+
+1. On www.mailvender.com, use **Forgot password** with your Gmail address (or
+   sign up another address) so a fresh system email is sent.
 2. In Gmail, open the message → **⋮ (More) → Show original**. You want:
 
-   ```
+   ```text
    SPF:   PASS with IP 2.29.100.188
    DKIM:  'PASS' with domain mailvender.com
    DMARC: 'PASS'
@@ -490,6 +527,11 @@ signed with their own DKIM key.
    docker compose -f docker-compose.prod.yml logs postfix | grep status=
    # … to=<you@gmail.com>, relay=gmail-smtp-in.l.google.com[…]:25, … status=sent (250 2.0.0 OK …)
    ```
+
+To test the customer path too (the studio's **Send test**), use another domain
+you own: add it under **Settings → Sending domains** like a customer would,
+verify it, approve a sender, and send a test. "Show original" then shows DKIM
+`PASS` with that domain.
 
 **Before sending to real customers:**
 
@@ -534,23 +576,53 @@ To read a backup (from any machine with the AWS CLI and access to the bucket):
 aws s3 cp s3://mailvender/prod/logs/api/2026/10/17/api-20261017T140000Z.log.gz - | gunzip | less
 ```
 
-## 15. Updating after code changes
+## 15. Redeploying after code changes
 
-**Backend:** from your Mac, copy the changes (the rsync in step 5), then on
-the server:
+### Backend
+
+**1. Copy the code to the server.** In a terminal on your **Mac** (not the SSH
+session):
 
 ```sh
-cd /opt/mailvender/mailvender-backend
-docker compose -f docker-compose.prod.yml up -d --build    # migrations run automatically
+rsync -a --exclude .venv --exclude .env --exclude .env.production --exclude certs --exclude .git --exclude .vscode --exclude .DS_Store --exclude '__pycache__' \
+  ~/Desktop/mailvender-repo/mailvender-backend/ root@2.29.100.188:/opt/mailvender/mailvender-backend/
 ```
 
-Queued mail is kept across restarts (the `postfix-queue` volume).
+The server's `.env` and `certs/` are never touched.
 
-**Frontend:** deploy on Vercel as usual. Nothing changes on the server.
+**2. Rebuild and restart.** On the **server**:
 
-`infra/log-backup/` comes along with the rsync. Re-run the `cp` and
-`systemctl daemon-reload` from step 14 only if the `.service` or `.timer` file
-changed.
+```sh
+ssh root@2.29.100.188
+cd /opt/mailvender/mailvender-backend
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Database migrations run automatically when the API starts. Queued mail is kept
+across restarts (the `postfix-queue` volume).
+
+**3. Check it's healthy.**
+
+```sh
+docker compose -f docker-compose.prod.yml ps                # api/postfix healthy, worker/opendkim running
+docker compose -f docker-compose.prod.yml logs --tail 30 api worker
+curl -s http://localhost:8000/health/ready                  # {"status":"ok","database":"ok"}
+```
+
+From your Mac, `curl -s https://api.mailvender.com/health/ready` should give
+the same.
+
+**Changed a setting only?** Copy `.env.production` again (step 7), then on the
+server run `docker compose -f docker-compose.prod.yml up -d` (no `--build`).
+
+**Changed `infra/log-backup/`?** Re-run the `cp` and `systemctl daemon-reload`
+from step 14.
+
+### Frontend
+
+Push to the branch Vercel deploys, or redeploy in the Vercel dashboard. Nothing
+changes on the server. After changing Vercel environment variables, redeploy
+too (step 10).
 
 ## 16. Troubleshooting
 
@@ -570,9 +642,9 @@ docker compose -f docker-compose.prod.yml exec postfix mailq     # mail waiting 
 | `status=sent (250 …)`                                       | Gmail accepted it. Look in Spam, and under All Mail.                                                                                         |
 | `connect to gmail-smtp-in…:25: Connection timed out`        | Hetzner still blocks outbound port 25 (step 2). Wait for the unblock, or use a relay (below).                                                |
 | `status=bounced … 550-5.7.1 … PTR record`                   | Reverse DNS is missing or wrong. Redo the reverse DNS part of step 2.                                                                        |
-| `status=bounced … 550-5.7.26 … unauthenticated`             | SPF and DKIM both failed. Check the `_spf` and `@` TXT records (step 4) and that the domain is verified (step 12).                           |
+| `status=bounced … 550-5.7.26 … unauthenticated`             | SPF and DKIM both failed. Check the `_spf` and `@` TXT records (step 4) and that `platform-dkim` shows the key `active` (step 12).          |
 | `status=deferred … 421-4.7.0 … rate limited` / `suspicious` | Gmail is slowing down a new IP. It retries automatically. Send less and warm up gradually.                                                   |
-| Nothing at all                                              | The worker never handed it over. Check the `worker` logs, that the sender is approved (step 12), and that the recipient isn't suppressed.   |
+| Nothing at all                                              | The worker never handed it over. Check the `worker` logs, (for app sends) that the sender is approved, and that the recipient isn't suppressed.|
 
 **A service won't start.** Run `docker compose -f docker-compose.prod.yml logs <service>`.
 The production checks name the setting to fix.

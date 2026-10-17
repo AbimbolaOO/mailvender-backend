@@ -112,6 +112,11 @@ Mailvender's own records (once):
 - `RETURN_PATH_MX_HOST` (e.g. `feedback.mailvender.com`) A record → the
   Postfix inbound IP; port 25 open for bounces.
 - Reverse DNS (PTR) for every outbound IP matching `POSTFIX_HOSTNAME`.
+- Platform DKIM for the `SYSTEM_FROM_EMAIL` domain (system emails):
+  `python -m app.cli platform-dkim` prints the `<selector>._domainkey` TXT
+  record; the `platform_dkim` job activates the key once it's published, and
+  `platform-dkim rotate` starts a rotation. Customers can't add this domain or
+  its subdomains.
 
 Per customer domain (shown in Settings → Sending domains and by `GET
 /v1/domains/{id}`):

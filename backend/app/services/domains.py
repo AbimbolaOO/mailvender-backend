@@ -9,6 +9,9 @@ Records required by the Postfix deployment (see docs/RUNBOOK.md#dns):
 * ``<return_path_subdomain>.<domain>`` TXT – SPF for the envelope sender,
   including Mailvender's outbound IPs. It aligns (relaxed) with the From domain.
 * ``_dmarc.<domain>`` TXT – recommended; required for bulk sending.
+
+Mailvender's own domain (``Settings.platform_domain``) and its subdomains are
+reserved: they're signed with the platform key (services/platform_dkim.py).
 """
 
 import logging
@@ -42,6 +45,22 @@ def normalize_domain(value: str) -> str:
     if len(name) > 253 or len(labels) < 2 or not all(_LABEL.match(label) for label in labels) or labels[-1].isdigit():
         raise ValidationFailed([field_error("name", "Enter a domain name like example.com.", "invalid_domain")])
     return name
+
+
+def is_platform_domain(name: str) -> bool:
+    platform = get_settings().platform_domain
+    return name == platform or name.endswith(f".{platform}")
+
+
+def new_dkim_selector(prefix: str = "mv") -> str:
+    return f"{prefix}{utcnow():%Y%m}{new_token()[:6].lower().replace('-', 'x').replace('_', 'y')}"
+
+
+def dkim_record_status(found: list[str], public_key: str) -> tuple[str, list[str]]:
+    """(missing | verified | mismatched, the DKIM-looking TXT values) for a published key."""
+    candidates = [txt for txt in found if "p=" in txt.lower()]
+    ok = any(_squash(_tags(txt).get("p", "")) == _squash(public_key) for txt in candidates)
+    return ("missing" if not candidates else ("verified" if ok else "mismatched")), candidates
 
 
 def _squash(value: str) -> str:
@@ -87,6 +106,8 @@ class DomainService:
 
     def register(self, ctx: AccountContext, name: str) -> DomainView:
         normalized = normalize_domain(name)
+        if is_platform_domain(normalized):
+            raise Conflict("This domain belongs to Mailvender and can't be added.", code="domain_unavailable")
         existing = self.uow.domains.get_live_by_name(normalized)
         if existing:
             if existing.account_id == ctx.account_id:
@@ -118,7 +139,7 @@ class DomainService:
             m.DkimKey(
                 account_id=domain.account_id,
                 domain_id=domain.id,
-                selector=f"mv{now:%Y%m}{new_token()[:6].lower().replace('-', 'x').replace('_', 'y')}",
+                selector=new_dkim_selector(),
                 private_key_encrypted=encrypt_secret(pair.private_pem),
                 public_key=pair.public_dns_value,
                 status=status,
@@ -206,11 +227,7 @@ class DomainService:
             record.status, record.found, record.note = "missing", [], f"Lookup failed: {error}"
             return
         if record.key in ("dkim", "dkim_next"):
-            candidates = [txt for txt in found if "p=" in txt.lower()]
-            record.found = candidates
-            want = _squash(record.value.split("p=", 1)[1])
-            ok = any(_squash(_tags(txt).get("p", "")) == want for txt in candidates)
-            record.status = "missing" if not candidates else ("verified" if ok else "mismatched")
+            record.status, record.found = dkim_record_status(found, record.value.split("p=", 1)[1])
         elif record.key == "spf":
             spf = [txt for txt in found if txt.lower().startswith("v=spf1")]
             record.found = spf

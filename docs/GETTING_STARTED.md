@@ -347,7 +347,7 @@ Run these from `mailvender-backend/`:
 | Rebuild after changing Python code | `docker compose up -d --build api worker`                                                                                |
 | Mark a domain verified (dev only)  | `docker compose exec api python -m app.cli dev-verify-domain example.test`                                               |
 | Make a user an operator            | `docker compose exec api python -m app.cli make-operator you@example.com`                                                |
-| Run a scheduled job now            | `docker compose exec worker python -m app.cli run-job retention` (also `dns_recheck`, `account_health`, `dkim_key_sync`) |
+| Run a scheduled job now            | `docker compose exec worker python -m app.cli run-job retention` (also `dns_recheck`, `platform_dkim`, `account_health`, `dkim_key_sync`) |
 | Apply database migrations by hand  | `docker compose exec api alembic upgrade head` (normally automatic)                                                      |
 | Open a database shell              | `docker compose exec postgres psql -U mailvender mailvender`                                                             |
 

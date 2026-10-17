@@ -163,6 +163,11 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.environment == "production"
 
+    @property
+    def platform_domain(self) -> str:
+        """Mailvender's own domain (from SYSTEM_FROM_EMAIL): signed with the platform DKIM key, never a customer's."""
+        return self.system_from_email.rsplit("@", 1)[-1].strip(">").strip().lower()
+
 
 @lru_cache
 def get_settings() -> Settings:
