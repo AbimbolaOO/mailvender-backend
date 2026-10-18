@@ -81,6 +81,7 @@ Steps 3 and 5–9 are best done in one sitting on the server.
 15. [Redeploying after code changes](#15-redeploying-after-code-changes)
 16. [Troubleshooting](#16-troubleshooting)
 17. [Checking the server's status](#17-checking-the-servers-status)
+18. [Reading the logs](#18-reading-the-logs)
 
 ---
 
@@ -698,8 +699,13 @@ The server's `.env` and `certs/` are never touched.
 ```sh
 ssh root@2.29.100.188
 cd /opt/mailvender/mailvender-backend
+systemctl start mailvender-log-backup.service   # save the current logs to S3 first (step 14)
 docker compose -f docker-compose.prod.yml up -d --build
 ```
+
+Rebuilding replaces the `api` and `worker` containers, and **Docker deletes a
+container's logs with it**. The first line uploads them to S3 before that
+(skip it until step 14 is set up).
 
 Database migrations run automatically when the API starts. Queued mail is kept
 across restarts (the `postfix-queue` volume).
@@ -810,3 +816,63 @@ mv-status
 Run it after every redeploy (step 15) and whenever something seems off. For
 details on a ✘, see [Troubleshooting](#16-troubleshooting) and the service's
 logs (`docker compose -f docker-compose.prod.yml logs --tail 100 <service>`).
+
+## 18. Reading the logs
+
+`infra/logs.sh` prints the containers' logs; name the ones you want. From your
+**Mac**:
+
+```sh
+ssh -t root@2.29.100.188 /opt/mailvender/mailvender-backend/infra/logs.sh api
+```
+
+(On the server itself: `/opt/mailvender/mailvender-backend/infra/logs.sh api`.
+The `-t` lets Ctrl+C stop `--follow`.)
+
+| Container  | What it logs                                         | Also accepts      |
+| ---------- | ---------------------------------------------------- | ----------------- |
+| `api`      | requests, sign-ups, logins, errors                   | `apis`            |
+| `worker`   | sending, system emails, scheduled jobs, DKIM sync    | `workers`         |
+| `postfix`  | the mail server: each delivery, bounce and deferral  | `mail`, `smtp`    |
+| `opendkim` | DKIM signing and key reloads                         | `dkim`            |
+| `all`      | all four (also the default when you name none)       |                   |
+
+Options:
+
+| Option            | Meaning                                                                    |
+| ----------------- | -------------------------------------------------------------------------- |
+| `-n 50`           | last 50 lines per container (default 100)                                  |
+| `-s 2h`           | only the last 2 hours (`30m`, `2h`, `1d`, or `2026-10-18T09:00:00`)        |
+| `-f`              | keep printing new lines live; Ctrl+C stops                                 |
+| `-e`              | only errors and warnings (and bounced/deferred mail); last 24 h by default |
+| `-g TEXT`         | only lines containing TEXT, e.g. an email address or a `request_id`        |
+| `-h`              | help                                                                       |
+
+Examples:
+
+```sh
+logs.sh api                       # last 100 lines of the API
+logs.sh api worker -n 50          # last 50 lines of each
+logs.sh api -f                    # watch the API live
+logs.sh -e                        # errors and warnings from everything, last 24 h
+logs.sh worker -e -s 1d           # worker errors in the last day
+logs.sh postfix -g gmail.com      # deliveries to Gmail
+logs.sh all -g someone@example.com -s 1d   # everything about one address
+```
+
+To type less, add an alias on your Mac:
+
+```sh
+echo "alias mv-logs='ssh -t root@2.29.100.188 /opt/mailvender/mailvender-backend/infra/logs.sh'" >> ~/.zshrc
+source ~/.zshrc
+mv-logs api -f
+```
+
+Notes:
+
+- Docker only has logs since each container was last created: a redeploy
+  (step 15) starts `api` and `worker` fresh. Older logs are in S3 under
+  `prod/logs/` (step 14).
+- Postfix warnings like `non-SMTP command from …shadowserver.io` or
+  `hostname … does not resolve` are internet scanners probing port 25. They're
+  normal.
