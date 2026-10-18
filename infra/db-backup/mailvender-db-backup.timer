@@ -1,0 +1,12 @@
+# Installed by docs/PRODUCTION_SETUP.md: cp to /etc/systemd/system/, then
+# systemctl enable --now mailvender-db-backup.timer
+[Unit]
+Description=Back up the Mailvender database to S3 every 6 hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:15:00
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

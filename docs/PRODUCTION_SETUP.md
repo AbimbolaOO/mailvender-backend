@@ -56,7 +56,7 @@ items off as you go.
 - [ ] Redeploy the backend with the platform DKIM change (step 15).
 - [ ] Step 12: publish the platform DKIM record for `mailvender.com` (`app.cli platform-dkim`).
 - [ ] Step 13: a system email shows SPF, DKIM and DMARC PASS.
-- [ ] Step 14: enable the hourly log backup.
+- [ ] Step 14: create the backup key, install the log and database backup timers, protect the bucket.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
 
@@ -77,9 +77,10 @@ Steps 3 and 5–9 are best done in one sitting on the server.
 11. [First email to your Gmail](#11-first-email-to-your-gmail)
 12. [DKIM for mailvender.com](#12-dkim-for-mailvendercom)
 13. [Check a real email](#13-check-a-real-email)
-14. [Back up logs to S3](#14-back-up-logs-to-s3)
+14. [Backups to S3 (logs and database)](#14-backups-to-s3-logs-and-database)
 15. [Redeploying after code changes](#15-redeploying-after-code-changes)
 16. [Troubleshooting](#16-troubleshooting)
+17. [Checking the server's status](#17-checking-the-servers-status)
 
 ---
 
@@ -546,34 +547,136 @@ verify it, approve a sender, and send a test. "Show original" then shows DKIM
 - Once deliverability looks good, tighten DMARC from `p=none` to
   `p=quarantine`.
 
-## 14. Back up logs to S3
+## 14. Backups to S3 (logs and database)
 
-Docker keeps only the last 250 MB of logs per service. A systemd timer copies
-them to the bucket every hour, one gzip file per service:
-`s3://mailvender/prod/logs/<service>/<YYYY>/<MM>/<DD>/<service>-<time>.log.gz`.
-The upload runs in the API image with the AWS credentials from `.env`; the
-API's IAM access to `prod/*` already covers `prod/logs/`.
+Two systemd timers on the server copy everything you'd need after an incident
+into the S3 bucket, under `prod/`:
+
+| What               | When          | Where in the bucket                                          | Format                      |
+| ------------------ | ------------- | ------------------------------------------------------------ | --------------------------- |
+| Container logs     | every hour    | `prod/logs/<service>/<YYYY>/<MM>/<DD>/<service>-<time>.log.gz` | gzip                        |
+| Database (Supabase) | every 6 hours | `prod/backups/db/<YYYY>/<MM>/<DD>/mailvender-<time>.dump.age` | `pg_dump`, encrypted with age |
+
+Both upload through the API image (`python -m app.cli upload-log` /
+`upload-backup`, which only accept these exact paths), using the AWS
+credentials already in `.env`.
+
+How the database backup stays safe and cheap:
+
+- **Encrypted before it leaves the server**, with [age](https://age-encryption.org)
+  to a public key. The matching private key lives only in your password
+  manager, so a stolen server, leaked AWS key or public bucket can't read the
+  backups.
+- **Never half-written:** the dump goes to a temporary file first and is only
+  uploaded if `pg_dump` finished; the upload refuses anything not encrypted.
+- **Small:** only Mailvender's `public` schema (not Supabase's internal
+  schemas), in PostgreSQL's compressed custom format. `pg_dump` runs from the
+  `postgres:17-alpine` image, so the server needs no PostgreSQL install.
+
+### 14a. One-time setup
+
+**1. Create the backup key, on your Mac:**
+
+```sh
+brew install age
+mkdir -p ~/mailvender-secrets && chmod 700 ~/mailvender-secrets
+age-keygen -o ~/mailvender-secrets/backup.key
+```
+
+It prints `Public key: age1…`. Copy that line's `age1…` value.
+
+**Save `~/mailvender-secrets/backup.key` in your password manager now.** It's
+the only way to read the backups: lose it and they're useless.
+
+**2. Copy the code to the server** (the rsync in step 15) so it has
+`infra/db-backup/` and `infra/status.sh`.
+
+**3. On the server**, install age, store the **public** key, and turn on both
+timers (replace `age1…` with your public key):
+
+```sh
+apt install -y age
+mkdir -p /etc/mailvender
+echo 'age1…' > /etc/mailvender/backup-recipient.txt
+
+cd /opt/mailvender/mailvender-backend
+cp infra/log-backup/mailvender-log-backup.service infra/log-backup/mailvender-log-backup.timer \
+   infra/db-backup/mailvender-db-backup.service infra/db-backup/mailvender-db-backup.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now mailvender-log-backup.timer mailvender-db-backup.timer
+```
+
+**4. Run both once now and check them:**
+
+```sh
+systemctl start mailvender-log-backup.service mailvender-db-backup.service
+journalctl -u mailvender-log-backup.service -u mailvender-db-backup.service -n 20 --no-pager
+systemctl list-timers 'mailvender-*' --no-pager
+```
+
+The journal shows one `prod/logs/…` line per service and one
+`prod/backups/db/…dump.age` line. The first log run uploads everything Docker
+still has.
+
+### 14b. Protect the bucket (AWS Console, once)
+
+In **S3 → `mailvender` → Properties → Bucket Versioning → Enable**. A deleted
+or overwritten backup can then still be recovered.
+
+Then **Management → Create lifecycle rule**, twice:
+
+| Rule name   | Prefix              | Actions                                                                          |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- |
+| `logs`      | `prod/logs/`        | Move current versions to Standard-IA after 30 days; expire them after 365 days  |
+| `db-backups` | `prod/backups/db/` | Expire current versions after 35 days; permanently delete noncurrent versions after 30 days |
+
+35 days of 6-hourly backups is about 140 files; at today's size (well under
+1 MB each) that's a few cents a month.
+
+Both folders are private: the bucket policy only makes `prod/images/*/public/*`
+public. Logs contain email and IP addresses, and that's why they expire.
+
+### 14c. Restoring the database
+
+**Get and decrypt a backup, on your Mac** (needs the AWS CLI with read access
+to the bucket, and `backup.key` from your password manager):
+
+```sh
+aws s3 ls s3://mailvender/prod/backups/db/ --recursive | tail -5      # newest last
+aws s3 cp s3://mailvender/prod/backups/db/2026/10/18/mailvender-20261018T061500Z.dump.age .
+age --decrypt -i ~/mailvender-secrets/backup.key -o mailvender.dump mailvender-20261018T061500Z.dump.age
+```
+
+**Test it in a throwaway database** (do this every few months, so you know
+restoring works):
+
+```sh
+docker run -d --rm --name mv-restore -e POSTGRES_PASSWORD=x postgres:17-alpine
+sleep 5
+docker exec -i mv-restore sh -c 'cat > /tmp/db.dump
+  pg_restore -l /tmp/db.dump | grep -v " SCHEMA - public " > /tmp/list
+  pg_restore --no-owner --no-privileges --exit-on-error -U postgres -d postgres -L /tmp/list /tmp/db.dump' < mailvender.dump
+docker exec mv-restore psql -U postgres -c 'select count(*) from users' -c 'select version_num from alembic_version'
+docker stop mv-restore
+```
+
+(The `grep -v " SCHEMA - public "` skips re-creating the `public` schema, which
+every database already has.)
+
+**Restoring production** replaces the live data with the backup: everything
+since that backup is lost. Only do it after a real data loss. On the server,
+stop the API and worker first, restore, then start them:
 
 ```sh
 cd /opt/mailvender/mailvender-backend
-cp infra/log-backup/mailvender-log-backup.service infra/log-backup/mailvender-log-backup.timer /etc/systemd/system/
-systemctl daemon-reload
-systemctl enable --now mailvender-log-backup.timer
-
-systemctl start mailvender-log-backup.service      # first run now: uploads everything Docker still has
-journalctl -u mailvender-log-backup.service -n 20  # one "prod/logs/…" line per uploaded file
-systemctl list-timers mailvender-log-backup.timer   # next run
-```
-
-The logs contain email addresses and IP addresses, so they stay private (the
-bucket policy only makes `prod/images/*/public/*` public). Expire them: in
-the AWS Console → S3 → `mailvender` → **Management → Create lifecycle rule**:
-prefix `prod/logs/`, move to Standard-IA after 30 days, expire after 365 days.
-
-To read a backup (from any machine with the AWS CLI and access to the bucket):
-
-```sh
-aws s3 cp s3://mailvender/prod/logs/api/2026/10/17/api-20261017T140000Z.log.gz - | gunzip | less
+docker compose -f docker-compose.prod.yml stop api worker
+# copy mailvender.dump to the server first (scp), then:
+DBURL=$(sed -n 's/^DATABASE_URL=//p' .env | sed 's#^postgresql+psycopg://#postgresql://#')
+docker run --rm -i -e DBURL postgres:17-alpine sh -c 'cat > /tmp/db.dump
+  pg_restore -l /tmp/db.dump | grep -v " SCHEMA - public " > /tmp/list
+  pg_restore --clean --if-exists --no-owner --no-privileges --single-transaction -d "$DBURL" -L /tmp/list /tmp/db.dump' < mailvender.dump
+docker compose -f docker-compose.prod.yml start api worker
+rm mailvender.dump
 ```
 
 ## 15. Redeploying after code changes
@@ -601,7 +704,7 @@ docker compose -f docker-compose.prod.yml up -d --build
 Database migrations run automatically when the API starts. Queued mail is kept
 across restarts (the `postfix-queue` volume).
 
-**3. Check it's healthy.**
+**3. Check it's healthy.** Run the status check (step 17), or by hand:
 
 ```sh
 docker compose -f docker-compose.prod.yml ps                # api/postfix healthy, worker/opendkim running
@@ -615,8 +718,8 @@ the same.
 **Changed a setting only?** Copy `.env.production` again (step 7), then on the
 server run `docker compose -f docker-compose.prod.yml up -d` (no `--build`).
 
-**Changed `infra/log-backup/`?** Re-run the `cp` and `systemctl daemon-reload`
-from step 14.
+**Changed `infra/log-backup/` or `infra/db-backup/`?** Re-run the `cp` and
+`systemctl daemon-reload` from step 14a.
 
 ### Frontend
 
@@ -672,3 +775,38 @@ provider's own DNS records (they give you SPF/DKIM values) and verify
 `mailvender.com` with them. The catch: bounces and spam complaints then go to
 the provider, not to Mailvender, so they aren't suppressed automatically yet.
 Remove the three lines once Hetzner opens port 25.
+
+## 17. Checking the server's status
+
+One command shows everything: containers, API and HTTPS, migrations, port 25,
+DKIM, the mail queue, reverse DNS, TLS certificates, the last log and database
+backups, errors in the last 24 hours, and disk/memory. From your **Mac**:
+
+```sh
+ssh root@2.29.100.188 /opt/mailvender/mailvender-backend/infra/status.sh
+```
+
+(On the server itself: `/opt/mailvender/mailvender-backend/infra/status.sh`.)
+It only reads; it changes nothing. Each line is `✔` or `✘`, and it ends with
+either `All good.` or a list of what needs attention:
+
+```text
+Mail
+  ✘ outbound port 25: BLOCKED (Hetzner unblock, PRODUCTION_SETUP step 2)
+  ✔ platform DKIM: active mvsys202610z2jrkq published
+…
+1 thing(s) need attention:
+  - outbound port 25: BLOCKED (Hetzner unblock, PRODUCTION_SETUP step 2)
+```
+
+To make it shorter to type, add an alias on your Mac:
+
+```sh
+echo "alias mv-status='ssh root@2.29.100.188 /opt/mailvender/mailvender-backend/infra/status.sh'" >> ~/.zshrc
+source ~/.zshrc
+mv-status
+```
+
+Run it after every redeploy (step 15) and whenever something seems off. For
+details on a ✘, see [Troubleshooting](#16-troubleshooting) and the service's
+logs (`docker compose -f docker-compose.prod.yml logs --tail 100 <service>`).

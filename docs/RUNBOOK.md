@@ -176,9 +176,13 @@ back to `pending` and its sends are rejected.
 
 ## Backup and restore
 
-- PostgreSQL: continuous archiving / point-in-time recovery (managed service
-  snapshots + WAL), retained 30 days. Test a restore monthly into a staging
-  database and run `alembic current`.
+- PostgreSQL: on top of the managed service's own backups,
+  `infra/db-backup/backup-db.sh` (6-hourly systemd timer) dumps the `public`
+  schema with `pg_dump -Fc`, encrypts it with age to a public key whose private
+  key is kept offline, and uploads it to
+  `<prefix>backups/db/<YYYY>/<MM>/<DD>/` (`app.cli upload-backup` refuses
+  unencrypted files). Expire with a lifecycle rule. Restore and setup:
+  PRODUCTION_SETUP step 14. Test a restore every few months.
 - S3: versioning on with a 30-day noncurrent-version expiry.
 - Container logs: Docker keeps 250 MB per service; `infra/log-backup/backup-logs.sh`
   (hourly systemd timer) copies them to `<prefix>logs/<service>/<YYYY>/<MM>/<DD>/`
@@ -192,7 +196,14 @@ back to `pending` and its sends are rejected.
 ## Monitoring and alerting
 
 Logs are JSON lines (`event`, `request_id`, `user_id`, `account_id`,
-`message_id`), backed up hourly to S3 (see Backup and restore). Alert on:
+`message_id`), backed up hourly to S3 (see Backup and restore).
+
+`infra/status.sh` (read-only) checks containers, health, migrations, port 25,
+platform DKIM, the mail queue, reverse DNS, TLS expiry, last log/database
+backups, recent errors and disk/memory, and exits 1 if anything needs
+attention: `ssh root@<server> /opt/mailvender/mailvender-backend/infra/status.sh`.
+
+Alert on:
 
 | Signal            | Source                                                                                                  | Suggested threshold                         |
 | ----------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- |

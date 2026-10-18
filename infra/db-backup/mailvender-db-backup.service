@@ -1,0 +1,9 @@
+# Installed by docs/PRODUCTION_SETUP.md: cp to /etc/systemd/system/
+[Unit]
+Description=Back up the Mailvender database to S3 (encrypted)
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mailvender/mailvender-backend/infra/db-backup/backup-db.sh

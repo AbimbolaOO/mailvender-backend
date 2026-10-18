@@ -8,6 +8,7 @@
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
     python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
     python -m app.cli upload-log <service>/<YYYY>/<MM>/<DD>/<name>.log.gz < file   (infra/log-backup)
+    python -m app.cli upload-backup db/<YYYY>/<MM>/<DD>/mailvender-<time>.dump.age < file   (infra/db-backup)
 """
 
 import json
@@ -18,6 +19,7 @@ from app.repositories.sql import SqlUnitOfWork
 from app.services.storage import ObjectStorage
 
 LOG_KEY = re.compile(r"[a-z0-9-]+/\d{4}/\d{2}/\d{2}/[A-Za-z0-9._-]+\.log\.gz")
+BACKUP_KEY = re.compile(r"db/\d{4}/\d{2}/\d{2}/mailvender-\d{8}T\d{6}Z\.dump\.age")
 
 
 def upload_log(storage: ObjectStorage, key: str, body: bytes) -> str:
@@ -31,6 +33,19 @@ def upload_log(storage: ObjectStorage, key: str, body: bytes) -> str:
     return object_key
 
 
+def upload_backup(storage: ObjectStorage, key: str, body: bytes) -> str:
+    """Store an encrypted database dump at <prefix>backups/<key> (private)."""
+    from app.config import get_settings
+
+    if not BACKUP_KEY.fullmatch(key):
+        raise ValueError(f"invalid backup key: {key}")
+    if not body.startswith(b"age-encryption.org/v1"):
+        raise ValueError("refusing to upload a backup that isn't age-encrypted")
+    object_key = f"{get_settings().aws_s3_prefix}backups/{key}"
+    storage.put(object_key, body, "application/octet-stream")
+    return object_key
+
+
 def main(argv: list[str]) -> int:
     if not argv:
         print(__doc__)
@@ -41,11 +56,12 @@ def main(argv: list[str]) -> int:
 
         print(json.dumps(app.openapi(), indent=2))
         return 0
-    if command == "upload-log" and len(args) == 1:
+    if command in ("upload-log", "upload-backup") and len(args) == 1:
         from app.services.storage import S3Storage
 
+        upload = upload_log if command == "upload-log" else upload_backup
         try:
-            print(upload_log(S3Storage(), args[0], sys.stdin.buffer.read()))
+            print(upload(S3Storage(), args[0], sys.stdin.buffer.read()))
         except ValueError as error:
             print(error, file=sys.stderr)
             return 1
