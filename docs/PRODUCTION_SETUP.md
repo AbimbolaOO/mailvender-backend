@@ -56,7 +56,9 @@ items off as you go.
 - [ ] Redeploy the backend with the platform DKIM change (step 15).
 - [ ] Step 12: publish the platform DKIM record for `mailvender.com` (`app.cli platform-dkim`).
 - [ ] Step 13: a system email shows SPF, DKIM and DMARC PASS.
-- [ ] Step 14: create the backup key, install the log and database backup timers, protect the bucket.
+- [x] Step 14a: backup key created (in Passwords), log and database backup timers installed; first
+      backups uploaded on 2026-10-18.
+- [ ] Step 14b: turn on bucket versioning and the two lifecycle rules in the AWS Console.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
 
@@ -592,32 +594,62 @@ the only way to read the backups: lose it and they're useless.
 **2. Copy the code to the server** (the rsync in step 15) so it has
 `infra/db-backup/` and `infra/status.sh`.
 
-**3. On the server**, install age, store the **public** key, and turn on both
-timers (replace `age1…` with your public key):
+**3. Install the log backup, on the server.** It doesn't need the key:
+
+```sh
+cd /opt/mailvender/mailvender-backend
+cp infra/log-backup/mailvender-log-backup.service infra/log-backup/mailvender-log-backup.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now mailvender-log-backup.timer
+systemctl start mailvender-log-backup.service
+journalctl -u mailvender-log-backup.service -n 20 --no-pager
+```
+
+The journal shows one `prod/logs/…` line per container. The first run uploads
+everything Docker still has.
+
+**4. Store the public key on the server.** On your Mac, show it:
+
+```sh
+grep "public key" ~/mailvender-secrets/backup.key     # → # public key: age1…
+```
+
+On the server, with your `age1…` value (it's public, safe to paste anywhere):
 
 ```sh
 apt install -y age
 mkdir -p /etc/mailvender
 echo 'age1…' > /etc/mailvender/backup-recipient.txt
-
-cd /opt/mailvender/mailvender-backend
-cp infra/log-backup/mailvender-log-backup.service infra/log-backup/mailvender-log-backup.timer \
-   infra/db-backup/mailvender-db-backup.service infra/db-backup/mailvender-db-backup.timer /etc/systemd/system/
-systemctl daemon-reload
-systemctl enable --now mailvender-log-backup.timer mailvender-db-backup.timer
+cat /etc/mailvender/backup-recipient.txt               # check it's there
 ```
 
-**4. Run both once now and check them:**
+**5. Install the database backup, on the server:**
 
 ```sh
-systemctl start mailvender-log-backup.service mailvender-db-backup.service
-journalctl -u mailvender-log-backup.service -u mailvender-db-backup.service -n 20 --no-pager
-systemctl list-timers 'mailvender-*' --no-pager
+cd /opt/mailvender/mailvender-backend
+cp infra/db-backup/mailvender-db-backup.service infra/db-backup/mailvender-db-backup.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now mailvender-db-backup.timer
+systemctl start mailvender-db-backup.service
+journalctl -u mailvender-db-backup.service -n 20 --no-pager
 ```
 
-The journal shows one `prod/logs/…` line per service and one
-`prod/backups/db/…dump.age` line. The first log run uploads everything Docker
-still has.
+The journal ends with a `prod/backups/db/…dump.age` line. The first run takes
+a little longer: Docker downloads the `postgres:17-alpine` image once.
+
+**6. Check:** `infra/status.sh` (step 17). The four backup lines should be ✔,
+and `systemctl list-timers 'mailvender-*' --no-pager` shows when each runs next.
+
+Common mistakes:
+
+| Error                                                                 | Cause and fix                                                                                         |
+| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Unit mailvender-log-backup.service not found`                        | The unit files aren't in `/etc/systemd/system/` yet: run the `cp` and `systemctl daemon-reload` above. |
+| `Invalid unit name "infra/log-backup/…" escaped as …`                 | `systemctl` takes the unit's **name**, not a path: `systemctl start mailvender-log-backup.service`.    |
+| `-bash: /etc/mailvender/backup-recipient.txt: No such file or directory` | The folder doesn't exist: run `mkdir -p /etc/mailvender` first.                                        |
+| `Job for mailvender-db-backup.service failed because the control process exited with error code` | The backup stopped with an error. Read why: `journalctl -u mailvender-db-backup.service -n 30 --no-pager` (or `mailvender-log-backup`), then fix it using the rows below and run `systemctl start …` again. |
+| `missing /etc/mailvender/backup-recipient.txt` (in the journal)       | Step 4 wasn't done, or the file is empty.                                                             |
+| `age isn't installed: apt install -y age` (in the journal)            | The `apt install -y age` line in step 4 was skipped: run it, then start the backup again.              |
 
 ### 14b. Protect the bucket (AWS Console, once)
 
