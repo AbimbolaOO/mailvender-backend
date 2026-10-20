@@ -41,6 +41,28 @@ def validate_password(password: str, field: str = "password") -> None:
         )
 
 
+def send_verification(uow: UnitOfWork, user: m.User) -> None:
+    """Queues a fresh verification link (older links stop working). Also used by the admin's "Resend"."""
+    settings = get_settings()
+    now = utcnow()
+    uow.email_tokens.invalidate_for_user(user.id, VERIFY, now)
+    token = new_token()
+    uow.email_tokens.add(
+        m.EmailToken(
+            user_id=user.id,
+            purpose=VERIFY,
+            token_hash=hash_token(token),
+            expires_at=now + timedelta(hours=settings.email_verification_ttl_hours),
+        )
+    )
+    enqueue_system_email(
+        uow,
+        user.email,
+        emails.verify_email(app_url("/verify-email?token=" + token), settings.email_verification_ttl_hours),
+        kind="verify_email",
+    )
+
+
 @dataclass
 class NewSession:
     session: m.Session
@@ -78,7 +100,7 @@ class AuthService:
             else:
                 # Unverified: the latest password wins, the old link stops working.
                 user.password_hash = hash_password(password)
-            self._send_verification(user)
+            send_verification(self.uow, user)
         self.uow.commit()
 
     def resend_verification(self, email: str, ip: str) -> None:
@@ -89,27 +111,8 @@ class AuthService:
         self.limits.hit("resend:email", normalized, Limit.parse(self.settings.rate_limit_resend_email))
         user = self.uow.users.get_by_email(normalized)
         if user and not user.email_verified_at:
-            self._send_verification(user)
+            send_verification(self.uow, user)
             self.uow.commit()
-
-    def _send_verification(self, user: m.User) -> None:
-        now = utcnow()
-        self.uow.email_tokens.invalidate_for_user(user.id, VERIFY, now)
-        token = new_token()
-        self.uow.email_tokens.add(
-            m.EmailToken(
-                user_id=user.id,
-                purpose=VERIFY,
-                token_hash=hash_token(token),
-                expires_at=now + timedelta(hours=self.settings.email_verification_ttl_hours),
-            )
-        )
-        enqueue_system_email(
-            self.uow,
-            user.email,
-            emails.verify_email(app_url("/verify-email?token=" + token), self.settings.email_verification_ttl_hours),
-            kind="verify_email",
-        )
 
     def _use_token(self, token: str, purpose: str) -> m.EmailToken:
         record = self.uow.email_tokens.get_by_hash(hash_token(token), purpose, for_update=True)
@@ -184,6 +187,7 @@ class AuthService:
             raise Unauthenticated("Your session has ended. Sign in again.", code="session_invalid")
         if session.last_seen_at is None or now - session.last_seen_at > timedelta(minutes=5):
             session.last_seen_at = now
+            self.uow.users.mark_active(user.id, now.date())  # the admin's "active users" chart
             self.uow.commit()
         return user, session
 

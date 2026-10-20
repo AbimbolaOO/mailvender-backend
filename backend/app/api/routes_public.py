@@ -3,16 +3,18 @@
 import html
 from typing import Annotated
 
-from fastapi import APIRouter, Header, Query, Request
+from fastapi import APIRouter, Depends, Header, Query, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.api import schemas as s
-from app.api.deps import Uow
+from app.api.deps import Uow, get_storage
 from app.config import get_settings
 from app.db import database_is_ready
 from app.errors import ERROR_RESPONSES, Unauthenticated
 from app.security import constant_time_equals
 from app.services.feedback import FeedbackService
+from app.services.inbound import InboundService
+from app.services.storage import ObjectStorage
 
 router = APIRouter(responses=ERROR_RESPONSES)
 
@@ -135,3 +137,22 @@ async def receive_complaint(
     service.verify_feedback_source(source, raw, x_mailvender_signature)
     return s.FeedbackResultOut.model_validate(service.process_complaint(source, raw))
 
+
+
+@router.post("/internal/inbound-mail", include_in_schema=False)
+async def receive_inbound_mail(
+    request: Request,
+    uow: Uow,
+    storage: Annotated[ObjectStorage, Depends(get_storage)],
+    to: Annotated[str, Query(max_length=320)],
+    x_mailvender_signature: Annotated[str | None, Header()] = None,
+) -> dict[str, object]:
+    """Mail to postmaster@/abuse@/dmarc@, posted by the Cloudflare Email Worker (infra/email-worker/).
+
+    Authenticated with X-Mailvender-Signature: sha256=<HMAC-SHA256 of the body with INBOUND_MAIL_SECRET>.
+    """
+    service = InboundService(uow, storage)
+    raw = await request.body()
+    service.verify_signature(raw, x_mailvender_signature)
+    message, created = service.receive(raw, to)
+    return {"id": str(message.id), "created": created, "kind": message.kind}

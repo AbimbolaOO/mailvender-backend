@@ -7,12 +7,19 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api import routes_accounts, routes_auth, routes_data, routes_public, routes_sending
+from fastapi.openapi.utils import get_openapi
+
+from app.api import routes_accounts, routes_admin, routes_auth, routes_data, routes_public, routes_sending
+from app.api.deps import ADMIN_PREFIX, has_admin_secret
 from app.config import get_settings
 from app.errors import install_error_handlers
+import logging
+
 from app.logging import account_id_var, configure_logging, get_logger, log_event, request_id_var, user_id_var
 
 log = get_logger("http")
+
+PUBLIC_MODULES = (routes_public, routes_auth, routes_accounts, routes_sending, routes_data)
 
 DESCRIPTION = """
 Mailvender's REST API: identity, accounts, sending domains, assets, sending, suppressions and cloud sync.
@@ -52,6 +59,18 @@ def create_app() -> FastAPI:
     )
 
     @app.middleware("http")
+    async def admin_gate(request: Request, call_next):  # type: ignore[no-untyped-def]
+        # /v1/admin/* exists only for the admin app's server (ADMIN_PROXY_SECRET). Everyone else gets the
+        # same 404 as for any unknown path – before routing, so no 405/422 hints that the routes exist.
+        path = request.url.path
+        if (path == ADMIN_PREFIX or path.startswith(ADMIN_PREFIX + "/")) and not has_admin_secret(request):
+            log_event(log, "admin.gate_rejected", logging.WARNING, method=request.method,
+                      client=request.client.host if request.client else None)
+            return JSONResponse({"error": {"code": "not_found", "message": "Not Found",
+                                           "request_id": request_id_var.get()}}, status_code=404)
+        return await call_next(request)
+
+    @app.middleware("http")
     async def request_context(request: Request, call_next):  # type: ignore[no-untyped-def]
         request_id = request.headers.get("x-request-id") or str(uuid.uuid4())
         if len(request_id) > 100:
@@ -89,9 +108,28 @@ def create_app() -> FastAPI:
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         return response
 
-    for module in (routes_public, routes_auth, routes_accounts, routes_sending, routes_data):
+    for module in (*PUBLIC_MODULES, routes_admin):
         app.include_router(module.router)
+
+    def public_openapi() -> dict:  # type: ignore[type-arg]
+        # The admin API isn't part of the public contract (/docs, /openapi.json); see admin_openapi().
+        if app.openapi_schema is None:
+            routes = [route for module in PUBLIC_MODULES for route in module.router.routes]
+            app.openapi_schema = get_openapi(title=app.title, version=app.version, description=app.description,
+                                             routes=routes)
+        return app.openapi_schema
+
+    app.openapi = public_openapi  # type: ignore[method-assign]
     return app
+
+
+def admin_openapi(application: FastAPI) -> dict:  # type: ignore[type-arg]
+    """The admin API's contract (`python -m app.cli openapi --admin`), for mailvender-admin's types."""
+    return get_openapi(
+        title="Mailvender Admin API", version=application.version,
+        description="Used only by mailvender-admin through its server, with X-Mailvender-Admin-Secret.",
+        routes=routes_admin.router.routes,
+    )
 
 
 app = create_app()

@@ -5,6 +5,11 @@
     python -m app.cli platform-dkim          (DKIM for SYSTEM_FROM_EMAIL's domain: shows the DNS record to publish)
     python -m app.cli platform-dkim rotate   (starts a key rotation)
     python -m app.cli openapi > openapi.json
+    python -m app.cli openapi --admin > openapi-admin.json   (the admin API, for mailvender-admin)
+    python -m app.cli create-admin you@example.com   (prints a temporary password once)
+    python -m app.cli reset-admin you@example.com    (new temporary password, two-factor cleared, signed out)
+    python -m app.cli disable-admin you@example.com
+    python -m app.cli list-admins
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
     python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
     python -m app.cli upload-log <service>/<YYYY>/<MM>/<DD>/<name>.log.gz < file   (infra/log-backup)
@@ -51,10 +56,10 @@ def main(argv: list[str]) -> int:
         print(__doc__)
         return 2
     command, *args = argv
-    if command == "openapi":
-        from app.main import app
+    if command == "openapi" and args in ([], ["--admin"]):
+        from app.main import admin_openapi, app
 
-        print(json.dumps(app.openapi(), indent=2))
+        print(json.dumps(admin_openapi(app) if args else app.openapi(), indent=2))
         return 0
     if command in ("upload-log", "upload-backup") and len(args) == 1:
         from app.services.storage import S3Storage
@@ -80,6 +85,33 @@ def main(argv: list[str]) -> int:
             user.is_operator = True
             uow.commit()
             print(f"{user.email} is now an operator.")
+            return 0
+        if command in ("create-admin", "reset-admin", "disable-admin") and len(args) == 1:
+            from app.errors import ApiError
+            from app.services.admin_auth import AdminAuthService
+
+            service = AdminAuthService(uow)
+            try:
+                if command == "create-admin":
+                    admin, password = service.create(args[0])
+                    print(f"Admin {admin.email} created.\n\nTemporary password (shown once):\n\n    {password}\n\n"
+                          "Sign in to the admin app with it; you'll be asked to choose a new password and to set "
+                          "up an authenticator app.")
+                elif command == "reset-admin":
+                    password = service.reset(args[0])
+                    print(f"Reset. Two-factor is cleared and every session ended.\n\nTemporary password "
+                          f"(shown once):\n\n    {password}\n")
+                else:
+                    service.disable(args[0])
+                    print("Admin disabled and signed out everywhere.")
+            except ApiError as error:
+                print(error.message, file=sys.stderr)
+                return 1
+            return 0
+        if command == "list-admins" and not args:
+            for admin in uow.admins.list_all():
+                state = "disabled" if admin.disabled_at else ("2FA on" if admin.totp_enabled_at else "setup pending")
+                print(f"{admin.email:40} {state:14} last sign-in: {admin.last_login_at or 'never'}")
             return 0
         if command == "dev-verify-domain" and len(args) == 1:
             # Local development can't publish real DNS records; production never allows this.

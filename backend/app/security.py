@@ -142,3 +142,56 @@ def constant_time_equals(a: str, b: str) -> bool:
 
 def expires_in(**delta: float) -> datetime:
     return utcnow() + timedelta(**delta)
+
+
+# ---- TOTP two-factor codes (RFC 6238: 30-second steps, 6 digits, SHA-1 – what authenticator apps expect) ----
+
+TOTP_STEP_SECONDS = 30
+
+
+def new_totp_secret() -> str:
+    return base64.b32encode(secrets.token_bytes(20)).decode().rstrip("=")
+
+
+def totp_code(secret: str, step: int) -> str:
+    key = base64.b32decode(secret + "=" * (-len(secret) % 8))
+    digest = hmac.new(key, step.to_bytes(8, "big"), hashlib.sha1).digest()
+    offset = digest[-1] & 0x0F
+    number = int.from_bytes(digest[offset:offset + 4], "big") & 0x7FFFFFFF
+    return f"{number % 1_000_000:06d}"
+
+
+def totp_step(at: datetime | None = None) -> int:
+    return int((at or utcnow()).timestamp()) // TOTP_STEP_SECONDS
+
+
+def match_totp(secret: str, code: str, *, after_step: int | None = None, at: datetime | None = None) -> int | None:
+    """The time step `code` belongs to (±1 step for clock drift), or None. Steps ≤ `after_step` were used already."""
+    code = code.strip().replace(" ", "")
+    if not (len(code) == 6 and code.isdigit()):
+        return None
+    now = totp_step(at)
+    for step in (now - 1, now, now + 1):
+        if after_step is not None and step <= after_step:
+            continue
+        if hmac.compare_digest(totp_code(secret, step), code):
+            return step
+    return None
+
+
+def totp_uri(secret: str, account: str, issuer: str = "Mailvender Admin") -> str:
+    from urllib.parse import quote
+
+    return (f"otpauth://totp/{quote(issuer)}:{quote(account)}?secret={secret}&issuer={quote(issuer)}"
+            f"&algorithm=SHA1&digits=6&period={TOTP_STEP_SECONDS}")
+
+
+def new_recovery_codes(count: int = 10) -> list[str]:
+    """Readable one-time codes like `k7mq-2xpa-9fne`."""
+    alphabet = "abcdefghjkmnpqrstuvwxyz23456789"
+    return ["-".join("".join(secrets.choice(alphabet) for _ in range(4)) for _ in range(3)) for _ in range(count)]
+
+
+def new_admin_password() -> str:
+    """A temporary password, printed once by `app.cli create-admin`."""
+    return secrets.token_urlsafe(18)

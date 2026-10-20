@@ -58,6 +58,9 @@ items off as you go.
 - [ ] Step 13: a system email shows SPF, DKIM and DMARC PASS.
 - [x] Step 14a: backup key created (in Passwords), log and database backup timers installed; first
       backups uploaded on 2026-10-18.
+- [ ] Step 13a: Cloudflare Email Routing (`postmaster@`, `abuse@`, `dmarc@`), Google
+      Postmaster Tools, Microsoft SNDS and JMRP. Doesn't need port 25.
+- [ ] Step 19: the admin dashboard (secrets, Vercel project, first sign-in, Email Worker for the role inboxes).
 - [ ] Step 14b: turn on bucket versioning and the two lifecycle rules in the AWS Console.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
@@ -84,6 +87,7 @@ Steps 3 and 5–9 are best done in one sitting on the server.
 16. [Troubleshooting](#16-troubleshooting)
 17. [Checking the server's status](#17-checking-the-servers-status)
 18. [Reading the logs](#18-reading-the-logs)
+19. [The admin dashboard](#19-the-admin-dashboard)
 
 ---
 
@@ -253,6 +257,9 @@ connection to get its HTTPS certificate.
 | TXT  | `_spf`     | `v=spf1 ip4:2.29.100.188 -all`            | –        |
 | TXT  | `@`        | `v=spf1 include:_spf.mailvender.com -all` | –        |
 | TXT  | `_dmarc`   | `v=DMARC1; p=none`                        | –        |
+
+Step 13a later adds Cloudflare's MX records and changes the `@` SPF and
+`_dmarc` values so mailvender.com can receive mail.
 
 Type the names and values exactly: no spaces (`_dmarc`, not `_ dmarc`) and a
 lowercase `v=`. Receivers ignore a DMARC record starting with `V=`. Browser
@@ -544,11 +551,103 @@ verify it, approve a sender, and send a test. "Show original" then shows DKIM
   on day one gets it blocked. All customers share this IP, so one bad sender
   hurts everyone: keep new accounts on low limits and watch bounce and
   complaint rates.
-- Register `mailvender.com` in [Google Postmaster Tools](https://postmaster.google.com/)
-  to see your Gmail reputation, and `2.29.100.188` in
-  [Microsoft SNDS](https://sendersupport.olc.protection.outlook.com/snds/).
+- Set up the postmaster addresses and register with Google and Microsoft
+  (13a below).
 - Once deliverability looks good, tighten DMARC from `p=none` to
   `p=quarantine`.
+
+### 13a. Postmaster addresses, Google and Microsoft
+
+These registrations don't whitelist you. Nothing does. What they give you is
+your reputation at Gmail and Outlook, and copies of spam complaints, so you
+notice a problem before mail starts bouncing. What actually keeps mail out of
+spam: SPF, DKIM, DMARC and reverse DNS (done), port 25 open (step 2), a slow
+warm-up and few complaints.
+
+**None of this needs port 25 or the server.** Cloudflare receives the mail and
+Google checks a DNS record, so do it now. The reputation pages only fill up
+once you send real volume.
+
+#### 1. Receive mail at mailvender.com (Cloudflare Email Routing, free)
+
+Providers expect `postmaster@` and `abuse@` to work, and Microsoft sends its
+confirmation link to `postmaster@`. mailvender.com has no MX record yet, so it
+can't receive anything; Email Routing adds one and forwards to your Gmail.
+
+1. Cloudflare → **mailvender.com → Email → Email Routing → Get started**.
+2. Add these custom addresses, each with action **Send to an email** → your
+   Gmail. Confirm the verification email Cloudflare sends to the Gmail once.
+
+   | Address                    | For                               |
+   | -------------------------- | --------------------------------- |
+   | `postmaster@mailvender.com` | Microsoft confirmation, providers |
+   | `abuse@mailvender.com`      | complaint reports (JMRP), abuse   |
+   | `dmarc@mailvender.com`      | daily DMARC reports               |
+
+3. Cloudflare offers to add its DNS records. **Accept the MX records.** For
+   SPF, **don't add a second `@` TXT record** (a domain may have only one).
+   Edit the existing `@` SPF record to:
+
+   ```text
+   v=spf1 include:_spf.mailvender.com include:_spf.mx.cloudflare.net -all
+   ```
+
+4. Change the `_dmarc` TXT record so receivers send you reports:
+
+   ```text
+   v=DMARC1; p=none; rua=mailto:dmarc@mailvender.com
+   ```
+
+5. Test: send an email from another account to `postmaster@mailvender.com`;
+   it arrives in your Gmail.
+
+This doesn't touch the server: system emails still leave from `2.29.100.188`,
+and bounces for customer domains still go to `feedback.mailvender.com`.
+
+Check:
+
+```sh
+dig +short MX mailvender.com          # → route1/2/3.mx.cloudflare.net
+dig +short TXT mailvender.com         # → "v=spf1 include:_spf.mailvender.com include:_spf.mx.cloudflare.net -all"
+dig +short TXT _dmarc.mailvender.com  # → "v=DMARC1; p=none; rua=mailto:dmarc@mailvender.com"
+```
+
+#### 2. Google Postmaster Tools (Gmail reputation)
+
+1. Open <https://postmaster.google.com> and sign in with your Gmail.
+2. Click **+** and add `mailvender.com`.
+3. Google shows a TXT value like `google-site-verification=…`. In Cloudflare
+   add a **TXT** record, name `@`, with that value. It's a separate record
+   from SPF, which is fine. Click **Verify**.
+4. Later it shows domain and IP reputation, spam rate and SPF/DKIM/DMARC
+   results. It stays empty until you send a meaningful daily volume to Gmail.
+
+Keep the spam rate under **0.1%**. Above 0.3% Gmail starts rejecting mail.
+
+#### 3. Microsoft SNDS (Outlook and Hotmail reputation of the IP)
+
+1. Open <https://sendersupport.olc.protection.outlook.com/snds/> and sign in
+   with a Microsoft account (a free one made with your Gmail works).
+2. **Request Access** → enter `2.29.100.188`.
+3. Pick **`postmaster@mailvender.com`** from the offered addresses and click
+   the link in the email (Cloudflare forwards it to your Gmail). If it only
+   offers addresses at `mail.mailvender.com`, enable that subdomain under
+   **Email Routing → Settings → Subdomains**, route its `postmaster@` to your
+   Gmail as well, and request again.
+4. SNDS then shows green, yellow or red for the IP, plus complaint rates.
+
+#### 4. Microsoft JMRP (Outlook complaint copies)
+
+On the same site, open **JMRP** and register `2.29.100.188` with
+`abuse@mailvender.com`. Each time an Outlook user clicks **Junk** on one of
+your emails, you get a copy, so you can spot a bad customer early.
+
+#### Optional
+
+- **Yahoo / AOL:** <https://senders.yahooinc.com> → **Complaint Feedback
+  Loop**, register DKIM domain `mailvender.com`.
+- **If Outlook blocks the IP anyway**, the bounce message has a link; request
+  delisting at <https://sender.office.com>.
 
 ## 14. Backups to S3 (logs and database)
 
@@ -908,3 +1007,23 @@ Notes:
 - Postfix warnings like `non-SMTP command from …shadowserver.io` or
   `hostname … does not resolve` are internet scanners probing port 25. They're
   normal.
+
+## 19. The admin dashboard
+
+Mailvender Admin (`mailvender-admin/`, a second Vercel project) is the private
+dashboard for staff: the postmaster@/abuse@/dmarc@ inboxes, usage and spam
+rates, customers who need help, and blocking or suspending. Its setup is in
+its own guide, **[ADMIN_SETUP.md](ADMIN_SETUP.md)**. In short:
+
+1. Make `ADMIN_PROXY_SECRET` and `INBOUND_MAIL_SECRET` (`openssl rand -hex 32`),
+   add them and `KNOWN_SENDING_IPS=2.29.100.188` to `.env.production`, copy it
+   to the server (step 7) and redeploy (step 15). Migration `0004` runs by
+   itself.
+2. On the server: `docker compose -f docker-compose.prod.yml exec api python -m app.cli create-admin you@example.com`.
+3. Deploy `mailvender-admin/` to Vercel with `API_INTERNAL_URL` and
+   `ADMIN_PROXY_SECRET`, and give it a `CNAME` in Cloudflare.
+4. Sign in: you'll change the temporary password and set up an authenticator
+   app.
+5. Deploy the Cloudflare Email Worker (`infra/email-worker/`) and point the
+   three role addresses at it, so their mail shows up in the admin's Inbox
+   (13a must be done first).

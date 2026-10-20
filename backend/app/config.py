@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     # Shared with the frontend host (API_PROXY_SECRET there, e.g. Vercel). A request carrying it
     # comes from the frontend proxy, so its X-Mailvender-Client-Ip names the browser. Blank = off.
     api_proxy_secret: str = ""
+    # Shared with the admin app's host (ADMIN_PROXY_SECRET there). /v1/admin/* answers only requests
+    # carrying it; anything else gets a 404. Blank = the admin API is off.
+    admin_proxy_secret: str = ""
     max_request_bytes: int = 25 * 1024 * 1024
     allowed_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
@@ -44,6 +47,21 @@ class Settings(BaseSettings):
     internal_api_token: str = DEV_INTERNAL_API_TOKEN
     # Feedback-loop sources and their HMAC secrets: "name:secret,name2:secret2".
     feedback_loop_secrets: str = ""
+    # HMAC secret of the Cloudflare Email Worker that posts postmaster@/abuse@/dmarc@ mail to
+    # /internal/inbound-mail. Blank = inbound mail is refused.
+    inbound_mail_secret: str = ""
+    inbound_mail_max_bytes: int = 10 * 1024 * 1024
+    # The platform's own sending IPs (comma-separated): DMARC report rows from any other IP are flagged.
+    known_sending_ips: str = ""
+
+    # Admin sessions (separate from customer sessions; see docs/ADMIN_SETUP.md)
+    admin_session_idle_minutes: int = 30
+    admin_session_ttl_hours: int = 8
+    rate_limit_admin_login_ip: str = "5/900"
+    rate_limit_admin_login_email: str = "5/900"
+    admin_max_failed_logins: int = 10
+    admin_lockout_minutes: int = 30
+    admin_stats_cache_seconds: int = 60
 
     # Sessions
     session_cookie_name: str = "mv_session"
@@ -128,6 +146,8 @@ class Settings(BaseSettings):
     retention_delivery_events_days: int = 180
     retention_deleted_account_days: int = 30
     retention_retired_dkim_days: int = 30
+    retention_inbound_mail_days: int = 180
+    retention_dmarc_rows_days: int = 365
 
     @model_validator(mode="after")
     def _check_production(self) -> "Settings":
@@ -146,6 +166,12 @@ class Settings(BaseSettings):
                 problems.append(f"{name.upper()} is a development placeholder")
         if self.aws_s3_prefix.startswith("dev/"):
             problems.append("AWS_S3_PREFIX is the development folder (dev/); production uses prod/")
+        for name in ("admin_proxy_secret", "inbound_mail_secret"):
+            value = getattr(self, name)
+            if value and (len(value) < 32 or value.startswith("dev-")):
+                problems.append(f"{name.upper()} must be at least 32 random characters")
+        if self.admin_proxy_secret and self.admin_proxy_secret == self.api_proxy_secret:
+            problems.append("ADMIN_PROXY_SECRET must differ from API_PROXY_SECRET")
         if problems:
             raise ValueError("invalid production configuration: " + "; ".join(problems))
         return self
@@ -158,6 +184,15 @@ class Settings(BaseSettings):
             if name and secret:
                 sources[name] = secret
         return sources
+
+    @property
+    def admin_cookie_name(self) -> str:
+        # __Host- makes the browser insist on Secure, path=/ and no Domain (needs HTTPS).
+        return "__Host-mv_admin_session" if self.session_cookie_secure else "mv_admin_session"
+
+    @property
+    def known_sending_ip_set(self) -> set[str]:
+        return {ip.strip() for ip in self.known_sending_ips.split(",") if ip.strip()}
 
     @property
     def is_production(self) -> bool:

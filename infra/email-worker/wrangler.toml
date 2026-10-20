@@ -1,0 +1,11 @@
+# Deploy: npx wrangler deploy   (docs/ADMIN_SETUP.md, "Role inboxes")
+name = "mailvender-role-mail"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+API_URL = "https://api.mailvender.com"
+# Your Gmail. It must be a verified destination address in Cloudflare Email Routing.
+FORWARD_TO = "you@gmail.com"
+
+# The secret is not written here: npx wrangler secret put INBOUND_MAIL_SECRET

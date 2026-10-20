@@ -24,6 +24,9 @@ x-api-env: &api-env
   DKIM_ENCRYPTION_KEY: ZGV2LW9ubHktZGtpbS1lbmNyeXB0aW9uLWtleS0wMDA=
   INTERNAL_API_TOKEN: dev-internal-token
   FEEDBACK_LOOP_SECRETS: local:dev-fbl-secret
+  # The admin app (mailvender-admin/, http://localhost:3100) sends this key; see docs/ADMIN_SETUP.md.
+  ADMIN_PROXY_SECRET: dev-admin-proxy-secret
+  INBOUND_MAIL_SECRET: dev-inbound-mail-secret
   SMTP_HOST: 172.30.0.2 # Postfix on the mail network (relaying is allowed from the worker only)
   SMTP_PORT: "25"
   SYSTEM_FROM_EMAIL: Mailvender <no-reply@mailvender.localhost>

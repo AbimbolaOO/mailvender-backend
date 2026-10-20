@@ -31,6 +31,7 @@ editors render them.
 17. [Deployment topology](#17-deployment-topology)
 18. [Design decisions](#18-design-decisions)
 19. [Known limitations and future work](#19-known-limitations-and-future-work)
+20. [Admin dashboard](#20-admin-dashboard)
 
 ---
 
@@ -796,3 +797,48 @@ network has fixed addresses for exactly this reason.
   without changing the API.
 - Out of scope by design: scheduling, A/B tests, open/click analytics,
   billing, inbound mailboxes.
+
+---
+
+## 20. Admin dashboard
+
+```mermaid
+flowchart LR
+    B[Admin's browser] -->|/api/v1/admin/*| V[mailvender-admin on Vercel<br/>proxy.ts adds X-Mailvender-Admin-Secret]
+    V -->|rewrite, server to server| A[API /v1/admin/*]
+    X[Anyone else] -->|/v1/admin/* without the key| A
+    A -.->|404 before routing| X
+    CF[Cloudflare Email Routing<br/>postmaster@ abuse@ dmarc@] --> W[Email Worker]
+    W -->|copy| G[Gmail]
+    W -->|HMAC-signed raw message| I[API /internal/inbound-mail]
+    I --> S3[(S3 inbox/…eml)]
+    I --> DB[(inbound_messages,<br/>dmarc_report_rows)]
+```
+
+- **Two locks.** The admin key (`ADMIN_PROXY_SECRET`) is checked by a middleware
+  before routing, so without it every `/v1/admin` path, method or body gets the
+  same 404. Behind it is the admin's own session.
+- **Admins aren't customers.** They live in `admin_users` and `admin_sessions`,
+  with their own cookie (`__Host-mv_admin_session`, SameSite=Strict, 30 min idle,
+  8 h max). The first sign-in forces a password change and TOTP setup;
+  recovery codes are stored hashed. Ten failures lock the account.
+- **Read-mostly, metadata only.** `SqlAdminStats` counts across all accounts
+  (with indexes on `message_recipients.created_at/accepted_at`,
+  `delivery_events.created_at` and `audit_events(actor_type, created_at)`).
+  It never reads message bodies. Daily active users come from
+  `user_activity_days`, written when a customer session is used (at most every
+  5 minutes).
+- **Decisions reuse the domain logic.** Suspend, reinstate, limits and review go
+  through `HealthService` with an operator `Actor`, so customers see the same
+  `account.*` audit events as before. Admin-only rows (`admin.*`, `user.blocked`)
+  have no `account_id`, so they're invisible to customers.
+- **"Needs help"** is computed on request from existing data: unverified
+  signups, pending or broken domains, pending senders, suspensions, rates near
+  the limits, limit violations, failed deliveries, bulk without an address.
+  Only the admin's contacted/resolved note is stored (`admin_issue_states`).
+- **Role inboxes.** The API stores the raw message and a row. ARF reports at
+  abuse@ feed `FeedbackService.process_complaint`; DMARC aggregate reports are
+  unpacked with size and file-count limits, and XML with DOCTYPE/ENTITY is
+  refused. HTML is only served by `/v1/admin/inbox/{id}/body` with
+  `default-src 'none'`, the CSP `sandbox` directive and images opt-in, inside a
+  sandboxed iframe.

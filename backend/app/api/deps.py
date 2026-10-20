@@ -25,12 +25,13 @@ from fastapi import Depends, Header, Request
 from app import models as m
 from app.config import get_settings
 from app.db import get_session_factory
-from app.errors import Forbidden, Unauthenticated, ValidationFailed, field_error
+from app.errors import Forbidden, NotFound, Unauthenticated, ValidationFailed, field_error
 from app.logging import user_id_var
 from app.repositories.interfaces import UnitOfWork
 from app.repositories.sql import SqlUnitOfWork
 from app.security import API_KEY_PREFIX
 from app.services.accounts import AccountService
+from app.services.admin_auth import AdminAuth, AdminAuthService
 from app.services.auth import AuthService
 from app.services.common import AccountContext, RateLimiter, UnitOfWorkFactory
 from app.services.dns import DnsResolver, SystemDnsResolver
@@ -198,3 +199,55 @@ def operator_user(user: CurrentUser) -> m.User:
 
 
 Operator = Annotated[m.User, Depends(operator_user)]
+
+
+# ---- Admin (/v1/admin/*: only through the admin app's server, with its proxy key) ----
+
+ADMIN_PREFIX = "/v1/admin"
+ADMIN_SECRET_HEADER = "x-mailvender-admin-secret"
+ADMIN_CSRF_VALUE = "mailvender-admin"
+
+
+def has_admin_secret(request: Request) -> bool:
+    """True when the request carries ADMIN_PROXY_SECRET (constant-time). Blank setting = never."""
+    secret = get_settings().admin_proxy_secret
+    given = request.headers.get(ADMIN_SECRET_HEADER, "")
+    return bool(secret) and hmac.compare_digest(given.encode(), secret.encode())
+
+
+def admin_client_ip(request: Request) -> str:
+    # The admin app's server vouches for the browser's IP (only requests with the admin key get here).
+    proxied_ip = request.headers.get(PROXY_CLIENT_IP_HEADER, "").strip()
+    if proxied_ip and has_admin_secret(request):
+        return proxied_ip[:64]
+    return client_ip(request)
+
+
+def require_admin_secret(request: Request) -> None:
+    # Also enforced by middleware in main.py before routing; this keeps every admin route safe on its own.
+    if not has_admin_secret(request):
+        raise NotFound()
+
+
+def admin_auth(request: Request, uow: Uow) -> AdminAuth:
+    if _bearer(request):
+        raise Unauthenticated("Sign in to the admin.", code="admin_session_required")
+    token = request.cookies.get(get_settings().admin_cookie_name)
+    if not token:
+        raise Unauthenticated("Sign in to the admin.", code="admin_session_required")
+    auth = AdminAuthService(uow).authenticate(token, admin_client_ip(request))
+    if request.method not in SAFE_METHODS and request.headers.get(CSRF_HEADER, "").lower() != ADMIN_CSRF_VALUE:
+        raise Forbidden("Missing the X-Requested-With: mailvender-admin header.", code="csrf_failed")
+    request.state.user_id = f"admin:{auth.admin.id}"
+    return auth
+
+
+AnyAdmin = Annotated[AdminAuth, Depends(admin_auth)]
+
+
+def ready_admin(auth: AnyAdmin) -> AdminAuth:
+    """Signed in and past the first-sign-in steps (new password, two-factor)."""
+    return AdminAuthService.require_ready(auth)
+
+
+Admin = Annotated[AdminAuth, Depends(ready_admin)]

@@ -100,7 +100,7 @@ class HealthService:
                 return suspended
             page = PageRequest(limit=100, cursor=decode_cursor(result.next_cursor))
 
-    # ---- Operator API ----
+    # ---- Operator decisions (operator API and admin dashboard; `actor` is the operator) ----
 
     @staticmethod
     def require_operator(user: m.User) -> None:
@@ -131,41 +131,41 @@ class HealthService:
             raise NotFound("Account not found.")
         return account
 
-    def suspend(self, operator: m.User, account_id: uuid.UUID, reason: str) -> AccountHealth:
+    def suspend(self, actor: Actor, account_id: uuid.UUID, reason: str) -> AccountHealth:
         account = self._account(account_id)
         if account.sending_suspended_at:
             raise ApiError("Already suspended.", code="already_suspended", status_code=409)
-        suspend(self.uow, account, Actor("operator", operator.id), "manual", reason)
+        suspend(self.uow, account, actor, "manual", reason)
         self.uow.commit()
         return self.get(account_id)
 
-    def reinstate(self, operator: m.User, account_id: uuid.UUID, reason: str) -> AccountHealth:
+    def reinstate(self, actor: Actor, account_id: uuid.UUID, reason: str) -> AccountHealth:
         account = self._account(account_id)
         if not account.sending_suspended_at:
             raise ApiError("This account isn't suspended.", code="not_suspended", status_code=409)
         account.sending_suspended_at = None
         account.suspension_reason = None
-        audit(self.uow, account.id, Actor("operator", operator.id), "account.reinstated", target_type="account",
+        audit(self.uow, account.id, actor, "account.reinstated", target_type="account",
               target_id=account.id, reason=reason)
         self.uow.commit()
         return self.get(account_id)
 
-    def set_limits(self, operator: m.User, account_id: uuid.UUID, hourly: int, daily: int, reason: str) -> AccountHealth:
+    def set_limits(self, actor: Actor, account_id: uuid.UUID, hourly: int, daily: int, reason: str) -> AccountHealth:
         if hourly < 0 or daily < 0 or hourly > daily:
             raise ValidationFailed([field_error("hourly_recipient_limit",
                                                 "Limits must be positive and hourly ≤ daily.", "invalid")])
         account = self._account(account_id)
         previous = {"hourly": account.hourly_recipient_limit, "daily": account.daily_recipient_limit}
         account.hourly_recipient_limit, account.daily_recipient_limit = hourly, daily
-        audit(self.uow, account.id, Actor("operator", operator.id), "account.limits_changed", target_type="account",
+        audit(self.uow, account.id, actor, "account.limits_changed", target_type="account",
               target_id=account.id, reason=reason, previous=previous, hourly=hourly, daily=daily)
         self.uow.commit()
         return self.get(account_id)
 
-    def review(self, operator: m.User, account_id: uuid.UUID, notes: str) -> AccountHealth:
+    def review(self, actor: Actor, account_id: uuid.UUID, notes: str) -> AccountHealth:
         account = self._account(account_id)
         metrics = self.metrics(account)
-        audit(self.uow, account.id, Actor("operator", operator.id), "account.reviewed", target_type="account",
+        audit(self.uow, account.id, actor, "account.reviewed", target_type="account",
               target_id=account.id, reason=notes, bounce_rate=metrics.bounce_rate,
               complaint_rate=metrics.complaint_rate, accepted=metrics.accepted)
         self.uow.commit()

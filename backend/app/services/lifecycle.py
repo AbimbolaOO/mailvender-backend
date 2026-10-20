@@ -17,6 +17,7 @@ from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
 from app.services.assets import AssetService
 from app.services.common import AccountContext, Actor, audit
+from app.services.inbound import InboundService
 from app.services.storage import ObjectStorage
 from app.services.sync import SyncService
 
@@ -47,6 +48,9 @@ class RetentionReport:
     exports_expired: int = 0
     accounts_purged: int = 0
     uploads_cleaned: int = 0
+    inbound_deleted: int = 0
+    dmarc_rows_deleted: int = 0
+    admin_sessions_deleted: int = 0
 
 
 class LifecycleService:
@@ -248,6 +252,10 @@ class LifecycleService:
             report.accounts_purged += 1
         report.uploads_cleaned = AssetService(self.uow, self.storage).cleanup_abandoned_uploads()
         report.uploads_cleaned += SyncService(self.uow, self.storage).cleanup_expired_uploads()
+        report.inbound_deleted = InboundService(self.uow, self.storage).delete_old(
+            now - timedelta(days=s.retention_inbound_mail_days))
+        report.dmarc_rows_deleted = self.uow.inbound.delete_dmarc_before(now - timedelta(days=s.retention_dmarc_rows_days))
+        report.admin_sessions_deleted = self.uow.admins.delete_sessions_before(now - timedelta(days=30))
         self.uow.commit()
         log_event(log, "retention.completed", **report.__dict__)
         return report

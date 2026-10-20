@@ -4,12 +4,13 @@ Identifiers are UUIDs and every timestamp is stored as `timestamptz` (UTC).
 """
 
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from typing import Any
 
 from sqlalchemy import (
     BigInteger,
     Boolean,
+    Date,
     DateTime,
     ForeignKey,
     Index,
@@ -269,7 +270,11 @@ class Message(Base):
 
 class MessageRecipient(Base):
     __tablename__ = "message_recipients"
-    __table_args__ = (Index("ix_message_recipients_account_created", "account_id", "created_at"),)
+    __table_args__ = (
+        Index("ix_message_recipients_account_created", "account_id", "created_at"),
+        Index("ix_message_recipients_created", "created_at"),  # platform-wide admin charts
+        Index("ix_message_recipients_accepted", "accepted_at"),
+    )
     id: Mapped[uuid.UUID] = _id()
     message_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("messages.id"), index=True)
     account_id: Mapped[uuid.UUID] = _account_fk()
@@ -319,7 +324,10 @@ class DeliveryEvent(Base):
     """Recipient-level outcomes reported after the MTA accepted a message."""
 
     __tablename__ = "delivery_events"
-    __table_args__ = (Index("ix_delivery_events_account_created", "account_id", "created_at"),)
+    __table_args__ = (
+        Index("ix_delivery_events_account_created", "account_id", "created_at"),
+        Index("ix_delivery_events_created", "created_at"),
+    )
     id: Mapped[uuid.UUID] = _id()
     account_id: Mapped[uuid.UUID] = _account_fk()
     recipient_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("message_recipients.id"), index=True)
@@ -348,7 +356,10 @@ class AuditEvent(Base):
     """Immutable (a database trigger rejects UPDATE and DELETE)."""
 
     __tablename__ = "audit_events"
-    __table_args__ = (Index("ix_audit_account_created", "account_id", "created_at"),)
+    __table_args__ = (
+        Index("ix_audit_account_created", "account_id", "created_at"),
+        Index("ix_audit_actor_created", "actor_type", "created_at"),
+    )
     id: Mapped[uuid.UUID] = _id()
     account_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("accounts.id"))
     actor_type: Mapped[str] = mapped_column(String(16))  # user | api_key | system | operator | public
@@ -433,3 +444,98 @@ class JobRun(Base):
     last_finished_at: Mapped[datetime | None]
     last_error: Mapped[str | None] = mapped_column(Text)
 
+
+
+class UserActivityDay(Base):
+    """One row per user per UTC day they used the app (for the admin's "active users" chart)."""
+
+    __tablename__ = "user_activity_days"
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), primary_key=True)
+    day: Mapped[date] = mapped_column(Date, primary_key=True, index=True)
+
+
+# ---- Admin (Mailvender staff – separate from customer users; see docs/ADMIN_SETUP.md) ----
+
+
+class AdminUser(Base):
+    __tablename__ = "admin_users"
+    id: Mapped[uuid.UUID] = _id()
+    email: Mapped[str] = mapped_column(String(320), unique=True)
+    password_hash: Mapped[str] = mapped_column(Text)
+    must_change_password: Mapped[bool] = mapped_column(Boolean, default=True, server_default=text("true"))
+    totp_secret_encrypted: Mapped[str | None] = mapped_column(Text)
+    totp_enabled_at: Mapped[datetime | None]
+    totp_last_step: Mapped[int | None] = mapped_column(BigInteger)  # a code is accepted once
+    recovery_code_hashes: Mapped[list[str]] = mapped_column(JSONB, default=list, server_default=text("'[]'::jsonb"))
+    failed_logins: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    locked_until: Mapped[datetime | None]
+    created_at: Mapped[datetime] = _created()
+    last_login_at: Mapped[datetime | None]
+    disabled_at: Mapped[datetime | None]
+
+
+class AdminSession(Base):
+    __tablename__ = "admin_sessions"
+    id: Mapped[uuid.UUID] = _id()
+    admin_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("admin_users.id"), index=True)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    created_at: Mapped[datetime] = _created()
+    expires_at: Mapped[datetime]
+    last_seen_at: Mapped[datetime]
+    revoked_at: Mapped[datetime | None]
+    ip_address: Mapped[str | None] = mapped_column(String(64))
+    user_agent: Mapped[str | None] = mapped_column(String(512))
+
+
+class AdminIssueState(Base):
+    """An admin's note on a "Needs help" problem (contacted / resolved). Problems themselves are computed."""
+
+    __tablename__ = "admin_issue_states"
+    key: Mapped[str] = mapped_column(String(200), primary_key=True)  # <type>:<subject id>
+    status: Mapped[str] = mapped_column(String(16))  # contacted | resolved
+    note: Mapped[str | None] = mapped_column(Text)
+    updated_by: Mapped[uuid.UUID] = mapped_column(ForeignKey("admin_users.id"))
+    updated_at: Mapped[datetime] = _created()
+
+
+class InboundMessage(Base):
+    """Mail received at postmaster@ / abuse@ / dmarc@ (raw message in object storage)."""
+
+    __tablename__ = "inbound_messages"
+    __table_args__ = (
+        UniqueConstraint("mailbox", "message_id_header"),
+        Index("ix_inbound_messages_mailbox_created", "mailbox", "created_at"),
+    )
+    id: Mapped[uuid.UUID] = _id()
+    mailbox: Mapped[str] = mapped_column(String(16))  # postmaster | abuse | dmarc
+    message_id_header: Mapped[str | None] = mapped_column(String(500))
+    from_address: Mapped[str] = mapped_column(String(320))
+    from_name: Mapped[str | None] = mapped_column(String(200))
+    subject: Mapped[str] = mapped_column(Text)
+    kind: Mapped[str] = mapped_column(String(24))  # plain | dmarc_report | complaint_report | bounce
+    size: Mapped[int] = mapped_column(Integer)
+    object_key: Mapped[str] = mapped_column(Text)
+    has_attachments: Mapped[bool] = mapped_column(Boolean, default=False)
+    summary: Mapped[dict[str, Any]] = mapped_column(default=dict)
+    created_at: Mapped[datetime] = _created()  # received
+    read_at: Mapped[datetime | None]
+    archived_at: Mapped[datetime | None]
+
+
+class DmarcReportRow(Base):
+    """One <record> of a DMARC aggregate report: what a receiver saw from one source IP."""
+
+    __tablename__ = "dmarc_report_rows"
+    id: Mapped[uuid.UUID] = _id()
+    inbound_message_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("inbound_messages.id"), index=True)
+    reporter: Mapped[str] = mapped_column(String(200))
+    report_id: Mapped[str] = mapped_column(String(200))
+    domain: Mapped[str] = mapped_column(String(253))
+    begin_at: Mapped[datetime]
+    end_at: Mapped[datetime]
+    source_ip: Mapped[str] = mapped_column(String(64))
+    count: Mapped[int] = mapped_column(Integer)
+    disposition: Mapped[str] = mapped_column(String(16))  # none | quarantine | reject
+    dkim: Mapped[str] = mapped_column(String(16))  # DMARC-aligned result: pass | fail
+    spf: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = _created()

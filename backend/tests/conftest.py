@@ -22,6 +22,9 @@ os.environ["INTERNAL_API_TOKEN"] = "internal-test-token"
 os.environ["PUBLIC_API_BASE_URL"] = "https://app.test/api"
 os.environ["APP_BASE_URL"] = "https://app.test"
 os.environ["AWS_S3_PUBLIC_BASE_URL"] = "https://cdn.test"
+os.environ["ADMIN_PROXY_SECRET"] = "admin-proxy-secret-for-tests-0123456789"
+os.environ["INBOUND_MAIL_SECRET"] = "inbound-mail-secret-for-tests-0123456789"
+os.environ["ADMIN_STATS_CACHE_SECONDS"] = "0"
 
 import pytest  # noqa: E402
 from alembic import command  # noqa: E402
@@ -37,7 +40,7 @@ from app.main import app  # noqa: E402
 from app.repositories.sql import SqlUnitOfWork  # noqa: E402
 from app.services.dns import DnsLookupError  # noqa: E402
 from app.services.mta import TemporaryDeliveryError  # noqa: E402
-from app.services.storage import ObjectInfo, PresignedUpload  # noqa: E402
+from app.services.storage import ObjectInfo, ObjectSummary, PresignedUpload  # noqa: E402
 from app.worker import Worker  # noqa: E402
 
 BACKEND = os.path.dirname(os.path.dirname(__file__))
@@ -121,6 +124,12 @@ class FakeStorage:
 
     def delete(self, key: str) -> None:
         self.objects.pop(key, None)
+
+    def list(self, prefix: str, limit: int = 1000) -> list[ObjectSummary]:
+        from app.security import utcnow
+
+        keys = sorted(key for key in self.objects if key.startswith(prefix))[:limit]
+        return [ObjectSummary(key=key, size=len(self.objects[key][0]), last_modified=utcnow()) for key in keys]
 
     def public_url(self, key: str) -> str:
         return f"https://cdn.test/{key}"

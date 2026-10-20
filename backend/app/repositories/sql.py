@@ -2,7 +2,7 @@
 
 import uuid
 from collections.abc import Iterable, Sequence
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, TypeVar
 
 from sqlalchemy import Select, and_, delete, func, or_, select, text, tuple_, update
@@ -65,6 +65,9 @@ class SqlUsers(_Repo):
 
     def get_by_email(self, email: str) -> m.User | None:
         return self.s.execute(select(m.User).where(m.User.email == email)).scalar_one_or_none()
+
+    def mark_active(self, user_id: uuid.UUID, day: date) -> None:
+        self.s.execute(insert(m.UserActivityDay).values(user_id=user_id, day=day).on_conflict_do_nothing())
 
 
 class SqlSessions(_Repo):
@@ -745,6 +748,455 @@ class SqlJobs(_Repo):
         return list(self.s.execute(select(m.JobRun).order_by(m.JobRun.name)).scalars())
 
 
+# ---- Admin ----
+
+
+class SqlAdmins(_Repo):
+    model = m.AdminUser
+
+    def get(self, admin_id: uuid.UUID, *, for_update: bool = False) -> m.AdminUser | None:
+        return self._get(admin_id, for_update=for_update)
+
+    def get_by_email(self, email: str, *, for_update: bool = False) -> m.AdminUser | None:
+        stmt = select(m.AdminUser).where(m.AdminUser.email == email)
+        if for_update:
+            stmt = stmt.with_for_update()
+        return self.s.execute(stmt).scalar_one_or_none()
+
+    def list_all(self) -> list[m.AdminUser]:
+        return list(self.s.execute(select(m.AdminUser).order_by(m.AdminUser.created_at)).scalars())
+
+    def add_session(self, session: m.AdminSession) -> m.AdminSession:
+        return self.add(session)
+
+    def get_session_by_token_hash(self, token_hash: str) -> m.AdminSession | None:
+        return self.s.execute(
+            select(m.AdminSession).where(m.AdminSession.token_hash == token_hash)
+        ).scalar_one_or_none()
+
+    def revoke_sessions(self, admin_id: uuid.UUID, now: datetime, *, keep: uuid.UUID | None = None) -> int:
+        stmt = update(m.AdminSession).where(m.AdminSession.admin_id == admin_id, m.AdminSession.revoked_at.is_(None))
+        if keep is not None:
+            stmt = stmt.where(m.AdminSession.id != keep)
+        return _rows(self.s.execute(stmt.values(revoked_at=now)))
+
+    def delete_sessions_before(self, before: datetime) -> int:
+        return _rows(self.s.execute(
+            delete(m.AdminSession).where(or_(m.AdminSession.expires_at < before, m.AdminSession.revoked_at < before))
+        ))
+
+
+class SqlAdminIssues(_Repo):
+    def get_many(self, keys: Sequence[str]) -> dict[str, m.AdminIssueState]:
+        if not keys:
+            return {}
+        rows = self.s.execute(select(m.AdminIssueState).where(m.AdminIssueState.key.in_(list(keys)))).scalars()
+        return {row.key: row for row in rows}
+
+    def upsert(self, key: str, status: str, note: str | None, admin_id: uuid.UUID, now: datetime) -> None:
+        values = {"status": status, "note": note, "updated_by": admin_id, "updated_at": now}
+        self.s.execute(
+            insert(m.AdminIssueState).values(key=key, **values)
+            .on_conflict_do_update(index_elements=[m.AdminIssueState.key], set_=values)
+        )
+
+    def delete(self, key: str) -> None:
+        self.s.execute(delete(m.AdminIssueState).where(m.AdminIssueState.key == key))
+
+
+class SqlInbound(_Repo):
+    model = m.InboundMessage
+
+    def add(self, entity: E) -> E:
+        try:
+            with self.s.begin_nested():
+                self.s.add(entity)
+                self.s.flush()
+        except IntegrityError as error:
+            raise DuplicateError(str(error.orig)) from error
+        return entity
+
+    def get(self, message_id: uuid.UUID) -> m.InboundMessage | None:
+        return self._get(message_id)
+
+    def get_by_message_id(self, mailbox: str, message_id_header: str) -> m.InboundMessage | None:
+        return self.s.execute(
+            select(m.InboundMessage).where(m.InboundMessage.mailbox == mailbox,
+                                           m.InboundMessage.message_id_header == message_id_header)
+        ).scalar_one_or_none()
+
+    def list_page(self, mailbox: str, page: PageRequest, *, query: str | None, state: str) -> Page[m.InboundMessage]:
+        stmt = select(m.InboundMessage).where(m.InboundMessage.mailbox == mailbox)
+        if state == "archived":
+            stmt = stmt.where(m.InboundMessage.archived_at.is_not(None))
+        else:
+            stmt = stmt.where(m.InboundMessage.archived_at.is_(None))
+            if state == "unread":
+                stmt = stmt.where(m.InboundMessage.read_at.is_(None))
+        if query:
+            like = f"%{_escape_like(query)}%"
+            stmt = stmt.where(or_(m.InboundMessage.from_address.ilike(like, escape="\\"),
+                                  m.InboundMessage.from_name.ilike(like, escape="\\"),
+                                  m.InboundMessage.subject.ilike(like, escape="\\")))
+        return _paginate(self.s, stmt, m.InboundMessage, page)
+
+    def unread_counts(self) -> dict[str, int]:
+        rows = self.s.execute(
+            select(m.InboundMessage.mailbox, func.count())
+            .where(m.InboundMessage.read_at.is_(None), m.InboundMessage.archived_at.is_(None))
+            .group_by(m.InboundMessage.mailbox)
+        ).all()
+        return {mailbox: count for mailbox, count in rows}
+
+    def list_received_before(self, before: datetime, limit: int) -> list[m.InboundMessage]:
+        return list(self.s.execute(
+            select(m.InboundMessage).where(m.InboundMessage.created_at < before)
+            .order_by(m.InboundMessage.created_at).limit(limit)
+        ).scalars())
+
+    def delete(self, message: m.InboundMessage) -> None:
+        # DMARC rows outlive their message (kept for a year), so they only lose the link.
+        self.s.execute(update(m.DmarcReportRow).where(m.DmarcReportRow.inbound_message_id == message.id)
+                       .values(inbound_message_id=None))
+        self.s.delete(message)
+        self.s.flush()
+
+    def add_dmarc_rows(self, rows: Sequence[m.DmarcReportRow]) -> None:
+        self.s.add_all(list(rows))
+        self.s.flush()
+
+    def dmarc_rows_for_message(self, message_id: uuid.UUID) -> list[m.DmarcReportRow]:
+        return list(self.s.execute(
+            select(m.DmarcReportRow).where(m.DmarcReportRow.inbound_message_id == message_id)
+            .order_by(m.DmarcReportRow.count.desc())
+        ).scalars())
+
+    def _dmarc_totals(self, group: Any, since: datetime) -> list[dict[str, Any]]:
+        row = m.DmarcReportRow
+        passed = func.sum(row.count).filter(or_(row.dkim == "pass", row.spf == "pass"))
+        rows = self.s.execute(
+            select(
+                group,
+                func.sum(row.count),
+                func.coalesce(passed, 0),
+                func.coalesce(func.sum(row.count).filter(row.dkim == "pass"), 0),
+                func.coalesce(func.sum(row.count).filter(row.spf == "pass"), 0),
+                func.max(row.end_at),
+            )
+            .where(row.end_at >= since)
+            .group_by(group)
+            .order_by(func.sum(row.count).desc())
+            .limit(200)
+        ).all()
+        return [
+            {"key": key, "messages": int(total), "dmarc_pass": int(dmarc), "dkim_pass": int(dkim),
+             "spf_pass": int(spf), "last_seen": last}
+            for key, total, dmarc, dkim, spf, last in rows
+        ]
+
+    def dmarc_by_reporter(self, since: datetime) -> list[dict[str, Any]]:
+        return self._dmarc_totals(m.DmarcReportRow.reporter, since)
+
+    def dmarc_by_source(self, since: datetime) -> list[dict[str, Any]]:
+        return self._dmarc_totals(m.DmarcReportRow.source_ip, since)
+
+    def delete_dmarc_before(self, before: datetime) -> int:
+        return _rows(self.s.execute(delete(m.DmarcReportRow).where(m.DmarcReportRow.end_at < before)))
+
+
+def _escape_like(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+
+
+def _utc_day(column: Any) -> Any:
+    return func.date(func.timezone("UTC", column))
+
+
+def _domain_of(column: Any) -> Any:
+    return func.lower(func.split_part(column, "@", 2))
+
+
+class SqlAdminStats(_Repo):
+    def _metric(self, metric: str) -> tuple[Any, Any]:
+        """(the timestamp column, the base query counting rows) for a dashboard metric."""
+        r, e = m.MessageRecipient, m.DeliveryEvent
+        count = func.count()
+        metrics: dict[str, tuple[Any, Any]] = {
+            "sent": (r.created_at, select(count).select_from(r)),
+            "delivered": (r.accepted_at, select(count).select_from(r).where(r.accepted_at.is_not(None))),
+            "failed": (r.failed_at, select(count).select_from(r).where(r.status == "failed")),
+            "bounced": (e.created_at, select(count).select_from(e).where(e.type == "bounce")),
+            "hard_bounces": (e.created_at, select(count).select_from(e).where(e.type == "bounce",
+                                                                              e.classification == "hard")),
+            "complaints": (e.created_at, select(count).select_from(e).where(e.type == "complaint")),
+            "signups": (m.User.created_at, select(count).select_from(m.User)),
+            "verified": (m.User.email_verified_at, select(count).select_from(m.User)
+                         .where(m.User.email_verified_at.is_not(None))),
+        }
+        return metrics[metric]
+
+    def daily_counts(self, metric: str, since: datetime) -> dict[date, int]:
+        if metric == "active_users":
+            a = m.UserActivityDay
+            rows = self.s.execute(
+                select(a.day, func.count()).where(a.day >= since.date()).group_by(a.day)
+            ).all()
+            return {day: count for day, count in rows}
+        column, stmt = self._metric(metric)
+        day = _utc_day(column)
+        rows = self.s.execute(
+            stmt.add_columns(day).where(column >= since).group_by(day)
+        ).all()
+        return {day_: count for count, day_ in rows}
+
+    def daily_categories(self, since: datetime) -> dict[tuple[date, str], int]:
+        r = m.MessageRecipient
+        day = _utc_day(r.created_at)
+        rows = self.s.execute(
+            select(day, m.Message.category, func.count())
+            .join(m.Message, m.Message.id == r.message_id)
+            .where(r.created_at >= since)
+            .group_by(day, m.Message.category)
+        ).all()
+        return {(day_, category): count for day_, category, count in rows}
+
+    def count_between(self, metric: str, start: datetime, end: datetime) -> int:
+        if metric == "active_users":
+            a = m.UserActivityDay
+            return self.s.execute(
+                select(func.count(func.distinct(a.user_id))).where(a.day >= start.date(), a.day < end.date())
+            ).scalar_one()
+        column, stmt = self._metric(metric)
+        return self.s.execute(stmt.where(column >= start, column < end)).scalar_one()
+
+    def recipient_domains(self, since: datetime, limit: int) -> list[tuple[str, int]]:
+        r = m.MessageRecipient
+        domain = _domain_of(r.email)
+        rows = self.s.execute(
+            select(domain, func.count()).where(r.accepted_at >= since)
+            .group_by(domain).order_by(func.count().desc()).limit(limit)
+        ).all()
+        return [(d, c) for d, c in rows]
+
+    def event_domains(self, since: datetime) -> list[tuple[str, str, str | None, int]]:
+        e = m.DeliveryEvent
+        domain = _domain_of(e.email)
+        rows = self.s.execute(
+            select(domain, e.type, e.classification, func.count()).where(e.created_at >= since)
+            .group_by(domain, e.type, e.classification)
+        ).all()
+        return [(d, t, c, n) for d, t, c, n in rows]
+
+    def account_rates(self, since: datetime) -> list[tuple[uuid.UUID, int, int, int]]:
+        r, e = m.MessageRecipient, m.DeliveryEvent
+        accepted = (select(r.account_id, func.count().label("n")).where(r.accepted_at >= since)
+                    .group_by(r.account_id).subquery())
+        hard = (select(e.account_id, func.count().label("n"))
+                .where(e.created_at >= since, e.type == "bounce", e.classification == "hard")
+                .group_by(e.account_id).subquery())
+        complaints = (select(e.account_id, func.count().label("n"))
+                      .where(e.created_at >= since, e.type == "complaint").group_by(e.account_id).subquery())
+        rows = self.s.execute(
+            select(accepted.c.account_id, accepted.c.n, func.coalesce(hard.c.n, 0), func.coalesce(complaints.c.n, 0))
+            .outerjoin(hard, hard.c.account_id == accepted.c.account_id)
+            .outerjoin(complaints, complaints.c.account_id == accepted.c.account_id)
+        ).all()
+        return [(a, n, h, c) for a, n, h, c in rows]
+
+    def bounce_reasons(self, since: datetime, limit: int) -> list[tuple[str | None, int, str | None]]:
+        e = m.DeliveryEvent
+        rows = self.s.execute(
+            select(e.status_code, func.count(), func.max(e.diagnostic))
+            .where(e.created_at >= since, e.type == "bounce")
+            .group_by(e.status_code).order_by(func.count().desc()).limit(limit)
+        ).all()
+        return [(code, count, sample) for code, count, sample in rows]
+
+    def outbox_summary(self) -> list[tuple[str, str, int]]:
+        o = m.OutboxEvent
+        rows = self.s.execute(select(o.kind, o.status, func.count()).group_by(o.kind, o.status)).all()
+        return [(k, st, c) for k, st, c in rows]
+
+    def oldest_pending_outbox(self) -> datetime | None:
+        return self.s.execute(
+            select(func.min(m.OutboxEvent.created_at)).where(m.OutboxEvent.status == "pending")
+        ).scalar_one()
+
+    def count_audit_since(self, action: str, since: datetime) -> int:
+        return self.s.execute(
+            select(func.count()).where(m.AuditEvent.action == action, m.AuditEvent.created_at >= since)
+        ).scalar_one()
+
+    def users_page(self, page: PageRequest, *, query: str | None, status: str | None,
+                   since: datetime) -> Page[tuple[m.User, int, datetime | None, int]]:
+        accounts = (select(func.count()).where(m.Membership.user_id == m.User.id)
+                    .correlate(m.User).scalar_subquery())
+        last_seen = (select(func.max(m.Session.last_seen_at)).where(m.Session.user_id == m.User.id)
+                     .correlate(m.User).scalar_subquery())
+        sent = (select(func.count()).select_from(m.MessageRecipient)
+                .join(m.Message, m.Message.id == m.MessageRecipient.message_id)
+                .where(m.Message.created_by_user_id == m.User.id, m.MessageRecipient.created_at >= since)
+                .correlate(m.User).scalar_subquery())
+        stmt = select(m.User, accounts, last_seen, sent)
+        if query:
+            stmt = stmt.where(m.User.email.ilike(f"%{_escape_like(query.strip().lower())}%", escape="\\"))
+        if status == "blocked":
+            stmt = stmt.where(m.User.disabled_at.is_not(None))
+        elif status == "unverified":
+            stmt = stmt.where(m.User.email_verified_at.is_(None), m.User.disabled_at.is_(None))
+        elif status == "active":
+            stmt = stmt.where(m.User.email_verified_at.is_not(None), m.User.disabled_at.is_(None))
+        return _paginate(self.s, stmt, m.User, page, rows=True)
+
+    def accounts_page(self, page: PageRequest, *, query: str | None, status: str | None,
+                      today: datetime) -> Page[tuple[m.Account, str | None, int, int, int]]:
+        a = m.Account
+        owner = (select(m.User.email).join(m.Membership, m.Membership.user_id == m.User.id)
+                 .where(m.Membership.account_id == a.id, m.Membership.role == "owner")
+                 .order_by(m.Membership.created_at).limit(1).correlate(a).scalar_subquery())
+        members = select(func.count()).where(m.Membership.account_id == a.id).correlate(a).scalar_subquery()
+        domains = (select(func.count()).where(m.Domain.account_id == a.id, m.Domain.status == "verified")
+                   .correlate(a).scalar_subquery())
+        sent_today = (select(func.count()).where(m.MessageRecipient.account_id == a.id,
+                                                  m.MessageRecipient.created_at >= today)
+                      .correlate(a).scalar_subquery())
+        stmt = select(a, owner, members, domains, sent_today)
+        if query:
+            like = f"%{_escape_like(query.strip().lower())}%"
+            owners = (select(m.Membership.account_id).join(m.User, m.User.id == m.Membership.user_id)
+                      .where(m.User.email.ilike(like, escape="\\")))
+            stmt = stmt.where(or_(func.lower(a.name).like(like, escape="\\"), a.id.in_(owners)))
+        if status == "suspended":
+            stmt = stmt.where(a.status == "active", a.sending_suspended_at.is_not(None))
+        elif status == "deleted":
+            stmt = stmt.where(a.status != "active")
+        elif status == "active":
+            stmt = stmt.where(a.status == "active", a.sending_suspended_at.is_(None))
+        return _paginate(self.s, stmt, a, page, rows=True)
+
+    def user_accounts(self, user_id: uuid.UUID) -> list[tuple[m.Account, str]]:
+        rows = self.s.execute(
+            select(m.Account, m.Membership.role).join(m.Membership, m.Membership.account_id == m.Account.id)
+            .where(m.Membership.user_id == user_id).order_by(m.Account.created_at)
+        ).all()
+        return [(account, role) for account, role in rows]
+
+    def owned_accounts(self, user_id: uuid.UUID) -> list[m.Account]:
+        return [account for account, role in self.user_accounts(user_id) if role == "owner"]
+
+    def account_members(self, account_id: uuid.UUID) -> list[tuple[m.User, str]]:
+        rows = self.s.execute(
+            select(m.User, m.Membership.role).join(m.Membership, m.Membership.user_id == m.User.id)
+            .where(m.Membership.account_id == account_id).order_by(m.Membership.created_at)
+        ).all()
+        return [(user, role) for user, role in rows]
+
+    def owner_emails(self, account_ids: Sequence[uuid.UUID]) -> dict[uuid.UUID, str]:
+        if not account_ids:
+            return {}
+        rows = self.s.execute(
+            select(m.Membership.account_id, m.User.email).join(m.User, m.User.id == m.Membership.user_id)
+            .where(m.Membership.account_id.in_(list(account_ids)), m.Membership.role == "owner")
+            .order_by(m.Membership.created_at.desc())
+        ).all()
+        return {account_id: email for account_id, email in rows}
+
+    def accounts_by_ids(self, account_ids: Sequence[uuid.UUID]) -> dict[uuid.UUID, m.Account]:
+        if not account_ids:
+            return {}
+        rows = self.s.execute(select(m.Account).where(m.Account.id.in_(list(account_ids)))).scalars()
+        return {account.id: account for account in rows}
+
+    def recent_events(self, account_id: uuid.UUID, limit: int) -> list[m.DeliveryEvent]:
+        return list(self.s.execute(
+            select(m.DeliveryEvent).where(m.DeliveryEvent.account_id == account_id)
+            .order_by(m.DeliveryEvent.created_at.desc()).limit(limit)
+        ).scalars())
+
+    def count_suppressions(self, account_id: uuid.UUID) -> int:
+        return self.s.execute(select(func.count()).where(m.Suppression.account_id == account_id)).scalar_one()
+
+    def count_active_sessions(self, user_id: uuid.UUID, now: datetime) -> int:
+        return self.s.execute(
+            select(func.count()).where(m.Session.user_id == user_id, m.Session.revoked_at.is_(None),
+                                       m.Session.expires_at > now)
+        ).scalar_one()
+
+    def last_seen(self, user_id: uuid.UUID) -> datetime | None:
+        return self.s.execute(
+            select(func.max(m.Session.last_seen_at)).where(m.Session.user_id == user_id)
+        ).scalar_one()
+
+    def unverified_users(self, created_before: datetime, limit: int) -> list[m.User]:
+        return list(self.s.execute(
+            select(m.User).where(m.User.email_verified_at.is_(None), m.User.disabled_at.is_(None),
+                                 m.User.created_at < created_before)
+            .order_by(m.User.created_at.desc()).limit(limit)
+        ).scalars())
+
+    def pending_domains(self, created_before: datetime, limit: int) -> list[m.Domain]:
+        return list(self.s.execute(
+            select(m.Domain).join(m.Account, m.Account.id == m.Domain.account_id)
+            .where(m.Domain.status == "pending", m.Domain.disabled_at.is_(None), m.Account.status == "active",
+                   or_(m.Domain.created_at < created_before, m.Domain.verified_at.is_not(None)))
+            .order_by(m.Domain.created_at.desc()).limit(limit)
+        ).scalars())
+
+    def pending_senders(self, created_before: datetime, limit: int) -> list[m.SenderIdentity]:
+        return list(self.s.execute(
+            select(m.SenderIdentity).join(m.Account, m.Account.id == m.SenderIdentity.account_id)
+            .where(m.SenderIdentity.status == "pending", m.SenderIdentity.disabled_at.is_(None),
+                   m.SenderIdentity.created_at < created_before, m.Account.status == "active")
+            .order_by(m.SenderIdentity.created_at.desc()).limit(limit)
+        ).scalars())
+
+    def suspended_accounts(self, limit: int) -> list[m.Account]:
+        return list(self.s.execute(
+            select(m.Account).where(m.Account.status == "active", m.Account.sending_suspended_at.is_not(None))
+            .order_by(m.Account.sending_suspended_at.desc()).limit(limit)
+        ).scalars())
+
+    def limit_violations(self, since: datetime) -> list[tuple[uuid.UUID, int]]:
+        prefix = "limit_violation:"
+        rows = self.s.execute(
+            select(m.RateLimitCounter.key, func.sum(m.RateLimitCounter.count))
+            .where(m.RateLimitCounter.key.like(prefix + "%"), m.RateLimitCounter.window_start >= since)
+            .group_by(m.RateLimitCounter.key)
+        ).all()
+        result = []
+        for key, count in rows:
+            try:
+                result.append((uuid.UUID(key.removeprefix(prefix)), int(count)))
+            except ValueError:
+                continue
+        return result
+
+    def dead_deliveries(self, since: datetime) -> list[tuple[uuid.UUID, int, str | None]]:
+        r = m.MessageRecipient
+        rows = self.s.execute(
+            select(r.account_id, func.count(), func.max(r.last_error))
+            .where(r.status == "failed", r.failed_at >= since).group_by(r.account_id)
+        ).all()
+        return [(a, c, e) for a, c, e in rows]
+
+    def bulk_without_address(self, limit: int) -> list[m.Account]:
+        eligible = select(m.Domain.account_id).where(m.Domain.bulk_eligible.is_(True), m.Domain.disabled_at.is_(None))
+        return list(self.s.execute(
+            select(m.Account).where(m.Account.status == "active", m.Account.id.in_(eligible),
+                                    or_(m.Account.physical_address.is_(None), m.Account.physical_address == ""))
+            .order_by(m.Account.created_at.desc()).limit(limit)
+        ).scalars())
+
+    def operator_audit_page(self, page: PageRequest, *, actor_id: uuid.UUID | None,
+                            action: str | None) -> Page[m.AuditEvent]:
+        stmt = select(m.AuditEvent).where(m.AuditEvent.actor_type == "operator")
+        if actor_id:
+            stmt = stmt.where(m.AuditEvent.actor_id == actor_id)
+        if action:
+            stmt = stmt.where(m.AuditEvent.action.like(f"{_escape_like(action)}%", escape="\\"))
+        return _paginate(self.s, stmt, m.AuditEvent, page)
+
+
 class SqlUnitOfWork:
     def __init__(self, session: Session):
         self.session = session
@@ -769,6 +1221,10 @@ class SqlUnitOfWork:
         self.sync = SqlSync(session)
         self.exports = SqlExports(session)
         self.jobs = SqlJobs(session)
+        self.admins = SqlAdmins(session)
+        self.admin_issues = SqlAdminIssues(session)
+        self.inbound = SqlInbound(session)
+        self.admin_stats = SqlAdminStats(session)
 
     def commit(self) -> None:
         self.session.commit()

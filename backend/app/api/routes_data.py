@@ -12,6 +12,7 @@ from app.api.deps import Ctx, Operator, OwnerCtx, Uow, get_storage
 from app.errors import ERROR_RESPONSES
 from app.logging import get_logger, log_event
 from app.pagination import MAX_LIMIT, page_request
+from app.services.common import Actor
 from app.services.health import AccountHealth, HealthService
 from app.services.lifecycle import LifecycleService
 from app.services.storage import ObjectStorage
@@ -192,22 +193,22 @@ def operator_account(account_id: uuid.UUID, _: Operator, uow: Uow) -> s.AccountH
 
 @router.post("/operator/accounts/{account_id}/suspend", response_model=s.AccountHealthOut, tags=["operator"])
 def operator_suspend(account_id: uuid.UUID, body: s.ReasonIn, op: Operator, uow: Uow) -> s.AccountHealthOut:
-    return health_out(HealthService(uow).suspend(op, account_id, body.reason))
+    return health_out(HealthService(uow).suspend(Actor("operator", op.id), account_id, body.reason))
 
 
 @router.post("/operator/accounts/{account_id}/reinstate", response_model=s.AccountHealthOut, tags=["operator"])
 def operator_reinstate(account_id: uuid.UUID, body: s.ReasonIn, op: Operator, uow: Uow) -> s.AccountHealthOut:
-    return health_out(HealthService(uow).reinstate(op, account_id, body.reason))
+    return health_out(HealthService(uow).reinstate(Actor("operator", op.id), account_id, body.reason))
 
 
 @router.put("/operator/accounts/{account_id}/limits", response_model=s.AccountHealthOut, tags=["operator"])
 def operator_limits(account_id: uuid.UUID, body: s.LimitsIn, op: Operator, uow: Uow) -> s.AccountHealthOut:
-    return health_out(HealthService(uow).set_limits(op, account_id, body.hourly_recipient_limit,
+    return health_out(HealthService(uow).set_limits(Actor("operator", op.id), account_id, body.hourly_recipient_limit,
                                                     body.daily_recipient_limit, body.reason))
 
 
 @router.post("/operator/accounts/{account_id}/reviews", response_model=s.AccountHealthOut, tags=["operator"],
              summary="Record a manual review")
 def operator_review(account_id: uuid.UUID, body: s.ReasonIn, op: Operator, uow: Uow) -> s.AccountHealthOut:
-    return health_out(HealthService(uow).review(op, account_id, body.reason))
+    return health_out(HealthService(uow).review(Actor("operator", op.id), account_id, body.reason))
 

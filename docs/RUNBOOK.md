@@ -9,6 +9,7 @@
 | Postfix    | `infra/postfix`             | Relays only for the worker's address (`POSTFIX_MYNETWORKS`); accepts inbound mail only for `b-<id>@bounce.*` (bounces), piped to `/internal/dsn`. Queue on the `postfix-queue` volume. See _Production mail server_. |
 | OpenDKIM   | `infra/opendkim`            | Sign-only milter. Reads keys the worker writes to a private volume shared with it only; reloads on change. Postfix defers (never sends unsigned) if it's down.                                                           |
 | Next.js    | `mailvender/`               | Proxies `/api/*` to the API (`API_INTERNAL_URL`), so cookies are first-party.                                                                                                                                            |
+| Admin      | `mailvender-admin/` (Vercel) | Staff dashboard. Proxies only `/api/v1/admin/*`, adding `X-Mailvender-Admin-Secret` (`ADMIN_PROXY_SECRET`); without it the API answers 404 to all of `/v1/admin`. See docs/ADMIN_SETUP.md.                            |
 | PostgreSQL | managed                     | ≥ 14.                                                                                                                                                                                                                    |
 | S3 + CDN   | AWS                         | See _Asset storage_.                                                                                                                                                                                                     |
 
@@ -227,8 +228,9 @@ evaluated only with ≥ `HEALTH_MIN_VOLUME` (100) accepted recipients. Above
 `HEALTH_MAX_BOUNCE_RATE` (5 %) or `HEALTH_MAX_COMPLAINT_RATE` (0.1 %) the
 account is suspended automatically; so is an account that hits its hourly or
 daily limit `LIMIT_VIOLATIONS_BEFORE_SUSPENSION` (20) times in an hour.
-Operators review with `GET /v1/operator/accounts` and act with
-`…/suspend`, `…/reinstate`, `PUT …/limits`, `…/reviews` – all audited.
+Operators review and act in the admin dashboard (**Accounts**, **Needs help**;
+docs/ADMIN_SETUP.md) – or through `GET /v1/operator/accounts` with
+`…/suspend`, `…/reinstate`, `PUT …/limits`, `…/reviews`. All audited.
 
 Soft bounces suppress an address after `SOFT_BOUNCE_THRESHOLD` (3) within
 `SOFT_BOUNCE_WINDOW_DAYS` (30); hard bounces and complaints suppress at once.
@@ -240,3 +242,24 @@ Configure each provider to POST ARF reports to
 `X-Mailvender-Signature: sha256=<HMAC-SHA256(body, secret)>`, and add
 `<name>:<secret>` to `FEEDBACK_LOOP_SECRETS`. (For providers that only email
 ARF reports, forward them through a small relay that signs the body.)
+
+## Admin dashboard
+
+Setup and daily use: docs/ADMIN_SETUP.md. Recovery, on the server
+(`docker compose -f docker-compose.prod.yml exec api python -m app.cli …`):
+
+| Situation | Command |
+| --- | --- |
+| Lost phone / forgotten password | `reset-admin <email>` – new temporary password, 2FA cleared, sessions ended |
+| Admin leaves | `disable-admin <email>` |
+| New admin | `create-admin <email>` (temporary password printed once) |
+| Who are the admins | `list-admins` |
+| Admin key leaked | New `ADMIN_PROXY_SECRET` on the server and in Vercel; redeploy both |
+| Admin API must be off | Remove `ADMIN_PROXY_SECRET`, redeploy – all of `/v1/admin` answers 404 |
+
+Role inboxes (postmaster@, abuse@, dmarc@) reach the API from the Cloudflare
+Email Worker (`infra/email-worker/`) at `/internal/inbound-mail`, signed with
+`INBOUND_MAIL_SECRET`. If messages stop appearing, check the worker's logs in
+Cloudflare; the Gmail copy keeps arriving either way. ARF reports at abuse@ go
+through the same complaint processing as `/internal/feedback-loop` (source
+`abuse-mailbox`).

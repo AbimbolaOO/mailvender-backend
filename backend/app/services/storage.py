@@ -1,6 +1,7 @@
 """Object storage behind an interface; the S3 implementation is the only AWS SDK user."""
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any, Protocol
 
 from app.config import get_settings
@@ -19,6 +20,13 @@ class ObjectInfo:
     content_type: str | None
 
 
+@dataclass(frozen=True)
+class ObjectSummary:
+    key: str
+    size: int
+    last_modified: datetime
+
+
 class ObjectStorage(Protocol):
     def presign_upload(self, key: str, content_type: str, max_bytes: int, expires_in: int) -> PresignedUpload: ...
     def presign_download(self, key: str, expires_in: int) -> str: ...
@@ -26,6 +34,7 @@ class ObjectStorage(Protocol):
     def read(self, key: str, max_bytes: int) -> bytes: ...
     def put(self, key: str, body: bytes, content_type: str, *, cache_control: str | None = None) -> None: ...
     def delete(self, key: str) -> None: ...
+    def list(self, prefix: str, limit: int = 1000) -> list[ObjectSummary]: ...
     def public_url(self, key: str) -> str: ...
 
 
@@ -90,6 +99,11 @@ class S3Storage:
 
     def delete(self, key: str) -> None:
         self.client.delete_object(Bucket=self.bucket, Key=key)
+
+    def list(self, prefix: str, limit: int = 1000) -> list[ObjectSummary]:
+        response = self.client.list_objects_v2(Bucket=self.bucket, Prefix=prefix, MaxKeys=limit)
+        return [ObjectSummary(key=item["Key"], size=int(item["Size"]), last_modified=item["LastModified"])
+                for item in response.get("Contents", [])]
 
     def public_url(self, key: str) -> str:
         return f"{self.public_base}/{key}"
