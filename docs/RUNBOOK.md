@@ -252,7 +252,7 @@ Setup and daily use: docs/ADMIN_SETUP.md. Recovery, on the server
 | --- | --- |
 | Lost phone / forgotten password | `reset-admin <email>` – new temporary password, 2FA cleared, sessions ended |
 | Admin leaves | `disable-admin <email>` |
-| New admin | `create-admin <email>` (temporary password printed once) |
+| New admin | Only one active admin is allowed: `disable-admin <old>`, then `create-admin <email>` (temporary password printed once) |
 | Who are the admins | `list-admins` |
 | Admin key leaked | New `ADMIN_PROXY_SECRET` on the server and in Vercel; redeploy both |
 | Admin API must be off | Remove `ADMIN_PROXY_SECRET`, redeploy – all of `/v1/admin` answers 404 |

@@ -766,6 +766,14 @@ class SqlAdmins(_Repo):
     def list_all(self) -> list[m.AdminUser]:
         return list(self.s.execute(select(m.AdminUser).order_by(m.AdminUser.created_at)).scalars())
 
+    def count_active(self) -> int:
+        stmt = select(func.count()).select_from(m.AdminUser).where(m.AdminUser.disabled_at.is_(None))
+        return int(self.s.execute(stmt).scalar_one())
+
+    def lock(self) -> None:
+        """Serialises admin creation (until commit), so two at once can't both pass the limit."""
+        self.s.execute(text("SELECT pg_advisory_xact_lock(hashtextextended('admins', 0))"))
+
     def add_session(self, session: m.AdminSession) -> m.AdminSession:
         return self.add(session)
 

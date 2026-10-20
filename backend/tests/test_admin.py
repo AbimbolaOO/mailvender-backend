@@ -516,3 +516,14 @@ def test_cli_creates_resets_and_disables_admins(capsys) -> None:  # type: ignore
     assert "setup pending" in capsys.readouterr().out
     assert cli_main(["disable-admin", "ops@example.com"]) == 0
     assert cli_main(["disable-admin", "nobody@example.com"]) == 1
+
+
+def test_only_one_active_admin(capsys) -> None:  # type: ignore[no-untyped-def]
+    assert cli_main(["create-admin", "first@example.com"]) == 0
+    assert cli_main(["create-admin", "second@example.com"]) == 1
+    assert "Only 1 active admin allowed" in capsys.readouterr().err
+    # Disabling makes room; the disabled one can't come back while another is active.
+    assert cli_main(["disable-admin", "first@example.com"]) == 0
+    assert cli_main(["create-admin", "second@example.com"]) == 0
+    assert cli_main(["reset-admin", "first@example.com"]) == 1
+    assert cli_main(["reset-admin", "second@example.com"]) == 0

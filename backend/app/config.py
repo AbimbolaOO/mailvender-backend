@@ -62,6 +62,7 @@ class Settings(BaseSettings):
     admin_max_failed_logins: int = 10
     admin_lockout_minutes: int = 30
     admin_stats_cache_seconds: int = 60
+    admin_max_accounts: int = 1  # active (not disabled) admins allowed at once
 
     # Sessions
     session_cookie_name: str = "mv_session"

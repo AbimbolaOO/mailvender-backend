@@ -99,6 +99,8 @@ docker compose exec api python -m app.cli create-admin you@example.com
 
 It prints a **temporary password** once. Copy it.
 
+Only **one active admin** is allowed. If it says "Only 1 active admin allowed", run `list-admins` to see who it is, and either use `reset-admin` on that one or `disable-admin` it first.
+
 ### A4. Start it and sign in
 
 ```sh
@@ -217,6 +219,8 @@ docker compose -f docker-compose.prod.yml exec api python -m app.cli create-admi
 ```
 
 Copy the temporary password it prints. You'll use it in B8.
+
+Only **one active admin** is allowed (`ADMIN_MAX_ACCOUNTS`, default 1), so this is the only admin the system will have.
 
 ### B5. Create the Vercel project
 
@@ -379,9 +383,9 @@ retention job deletes older ones.
 
 | Task | How |
 | --- | --- |
-| Add another admin | On the server: `docker compose -f docker-compose.prod.yml exec api python -m app.cli create-admin them@example.com`, then send them the temporary password through a password manager, not plain email. |
+| Hand the admin over to someone else | Only one active admin is allowed. On the server: `... python -m app.cli disable-admin you@example.com`, then `docker compose -f docker-compose.prod.yml exec api python -m app.cli create-admin them@example.com`, and send them the temporary password through a password manager, not plain email. |
 | Lost phone or forgotten password | `... python -m app.cli reset-admin you@example.com`. You get a new temporary password, two-factor is cleared and all sessions end. Sign in and set it up again. |
-| Remove an admin | `... python -m app.cli disable-admin them@example.com`. Their sessions end immediately. |
+| Remove an admin | `... python -m app.cli disable-admin them@example.com`. Their sessions end immediately. A disabled admin can only be brought back (`reset-admin`) when no other admin is active. |
 | See all admins | `... python -m app.cli list-admins` |
 | Change the admin key | Make a new one (`openssl rand -hex 32`). Put it in `.env.production` and `scp` it (B2), and in Vercel (B6). Redeploy the backend (step 15) and the admin (`npx vercel deploy --prod`). The admin stops working between the two redeploys, so do them back to back. |
 | Update the admin app | `cd mailvender-admin && npx vercel deploy --prod` (or push, if it's connected to GitHub). |
@@ -400,6 +404,7 @@ Backend (`.env` on the server; defaults in `backend/app/config.py`):
 | `ADMIN_SESSION_IDLE_MINUTES` | 30 | Sign out after this long without activity. |
 | `ADMIN_SESSION_TTL_HOURS` | 8 | Sign out after this long in total. |
 | `ADMIN_MAX_FAILED_LOGINS` / `ADMIN_LOCKOUT_MINUTES` | 10 / 30 | Lockout after wrong passwords or codes. |
+| `ADMIN_MAX_ACCOUNTS` | 1 | How many admins can be active (not disabled) at once. `create-admin` refuses beyond it. |
 | `RETENTION_INBOUND_MAIL_DAYS` / `RETENTION_DMARC_ROWS_DAYS` | 180 / 365 | How long inbox mail and DMARC rows are kept. |
 
 Admin app (Vercel environment variables, server-only):

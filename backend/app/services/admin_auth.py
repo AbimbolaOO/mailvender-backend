@@ -1,7 +1,8 @@
 """Admin sign-in: Mailvender staff only, separate from customer users and sessions.
 
 * An admin is created on the server (`python -m app.cli create-admin <email>`), which prints a
-  temporary password once.
+  temporary password once. Only ADMIN_MAX_ACCOUNTS admins (default 1) can be active at once; disable
+  one to make room for another.
 * First sign-in: the admin must change that password, then set up an authenticator app (TOTP).
   Until both are done, only those steps (and sign-out) work.
 * Every later sign-in needs the password and a 6-digit code, or a one-time recovery code.
@@ -122,6 +123,7 @@ class AdminAuthService:
         normalized = normalize_email(email)
         if self.uow.admins.get_by_email(normalized):
             raise Conflict("An admin with this email already exists.", code="admin_exists")
+        self._check_room()
         password = new_admin_password()
         admin = self.uow.admins.add(m.AdminUser(email=normalized, password_hash=hash_password(password),
                                                 must_change_password=True, recovery_code_hashes=[]))
@@ -133,6 +135,8 @@ class AdminAuthService:
     def reset(self, email: str) -> str:
         """New temporary password, two-factor cleared, every session ended (lost phone, forgotten password)."""
         admin = self._by_email(email)
+        if admin.disabled_at:
+            self._check_room()
         password = new_admin_password()
         admin.password_hash = hash_password(password)
         admin.must_change_password = True
@@ -154,6 +158,14 @@ class AdminAuthService:
         audit(self.uow, None, Actor.system(), "admin.disabled", target_type="admin", target_id=admin.id,
               admin_email=admin.email)
         self.uow.commit()
+
+    def _check_room(self) -> None:
+        """Refuses another active admin once ADMIN_MAX_ACCOUNTS are active."""
+        self.uow.admins.lock()
+        limit = self.settings.admin_max_accounts
+        if self.uow.admins.count_active() >= limit:
+            raise Conflict(f"Only {limit} active admin{'s' if limit != 1 else ''} allowed. Disable one first "
+                           "(`python -m app.cli disable-admin <email>`).", code="admin_limit")
 
     def _by_email(self, email: str) -> m.AdminUser:
         admin = self.uow.admins.get_by_email(normalize_email(email), for_update=True)
