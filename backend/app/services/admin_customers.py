@@ -14,8 +14,7 @@ from app.pagination import Page, PageRequest
 from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
 from app.services.admin_auth import AdminAuth, admin_audit
-from app.services.admin_dashboard import start_of_day
-from app.services.auth import send_verification
+from app.services.auth import send_password_reset, send_verification
 from app.services.dns import DnsResolver
 from app.services.domains import DomainService, DomainView
 from app.services.health import AccountHealth, HealthService
@@ -23,6 +22,8 @@ from app.services.sending import suspend
 
 
 def user_status(user: m.User) -> str:
+    if user.deleted_at:
+        return "deleted"
     if user.disabled_at:
         return "blocked"
     return "active" if user.email_verified_at else "unverified"
@@ -111,6 +112,12 @@ class AdminCustomersService:
             raise NotFound("User not found.")
         return user
 
+    def _live_user(self, user_id: uuid.UUID) -> m.User:
+        user = self._user(user_id)
+        if user.deleted_at:
+            raise Conflict("This person deleted their login.", code="user_deleted")
+        return user
+
     def user_detail(self, auth: AdminAuth, user_id: uuid.UUID, *, record_view: bool = True) -> UserDetail:
         user = self._user(user_id)
         if record_view:
@@ -121,7 +128,7 @@ class AdminCustomersService:
                           last_seen_at=self.uow.admin_stats.last_seen(user.id))
 
     def block_user(self, auth: AdminAuth, user_id: uuid.UUID, reason: str, suspend_accounts: bool) -> UserDetail:
-        user = self._user(user_id)
+        user = self._live_user(user_id)
         if user.disabled_at:
             raise Conflict("This user is already blocked.", code="already_blocked")
         now = utcnow()
@@ -142,7 +149,7 @@ class AdminCustomersService:
         return self.user_detail(auth, user.id, record_view=False)
 
     def unblock_user(self, auth: AdminAuth, user_id: uuid.UUID, reason: str) -> UserDetail:
-        user = self._user(user_id)
+        user = self._live_user(user_id)
         if not user.disabled_at:
             raise Conflict("This user isn't blocked.", code="not_blocked")
         user.disabled_at = None
@@ -152,8 +159,29 @@ class AdminCustomersService:
         self.uow.commit()
         return self.user_detail(auth, user.id, record_view=False)
 
+    def sign_out_everywhere(self, auth: AdminAuth, user_id: uuid.UUID, reason: str) -> UserDetail:
+        """Ends every session (e.g. a lost laptop) without blocking the person."""
+        user = self._live_user(user_id)
+        revoked = self.uow.sessions.revoke_for_users([user.id], utcnow())
+        admin_audit(self.uow, auth, "user.signed_out_everywhere", target_type="user", target_id=user.id,
+                    reason=reason, sessions=revoked)
+        self.uow.commit()
+        return self.user_detail(auth, user.id, record_view=False)
+
+    def send_password_reset(self, auth: AdminAuth, user_id: uuid.UUID) -> UserDetail:
+        user = self._live_user(user_id)
+        if user.disabled_at:
+            raise Conflict("This user is blocked.", code="user_blocked")
+        if user.email_verified_at is None:
+            raise Conflict("They haven't verified their email yet – resend the verification link instead.",
+                           code="not_verified")
+        send_password_reset(self.uow, user)
+        admin_audit(self.uow, auth, "user.password_reset_sent", target_type="user", target_id=user.id)
+        self.uow.commit()
+        return self.user_detail(auth, user.id, record_view=False)
+
     def resend_verification(self, auth: AdminAuth, user_id: uuid.UUID) -> UserDetail:
-        user = self._user(user_id)
+        user = self._live_user(user_id)
         if user.email_verified_at:
             raise Conflict("This user is already verified.", code="already_verified")
         if user.disabled_at:
@@ -167,7 +195,9 @@ class AdminCustomersService:
 
     def accounts_page(self, page: PageRequest, query: str | None, status: str | None) -> Page[AccountRow]:
         health = HealthService(self.uow)
-        result = self.uow.admin_stats.accounts_page(page, query=query, status=status, today=start_of_day(utcnow()))
+        # Same window as the daily sending limit: the last 24 hours, not the calendar day.
+        result = self.uow.admin_stats.accounts_page(page, query=query, status=status,
+                                                    since=utcnow() - timedelta(days=1))
         return Page(
             items=[AccountRow(AccountHealth(account, health.metrics(account), None), owner, members, domains, sent)
                    for account, owner, members, domains, sent in result.items],

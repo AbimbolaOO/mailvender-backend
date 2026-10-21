@@ -9,6 +9,7 @@ Anything user-supplied (account names, email addresses) is escaped: an account
 name must never be able to inject links or markup into someone else's inbox.
 """
 
+import re
 from dataclasses import dataclass
 from datetime import datetime
 from html import escape
@@ -130,6 +131,92 @@ def password_changed(email: str, when: datetime, reset_url: str) -> RenderedEmai
             reason="it's an important notice about your Mailvender account",
         ),
     )
+
+
+def account_deletion_scheduled(account_name: str, when: datetime, purge_on: datetime,
+                               settings_url: str) -> RenderedEmail:
+    stamp = when.strftime("%d %B %Y, %H:%M UTC")
+    day = purge_on.strftime("%d %B %Y")
+    return RenderedEmail(
+        subject=f"{account_name} will be deleted on {day}",
+        text=(
+            f"The Mailvender workspace \"{account_name}\" was deleted on {stamp}.\n"
+            "Sending has stopped, API keys were revoked and everyone was signed out.\n\n"
+            f"Everything in it is erased for good on {day}. Until then you can restore it: sign in and open "
+            f"Settings.\n{settings_url}\n"
+        ),
+        html=_layout(
+            preheader=f"You can restore it until {day}.",
+            badge="🗑️",
+            eyebrow="Workspace deleted",
+            title=f"{account_name} is scheduled for deletion",
+            subtitle=f"You can still restore it until {day}.",
+            body=(
+                _p("Sending has stopped, API keys were revoked and everyone in the workspace was signed out.")
+                + _details([("Workspace", account_name), ("Deleted", stamp), ("Erased on", day)])
+                + _p("Changed your mind? Sign in and restore it from Settings before that date.")
+                + _button("Open Settings", settings_url)
+            ),
+            note="If you meant to delete it, there's nothing else to do.",
+            reason="it's an important notice about your Mailvender account",
+        ),
+    )
+
+
+def login_deleted(email: str, when: datetime) -> RenderedEmail:
+    stamp = when.strftime("%d %B %Y, %H:%M UTC")
+    return RenderedEmail(
+        subject="Your Mailvender login was deleted",
+        text=(
+            f"The Mailvender login for {email} was deleted on {stamp}.\n"
+            "Your email address and password have been erased, and you were removed from every workspace. "
+            "Workspaces only you were in are erased within 30 days.\n\n"
+            "You can sign up again with this address at any time.\n"
+        ),
+        html=_layout(
+            preheader="Your email address and password have been erased.",
+            badge="👋",
+            eyebrow="Goodbye",
+            title="Your login was deleted",
+            subtitle="Sorry to see you go.",
+            body=(
+                _p("Your email address and password have been erased, and you were removed from every "
+                   "workspace. Workspaces only you were in are erased within 30 days.")
+                + _details([("Login", email), ("When", stamp)])
+                + _p("You can sign up again with this address at any time.")
+            ),
+            note="This is the last email we'll send to this address.",
+            reason="it confirms you deleted your Mailvender login",
+        ),
+    )
+
+
+def admin_message(subject: str, body: str) -> RenderedEmail:
+    """A message an admin wrote in the admin app, in the branded layout (links made clickable)."""
+    paragraphs = [chunk.strip() for chunk in re.split(r"\n\s*\n", body.strip()) if chunk.strip()]
+    html_body = "".join(_p(_linkify(chunk).replace("\n", "<br>"), raw=True) for chunk in paragraphs)
+    first = paragraphs[0] if paragraphs else subject
+    return RenderedEmail(
+        subject=subject,
+        text=body.strip() + "\n",
+        html=_layout(
+            preheader=first[:140],
+            badge="✉️",
+            eyebrow="From the Mailvender team",
+            title=subject,
+            subtitle="",
+            body=html_body,
+            note="Just reply to this email to reach us.",
+            reason="the Mailvender team wrote to you",
+        ),
+    )
+
+
+def _linkify(text: str) -> str:
+    """Escapes the text, then turns http(s) URLs into links."""
+    escaped = escape(text)
+    return re.sub(r"https?://[^\s<]+[^\s<.,;:!?)\]'\"]",
+                  lambda m: f'<a href="{m.group(0)}" style="color:{ACCENT};">{m.group(0)}</a>', escaped)
 
 
 def already_registered(login_url: str, reset_url: str) -> RenderedEmail:

@@ -62,6 +62,8 @@ class User(Base):
     default_account_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("accounts.id", use_alter=True))
     created_at: Mapped[datetime] = _created()
     disabled_at: Mapped[datetime | None]
+    # Set when the person deletes their login: email and password are replaced, the row stays for history.
+    deleted_at: Mapped[datetime | None]
 
 
 class Session(Base):
@@ -507,7 +509,7 @@ class InboundMessage(Base):
         Index("ix_inbound_messages_mailbox_created", "mailbox", "created_at"),
     )
     id: Mapped[uuid.UUID] = _id()
-    mailbox: Mapped[str] = mapped_column(String(16))  # postmaster | abuse | dmarc
+    mailbox: Mapped[str] = mapped_column(String(16))  # postmaster | abuse | dmarc | support
     message_id_header: Mapped[str | None] = mapped_column(String(500))
     from_address: Mapped[str] = mapped_column(String(320))
     from_name: Mapped[str | None] = mapped_column(String(200))
@@ -538,4 +540,41 @@ class DmarcReportRow(Base):
     disposition: Mapped[str] = mapped_column(String(16))  # none | quarantine | reject
     dkim: Mapped[str] = mapped_column(String(16))  # DMARC-aligned result: pass | fail
     spf: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = _created()
+
+
+class AdminMail(Base):
+    """An email an admin wrote and sent from one of the platform's addresses (the Sent folder)."""
+
+    __tablename__ = "admin_mails"
+    __table_args__ = (Index("ix_admin_mails_created", "created_at"),)
+    id: Mapped[uuid.UUID] = _id()
+    admin_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("admin_users.id"))
+    from_address: Mapped[str] = mapped_column(String(320))
+    to: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    cc: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    bcc: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    subject: Mapped[str] = mapped_column(Text)
+    body: Mapped[str] = mapped_column(Text)  # what the admin typed (plain text)
+    format: Mapped[str] = mapped_column(String(16))  # branded | plain
+    message_id_header: Mapped[str] = mapped_column(String(500))
+    in_reply_to_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("inbound_messages.id", ondelete="SET NULL"))
+    in_reply_to_header: Mapped[str | None] = mapped_column(String(500))
+    status: Mapped[str] = mapped_column(String(16), default="queued")  # queued | sent | failed
+    error: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = _created()
+    sent_at: Mapped[datetime | None]
+
+
+class AdminMailAttachment(Base):
+    """A file uploaded for an admin email; unattached ones are removed by the retention job after a day."""
+
+    __tablename__ = "admin_mail_attachments"
+    id: Mapped[uuid.UUID] = _id()
+    admin_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("admin_users.id"))
+    mail_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("admin_mails.id", ondelete="CASCADE"), index=True)
+    filename: Mapped[str] = mapped_column(String(255))
+    content_type: Mapped[str] = mapped_column(String(255))
+    size: Mapped[int] = mapped_column(Integer)
+    object_key: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = _created()

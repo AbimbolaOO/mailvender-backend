@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Request, Response
 
 from app.api import schemas as s
+from app import models as m
 from app.api.deps import (
     CSRF_HEADER,
     CSRF_VALUE,
@@ -11,12 +12,15 @@ from app.api.deps import (
     Uow,
     client_ip,
     get_rate_limiter,
+    get_storage,
 )
 from app.config import get_settings
 from app.errors import ERROR_RESPONSES, Forbidden
 from app.repositories.interfaces import UnitOfWork
 from app.services.auth import AuthService
 from app.services.common import RateLimiter
+from app.services.lifecycle import LifecycleService, deleted_accounts, purge_date
+from app.services.storage import ObjectStorage
 
 router = APIRouter(prefix="/v1/auth", tags=["auth"], responses=ERROR_RESPONSES)
 
@@ -33,6 +37,7 @@ def auth_service(uow: Uow, limiter: Annotated[RateLimiter, Depends(get_rate_limi
 
 
 Auth = Annotated[AuthService, Depends(auth_service)]
+Storage = Annotated[ObjectStorage, Depends(get_storage)]
 Public = [Depends(csrf_header)]
 
 
@@ -41,6 +46,13 @@ def accounts_for(uow: UnitOfWork, user_id) -> list[s.MembershipAccountOut]:
         s.MembershipAccountOut.model_validate({**s.AccountOut.model_validate(account).model_dump(), "role": role})
         for account, role in uow.accounts.list_for_user(user_id)
     ]
+
+
+def deleted_accounts_for(uow: UnitOfWork, user: m.User) -> list[s.DeletedAccountOut]:
+    return [s.DeletedAccountOut.model_validate({**s.AccountOut.model_validate(a).model_dump(),
+                                                "deletion_requested_at": a.deletion_requested_at,
+                                                "purge_on": purge_date(a)})
+            for a in deleted_accounts(uow, user)]
 
 
 @router.post("/signup", status_code=202, response_model=s.Accepted, dependencies=Public,
@@ -81,7 +93,7 @@ def login(body: s.LoginIn, request: Request, response: Response, auth: Auth, uow
         path="/",
     )
     return s.SessionOut(user=s.UserOut.model_validate(created.user), accounts=accounts_for(uow, created.user.id),
-                        expires_at=created.session.expires_at)
+                        deleted_accounts=deleted_accounts_for(uow, created.user), expires_at=created.session.expires_at)
 
 
 @router.post("/logout", status_code=204, summary="Sign out (revokes this session)")
@@ -109,4 +121,28 @@ def confirm_reset(body: s.ResetConfirmIn, auth: Auth) -> Response:
 
 @router.get("/me", response_model=s.MeOut, summary="The signed-in user and their accounts")
 def me(user: CurrentUser, uow: Uow) -> s.MeOut:
-    return s.MeOut(user=s.UserOut.model_validate(user), accounts=accounts_for(uow, user.id))
+    return s.MeOut(user=s.UserOut.model_validate(user), accounts=accounts_for(uow, user.id),
+                   deleted_accounts=deleted_accounts_for(uow, user))
+
+
+@router.post("/me/export", summary="Download your personal data (ZIP of JSON; audited)",
+             description="Your profile, the accounts you belong to, invitations, sessions and your activity. "
+                         "Workspace content is in each account's export (`POST /v1/account/exports`).",
+             response_class=Response, responses={200: {"content": {"application/zip": {}}}})
+def export_me(user: CurrentUser, uow: Uow, storage: Storage) -> Response:
+    body = LifecycleService(uow, storage).personal_export(user)
+    return Response(body, media_type="application/zip",
+                    headers={"Content-Disposition": 'attachment; filename="mailvender-my-data.zip"',
+                             "Cache-Control": "no-store"})
+
+
+@router.post("/me/deletion", status_code=204, summary="Delete your login permanently",
+             description="Needs your password. Accounts only you own are deleted (restorable by nobody, erased "
+                         "after the retention period); you leave every other account; your email address and "
+                         "password are erased and every session ends. 409 `owns_shared_accounts` while you own "
+                         "an account with other members (`details.accounts`): transfer or delete it first.")
+def delete_me(body: s.UserDeletionIn, user: CurrentUser, uow: Uow, storage: Storage, response: Response) -> Response:
+    LifecycleService(uow, storage).delete_user(user, body.password)
+    response.delete_cookie(get_settings().session_cookie_name, path="/")
+    response.status_code = 204
+    return response

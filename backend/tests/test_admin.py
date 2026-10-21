@@ -403,7 +403,7 @@ def test_reading_the_inbox(admin_client, client, storage, db) -> None:  # type: 
     sign_in(admin_client)
     post_mail(client, PLAIN)
     counts = admin_client.get("/v1/admin/inbox/counts").json()["unread"]
-    assert counts == {"postmaster": 1, "abuse": 0, "dmarc": 0}
+    assert counts == {"support": 0, "postmaster": 1, "abuse": 0, "dmarc": 0}
     listing = admin_client.get("/v1/admin/inbox?mailbox=postmaster&q=spam").json()["items"]
     assert len(listing) == 1 and listing[0]["from_name"] == "Jane Doe" and listing[0]["has_attachments"]
     message_id = listing[0]["id"]

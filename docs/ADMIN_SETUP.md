@@ -2,7 +2,9 @@
 
 Mailvender Admin is the private dashboard for Mailvender staff. In it you can:
 
-- read mail sent to `postmaster@`, `abuse@` and `dmarc@mailvender.com`;
+- read mail sent to `support@`, `postmaster@`, `abuse@` and `dmarc@mailvender.com`;
+- write emails, with attachments, to customers or anyone else, and reply to or
+  forward what came in (see [E. Writing email](#e-writing-email));
 - see daily usage, spam-complaint and bounce rates, and the health of the server;
 - find customers who are stuck, with a plain-words fix for each problem;
 - block and unblock users, and suspend, reinstate or change limits on accounts.
@@ -14,8 +16,9 @@ This guide has four parts:
 
 - [A. Run it on your Mac](#a-run-it-on-your-mac)
 - [B. Put it in production](#b-put-it-in-production)
-- [C. Role inboxes: postmaster@, abuse@, dmarc@](#c-role-inboxes-postmaster-abuse-dmarc)
+- [C. Role inboxes: support@, postmaster@, abuse@, dmarc@](#c-role-inboxes-support-postmaster-abuse-dmarc)
 - [D. Day to day](#d-day-to-day)
+- [E. Writing email](#e-writing-email)
 
 ---
 
@@ -300,13 +303,14 @@ required.
 
 ---
 
-## C. Role inboxes: postmaster@, abuse@, dmarc@
+## C. Role inboxes: support@, postmaster@, abuse@, dmarc@
 
 First finish PRODUCTION_SETUP step 13a. That sets up Cloudflare Email Routing,
-which forwards these three addresses to your Gmail, and the `rua=` address in
-`_dmarc`.
+which forwards these addresses to your Gmail, and the `rua=` address in
+`_dmarc`. If you didn't add `support@mailvender.com` there, add it now the same
+way (it's where replies to the emails you write in the admin arrive).
 
-Here, a small **Cloudflare Email Worker** takes over for those three
+Here, a small **Cloudflare Email Worker** takes over for those four
 addresses. For each message, it:
 
 1. still forwards a copy to your Gmail, as a backup;
@@ -331,10 +335,10 @@ npx wrangler secret put INBOUND_MAIL_SECRET      # paste the second secret from 
 npx wrangler deploy
 ```
 
-### C2. Point the three addresses at the worker
+### C2. Point the four addresses at the worker
 
 Cloudflare → **mailvender.com → Email → Email Routing → Routing rules**. For
-`postmaster@`, `abuse@` and `dmarc@`:
+`support@`, `postmaster@`, `abuse@` and `dmarc@`:
 
 1. Click **Edit**.
 2. Set **Action** to **Send to a Worker**.
@@ -365,6 +369,7 @@ OK.
 
 | Mailbox | What the admin does with it |
 | --- | --- |
+| support@ | Shown in the Inbox (the first tab). Replies to the emails you write from support@ land here, and so do bounces of them. |
 | postmaster@ | Shown in the Inbox. Microsoft SNDS sends its confirmation link here (13a). |
 | abuse@ | Shown in the Inbox. Complaint reports (e.g. from Microsoft JMRP) are also matched to the customer's email and suppressed, like any spam complaint, and count towards that account's complaint rate. |
 | dmarc@ | Shown in the Inbox, and the daily DMARC reports are read: **Spam & delivery → DMARC reports** shows who sent as mailvender.com and whether it passed. |
@@ -389,7 +394,9 @@ retention job deletes older ones.
 | See all admins | `... python -m app.cli list-admins` |
 | Change the admin key | Make a new one (`openssl rand -hex 32`). Put it in `.env.production` and `scp` it (B2), and in Vercel (B6). Redeploy the backend (step 15) and the admin (`npx vercel deploy --prod`). The admin stops working between the two redeploys, so do them back to back. |
 | Update the admin app | `cd mailvender-admin && npx vercel deploy --prod` (or push, if it's connected to GitHub). |
-| Who did what | **Audit log** in the admin. Every sign-in, view, block and suspension, with the admin's email, IP and reason. |
+| Who did what | **Audit log** in the admin. Every sign-in, view, block, suspension and email sent, with the admin's email, IP and reason. Filter by kind (Emails, Users, …) and, when there has been more than one admin, by admin. |
+| Change your password, make new recovery codes, sign out other browsers | **Your login** (bottom of the sidebar). New recovery codes need your password; the old ones stop working. |
+| A customer lost a laptop / can't sign in | Open them in **Users**: **Sign out everywhere** (asks for a reason, doesn't block them) or **Send password reset link**. |
 | Turn the admin API off | Remove `ADMIN_PROXY_SECRET` from the server's `.env` and redeploy. All `/v1/admin` addresses then answer 404. |
 
 ### Settings reference
@@ -405,7 +412,11 @@ Backend (`.env` on the server; defaults in `backend/app/config.py`):
 | `ADMIN_SESSION_TTL_HOURS` | 8 | Sign out after this long in total. |
 | `ADMIN_MAX_FAILED_LOGINS` / `ADMIN_LOCKOUT_MINUTES` | 10 / 30 | Lockout after wrong passwords or codes. |
 | `ADMIN_MAX_ACCOUNTS` | 1 | How many admins can be active (not disabled) at once. `create-admin` refuses beyond it. |
-| `RETENTION_INBOUND_MAIL_DAYS` / `RETENTION_DMARC_ROWS_DAYS` | 180 / 365 | How long inbox mail and DMARC rows are kept. |
+| `RETENTION_INBOUND_MAIL_DAYS` / `RETENTION_DMARC_ROWS_DAYS` | 180 / 365 | How long inbox mail (and sent email) and DMARC rows are kept. |
+| `ADMIN_MAIL_FROM_MAILBOXES` | `support,postmaster,abuse` | Addresses at the platform domain an admin can send from; the first is the default. |
+| `ADMIN_MAIL_FROM_NAME` | `Mailvender` | The name recipients see. |
+| `ADMIN_MAIL_MAX_RECIPIENTS` | 50 | To + Cc + Bcc per email. |
+| `ADMIN_MAIL_MAX_ATTACHMENT_BYTES` / `ADMIN_MAIL_MAX_TOTAL_BYTES` | 4 MB / 7 MB | Per file (one upload per request stays under Vercel's 4.5 MB limit) and per email (stays under Postfix's 10 MB once encoded). |
 
 Admin app (Vercel environment variables, server-only):
 
@@ -413,3 +424,48 @@ Admin app (Vercel environment variables, server-only):
 | --- | --- |
 | `API_INTERNAL_URL` | `https://api.mailvender.com` (local: `http://localhost:8000`) |
 | `ADMIN_PROXY_SECRET` | Same as the backend's |
+
+---
+
+## E. Writing email
+
+**Write email** in the sidebar (or **Write an email** in the Inbox) opens the
+composer. Write to customers or to anyone else:
+
+1. **From**: one of our addresses (`support@` by default). Replies go back to
+   that address and show up in its Inbox tab.
+2. **To**, and **Cc / Bcc** if you need them: type or paste addresses (a whole
+   list from a spreadsheet or an email works). Typing two letters suggests
+   matching customers. Bcc people are hidden from everyone else. Up to 50
+   people per email.
+3. **Subject** and **Message**: plain text. With **Mailvender design** your
+   text goes into our branded email layout and links become clickable (a
+   plain-text copy goes along); **Plain text** looks like a personal email.
+4. **Files**: drop them in or choose them – documents, PDFs, pictures,
+   spreadsheets, zips – up to 4 MB each and 7 MB together. Program files
+   (`.exe`, `.js`, `.bat`, …) are refused because Gmail and Outlook would
+   bounce the email; zip them or share a link.
+5. **Preview** shows exactly what the recipient will see. **Send** asks you to
+   confirm who it goes to.
+
+Shortcuts open the composer already filled in:
+
+| Where | Button | Fills in |
+| --- | --- | --- |
+| Inbox, reading a message | **Reply** | To (the sender), "Re:" subject, the quoted message, and From = the address it was sent to; the reply is threaded with the original |
+| Inbox, reading a message | **Forward** | "Fwd:" subject, the original text, and its attachments |
+| Users → a person | **Email** | To |
+| Accounts → an account | **Email the owner** | To and a subject naming the account |
+| Needs help | **Email them** | To and a greeting |
+
+Sent emails are listed in **Inbox → Sent**: who it went to, the text, the
+files, and whether it was **Sent** or **Not delivered** (with the mail
+server's reason). **Send again** starts a new email with the same recipients,
+subject and text. Every email sent is in the Audit log (**Emails**).
+
+How it's sent: the worker hands the email to our Postfix like every other
+email; it's signed with the platform DKIM key (step 12) and passes SPF and
+DMARC as mailvender.com. So it only leaves the server once port 25 is open and
+the platform key is active (**System** shows both). Locally everything lands
+in Mailpit (http://localhost:8025).
+

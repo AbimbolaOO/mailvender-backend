@@ -307,12 +307,17 @@ sent twice.
 
 ### Your data
 
-- **Settings → Your data → Request export** builds a ZIP of everything
-  (designs, data sources, image list, message history, suppressions). It's
-  downloadable for 24 hours.
-- **Delete this account** revokes access, stops pending sends, deletes images
-  and schedules the rest for deletion after 30 days. How long each kind of
-  data is kept is listed in [RETENTION.md](RETENTION.md).
+- **Settings → Your data → Request export** builds a ZIP of everything in the
+  workspace (designs, data sources, images, message history, suppressions).
+  It's downloadable for 24 hours.
+- **Delete this account** stops it at once (access revoked, pending sends
+  stopped) and erases everything after 30 days. Until then an owner can
+  **Restore** it from **Settings → You** (or the screen shown when you have no
+  workspace left).
+- **Settings → You → Download my data** gives you your own data (login,
+  workspaces, sessions, activity). **Delete my login** erases you for good:
+  transfer or delete any workspace other people use first.
+- How long each kind of data is kept: [RETENTION.md](RETENTION.md).
 
 ---
 

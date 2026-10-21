@@ -1521,6 +1521,189 @@
         }
       }
     },
+    "/v1/auth/me/export": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Download your personal data (ZIP of JSON; audited)",
+        "description": "Your profile, the accounts you belong to, invitations, sessions and your activity. Workspace content is in each account's export (`POST /v1/account/exports`).",
+        "operationId": "export_me_v1_auth_me_export_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/zip": {}
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/me/deletion": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Delete your login permanently",
+        "description": "Needs your password. Accounts only you own are deleted (restorable by nobody, erased after the retention period); you leave every other account; your email address and password are erased and every session ends. 409 `owns_shared_accounts` while you own an account with other members (`details.accounts`): transfer or delete it first.",
+        "operationId": "delete_me_v1_auth_me_deletion_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDeletionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/accounts": {
       "get": {
         "tags": [
@@ -1633,6 +1816,110 @@
         },
         "responses": {
           "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MembershipAccountOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/accounts/{account_id}/restore": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Restore a deleted account (owners, until it's erased)",
+        "description": "Listed in `deleted_accounts` of `/v1/auth/me`. Domains come back as `pending` (check DNS to verify them again) unless someone else added the same domain meanwhile; senders come back as `pending`. Revoked API keys stay revoked.",
+        "operationId": "restore_account_v1_accounts__account_id__restore_post",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Account Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -8029,13 +8316,135 @@
         }
       }
     },
+    "/v1/account/exports/{export_id}/link": {
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "summary": "A short-lived download link for an export (audited)",
+        "description": "Use this for large exports: the browser downloads straight from storage.",
+        "operationId": "export_link_v1_account_exports__export_id__link_post",
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Export Id"
+            }
+          },
+          {
+            "name": "x-account-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Active account (browser sessions)",
+              "title": "X-Account-Id"
+            },
+            "description": "Active account (browser sessions)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportLinkOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/account/deletion": {
       "post": {
         "tags": [
           "data"
         ],
         "summary": "Delete the account",
-        "description": "Revokes API keys and members' sessions, disables domains and senders, stops pending sends, deletes assets and schedules the remaining data for deletion (see RETENTION.md).",
+        "description": "Revokes API keys and members' sessions, disables domains and senders and stops pending sends at once. Everything else is erased after RETENTION_DELETED_ACCOUNT_DAYS (see RETENTION.md); until then an owner can restore it (`POST /v1/accounts/{id}/restore`).",
         "operationId": "delete_account_v1_account_deletion_post",
         "parameters": [
           {
@@ -9426,6 +9835,47 @@
         ],
         "title": "ContentUploadOut"
       },
+      "DeletedAccountOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "personal",
+              "team"
+            ],
+            "title": "Kind"
+          },
+          "deletion_requested_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Deletion Requested At"
+          },
+          "purge_on": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Purge On",
+            "description": "When it's erased for good; it can be restored until then"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "deletion_requested_at",
+          "purge_on"
+        ],
+        "title": "DeletedAccountOut"
+      },
       "DeletionIn": {
         "properties": {
           "confirm_name": {
@@ -9699,6 +10149,26 @@
           "error"
         ],
         "title": "ErrorResponse"
+      },
+      "ExportLinkOut": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "Downloads the ZIP directly from storage"
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In",
+            "description": "Seconds the link works for"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "expires_in"
+        ],
+        "title": "ExportLinkOut"
       },
       "ExportOut": {
         "properties": {
@@ -9983,6 +10453,14 @@
             },
             "type": "array",
             "title": "Accounts"
+          },
+          "deleted_accounts": {
+            "items": {
+              "$ref": "#/components/schemas/DeletedAccountOut"
+            },
+            "type": "array",
+            "title": "Deleted Accounts",
+            "description": "Accounts you own that are deleted but can still be restored"
           }
         },
         "type": "object",
@@ -10941,6 +11419,13 @@
             "type": "array",
             "title": "Accounts"
           },
+          "deleted_accounts": {
+            "items": {
+              "$ref": "#/components/schemas/DeletedAccountOut"
+            },
+            "type": "array",
+            "title": "Deleted Accounts"
+          },
           "expires_at": {
             "type": "string",
             "format": "date-time",
@@ -11302,6 +11787,21 @@
           "upload"
         ],
         "title": "UploadOut"
+      },
+      "UserDeletionIn": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "maxLength": 256,
+            "title": "Password",
+            "description": "Your current password, to confirm"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "UserDeletionIn"
       },
       "UserOut": {
         "properties": {

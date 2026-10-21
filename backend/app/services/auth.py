@@ -41,6 +41,19 @@ def validate_password(password: str, field: str = "password") -> None:
         )
 
 
+def send_password_reset(uow: UnitOfWork, user: m.User) -> None:
+    """Queues a password reset link (any earlier link stops working). The caller commits."""
+    settings = get_settings()
+    now = utcnow()
+    uow.email_tokens.invalidate_for_user(user.id, RESET, now)
+    token = new_token()
+    uow.email_tokens.add(m.EmailToken(user_id=user.id, purpose=RESET, token_hash=hash_token(token),
+                                      expires_at=now + timedelta(minutes=settings.password_reset_ttl_minutes)))
+    enqueue_system_email(uow, user.email, emails.password_reset(app_url("/reset-password?token=" + token),
+                                                                settings.password_reset_ttl_minutes),
+                         kind="password_reset")
+
+
 def send_verification(uow: UnitOfWork, user: m.User) -> None:
     """Queues a fresh verification link (older links stop working). Also used by the admin's "Resend"."""
     settings = get_settings()
@@ -208,23 +221,7 @@ class AuthService:
         user = self.uow.users.get_by_email(normalized)
         if user is None or user.email_verified_at is None or user.disabled_at:
             return
-        now = utcnow()
-        self.uow.email_tokens.invalidate_for_user(user.id, RESET, now)
-        token = new_token()
-        self.uow.email_tokens.add(
-            m.EmailToken(
-                user_id=user.id,
-                purpose=RESET,
-                token_hash=hash_token(token),
-                expires_at=now + timedelta(minutes=self.settings.password_reset_ttl_minutes),
-            )
-        )
-        enqueue_system_email(
-            self.uow,
-            user.email,
-            emails.password_reset(app_url("/reset-password?token=" + token), self.settings.password_reset_ttl_minutes),
-            kind="password_reset",
-        )
+        send_password_reset(self.uow, user)
         self.uow.commit()
 
     def reset_password(self, token: str, new_password: str) -> None:

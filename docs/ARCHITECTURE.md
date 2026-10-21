@@ -622,15 +622,22 @@ Key choices:
 
 ## 13. Data lifecycle
 
-- **Export:** owner requests it, the worker builds a ZIP of JSON (workspace
-  records, members, domains, identities, asset metadata, message metadata
-  without bodies, suppressions) into private storage. Download is owner-only,
-  expires after 24 h, and is audited.
+- **Export:** owner requests it, the worker builds a ZIP (workspace records,
+  members, domains, identities, assets with image files, message metadata
+  without bodies, suppressions) in a temporary file and streams it to private
+  storage. Download is owner-only through a 5-minute presigned link, expires
+  after 24 h, and is audited. `POST /v1/auth/me/export` returns the person's
+  own data (profile, memberships, invitations, sessions, activity).
 - **Deletion:** one transaction marks the account deleted, revokes its API
   keys and its members' sessions, disables domains (freeing names) and
-  identities, fails queued recipients and cancels their outbox events,
-  removes memberships, and queues asset deletion. Workspace data is purged
-  after 30 days. Suppressions and audit are retained.
+  identities, fails queued recipients and cancels their outbox events. Owners
+  can restore it for 30 days (`POST /v1/accounts/{id}/restore`); then the
+  retention job erases images, workspace data and memberships. Suppressions and
+  audit are retained.
+- **Login deletion** (`POST /v1/auth/me/deletion`, password): refused while the
+  person owns an account others use; deletes accounts only they are in, removes
+  their memberships, sessions and tokens, and replaces their email and password
+  (the row stays for audit, `users.deleted_at`).
 - **Retention job** (daily): purge bodies at 30 days, messages at 90,
   delivery events at 180, expired tokens/sessions/counters/exports, retired
   DKIM keys at 30, abandoned uploads after 1 h. See
@@ -657,7 +664,7 @@ flowchart LR
 | `deliver_recipient`     | `DeliveryService.deliver` (retry/backoff inside)              |
 | `system_email`          | Verification/reset/invitation mail, body erased after sending |
 | `account_export`        | `LifecycleService.build_export`                               |
-| `account_assets_delete` | Delete an account's assets                                    |
+| `account_assets_delete` | Delete an account's assets (only events queued before restore existed; the purge does it now) |
 
 - Each event runs in a **savepoint**. An unexpected exception backs off
   (30 s × 2ⁿ) and dead-letters after 10 attempts (`outbox.dead_letter` log).

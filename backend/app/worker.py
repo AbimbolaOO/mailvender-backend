@@ -32,6 +32,7 @@ from app.services.health import HealthService
 from app.services.lifecycle import LifecycleService
 from app.services.mta import MailTransport, PermanentDeliveryError, SmtpTransport, TemporaryDeliveryError
 from app.services.platform_dkim import PlatformDkimService
+from app.services.admin_mail import AdminMailService
 from app.services.sending import DeliveryService, system_email
 from app.services.storage import ObjectStorage, S3Storage
 
@@ -114,6 +115,8 @@ class Worker:
         elif event.kind == "account_export":
             LifecycleService(uow, self.storage).build_export(uuid.UUID(event.payload["export_id"]))
             event.status = "done"
+        elif event.kind == "admin_mail":
+            self.send_admin_mail(uow, event)
         elif event.kind == "account_assets_delete":
             LifecycleService(uow, self.storage).delete_account_assets(uuid.UUID(event.payload["account_id"]))
             event.status = "done"
@@ -139,6 +142,17 @@ class Worker:
         event.payload = {"to": payload["to"], "template": payload.get("template")}
         event.status = "done"
         log_event(log, "system_email.sent", template=payload.get("template"))
+
+    def send_admin_mail(self, uow: UnitOfWork, event: m.OutboxEvent) -> None:
+        service = AdminMailService(uow, self.storage)
+        mail_id = uuid.UUID(event.payload["mail_id"])
+        try:
+            service.deliver(mail_id, self.transport)
+        except TemporaryDeliveryError as error:
+            if event.attempts + 1 < MAX_EVENT_ATTEMPTS:
+                raise  # retried with backoff by process_outbox
+            service.mark_failed(mail_id, str(error))
+        event.status = "done"
 
     # ---- Scheduled jobs ----
 

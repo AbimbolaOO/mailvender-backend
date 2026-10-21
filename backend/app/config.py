@@ -54,6 +54,15 @@ class Settings(BaseSettings):
     # The platform's own sending IPs (comma-separated): DMARC report rows from any other IP are flagged.
     known_sending_ips: str = ""
 
+    # Email written in the admin app (see docs/ADMIN_SETUP.md). Sent from <mailbox>@<platform domain>.
+    admin_mail_from_mailboxes: str = "support,postmaster,abuse"
+    admin_mail_from_name: str = "Mailvender"
+    admin_mail_max_recipients: int = 50
+    # One upload per file stays under Vercel's 4.5 MB request limit; the total stays under Postfix's
+    # 10 MB message_size_limit once base64-encoded.
+    admin_mail_max_attachment_bytes: int = 4 * 1024 * 1024
+    admin_mail_max_total_bytes: int = 7 * 1024 * 1024
+
     # Admin sessions (separate from customer sessions; see docs/ADMIN_SETUP.md)
     admin_session_idle_minutes: int = 30
     admin_session_ttl_hours: int = 8
@@ -194,6 +203,12 @@ class Settings(BaseSettings):
     @property
     def known_sending_ip_set(self) -> set[str]:
         return {ip.strip() for ip in self.known_sending_ips.split(",") if ip.strip()}
+
+    @property
+    def admin_mail_from_list(self) -> list[str]:
+        """Addresses an admin can send from, e.g. support@mailvender.com."""
+        return [f"{name.strip().lower()}@{self.platform_domain}"
+                for name in self.admin_mail_from_mailboxes.split(",") if name.strip()]
 
     @property
     def is_production(self) -> bool:

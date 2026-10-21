@@ -1,19 +1,22 @@
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Query, Response
+from fastapi import APIRouter, Depends, Query, Response
 
 from app.api import schemas as s
-from app.api.deps import Ctx, CurrentUser, OwnerCtx, Uow
+from app.api.deps import Ctx, CurrentUser, OwnerCtx, Uow, get_storage
 from app.api.routes_auth import accounts_for
 from app.errors import ERROR_RESPONSES
 from app.pagination import MAX_LIMIT, page_request
 from app.services.accounts import AccountService
+from app.services.lifecycle import LifecycleService
+from app.services.storage import ObjectStorage
 
 router = APIRouter(prefix="/v1", tags=["accounts"], responses=ERROR_RESPONSES)
 
 Limit = Annotated[int | None, Query(ge=1, le=MAX_LIMIT)]
 Cursor = Annotated[str | None, Query(max_length=500)]
+Storage = Annotated[ObjectStorage, Depends(get_storage)]
 
 
 @router.get("/accounts", response_model=list[s.MembershipAccountOut], summary="Accounts you belong to")
@@ -26,6 +29,16 @@ def list_accounts(user: CurrentUser, uow: Uow) -> list[s.MembershipAccountOut]:
              summary="Create a team account (you become its owner)")
 def create_account(body: s.AccountCreateIn, user: CurrentUser, uow: Uow) -> s.MembershipAccountOut:
     account = AccountService(uow).create_team(user, body.name)
+    return s.MembershipAccountOut.model_validate({**s.AccountOut.model_validate(account).model_dump(), "role": "owner"})
+
+
+@router.post("/accounts/{account_id}/restore", response_model=s.MembershipAccountOut,
+             summary="Restore a deleted account (owners, until it's erased)",
+             description="Listed in `deleted_accounts` of `/v1/auth/me`. Domains come back as `pending` (check DNS "
+                         "to verify them again) unless someone else added the same domain meanwhile; senders come "
+                         "back as `pending`. Revoked API keys stay revoked.")
+def restore_account(account_id: uuid.UUID, user: CurrentUser, uow: Uow, storage: Storage) -> s.MembershipAccountOut:
+    account = LifecycleService(uow, storage).restore(user, account_id)
     return s.MembershipAccountOut.model_validate({**s.AccountOut.model_validate(account).model_dump(), "role": "owner"})
 
 

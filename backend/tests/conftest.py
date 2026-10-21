@@ -10,6 +10,7 @@ import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from typing import IO
 
 os.environ.setdefault(
     "TEST_DATABASE_URL", "postgresql+psycopg://mailvender:mailvender@localhost:5434/mailvender_test"
@@ -107,8 +108,8 @@ class FakeStorage:
                                                                      "policy": "p", "x-amz-signature": "s"},
                                expires_in=expires_in)
 
-    def presign_download(self, key: str, expires_in: int) -> str:
-        return f"https://s3.test/bucket/{key}?expires={expires_in}"
+    def presign_download(self, key: str, expires_in: int, *, filename: str | None = None) -> str:
+        return f"https://s3.test/bucket/{key}?expires={expires_in}" + (f"&filename={filename}" if filename else "")
 
     def head(self, key: str) -> ObjectInfo | None:
         if key not in self.objects:
@@ -121,6 +122,9 @@ class FakeStorage:
 
     def put(self, key: str, body: bytes, content_type: str, *, cache_control: str | None = None) -> None:
         self.objects[key] = (body, content_type)
+
+    def put_file(self, key: str, file: IO[bytes], content_type: str) -> None:
+        self.objects[key] = (file.read(), content_type)
 
     def delete(self, key: str) -> None:
         self.objects.pop(key, None)

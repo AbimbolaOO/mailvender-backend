@@ -580,6 +580,7 @@ can't receive anything; Email Routing adds one and forwards to your Gmail.
 
    | Address                    | For                               |
    | -------------------------- | --------------------------------- |
+   | `support@mailvender.com`    | replies to emails written in the admin |
    | `postmaster@mailvender.com` | Microsoft confirmation, providers |
    | `abuse@mailvender.com`      | complaint reports (JMRP), abuse   |
    | `dmarc@mailvender.com`      | daily DMARC reports               |

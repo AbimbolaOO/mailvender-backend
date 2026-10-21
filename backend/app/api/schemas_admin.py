@@ -241,7 +241,7 @@ class SystemOut(Model):
 
 # ---- Users and accounts ----
 
-UserStatus = Literal["active", "blocked", "unverified"]
+UserStatus = Literal["active", "blocked", "unverified", "deleted"]
 AccountStatus = Literal["active", "suspended", "deleted"]
 
 
@@ -378,7 +378,7 @@ class IssueStateIn(BaseModel):
 
 # ---- Inbox ----
 
-Mailbox = Literal["postmaster", "abuse", "dmarc"]
+Mailbox = Literal["support", "postmaster", "abuse", "dmarc"]
 
 
 class InboxMessageOut(Model):
@@ -446,3 +446,81 @@ class InboundResultOut(Model):
 
 AdminOut.model_rebuild()
 AdminSessionOut.model_rebuild()
+
+
+# ---- Writing email ----
+
+
+class MailOptionsOut(Model):
+    from_addresses: list[str] = Field(description="Addresses an admin can send from; the first is the default")
+    from_name: str
+    max_recipients: int
+    max_attachments: int
+    max_attachment_bytes: int
+    max_total_bytes: int
+    blocked_extensions: list[str]
+
+
+class MailAttachmentOut(Model):
+    id: uuid.UUID
+    filename: str
+    content_type: str
+    size: int
+
+
+class MailSendIn(BaseModel):
+    from_address: str = Field(max_length=320)
+    to: list[str] = Field(min_length=1, max_length=100)
+    cc: list[str] = Field(default_factory=list, max_length=100)
+    bcc: list[str] = Field(default_factory=list, max_length=100)
+    subject: str = Field(max_length=300)
+    body: str = Field(max_length=100_000, description="Plain text; links become clickable in the branded format")
+    format: Literal["branded", "plain"] = "branded"
+    attachment_ids: list[uuid.UUID] = Field(default_factory=list, max_length=20)
+    reply_to_message_id: uuid.UUID | None = Field(None, description="An inbox message this answers (threads it)")
+
+
+class MailPreviewIn(BaseModel):
+    subject: str = Field("", max_length=300)
+    body: str = Field("", max_length=100_000)
+    format: Literal["branded", "plain"] = "branded"
+
+
+class SentMailOut(Model):
+    id: uuid.UUID
+    from_address: str
+    to: list[str]
+    cc: list[str]
+    bcc: list[str]
+    subject: str
+    status: Literal["queued", "sent", "failed"]
+    error: str | None
+    created_at: datetime
+    sent_at: datetime | None
+
+
+class SentMailDetailOut(Model):
+    mail: SentMailOut
+    body: str
+    format: Literal["branded", "plain"]
+    sent_by: str | None
+    in_reply_to_id: uuid.UUID | None
+    attachments: list[MailAttachmentOut]
+
+
+# ---- The admin's own login ----
+
+
+class AdminListItemOut(Model):
+    id: uuid.UUID
+    email: str
+    disabled: bool
+    last_login_at: datetime | None
+
+
+class PasswordIn(BaseModel):
+    password: str = Field(max_length=256)
+
+
+class SessionsEndedOut(Model):
+    sessions: int

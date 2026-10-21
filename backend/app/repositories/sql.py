@@ -5,7 +5,7 @@ from collections.abc import Iterable, Sequence
 from datetime import date, datetime
 from typing import Any, TypeVar
 
-from sqlalchemy import Select, and_, delete, func, or_, select, text, tuple_, update
+from sqlalchemy import Select, Text, and_, cast, delete, func, or_, select, text, tuple_, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -87,6 +87,12 @@ class SqlSessions(_Repo):
         )
         return _rows(result)
 
+    def list_active_for_user(self, user_id: uuid.UUID, now: datetime) -> list[m.Session]:
+        stmt = (select(m.Session)
+                .where(m.Session.user_id == user_id, m.Session.revoked_at.is_(None), m.Session.expires_at > now)
+                .order_by(m.Session.created_at))
+        return list(self.s.execute(stmt).scalars())
+
     def delete_expired_before(self, before: datetime) -> int:
         result = self.s.execute(
             delete(m.Session).where(or_(m.Session.expires_at < before, m.Session.revoked_at < before))
@@ -112,6 +118,9 @@ class SqlEmailTokens(_Repo):
 
     def delete_expired_before(self, before: datetime) -> int:
         return _rows(self.s.execute(delete(m.EmailToken).where(m.EmailToken.expires_at < before)))
+
+    def delete_for_user(self, user_id: uuid.UUID) -> None:
+        self.s.execute(delete(m.EmailToken).where(m.EmailToken.user_id == user_id))
 
 
 class SqlAccounts(_Repo):
@@ -139,6 +148,16 @@ class SqlAccounts(_Repo):
                                         m.Account.deleted_at.is_(None))
             ).scalars()
         )
+
+    def list_memberships_for_user(self, user_id: uuid.UUID) -> list[tuple[m.Account, m.Membership]]:
+        """Every account the user belongs to, including deleted ones not yet purged."""
+        rows = self.s.execute(
+            select(m.Account, m.Membership)
+            .join(m.Membership, m.Membership.account_id == m.Account.id)
+            .where(m.Membership.user_id == user_id, m.Account.deleted_at.is_(None))
+            .order_by(m.Account.kind, m.Account.created_at)
+        ).all()
+        return [(account, membership) for account, membership in rows]
 
 
 class SqlMemberships(_Repo):
@@ -173,6 +192,9 @@ class SqlMemberships(_Repo):
     def delete_all_for_account(self, account_id: uuid.UUID) -> None:
         self.s.execute(delete(m.Membership).where(m.Membership.account_id == account_id))
 
+    def delete_all_for_user(self, user_id: uuid.UUID) -> None:
+        self.s.execute(delete(m.Membership).where(m.Membership.user_id == user_id))
+
 
 class SqlInvitations(_Repo):
     model = m.Invitation
@@ -194,6 +216,17 @@ class SqlInvitations(_Repo):
             m.Invitation.expires_at > now,
         )
         return _paginate(self.s, stmt, m.Invitation, page)
+
+    def list_for_email(self, email: str) -> list[m.Invitation]:
+        stmt = select(m.Invitation).where(m.Invitation.email == email).order_by(m.Invitation.created_at)
+        return list(self.s.execute(stmt).scalars())
+
+    def revoke_pending_for_email(self, email: str, now: datetime) -> int:
+        return _rows(self.s.execute(
+            update(m.Invitation)
+            .where(m.Invitation.email == email, m.Invitation.accepted_at.is_(None), m.Invitation.revoked_at.is_(None))
+            .values(revoked_at=now)
+        ))
 
 
 class SqlApiKeys(_Repo):
@@ -571,6 +604,13 @@ class SqlAudit(_Repo):
             stmt = stmt.where(m.AuditEvent.target_id == target_id)
         return _paginate(self.s, stmt, m.AuditEvent, page)
 
+    def list_by_user(self, user_id: uuid.UUID, limit: int) -> list[m.AuditEvent]:
+        """What this person did, in any account (newest first)."""
+        stmt = (select(m.AuditEvent)
+                .where(m.AuditEvent.actor_type == "user", m.AuditEvent.actor_id == user_id)
+                .order_by(m.AuditEvent.created_at.desc()).limit(limit))
+        return list(self.s.execute(stmt).scalars())
+
     def latest_for_account(self, account_id: uuid.UUID, actions: Sequence[str]) -> m.AuditEvent | None:
         return self.s.execute(
             select(m.AuditEvent)
@@ -924,6 +964,46 @@ def _domain_of(column: Any) -> Any:
     return func.lower(func.split_part(column, "@", 2))
 
 
+class SqlAdminMail(_Repo):
+    model = m.AdminMail
+
+    def get(self, mail_id: uuid.UUID) -> m.AdminMail | None:
+        return self._get(mail_id)
+
+    def list_page(self, page: PageRequest, *, query: str | None) -> Page[m.AdminMail]:
+        stmt = select(m.AdminMail)
+        if query:
+            like = f"%{_escape_like(query)}%"
+            stmt = stmt.where(or_(m.AdminMail.subject.ilike(like, escape="\\"),
+                                  cast(m.AdminMail.to, Text).ilike(like, escape="\\"),
+                                  cast(m.AdminMail.cc, Text).ilike(like, escape="\\")))
+        return _paginate(self.s, stmt, m.AdminMail, page)
+
+    def get_attachment(self, attachment_id: uuid.UUID) -> m.AdminMailAttachment | None:
+        return self.s.get(m.AdminMailAttachment, attachment_id)
+
+    def attachments_for(self, mail_id: uuid.UUID) -> list[m.AdminMailAttachment]:
+        return list(self.s.execute(
+            select(m.AdminMailAttachment).where(m.AdminMailAttachment.mail_id == mail_id)
+            .order_by(m.AdminMailAttachment.created_at)
+        ).scalars())
+
+    def unattached_before(self, before: datetime, limit: int) -> list[m.AdminMailAttachment]:
+        return list(self.s.execute(
+            select(m.AdminMailAttachment)
+            .where(m.AdminMailAttachment.mail_id.is_(None), m.AdminMailAttachment.created_at < before).limit(limit)
+        ).scalars())
+
+    def sent_before(self, before: datetime, limit: int) -> list[m.AdminMail]:
+        return list(self.s.execute(
+            select(m.AdminMail).where(m.AdminMail.created_at < before).limit(limit)
+        ).scalars())
+
+    def delete(self, entity: Any) -> None:
+        self.s.delete(entity)
+        self.s.flush()
+
+
 class SqlAdminStats(_Repo):
     def _metric(self, metric: str) -> tuple[Any, Any]:
         """(the timestamp column, the base query counting rows) for a dashboard metric."""
@@ -1049,7 +1129,9 @@ class SqlAdminStats(_Repo):
         if query:
             stmt = stmt.where(m.User.email.ilike(f"%{_escape_like(query.strip().lower())}%", escape="\\"))
         if status == "blocked":
-            stmt = stmt.where(m.User.disabled_at.is_not(None))
+            stmt = stmt.where(m.User.disabled_at.is_not(None), m.User.deleted_at.is_(None))
+        elif status == "deleted":
+            stmt = stmt.where(m.User.deleted_at.is_not(None))
         elif status == "unverified":
             stmt = stmt.where(m.User.email_verified_at.is_(None), m.User.disabled_at.is_(None))
         elif status == "active":
@@ -1057,7 +1139,7 @@ class SqlAdminStats(_Repo):
         return _paginate(self.s, stmt, m.User, page, rows=True)
 
     def accounts_page(self, page: PageRequest, *, query: str | None, status: str | None,
-                      today: datetime) -> Page[tuple[m.Account, str | None, int, int, int]]:
+                      since: datetime) -> Page[tuple[m.Account, str | None, int, int, int]]:
         a = m.Account
         owner = (select(m.User.email).join(m.Membership, m.Membership.user_id == m.User.id)
                  .where(m.Membership.account_id == a.id, m.Membership.role == "owner")
@@ -1066,7 +1148,7 @@ class SqlAdminStats(_Repo):
         domains = (select(func.count()).where(m.Domain.account_id == a.id, m.Domain.status == "verified")
                    .correlate(a).scalar_subquery())
         sent_today = (select(func.count()).where(m.MessageRecipient.account_id == a.id,
-                                                  m.MessageRecipient.created_at >= today)
+                                                  m.MessageRecipient.created_at >= since)
                       .correlate(a).scalar_subquery())
         stmt = select(a, owner, members, domains, sent_today)
         if query:
@@ -1233,6 +1315,7 @@ class SqlUnitOfWork:
         self.admin_issues = SqlAdminIssues(session)
         self.inbound = SqlInbound(session)
         self.admin_stats = SqlAdminStats(session)
+        self.admin_mail = SqlAdminMail(session)
 
     def commit(self) -> None:
         self.session.commit()

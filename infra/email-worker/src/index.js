@@ -1,4 +1,4 @@
-// Cloudflare Email Worker for postmaster@, abuse@ and dmarc@mailvender.com.
+// Cloudflare Email Worker for support@, postmaster@, abuse@ and dmarc@mailvender.com.
 //
 // For every message: forward a backup copy to FORWARD_TO (your Gmail), then POST the raw
 // message to the Mailvender API, signed with INBOUND_MAIL_SECRET:

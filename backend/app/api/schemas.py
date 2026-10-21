@@ -73,15 +73,30 @@ class MembershipAccountOut(AccountOut):
     role: Literal["owner", "member"]
 
 
+class DeletedAccountOut(Model):
+    id: uuid.UUID
+    name: str
+    kind: Literal["personal", "team"]
+    deletion_requested_at: datetime
+    purge_on: datetime = Field(description="When it's erased for good; it can be restored until then")
+
+
 class MeOut(Model):
     user: UserOut
     accounts: list[MembershipAccountOut]
+    deleted_accounts: list[DeletedAccountOut] = Field(
+        default_factory=list, description="Accounts you own that are deleted but can still be restored")
 
 
 class SessionOut(Model):
     user: UserOut
     accounts: list[MembershipAccountOut]
+    deleted_accounts: list[DeletedAccountOut] = Field(default_factory=list)
     expires_at: datetime
+
+
+class UserDeletionIn(BaseModel):
+    password: str = Field(max_length=256, description="Your current password, to confirm")
 
 
 # ---- Accounts ----
@@ -406,6 +421,11 @@ class ExportOut(Model):
     created_at: datetime
     completed_at: datetime | None
     expires_at: datetime | None
+
+
+class ExportLinkOut(Model):
+    url: str = Field(description="Downloads the ZIP directly from storage")
+    expires_in: int = Field(description="Seconds the link works for")
 
 
 class DeletionIn(BaseModel):

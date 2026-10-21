@@ -38,6 +38,7 @@ from app.services.admin_customers import (
 )
 from app.services.admin_dashboard import AdminDashboardService, Port25Probe, port25_open
 from app.services.admin_issues import TYPES, AdminIssuesService
+from app.services.admin_mail import BLOCKED_EXTENSIONS, MAX_ATTACHMENTS, AdminMailService, Draft, MailDetail
 from app.services.common import RateLimiter
 from app.services.inbound import InboundService
 from app.services.storage import ObjectStorage
@@ -129,6 +130,24 @@ def confirm_two_factor(body: a.CodeIn, auth: AnyAdmin, uow: Uow) -> a.RecoveryCo
     return a.RecoveryCodesOut(recovery_codes=AdminAuthService(uow).confirm_two_factor(auth, body.code))
 
 
+@router.post("/auth/recovery-codes", response_model=a.RecoveryCodesOut,
+             summary="Replace your recovery codes (needs your password; the old ones stop working)")
+def replace_recovery_codes(body: a.PasswordIn, auth: Admin, uow: Uow) -> a.RecoveryCodesOut:
+    return a.RecoveryCodesOut(recovery_codes=AdminAuthService(uow).new_recovery_codes(auth, body.password))
+
+
+@router.post("/auth/sign-out-others", response_model=a.SessionsEndedOut,
+             summary="Sign out every other browser where you're signed in")
+def sign_out_others(auth: Admin, uow: Uow) -> a.SessionsEndedOut:
+    return a.SessionsEndedOut(sessions=AdminAuthService(uow).sign_out_others(auth))
+
+
+@router.get("/admins", response_model=list[a.AdminListItemOut], summary="Every admin (for the audit log filter)")
+def admins(_: Admin, uow: Uow) -> list[a.AdminListItemOut]:
+    return [a.AdminListItemOut(id=x.id, email=x.email, disabled=x.disabled_at is not None,
+                               last_login_at=x.last_login_at) for x in uow.admins.list_all()]
+
+
 # ---- Overview, deliverability, system ----
 
 
@@ -169,7 +188,7 @@ def user_detail_out(detail: UserDetail) -> a.AdminUserDetailOut:
 
 
 @router.get("/users", response_model=a.PageOut[a.AdminUserRowOut], summary="Users (search by email, filter by status)")
-def users(_: Admin, uow: Uow, q: Search = None, status: Literal["active", "blocked", "unverified"] | None = None,
+def users(_: Admin, uow: Uow, q: Search = None, status: Literal["active", "blocked", "unverified", "deleted"] | None = None,
           limit: Limit = None, cursor: Cursor = None) -> a.PageOut[a.AdminUserRowOut]:
     page = AdminCustomersService(uow).users_page(page_request(limit, cursor), q, status)
     return a.PageOut[a.AdminUserRowOut](items=[user_row(r) for r in page.items], next_cursor=page.next_cursor)
@@ -190,6 +209,18 @@ def block_user(user_id: uuid.UUID, body: a.BlockIn, auth: Admin, uow: Uow) -> a.
              summary="Unblock a user (their accounts stay suspended until reinstated)")
 def unblock_user(user_id: uuid.UUID, body: a.DecisionIn, auth: Admin, uow: Uow) -> a.AdminUserDetailOut:
     return user_detail_out(AdminCustomersService(uow).unblock_user(auth, user_id, body.reason))
+
+
+@router.post("/users/{user_id}/sign-out", response_model=a.AdminUserDetailOut,
+             summary="Sign a user out everywhere (without blocking them)")
+def sign_out_user(user_id: uuid.UUID, body: a.DecisionIn, auth: Admin, uow: Uow) -> a.AdminUserDetailOut:
+    return user_detail_out(AdminCustomersService(uow).sign_out_everywhere(auth, user_id, body.reason))
+
+
+@router.post("/users/{user_id}/password-reset", response_model=a.AdminUserDetailOut,
+             summary="Email the user a password reset link")
+def send_password_reset(user_id: uuid.UUID, auth: Admin, uow: Uow) -> a.AdminUserDetailOut:
+    return user_detail_out(AdminCustomersService(uow).send_password_reset(auth, user_id))
 
 
 @router.post("/users/{user_id}/resend-verification", response_model=a.AdminUserDetailOut,
@@ -364,6 +395,99 @@ def inbox_raw(message_id: uuid.UUID, auth: Admin, uow: Uow, storage: Storage) ->
 def inbox_mark(message_id: uuid.UUID, body: a.InboxMarkIn, auth: Admin, uow: Uow,
                storage: Storage) -> a.InboxMessageOut:
     return inbox_out(InboundService(uow, storage).mark(auth, message_id, read=body.read, archived=body.archived))
+
+
+# ---- Writing email ----
+
+
+def attachment_out(x: m.AdminMailAttachment) -> a.MailAttachmentOut:
+    return a.MailAttachmentOut(id=x.id, filename=x.filename, content_type=x.content_type, size=x.size)
+
+
+@router.get("/mail/options", response_model=a.MailOptionsOut, summary="Sending addresses and limits")
+def mail_options(_: Admin) -> a.MailOptionsOut:
+    settings = get_settings()
+    return a.MailOptionsOut(from_addresses=settings.admin_mail_from_list, from_name=settings.admin_mail_from_name,
+                            max_recipients=settings.admin_mail_max_recipients, max_attachments=MAX_ATTACHMENTS,
+                            max_attachment_bytes=settings.admin_mail_max_attachment_bytes,
+                            max_total_bytes=settings.admin_mail_max_total_bytes,
+                            blocked_extensions=sorted(BLOCKED_EXTENSIONS))
+
+
+@router.post("/mail/attachments", response_model=a.MailAttachmentOut, status_code=201,
+             summary="Upload one file to attach (the request body is the file)",
+             description="Send the file's bytes as the body with its Content-Type, and its name in `filename`. "
+                         "One file per request; attach it by id when sending.",
+             openapi_extra={"requestBody": {"content": {"application/octet-stream": {
+                 "schema": {"type": "string", "format": "binary"}}}, "required": True}})
+async def upload_attachment(request: Request, auth: Admin, uow: Uow, storage: Storage,
+                            filename: str = Query(min_length=1, max_length=255)) -> a.MailAttachmentOut:
+    data = await request.body()
+    attachment = AdminMailService(uow, storage).upload(auth, filename, request.headers.get("content-type", ""), data)
+    return attachment_out(attachment)
+
+
+@router.post("/mail/attachments/from-inbox/{message_id}", response_model=list[a.MailAttachmentOut],
+             status_code=201, summary="Forwarding: copy an inbox message's attachments for a new email")
+def attachments_from_inbox(message_id: uuid.UUID, auth: Admin, uow: Uow,
+                           storage: Storage) -> list[a.MailAttachmentOut]:
+    return [attachment_out(x) for x in AdminMailService(uow, storage).copy_from_inbox(auth, message_id)]
+
+
+@router.delete("/mail/attachments/{attachment_id}", status_code=204, summary="Remove an attachment not yet sent")
+def discard_attachment(attachment_id: uuid.UUID, auth: Admin, uow: Uow, storage: Storage) -> Response:
+    AdminMailService(uow, storage).discard(auth, attachment_id)
+    return Response(status_code=204)
+
+
+@router.post("/mail/preview", response_class=Response, summary="The email as the recipient will see it (HTML)")
+def mail_preview(body: a.MailPreviewIn, _: Admin, uow: Uow, storage: Storage) -> Response:
+    document = AdminMailService(uow, storage).preview(body.subject, body.body, body.format)
+    return Response(document, media_type="text/html; charset=utf-8", headers={
+        "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; img-src data: https:; "
+                                   "sandbox allow-popups allow-popups-to-escape-sandbox",
+        "Cache-Control": "no-store",
+    })
+
+
+@router.post("/mail", response_model=a.SentMailDetailOut, status_code=201,
+             summary="Send an email (to customers or anyone) from one of our addresses",
+             description="Queued and sent by the worker; `status` becomes `sent` (or `failed`, with `error`). "
+                         "Audited as `admin.mail_sent`.")
+def send_mail(body: a.MailSendIn, auth: Admin, uow: Uow, storage: Storage) -> a.SentMailDetailOut:
+    service = AdminMailService(uow, storage)
+    mail = service.send(auth, Draft(from_address=body.from_address, to=body.to, cc=body.cc, bcc=body.bcc,
+                                    subject=body.subject, body=body.body, format=body.format,
+                                    attachment_ids=body.attachment_ids,
+                                    reply_to_message_id=body.reply_to_message_id))
+    return sent_detail_out(service.detail(mail.id))
+
+
+def sent_detail_out(detail: MailDetail) -> a.SentMailDetailOut:
+    return a.SentMailDetailOut(mail=a.SentMailOut.model_validate(detail.mail), body=detail.mail.body,
+                               format=detail.mail.format, sent_by=detail.sent_by,
+                               in_reply_to_id=detail.mail.in_reply_to_id,
+                               attachments=[attachment_out(x) for x in detail.attachments])
+
+
+@router.get("/mail", response_model=a.PageOut[a.SentMailOut], summary="Sent email, newest first")
+def sent_mail(_: Admin, uow: Uow, storage: Storage, q: Search = None, limit: Limit = None,
+              cursor: Cursor = None) -> a.PageOut[a.SentMailOut]:
+    page = AdminMailService(uow, storage).list_page(page_request(limit, cursor), q)
+    return a.PageOut[a.SentMailOut](items=[a.SentMailOut.model_validate(x) for x in page.items],
+                                    next_cursor=page.next_cursor)
+
+
+@router.get("/mail/{mail_id}", response_model=a.SentMailDetailOut, summary="One sent email")
+def sent_mail_detail(mail_id: uuid.UUID, _: Admin, uow: Uow, storage: Storage) -> a.SentMailDetailOut:
+    return sent_detail_out(AdminMailService(uow, storage).detail(mail_id))
+
+
+@router.get("/mail/attachments/{attachment_id}", response_class=Response, summary="Download a sent attachment")
+def sent_attachment(attachment_id: uuid.UUID, _: Admin, uow: Uow, storage: Storage) -> Response:
+    filename, data = AdminMailService(uow, storage).attachment(attachment_id)
+    return Response(data, media_type="application/octet-stream", headers={
+        "Content-Disposition": f'attachment; filename="{filename}"', "Cache-Control": "no-store"})
 
 
 # ---- Audit log ----

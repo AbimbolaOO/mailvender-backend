@@ -14,7 +14,7 @@ from app.logging import get_logger, log_event
 from app.pagination import MAX_LIMIT, page_request
 from app.services.common import Actor
 from app.services.health import AccountHealth, HealthService
-from app.services.lifecycle import LifecycleService
+from app.services.lifecycle import EXPORT_LINK_SECONDS, LifecycleService
 from app.services.storage import ObjectStorage
 from app.services.sync import SyncService
 
@@ -156,10 +156,19 @@ def download_export(export_id: uuid.UUID, ctx: OwnerCtx, uow: Uow, storage: Stor
     )
 
 
+@router.post("/account/exports/{export_id}/link", response_model=s.ExportLinkOut, tags=["data"],
+             summary="A short-lived download link for an export (audited)",
+             description="Use this for large exports: the browser downloads straight from storage.")
+def export_link(export_id: uuid.UUID, ctx: OwnerCtx, uow: Uow, storage: Storage) -> s.ExportLinkOut:
+    return s.ExportLinkOut(url=LifecycleService(uow, storage).download_link(ctx, export_id),
+                           expires_in=EXPORT_LINK_SECONDS)
+
+
 @router.post("/account/deletion", status_code=202, response_model=s.Accepted, tags=["data"],
              summary="Delete the account",
-             description="Revokes API keys and members' sessions, disables domains and senders, stops pending "
-                         "sends, deletes assets and schedules the remaining data for deletion (see RETENTION.md).")
+             description="Revokes API keys and members' sessions, disables domains and senders and stops pending "
+                         "sends at once. Everything else is erased after RETENTION_DELETED_ACCOUNT_DAYS (see "
+                         "RETENTION.md); until then an owner can restore it (`POST /v1/accounts/{id}/restore`).")
 def delete_account(body: s.DeletionIn, ctx: OwnerCtx, uow: Uow, storage: Storage) -> s.Accepted:
     LifecycleService(uow, storage).request_deletion(ctx, body.confirm_name)
     return s.Accepted(message="The account is being deleted.")

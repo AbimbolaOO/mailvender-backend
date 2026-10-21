@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Protocol
+from typing import IO, Any, Protocol
 
 from app.config import get_settings
 
@@ -29,10 +29,11 @@ class ObjectSummary:
 
 class ObjectStorage(Protocol):
     def presign_upload(self, key: str, content_type: str, max_bytes: int, expires_in: int) -> PresignedUpload: ...
-    def presign_download(self, key: str, expires_in: int) -> str: ...
+    def presign_download(self, key: str, expires_in: int, *, filename: str | None = None) -> str: ...
     def head(self, key: str) -> ObjectInfo | None: ...
     def read(self, key: str, max_bytes: int) -> bytes: ...
     def put(self, key: str, body: bytes, content_type: str, *, cache_control: str | None = None) -> None: ...
+    def put_file(self, key: str, file: IO[bytes], content_type: str) -> None: ...
     def delete(self, key: str) -> None: ...
     def list(self, prefix: str, limit: int = 1000) -> list[ObjectSummary]: ...
     def public_url(self, key: str) -> str: ...
@@ -76,9 +77,11 @@ class S3Storage:
             url = url.replace(self.endpoint, self.upload_endpoint, 1)
         return PresignedUpload(url=url, fields=post["fields"], expires_in=expires_in)
 
-    def presign_download(self, key: str, expires_in: int) -> str:
-        return str(self.client.generate_presigned_url(
-            "get_object", Params={"Bucket": self.bucket, "Key": key}, ExpiresIn=expires_in))
+    def presign_download(self, key: str, expires_in: int, *, filename: str | None = None) -> str:
+        params = {"Bucket": self.bucket, "Key": key}
+        if filename:
+            params["ResponseContentDisposition"] = f'attachment; filename="{filename}"'
+        return str(self.client.generate_presigned_url("get_object", Params=params, ExpiresIn=expires_in))
 
     def head(self, key: str) -> ObjectInfo | None:
         from botocore.exceptions import ClientError
@@ -96,6 +99,10 @@ class S3Storage:
     def put(self, key: str, body: bytes, content_type: str, *, cache_control: str | None = None) -> None:
         extra = {"CacheControl": cache_control} if cache_control else {}
         self.client.put_object(Bucket=self.bucket, Key=key, Body=body, ContentType=content_type, **extra)
+
+    def put_file(self, key: str, file: IO[bytes], content_type: str) -> None:
+        """Streams from a file (multipart for large ones), so big exports never sit in memory."""
+        self.client.upload_fileobj(file, self.bucket, key, ExtraArgs={"ContentType": content_type})
 
     def delete(self, key: str) -> None:
         self.client.delete_object(Bucket=self.bucket, Key=key)

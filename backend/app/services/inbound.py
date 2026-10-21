@@ -1,4 +1,4 @@
-"""Mail to postmaster@, abuse@ and dmarc@ (the platform's role addresses) and the admin inbox.
+"""Mail to support@, postmaster@, abuse@ and dmarc@ (the platform's role addresses) and the admin inbox.
 
 Cloudflare Email Routing receives the mail; a Cloudflare Email Worker
 (infra/email-worker/) forwards a backup copy to Gmail and POSTs the raw message to
@@ -39,7 +39,7 @@ from app.services.storage import ObjectStorage
 
 log = get_logger("inbound")
 
-MAILBOXES = ("postmaster", "abuse", "dmarc")
+MAILBOXES = ("support", "postmaster", "abuse", "dmarc")
 MAX_TEXT_CHARS = 200_000
 SHOWN_HEADERS = ("From", "To", "Cc", "Reply-To", "Date", "Subject", "Message-ID", "Authentication-Results")
 
@@ -258,6 +258,9 @@ class InboundService:
         csp = (f"default-src 'none'; style-src 'unsafe-inline'; img-src {image_sources}; font-src data:; "
                "frame-ancestors 'self'; form-action 'none'; sandbox allow-popups allow-popups-to-escape-sandbox")
         return document, csp
+
+    def attachments(self, message_id: uuid.UUID) -> list[Attachment]:
+        return _attachments(_parse(self._raw(self._get(message_id))))
 
     def attachment(self, message_id: uuid.UUID, index: int) -> tuple[str, bytes]:
         attachments = _attachments(_parse(self._raw(self._get(message_id))))

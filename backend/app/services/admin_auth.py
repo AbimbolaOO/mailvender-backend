@@ -285,6 +285,24 @@ class AdminAuthService:
         admin_audit(self.uow, auth, "admin.password_changed", target_type="admin", target_id=admin.id)
         self.uow.commit()
 
+    def new_recovery_codes(self, auth: AdminAuth, password: str) -> list[str]:
+        """Replaces every recovery code (the old ones stop working). Needs the password."""
+        admin = auth.admin
+        if not verify_password(admin.password_hash, password):
+            raise ValidationFailed([field_error("password", "That isn't your password.", "invalid_password")])
+        codes = new_recovery_codes()
+        admin.recovery_code_hashes = [hash_token(c) for c in codes]
+        admin_audit(self.uow, auth, "admin.recovery_codes_replaced", target_type="admin", target_id=admin.id)
+        self.uow.commit()
+        return codes
+
+    def sign_out_others(self, auth: AdminAuth) -> int:
+        revoked = self.uow.admins.revoke_sessions(auth.admin.id, utcnow(), keep=auth.session.id)
+        admin_audit(self.uow, auth, "admin.signed_out_elsewhere", target_type="admin", target_id=auth.admin.id,
+                    sessions=revoked)
+        self.uow.commit()
+        return revoked
+
     def start_two_factor(self, auth: AdminAuth) -> tuple[str, str]:
         if auth.admin.must_change_password:
             raise Forbidden("Change your temporary password first.", code="password_change_required")
