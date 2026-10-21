@@ -8,7 +8,7 @@ from typing import Any, TypeVar
 from sqlalchemy import Select, Text, and_, cast, delete, func, or_, select, text, tuple_, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, defer
 
 from app import models as m
 from app.pagination import Page, PageRequest, encode_cursor
@@ -976,6 +976,39 @@ def _domain_of(column: Any) -> Any:
     return func.lower(func.split_part(column, "@", 2))
 
 
+class SqlStarterTemplates(_Repo):
+    def list_all(self) -> list[m.StarterTemplate]:
+        stmt = select(m.StarterTemplate).order_by(m.StarterTemplate.sort_order, m.StarterTemplate.id)
+        return list(self.s.execute(stmt).scalars().all())
+
+    def get(self, template_id: str) -> m.StarterTemplate | None:
+        return self.s.get(m.StarterTemplate, template_id)
+
+    def page(self, *, limit: int, after: tuple[int, str] | None, category: str | None,
+             words: list[str]) -> list[m.StarterTemplate]:
+        t = m.StarterTemplate
+        stmt = select(t).options(defer(t.doc))
+        if category:
+            stmt = stmt.where(t.category == category)
+        for word in words:  # every word must appear somewhere
+            like = f"%{_escape_like(word)}%"
+            stmt = stmt.where(or_(t.name.ilike(like, escape="\\"), t.description.ilike(like, escape="\\"),
+                                  t.category.ilike(like, escape="\\"), cast(t.tags, Text).ilike(like, escape="\\")))
+        if after:
+            stmt = stmt.where(tuple_(t.sort_order, t.id) > tuple_(after[0], after[1]))
+        stmt = stmt.order_by(t.sort_order, t.id).limit(limit)
+        return list(self.s.execute(stmt).scalars().all())
+
+    def categories(self) -> list[tuple[str, int]]:
+        t = m.StarterTemplate
+        stmt = select(t.category, func.count()).group_by(t.category).order_by(func.min(t.sort_order))
+        return [(name, int(count)) for name, count in self.s.execute(stmt).all()]
+
+    def delete(self, entity: Any) -> None:
+        self.s.delete(entity)
+        self.s.flush()
+
+
 class SqlWebhooks(_Repo):
     model = m.WebhookEndpoint
 
@@ -1376,6 +1409,7 @@ class SqlUnitOfWork:
         self.admin_mail = SqlAdminMail(session)
         self.system_state = SqlSystemState(session)
         self.webhooks = SqlWebhooks(session)
+        self.starter_templates = SqlStarterTemplates(session)
 
     def commit(self) -> None:
         self.session.commit()

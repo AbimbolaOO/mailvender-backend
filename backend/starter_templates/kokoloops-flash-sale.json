@@ -1,0 +1,1359 @@
+{
+ "id": "kokoloops-flash-sale",
+ "name": "Flash sale",
+ "category": "Promotion",
+ "description": "48 hours only: a huge offer, countdown-style tiles and no code needed.",
+ "tags": [
+  "sale",
+  "discount",
+  "limited time",
+  "countdown",
+  "bogo",
+  "food",
+  "mint"
+ ],
+ "order": 28,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "⚡ 48-hour flash sale: buy 2 boxes, get 1 free",
+   "previewText": "Kokoloops flash sale ends Sunday at midnight. Stock up.",
+   "backgroundColor": "#D8F9F2",
+   "fontFamily": "'DM Sans', Arial, Helvetica, sans-serif",
+   "textColor": "#222427",
+   "webFonts": [
+    {
+     "family": "Bricolage Grotesque",
+     "category": "sans-serif",
+     "weights": [
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800
+     ],
+     "italic": false
+    },
+    {
+     "family": "DM Sans",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_ua4wkqld",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#D8F9F2",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_whhqvkan",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_a24y55fu",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_u54vvtgg",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_cqafw11z",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_6mig5jqc",
+              "padding": [
+               16,
+               24,
+               16,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#9BF1DE",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_7j1vn2r5",
+                "type": "text",
+                "name": "Text",
+                "content": "KOKOLOOPS",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Bricolage Grotesque', Arial, Helvetica, sans-serif",
+                 "fontSize": 22,
+                 "fontWeight": 800,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 3,
+                 "color": "",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_3g8q4qn6",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_t3qsy1mr",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_x8rgstl7",
+              "padding": [
+               36,
+               24,
+               30,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#222427",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_yvgxdhqf",
+                "type": "text",
+                "name": "Text",
+                "content": "⚡ FLASH SALE ⚡",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  12,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 700,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 4,
+                 "color": "#9BF1DE",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_o3fqx2ut",
+                "type": "text",
+                "name": "Text",
+                "content": "Buy 2.\nGet 1 free.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Bricolage Grotesque', Arial, Helvetica, sans-serif",
+                 "fontSize": 72,
+                 "fontWeight": 800,
+                 "lineHeight": 0.95,
+                 "letterSpacing": -2,
+                 "color": "#FFFFFF",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 48,
+                "tag": "h1"
+               },
+               {
+                "id": "text_1azwoxw2",
+                "type": "text",
+                "name": "Text",
+                "content": "Every flavour. Every box. 48 hours only.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 17,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#D8F9F2",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_3fklclw9",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_6smxfklg",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_s2ciqv56",
+              "padding": [
+               28,
+               18,
+               8,
+               18
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#D8F9F2",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_fo3ydr4o",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_86kgpo49",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_onhqnat5_0",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_91dx3ey9",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#222427",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_rps8yc88",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_n9tvbog8",
+                          "padding": [
+                           18,
+                           6,
+                           16,
+                           6
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_f11vm6nl",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "48",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Bricolage Grotesque', Arial, Helvetica, sans-serif",
+                             "fontSize": 46,
+                             "fontWeight": 800,
+                             "lineHeight": 1,
+                             "letterSpacing": 0,
+                             "color": "#9BF1DE",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 34
+                           },
+                           {
+                            "id": "text_rkhjaugr",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "HOURS",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              6,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2,
+                             "color": "#FFFFFF",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_onhqnat5_1",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_xlkmnso2",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#222427",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_hnymdvw9",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_66r0adiz",
+                          "padding": [
+                           18,
+                           6,
+                           16,
+                           6
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_n0jehvko",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "2+1",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Bricolage Grotesque', Arial, Helvetica, sans-serif",
+                             "fontSize": 46,
+                             "fontWeight": 800,
+                             "lineHeight": 1,
+                             "letterSpacing": 0,
+                             "color": "#9BF1DE",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 34
+                           },
+                           {
+                            "id": "text_edwaotgt",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "BOXES",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              6,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2,
+                             "color": "#FFFFFF",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_onhqnat5_2",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_20satnfa",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#222427",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_k3g58zk6",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_aur8byf0",
+                          "padding": [
+                           18,
+                           6,
+                           16,
+                           6
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_k445cn68",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦0",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Bricolage Grotesque', Arial, Helvetica, sans-serif",
+                             "fontSize": 46,
+                             "fontWeight": 800,
+                             "lineHeight": 1,
+                             "letterSpacing": 0,
+                             "color": "#9BF1DE",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 34
+                           },
+                           {
+                            "id": "text_ddyobe6a",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "DELIVERY",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              6,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2,
+                             "color": "#FFFFFF",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               },
+               {
+                "id": "text_lkglmog4",
+                "type": "text",
+                "name": "Text",
+                "content": "Ends Sunday at 11:59pm. No code needed – the free box is added at checkout.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  14,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#3F4347",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_b45jsnm6",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_mcn5dg10",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_hcrgx5ml",
+              "padding": [
+               20,
+               24,
+               8,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#D8F9F2",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "img_yzz4fdt8",
+                "type": "image",
+                "name": "Image",
+                "src": "https://images.unsplash.com/photo-1684885565863-046fa27a7ba7?w=1200&h=700&fit=crop&fm=jpg&q=80",
+                "alt": "A colourful pile of cereal loops",
+                "href": "https://example.com/kokoloops/shop",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 20
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_inlgt1vt",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_b5d6cpx3",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ub9lvjbj",
+              "padding": [
+               28,
+               24,
+               40,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#D8F9F2",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_813nexf9",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/kokoloops/shop",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  40,
+                  18,
+                  40
+                 ],
+                 "backgroundColor": "#FF6B5B",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 999
+                },
+                "children": [
+                 {
+                  "id": "text_3h515m2i",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Fill my cereal cupboard",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#222427",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_cf6oqgbi",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_sue9upt2",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_mqsxyzxh",
+              "padding": [
+               24,
+               24,
+               28,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#9BF1DE",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_cmsz03x2",
+                "type": "text",
+                "name": "Text",
+                "content": "© 2026 Kokoloops Foods Ltd · 12 Example Close, Lekki Phase 1, Lagos\nUnsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#222427",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 68,
+                  "end": 79,
+                  "style": {
+                   "href": "https://example.com/unsubscribe",
+                   "color": "#222427"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

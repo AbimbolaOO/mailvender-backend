@@ -1,0 +1,1799 @@
+{
+ "id": "suya-sheet",
+ "name": "Weekly newsletter",
+ "category": "Newsletter",
+ "description": "Lagos weekly: lead story, two-column stories, quick links – dark mode and UTM on.",
+ "tags": [
+  "editorial",
+  "blog",
+  "articles",
+  "weekly",
+  "digest",
+  "dark mode",
+  "utm"
+ ],
+ "order": 44,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "The Suya Sheet #42: How small Lagos teams ship big work",
+   "previewText": "Plus: calm planning, beating Lagos traffic and a reading list of Nigerian authors.",
+   "backgroundColor": "#FAFAF9",
+   "fontFamily": "'Inter', Arial, Helvetica, sans-serif",
+   "textColor": "#1C1917",
+   "webFonts": [
+    {
+     "family": "Fraunces",
+     "category": "serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    },
+    {
+     "family": "Inter",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ],
+   "utm": {
+    "enabled": true,
+    "source": "suya-sheet",
+    "medium": "email",
+    "campaign": "issue-42",
+    "content": "",
+    "domains": "example.com"
+   },
+   "darkMode": {
+    "enabled": true,
+    "colors": {
+     "background:#fafaf9": "#191917",
+     "text:#1c1917": "#dddbd9",
+     "background:#ffffff": "#141414",
+     "background:#f5f5f4": "#1b1b1a"
+    }
+   }
+  },
+  "children": [
+   {
+    "id": "table_8lickej5",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#FAFAF9",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_iq8y8han",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_ci8rl7lc",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_l89e1jn8",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_n60pgfci",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_64vylhv7",
+              "padding": [
+               36,
+               40,
+               8,
+               40
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_ghpg65pu",
+                "type": "text",
+                "name": "Text",
+                "content": "The Suya Sheet",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  6,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 36,
+                 "fontWeight": 600,
+                 "lineHeight": 1.2,
+                 "letterSpacing": 0,
+                 "color": "#1C1917",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "tag": "h1"
+               },
+               {
+                "id": "text_i2osuhk8",
+                "type": "text",
+                "name": "Text",
+                "content": "Issue 42 · Saturday 3 October 2026 · 6-minute read",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#57534E",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "divider_fd0j5cup",
+                "type": "divider",
+                "name": "Divider",
+                "line": {
+                 "style": "solid",
+                 "thickness": 1,
+                 "color": "#E7E5E4"
+                },
+                "width": 100,
+                "align": "center",
+                "label": "",
+                "labelColor": "#71717a",
+                "labelSize": 12,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  24,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_8t9t5nrx",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_byg17sl8",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_4531n4ek",
+              "padding": [
+               24,
+               40,
+               8,
+               40
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "img_xeisvxqs",
+                "type": "image",
+                "name": "Image",
+                "src": "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&h=660&fit=crop&fm=jpg&q=80",
+                "alt": "A laptop, coffee and notes on a light wooden desk",
+                "href": "https://example.com/suya-sheet/small-teams",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 8
+                }
+               },
+               {
+                "id": "text_5yrze07s",
+                "type": "text",
+                "name": "Text",
+                "content": "THE BIG STORY",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  8,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 2,
+                 "color": "#C2410C",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_hu0912xy",
+                "type": "text",
+                "name": "Text",
+                "content": "How small Lagos teams ship big work",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  10,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 30,
+                 "fontWeight": 600,
+                 "lineHeight": 1.15,
+                 "letterSpacing": 0,
+                 "color": "#1C1917",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "tag": "h2"
+               },
+               {
+                "id": "text_gtixi6fa",
+                "type": "text",
+                "name": "Text",
+                "content": "Three Yaba founders on the habits that let a team of five out-ship companies ten times their size – and the one meeting they refuse to cancel.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  10,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#57534E",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_y8zf3gkx",
+                "type": "text",
+                "name": "Text",
+                "content": "Read the story →",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 15,
+                 "fontWeight": 700,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 0,
+                  "end": 16,
+                  "style": {
+                   "href": "https://example.com/suya-sheet/small-teams",
+                   "color": "#1C1917"
+                  }
+                 }
+                ]
+               },
+               {
+                "id": "divider_lmo8qa8c",
+                "type": "divider",
+                "name": "Divider",
+                "line": {
+                 "style": "solid",
+                 "thickness": 1,
+                 "color": "#E7E5E4"
+                },
+                "width": 100,
+                "align": "center",
+                "label": "",
+                "labelColor": "#71717a",
+                "labelSize": 12,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  28,
+                  0,
+                  4,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_dsbuiejs",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_289vpcs3",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_dy241xuv",
+              "padding": [
+               16,
+               28,
+               8,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_amj61w9x",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 50
+                 },
+                 {
+                  "unit": "%",
+                  "value": 50
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_e4p6dcpu",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_ro4seaj9_0",
+                    "padding": [
+                     0,
+                     12,
+                     16,
+                     12
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "img_8dxqzjkh",
+                      "type": "image",
+                      "name": "Image",
+                      "src": "https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=600&h=400&fit=crop&fm=jpg&q=80",
+                      "alt": "A turquoise mountain lake under a pale sky",
+                      "href": "https://example.com/suya-sheet/boring-weekends",
+                      "align": "center",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 8
+                      }
+                     },
+                     {
+                      "id": "text_rxmui4e8",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "SLOW LIVING",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2,
+                       "color": "#C2410C",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_rrb5aui7",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "The case for boring weekends",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                       "fontSize": 21,
+                       "fontWeight": 600,
+                       "lineHeight": 1.2,
+                       "letterSpacing": 0,
+                       "color": "#1C1917",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "tag": "h3"
+                     },
+                     {
+                      "id": "text_lfl0k57b",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Why skipping one owambe (just one) makes Monday easier.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        10,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 16,
+                       "fontWeight": 400,
+                       "lineHeight": 1.6,
+                       "letterSpacing": 0,
+                       "color": "#57534E",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_ymxadm0c",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Read →",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 15,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "spans": [
+                       {
+                        "start": 0,
+                        "end": 6,
+                        "style": {
+                         "href": "https://example.com/suya-sheet/boring-weekends",
+                         "color": "#1C1917"
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_ro4seaj9_1",
+                    "padding": [
+                     0,
+                     12,
+                     16,
+                     12
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "img_mfjyw5lv",
+                      "type": "image",
+                      "name": "Image",
+                      "src": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=400&fit=crop&fm=jpg&q=80",
+                      "alt": "A laptop on a tidy wooden desk with a plant",
+                      "href": "https://example.com/suya-sheet/desk-setup",
+                      "align": "center",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 8
+                      }
+                     },
+                     {
+                      "id": "text_pmo9ln7d",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "TOOLS",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2,
+                       "color": "#C2410C",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_8xb9gwuk",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Our desk setup, one year on",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                       "fontSize": 21,
+                       "fontWeight": 600,
+                       "lineHeight": 1.2,
+                       "letterSpacing": 0,
+                       "color": "#1C1917",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "tag": "h3"
+                     },
+                     {
+                      "id": "text_ixzcn6i4",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "What stayed, what went, and how we work through power cuts.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        10,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 16,
+                       "fontWeight": 400,
+                       "lineHeight": 1.6,
+                       "letterSpacing": 0,
+                       "color": "#57534E",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_4ikwib0p",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Read →",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 15,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "spans": [
+                       {
+                        "start": 0,
+                        "end": 6,
+                        "style": {
+                         "href": "https://example.com/suya-sheet/desk-setup",
+                         "color": "#1C1917"
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": true
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ijhgy7fw",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_11204yt3",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ca837oac",
+              "padding": [
+               8,
+               40,
+               32,
+               40
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "divider_2w601wji",
+                "type": "divider",
+                "name": "Divider",
+                "line": {
+                 "style": "solid",
+                 "thickness": 1,
+                 "color": "#E7E5E4"
+                },
+                "width": 100,
+                "align": "center",
+                "label": "",
+                "labelColor": "#71717a",
+                "labelSize": 12,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  24,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               },
+               {
+                "id": "text_6kthh7hy",
+                "type": "text",
+                "name": "Text",
+                "content": "Quick links",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  12,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 22,
+                 "fontWeight": 600,
+                 "lineHeight": 1.2,
+                 "letterSpacing": 0,
+                 "color": "#1C1917",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "tag": "h2"
+               },
+               {
+                "id": "list_p6kqo9ff",
+                "type": "list",
+                "name": "List",
+                "marker": {
+                 "kind": "arrow",
+                 "symbol": "✦",
+                 "image": "",
+                 "start": 1,
+                 "suffix": ".",
+                 "color": "#C2410C",
+                 "size": 0,
+                 "badge": "none",
+                 "badgeColor": "#2563eb"
+                },
+                "indent": 24,
+                "gap": 10,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "children": [
+                 {
+                  "id": "text_n59fovqy",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "The five-minute planning ritual",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  },
+                  "spans": [
+                   {
+                    "start": 0,
+                    "end": 31,
+                    "style": {
+                     "href": "https://example.com/suya-sheet/planning",
+                     "color": "#1C1917"
+                    }
+                   }
+                  ]
+                 },
+                 {
+                  "id": "text_c0i8ruvy",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Beating Lagos traffic: our remote-work rules",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  },
+                  "spans": [
+                   {
+                    "start": 0,
+                    "end": 44,
+                    "style": {
+                     "href": "https://example.com/suya-sheet/remote",
+                     "color": "#1C1917"
+                    }
+                   }
+                  ]
+                 },
+                 {
+                  "id": "text_lfd7k7k6",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "A reading list of Nigerian authors for slower weekends",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  },
+                  "spans": [
+                   {
+                    "start": 0,
+                    "end": 54,
+                    "style": {
+                     "href": "https://example.com/suya-sheet/reading",
+                     "color": "#1C1917"
+                    }
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_eerg18cl",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_ax4lepos",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_vmjebsyj",
+              "padding": [
+               32,
+               40,
+               32,
+               40
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F5F5F4",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_yburdhfq",
+                "type": "text",
+                "name": "Text",
+                "content": "Enjoying the Sheet?",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  6,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 22,
+                 "fontWeight": 600,
+                 "lineHeight": 1.2,
+                 "letterSpacing": 0,
+                 "color": "#1C1917",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "tag": "h2"
+               },
+               {
+                "id": "text_wx2sq2mq",
+                "type": "text",
+                "name": "Text",
+                "content": "Forward it to a friend who could use a calmer week.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 15,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#57534E",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "button_z3s84j2h",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/suya-sheet/share",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  32,
+                  16,
+                  32
+                 ],
+                 "backgroundColor": "#1C1917",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 8
+                },
+                "children": [
+                 {
+                  "id": "text_rrtlpqtv",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Share the Sheet",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#FFFFFF",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_liqrplq7",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_wq0k9iiz",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wcu8ylcx",
+              "padding": [
+               28,
+               40,
+               24,
+               40
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FAFAF9",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_72cumfzq",
+                "type": "text",
+                "name": "Text",
+                "content": "You’re getting this because you subscribed to The Suya Sheet · Lagos, Nigeria.\nUpdate preferences · Unsubscribe · View in browser",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#57534E",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 79,
+                  "end": 97,
+                  "style": {
+                   "href": "https://example.com/suya-sheet/preferences",
+                   "color": "#57534E"
+                  }
+                 },
+                 {
+                  "start": 100,
+                  "end": 111,
+                  "style": {
+                   "href": "https://example.com/suya-sheet/unsubscribe",
+                   "color": "#57534E"
+                  }
+                 },
+                 {
+                  "start": 114,
+                  "end": 129,
+                  "style": {
+                   "href": "https://example.com/suya-sheet/issues/42",
+                   "color": "#57534E"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

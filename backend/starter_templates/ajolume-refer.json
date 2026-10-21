@@ -1,0 +1,1126 @@
+{
+ "id": "ajolume-refer",
+ "name": "Refer a friend",
+ "category": "Promotion",
+ "description": "Give ₦2,000, get ₦2,000: an invite code ticket and three numbered steps.",
+ "tags": [
+  "referral",
+  "invite",
+  "reward",
+  "growth",
+  "fintech",
+  "dark"
+ ],
+ "order": 30,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Give ₦2,000, get ₦2,000 🎁",
+   "previewText": "Share your Ajolume code – when a friend starts saving, you both get ₦2,000.",
+   "backgroundColor": "#1A0638",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#FFF6E9",
+   "webFonts": [
+    {
+     "family": "Unbounded",
+     "category": "sans-serif",
+     "weights": [
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": false
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_65b8h8bp",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#1A0638",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_b8o3785t",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_9t74ilyh",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_naxaecu0",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_g9mdvyvk",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ph9n9bai",
+              "padding": [
+               8,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_s9jtua2m",
+                "type": "text",
+                "name": "Text",
+                "content": "ajolume",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                 "fontSize": 20,
+                 "fontWeight": 800,
+                 "lineHeight": 1.5,
+                 "letterSpacing": -0.5,
+                 "color": "#D4FF3A",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_shh0ykfr",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_905iqb3h",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_nmu44b15",
+              "padding": [
+               36,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_e1y0u4wj",
+                "type": "text",
+                "name": "Text",
+                "content": "Give ₦2,000.\nGet ₦2,000.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  14,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                 "fontSize": 44,
+                 "fontWeight": 900,
+                 "lineHeight": 1.05,
+                 "letterSpacing": -1.5,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 0,
+                  "end": 13,
+                  "style": {
+                   "color": "#FFF6E9"
+                  }
+                 },
+                 {
+                  "start": 13,
+                  "end": 24,
+                  "style": {
+                   "color": "#D4FF3A"
+                  }
+                 }
+                ],
+                "tag": "h1",
+                "mobileFontSize": 30
+               },
+               {
+                "id": "text_hm6jc1fc",
+                "type": "text",
+                "name": "Text",
+                "content": "Saving is easier with your people. Bring a friend to Ajolume and you’ll both get ₦2,000 when they start.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  24,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#CBB8F2",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "table_kjb56n9d",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#2A0B5C",
+                 "borderWidth": 3,
+                 "borderStyle": "dashed",
+                 "borderColor": "#D4FF3A",
+                 "borderRadius": 24
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_f855qos0",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_dsoxan9j",
+                    "padding": [
+                     24,
+                     16,
+                     24,
+                     16
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_lvtd2ozr",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "YOUR INVITE CODE",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#CBB8F2",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_pibvyo31",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "ADAEZE2K",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                       "fontSize": 40,
+                       "fontWeight": 900,
+                       "lineHeight": 1,
+                       "letterSpacing": 2,
+                       "color": "#D4FF3A",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "mobileFontSize": 30
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_hqw8m2qt",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_fj5vy5kf",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ba5ymnxx",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_1l4tye4i",
+                "type": "text",
+                "name": "Text",
+                "content": "HOW IT WORKS",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  16,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 800,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 2.5,
+                 "color": "#D4FF3A",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "list_uzgkj0eu",
+                "type": "list",
+                "name": "List",
+                "marker": {
+                 "kind": "number",
+                 "symbol": "✦",
+                 "image": "",
+                 "start": 1,
+                 "suffix": "",
+                 "color": "#1A0638",
+                 "size": 0,
+                 "badge": "circle",
+                 "badgeColor": "#D4FF3A"
+                },
+                "indent": 44,
+                "gap": 14,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "children": [
+                 {
+                  "id": "text_jy8fktw5",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Share your code or link with a friend",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "#FFF6E9",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  }
+                 },
+                 {
+                  "id": "text_yzkngblw",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "They open an Ajolume account and save ₦5,000",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "#FFF6E9",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  }
+                 },
+                 {
+                  "id": "text_2a44iwua",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "You both get ₦2,000 – straight into your savings",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 400,
+                   "lineHeight": 1.5,
+                   "letterSpacing": 0,
+                   "color": "#FFF6E9",
+                   "textAlign": "left",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_u6asjn2m",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_6coitccz",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_kn78tes4",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_2mny3uzh",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/ajolume/invite/ADAEZE2K",
+                "align": "left",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  34,
+                  16,
+                  34
+                 ],
+                 "backgroundColor": "#D4FF3A",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 999
+                },
+                "children": [
+                 {
+                  "id": "text_b4fy6d73",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Share my invite link",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#1A0638",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_xpk9wprs",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_r7a41z1j",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_vmykakm2",
+              "padding": [
+               16,
+               32,
+               0,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_ix6hqbje",
+                "type": "text",
+                "name": "Text",
+                "content": "Up to 10 friends a year. Rewards land within 24 hours of their first ₦5,000 saved.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#CBB8F2",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_30s829pp",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_ju84semu",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_cf8nsmvn",
+              "padding": [
+               28,
+               32,
+               24,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_t6oi3r3x",
+                "type": "text",
+                "name": "Text",
+                "content": "Ajolume Technologies Ltd · Lekki, Lagos, Nigeria\nAjolume will never ask for your PIN, OTP or BVN. Help centre · Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#CBB8F2",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 98,
+                  "end": 109,
+                  "style": {
+                   "href": "https://example.com/ajolume/help",
+                   "color": "#CBB8F2"
+                  }
+                 },
+                 {
+                  "start": 112,
+                  "end": 123,
+                  "style": {
+                   "href": "https://example.com/ajolume/unsubscribe",
+                   "color": "#CBB8F2"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

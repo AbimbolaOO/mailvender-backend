@@ -1,0 +1,1979 @@
+{
+ "id": "odunpaper-invoice",
+ "name": "Invoice due",
+ "category": "Receipt",
+ "description": "A design studio's invoice on paper: amount due, line items, pay button and bank details.",
+ "tags": [
+  "invoice",
+  "bill",
+  "payment due",
+  "freelancer",
+  "agency",
+  "b2b",
+  "studio"
+ ],
+ "order": 23,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Invoice OP-0042 from Odunpaper Studio – due 6 October",
+   "previewText": "₦450,000 for brand identity & social templates. Due in 5 days.",
+   "backgroundColor": "#F6F1E7",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#1D1B16",
+   "webFonts": [
+    {
+     "family": "Fraunces",
+     "category": "serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    },
+    {
+     "family": "Space Grotesk",
+     "category": "sans-serif",
+     "weights": [
+      300,
+      400,
+      500,
+      600,
+      700
+     ],
+     "italic": false
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_a9m590jd",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#F6F1E7",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_gg6j0vhx",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_3mbptucs",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_jcu1wbdd",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_bku9a36z",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_notm8o6o",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F6F1E7",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_49iktxrw",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 50
+                 },
+                 {
+                  "unit": "%",
+                  "value": 50
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_i4slf8hb",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_l1exj4d9_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_tab3891f",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "odunpaper.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                       "fontSize": 26,
+                       "fontWeight": 600,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "",
+                       "textAlign": "left",
+                       "italic": true,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_l1exj4d9_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_knukqagn",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "INVOICE  #OP-0042",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        8,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2,
+                       "color": "",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_zjvm0cd7",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_s30v26af",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_a1jepqma",
+              "padding": [
+               32,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F6F1E7",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_zyvd1d1w",
+                "type": "table",
+                "name": "Pill",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 2,
+                 "borderStyle": "solid",
+                 "borderColor": "#C53B29",
+                 "borderRadius": 999
+                },
+                "align": "left",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_jlo9sgty",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_hp3nx93k",
+                    "padding": [
+                     7,
+                     14,
+                     7,
+                     14
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_gekchehp",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "DUE IN 5 DAYS",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.2,
+                       "letterSpacing": 1,
+                       "color": "#C53B29",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               },
+               {
+                "id": "text_2knxj3ec",
+                "type": "text",
+                "name": "Text",
+                "content": "₦450,000",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  0,
+                  8,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 64,
+                 "fontWeight": 600,
+                 "lineHeight": 1,
+                 "letterSpacing": -2,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 46,
+                "tag": "h1"
+               },
+               {
+                "id": "text_5h6il60d",
+                "type": "text",
+                "name": "Text",
+                "content": "due 6 October 2026 · for Funmi Adewale, Example Foods Ltd",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 15,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#6D665B",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_r5ht7pp7",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_ogfgn2qd",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_6x6l5x3f",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F6F1E7",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_tnqbm10h",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#FFFFFF",
+                 "borderWidth": 1,
+                 "borderStyle": "solid",
+                 "borderColor": "#DDD3C3",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_1db0jfpy",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_72rm4hu1",
+                    "padding": [
+                     20,
+                     22,
+                     14,
+                     22
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_tiq8yc31",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 68
+                       },
+                       {
+                        "unit": "%",
+                        "value": 32
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_ixog3upq",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_si8v7zkl_0",
+                          "padding": [
+                           0,
+                           0,
+                           6,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_fbz23gws",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "DESCRIPTION",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2,
+                             "color": "#6D665B",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_si8v7zkl_1",
+                          "padding": [
+                           0,
+                           0,
+                           6,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_1tkrztl9",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "AMOUNT",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2,
+                             "color": "#6D665B",
+                             "textAlign": "right",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     },
+                     {
+                      "id": "table_b7huqsaq",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 68
+                       },
+                       {
+                        "unit": "%",
+                        "value": 32
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_ews44whz",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_9noezj1w_0",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_v7fub7p2",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Brand identity",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 15,
+                             "fontWeight": 600,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_888ikt03",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Logo, colours, type and a 24-page guide",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              2,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "#6D665B",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_9noezj1w_1",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_b8y8vt0k",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦300,000",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 15,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "right",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     },
+                     {
+                      "id": "table_i0s7mwxv",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 68
+                       },
+                       {
+                        "unit": "%",
+                        "value": 32
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_0y0tl61k",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_3xt8wg7v_0",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_bgsdy96m",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Social media templates",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 15,
+                             "fontWeight": 600,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_j7rqj0jf",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "12 editable post and story designs",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              2,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "#6D665B",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_3xt8wg7v_1",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_9z1l238g",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦90,000",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 15,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "right",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     },
+                     {
+                      "id": "table_pikoe4s4",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 68
+                       },
+                       {
+                        "unit": "%",
+                        "value": 32
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_3r5b9u6d",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_so3rvkfm_0",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_1no4wc0f",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Launch support",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 15,
+                             "fontWeight": 600,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_hbfbx99w",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Three rounds of revisions and files",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              2,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "#6D665B",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_so3rvkfm_1",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_7da1p22z",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦60,000",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 15,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "right",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     },
+                     {
+                      "id": "table_c203yzn5",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 68
+                       },
+                       {
+                        "unit": "%",
+                        "value": 32
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_n5593wj4",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_qfq55ukv_0",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_ytt03pgx",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Total",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 15,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_srkyb5py",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "VAT exempt (small company)",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              2,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "#6D665B",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_qfq55ukv_1",
+                          "padding": [
+                           10,
+                           0,
+                           10,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_6l5uhoo2",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦450,000",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                             "fontSize": 18,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "",
+                             "textAlign": "right",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_n7zcrcxg",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_dxwbrqmn",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_kezby40d",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F6F1E7",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_zk7zvhe7",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/odunpaper/pay/OP-0042",
+                "align": "left",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  36,
+                  18,
+                  36
+                 ],
+                 "backgroundColor": "#1D1B16",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "children": [
+                 {
+                  "id": "text_np5bzgym",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Pay ₦450,000 now",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#F6F1E7",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               },
+               {
+                "id": "text_bzb6i7i5",
+                "type": "text",
+                "name": "Text",
+                "content": "Or bank transfer: Example Bank · 0123456789 · Odunpaper Studio Ltd · use OP-0042 as the reference.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#6D665B",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_lfcps6fo",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_nouakw99",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_fqoz0hlf",
+              "padding": [
+               28,
+               32,
+               36,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F6F1E7",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_ziulwz92",
+                "type": "text",
+                "name": "Text",
+                "content": "Thank you for trusting us with your brand, Funmi – it was a joy to make. — Odun",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Fraunces', Georgia, 'Times New Roman', serif",
+                 "fontSize": 17,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": true,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_qn749ml4",
+                "type": "text",
+                "name": "Text",
+                "content": "Odunpaper Studio Ltd · 18 Example Street, Yaba, Lagos · hello@example.com",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#6D665B",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

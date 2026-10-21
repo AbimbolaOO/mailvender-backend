@@ -1,0 +1,1978 @@
+{
+ "id": "akadabox-renewal",
+ "name": "Subscription renewing",
+ "category": "Reminder",
+ "description": "A plan renewal heads-up with this year's stats and a hard-shadow plan card.",
+ "tags": [
+  "subscription",
+  "saas",
+  "billing",
+  "plan",
+  "renewal",
+  "edtech",
+  "learning"
+ ],
+ "order": 26,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Your Akadabox Pro renews in 3 days",
+   "previewText": "Here’s what you learned this year – and how to manage your plan.",
+   "backgroundColor": "#F2F4FF",
+   "fontFamily": "'DM Sans', Arial, Helvetica, sans-serif",
+   "textColor": "#0E0F1A",
+   "webFonts": [
+    {
+     "family": "Space Grotesk",
+     "category": "sans-serif",
+     "weights": [
+      300,
+      400,
+      500,
+      600,
+      700
+     ],
+     "italic": false
+    },
+    {
+     "family": "DM Sans",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_5vimineq",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#F2F4FF",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_espmoqmp",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_gmv62y4f",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_tk0kp1n8",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_h4fi0bu7",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_7155sax2",
+              "padding": [
+               24,
+               32,
+               16,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_wwwqv4v0",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 45
+                 },
+                 {
+                  "unit": "%",
+                  "value": 55
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_ggwntp0v",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_7h08aumm_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_3ejhmxn1",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "akadabox",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                       "fontSize": 22,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": -0.5,
+                       "color": "#2B4BFF",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_7h08aumm_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_2tlh2w44",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "LEARN ANYTHING · ANYWHERE",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        8,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2,
+                       "color": "#4A4E69",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_fzas6gdi",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_rs8uhyn1",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_d3vxb3hd",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_mkutrhw4",
+                "type": "text",
+                "name": "Text",
+                "content": "Your Pro plan\nrenews in 3 days",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  14,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                 "fontSize": 44,
+                 "fontWeight": 700,
+                 "lineHeight": 1.02,
+                 "letterSpacing": -1.5,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 0,
+                  "end": 24,
+                  "style": {
+                   "color": "#0E0F1A"
+                  }
+                 },
+                 {
+                  "start": 24,
+                  "end": 30,
+                  "style": {
+                   "color": "#2B4BFF"
+                  }
+                 }
+                ],
+                "tag": "h1",
+                "mobileFontSize": 32
+               },
+               {
+                "id": "text_zqub1vc9",
+                "type": "text",
+                "name": "Text",
+                "content": "No action needed – you’ll keep every course, certificate and offline lesson. Here’s your year so far:",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#4A4E69",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_4f37o047",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_2rk0z36b",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_96imb16q",
+              "padding": [
+               24,
+               22,
+               8,
+               22
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_1n7tjmes",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_knl2gu54",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_v7uek0yf_0",
+                    "padding": [
+                     0,
+                     8,
+                     0,
+                     8
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_yqjaunpb",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#0E0F1A",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_nhe5w0s6",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_6kpbshx0",
+                          "padding": [
+                           0,
+                           6,
+                           6,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_699x2hvr",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "#FFFFFF",
+                             "borderWidth": 2,
+                             "borderStyle": "solid",
+                             "borderColor": "#0E0F1A",
+                             "borderRadius": 16
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_0a9asdk9",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_kz2srt5x",
+                                "padding": [
+                                 16,
+                                 8,
+                                 16,
+                                 8
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_e6aqdbif",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "37",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                                   "fontSize": 32,
+                                   "fontWeight": 700,
+                                   "lineHeight": 1,
+                                   "letterSpacing": 0,
+                                   "color": "#2B4BFF",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 },
+                                 {
+                                  "id": "text_ctljkdf0",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "lessons finished",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    6,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 12,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#4A4E69",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_v7uek0yf_1",
+                    "padding": [
+                     0,
+                     8,
+                     0,
+                     8
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_4s5d98qd",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#0E0F1A",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_tegjj5u5",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_563smdzh",
+                          "padding": [
+                           0,
+                           6,
+                           6,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_imefjfyp",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "#FFFFFF",
+                             "borderWidth": 2,
+                             "borderStyle": "solid",
+                             "borderColor": "#0E0F1A",
+                             "borderRadius": 16
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_dd3iyp5l",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_xbphwcbw",
+                                "padding": [
+                                 16,
+                                 8,
+                                 16,
+                                 8
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_j171mwt5",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "41h",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                                   "fontSize": 32,
+                                   "fontWeight": 700,
+                                   "lineHeight": 1,
+                                   "letterSpacing": 0,
+                                   "color": "#2B4BFF",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 },
+                                 {
+                                  "id": "text_5gturqvn",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "spent learning",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    6,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 12,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#4A4E69",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_v7uek0yf_2",
+                    "padding": [
+                     0,
+                     8,
+                     0,
+                     8
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_d3eaua1e",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#0E0F1A",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 18
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_ludu0w37",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_8ljdmtmb",
+                          "padding": [
+                           0,
+                           6,
+                           6,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_pg82t11i",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "#FFFFFF",
+                             "borderWidth": 2,
+                             "borderStyle": "solid",
+                             "borderColor": "#0E0F1A",
+                             "borderRadius": 16
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_osw6i84l",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_at6n2czi",
+                                "padding": [
+                                 16,
+                                 8,
+                                 16,
+                                 8
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_tieed195",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "4",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                                   "fontSize": 32,
+                                   "fontWeight": 700,
+                                   "lineHeight": 1,
+                                   "letterSpacing": 0,
+                                   "color": "#2B4BFF",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 },
+                                 {
+                                  "id": "text_38qi1bcb",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "certificates",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    6,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 12,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#4A4E69",
+                                   "textAlign": "center",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": true
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_19jah3rb",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_cy9fynyi",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_p916wppi",
+              "padding": [
+               24,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_p46aiu24",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#0E0F1A",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 18
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_hvj82nr6",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_pk9hved8",
+                    "padding": [
+                     0,
+                     6,
+                     6,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_vho6is3a",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#FFD23F",
+                       "borderWidth": 2,
+                       "borderStyle": "solid",
+                       "borderColor": "#0E0F1A",
+                       "borderRadius": 16
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_ljeefgw2",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_so6o7etd",
+                          "padding": [
+                           22,
+                           22,
+                           22,
+                           22
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_33tiqw3a",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "YOUR PLAN",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              10,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 2.5,
+                             "color": "#0E0F1A",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "table_780ybkwm",
+                            "type": "table",
+                            "name": "Table",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 55
+                             },
+                             {
+                              "unit": "%",
+                              "value": 45
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_kmy6x4ft",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_k18y8mya_0",
+                                "padding": [
+                                 0,
+                                 0,
+                                 8,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_shnvig7u",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "Pro · Yearly",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                                   "fontSize": 24,
+                                   "fontWeight": 700,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "",
+                                   "textAlign": "left",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               },
+                               {
+                                "id": "cell_k18y8mya_1",
+                                "padding": [
+                                 0,
+                                 0,
+                                 8,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_5g774cy1",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "₦48,000",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "'Space Grotesk', Arial, Helvetica, sans-serif",
+                                   "fontSize": 24,
+                                   "fontWeight": 700,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "",
+                                   "textAlign": "right",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           },
+                           {
+                            "id": "text_ajmfjps8",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Renews 4 October 2026 · Verve card •••• 4242",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 14,
+                             "fontWeight": 400,
+                             "lineHeight": 1.5,
+                             "letterSpacing": 0,
+                             "color": "#0E0F1A",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_7x23fd8o",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_7bdvnv7i",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_8avj4jyr",
+              "padding": [
+               28,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_66qybyel",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/akadabox/home",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  30,
+                  16,
+                  30
+                 ],
+                 "backgroundColor": "#2B4BFF",
+                 "borderWidth": 2,
+                 "borderStyle": "solid",
+                 "borderColor": "#0E0F1A",
+                 "borderRadius": 12
+                },
+                "children": [
+                 {
+                  "id": "text_zwxbd9uv",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Keep learning",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#FFFFFF",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               },
+               {
+                "id": "text_nt7rzqoo",
+                "type": "text",
+                "name": "Text",
+                "content": "Want to change or cancel? Manage your plan any time before 4 October.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 14,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#4A4E69",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 26,
+                  "end": 42,
+                  "style": {
+                   "href": "https://example.com/akadabox/plan",
+                   "color": "#2B4BFF"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ng343mvg",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_zp4moz47",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_dx4cr20c",
+              "padding": [
+               28,
+               32,
+               32,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F2F4FF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_ko29zw0h",
+                "type": "text",
+                "name": "Text",
+                "content": "Akadabox Learning Ltd · Ikeja, Lagos · Email preferences",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#4A4E69",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 39,
+                  "end": 56,
+                  "style": {
+                   "href": "https://example.com/akadabox/preferences",
+                   "color": "#4A4E69"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

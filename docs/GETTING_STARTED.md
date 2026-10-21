@@ -299,6 +299,25 @@ can also use **Upload an image** in an image widget's settings.
 - Logging out removes your designs from that browser (they're safe on the
   server). They come back when you sign in again.
 
+### Starter templates
+
+- **Pages → New page** shows the ready-made templates. They come from the
+  backend and load lazily: the list a page at a time as you scroll (search and
+  categories are answered by the server), and each template's design only when
+  its preview scrolls into view. Everything is kept in the browser, so a
+  template is downloaded once and again only after it changes; reopening the
+  gallery costs at most one small "anything new?" request. It works offline
+  from that copy, and falls back to the templates built into the studio if it
+  has never seen the server.
+- They're written in the studio (`mailvender/lib/editor/templates/`). After
+  adding or changing one, run `npm run templates:export` in `mailvender/`: it
+  checks every template (our checker, and import back as the same design) and
+  writes `backend/starter_templates/<id>.json`. The API loads that folder into
+  the database every time it starts, so rebuilding the API publishes them
+  (`docker compose up -d --build api`). A template deleted in the studio is
+  deleted on the next start too.
+- `npm test` in the studio fails if the exported files are out of date.
+
 ### Sending email
 
 1. You (or your server, with an API key) ask the API to send.
@@ -412,6 +431,7 @@ Run these from `mailvender-backend/`:
 | Make a user an operator            | `docker compose exec api python -m app.cli make-operator you@example.com`                                                |
 | Run a scheduled job now            | `docker compose exec worker python -m app.cli run-job retention` (also `dns_recheck`, `platform_dkim`, `account_health`, `dkim_key_sync`, `reputation`, `alerts`) |
 | Create / reset an admin            | `docker compose exec api python -m app.cli create-admin you@example.com` (also `reset-admin`, `disable-admin`, `list-admins`) |
+| Reload the starter templates       | `docker compose exec api python -m app.cli sync-templates` (normally automatic on start)                                 |
 | Apply database migrations by hand  | `docker compose exec api alembic upgrade head` (normally automatic)                                                      |
 | Open a database shell              | `docker compose exec postgres psql -U mailvender mailvender`                                                             |
 

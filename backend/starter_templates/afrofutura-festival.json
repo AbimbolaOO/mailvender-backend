@@ -1,0 +1,2262 @@
+{
+ "id": "afrofutura-festival",
+ "name": "Festival under the eclipse",
+ "category": "Event invite",
+ "description": "A music festival poster in an email: an eclipse with a glowing corona, a stacked line-up, ticket tiers and a sunrise set.",
+ "tags": [
+  "music",
+  "festival",
+  "concert",
+  "tickets",
+  "line-up",
+  "eclipse",
+  "afrobeats",
+  "poster",
+  "dark",
+  "showpiece",
+  "out of this world"
+ ],
+ "order": 14,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "AFROFUTURA: three nights under the open sky 🌑",
+   "previewText": "Obudu Mountain, 11–13 December. Six stages, one sky, and a sunrise set you won’t forget. Early tickets end Friday.",
+   "backgroundColor": "#1B0A24",
+   "fontFamily": "'DM Sans', Arial, Helvetica, sans-serif",
+   "textColor": "#F6E7D8",
+   "webFonts": [
+    {
+     "family": "Anton",
+     "category": "sans-serif",
+     "weights": [
+      400
+     ],
+     "italic": false
+    },
+    {
+     "family": "DM Sans",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_s6dys6ef",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#1B0A24",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_ljqzpqcn",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_u0l2lx9n",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_w4xcsvom",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_dyh407lw",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ej3ymzlk",
+              "padding": [
+               12,
+               16,
+               12,
+               16
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FF6A2B",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_jkv774wk",
+                "type": "text",
+                "name": "Text",
+                "content": "EARLY TICKETS END FRIDAY  ·  11–13 DECEMBER  ·  OBUDU MOUNTAIN",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.4,
+                 "letterSpacing": 3,
+                 "color": "#1B0A24",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_yek28dol",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_09b8ylmh",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wy7of2ec",
+              "padding": [
+               10,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_k3fjn55p",
+                "type": "html",
+                "name": "Stars",
+                "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;border-collapse:collapse;table-layout:fixed;\"><tr><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFE7B8\" style=\"width:2px;height:2px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"8\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"9\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFFFFF\" style=\"width:3px;height:3px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"10\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFFFFF\" style=\"width:3px;height:3px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_hxn21gfa",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_mvf18kcc",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_7hieutgz",
+              "padding": [
+               18,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_eplsiqge",
+                "type": "html",
+                "name": "Eclipse",
+                "html": "<table role=\"img\" aria-label=\"A black sun ringed by an orange and gold corona\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;margin:0 auto;\"><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"120\" height=\"5\"></td><td width=\"35\" bgcolor=\"#4A1640\"></td><td width=\"125\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"115\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"120\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"105\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"25\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"115\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"80\" height=\"5\"></td><td width=\"35\" bgcolor=\"#4A1640\"></td><td width=\"40\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"115\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"65\" height=\"5\"></td><td width=\"45\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"110\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"55\" height=\"5\"></td><td width=\"35\" bgcolor=\"#4A1640\"></td><td width=\"30\" bgcolor=\"#8E2A4A\"></td><td width=\"35\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"45\" bgcolor=\"#4A1640\"></td><td width=\"70\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"50\" height=\"5\"></td><td width=\"25\" bgcolor=\"#4A1640\"></td><td width=\"40\" bgcolor=\"#8E2A4A\"></td><td width=\"45\" bgcolor=\"#E8562A\"></td><td width=\"35\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"70\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"40\" height=\"5\"></td><td width=\"25\" bgcolor=\"#4A1640\"></td><td width=\"30\" bgcolor=\"#8E2A4A\"></td><td width=\"30\" bgcolor=\"#E8562A\"></td><td width=\"25\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"40\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"65\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"40\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"25\" bgcolor=\"#8E2A4A\"></td><td width=\"35\" bgcolor=\"#E8562A\"></td><td width=\"40\" bgcolor=\"#FF9A3D\"></td><td width=\"35\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"65\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"30\" bgcolor=\"#E8562A\"></td><td width=\"35\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"40\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"65\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"35\" bgcolor=\"#FF9A3D\"></td><td width=\"35\" bgcolor=\"#FFD27A\"></td><td width=\"35\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"65\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"30\" bgcolor=\"#FF9A3D\"></td><td width=\"55\" bgcolor=\"#FFD27A\"></td><td width=\"35\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"5\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"60\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"25\" bgcolor=\"#FF9A3D\"></td><td width=\"30\" bgcolor=\"#FFD27A\"></td><td width=\"25\" bgcolor=\"#FFF4D6\"></td><td width=\"35\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"50\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"25\" bgcolor=\"#FFD27A\"></td><td width=\"55\" bgcolor=\"#FFF4D6\"></td><td width=\"25\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"25\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"25\" bgcolor=\"#FFD27A\"></td><td width=\"80\" bgcolor=\"#FFF4D6\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"5\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"25\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"25\" bgcolor=\"#FFF4D6\"></td><td width=\"50\" bgcolor=\"#0B0410\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"25\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"70\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"80\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"100\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"100\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"110\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"120\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"120\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"5\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"5\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"5\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"5\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"5\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"20\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"15\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"5\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"5\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"5\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"15\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"130\" bgcolor=\"#0B0410\"></td><td width=\"5\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"120\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"20\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"120\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"5\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"110\" bgcolor=\"#0B0410\"></td><td width=\"10\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"100\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"5\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"100\" bgcolor=\"#0B0410\"></td><td width=\"15\" bgcolor=\"#FFF4D6\"></td><td width=\"5\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"80\" bgcolor=\"#0B0410\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"5\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"70\" bgcolor=\"#0B0410\"></td><td width=\"25\" bgcolor=\"#FFF4D6\"></td><td width=\"10\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"5\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"40\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FFF4D6\"></td><td width=\"50\" bgcolor=\"#0B0410\"></td><td width=\"25\" bgcolor=\"#FFF4D6\"></td><td width=\"20\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"5\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"10\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#FF9A3D\"></td><td width=\"20\" bgcolor=\"#FFD27A\"></td><td width=\"85\" bgcolor=\"#FFF4D6\"></td><td width=\"25\" bgcolor=\"#FFD27A\"></td><td width=\"10\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"35\" bgcolor=\"#FFD27A\"></td><td width=\"35\" bgcolor=\"#FFF4D6\"></td><td width=\"40\" bgcolor=\"#FFD27A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"25\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"95\" bgcolor=\"#FFD27A\"></td><td width=\"30\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"30\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"55\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#FFD27A\"></td><td width=\"65\" bgcolor=\"#FF9A3D\"></td><td width=\"15\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"35\" height=\"5\"></td><td width=\"20\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"20\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#FF9A3D\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"40\" bgcolor=\"#FF9A3D\"></td><td width=\"5\" bgcolor=\"#E8562A\"></td><td width=\"35\" bgcolor=\"#FF9A3D\"></td><td width=\"30\" bgcolor=\"#E8562A\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"50\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"150\" bgcolor=\"#E8562A\"></td><td width=\"15\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"50\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#E8562A\"></td><td width=\"35\" bgcolor=\"#8E2A4A\"></td><td width=\"25\" bgcolor=\"#E8562A\"></td><td width=\"20\" bgcolor=\"#8E2A4A\"></td><td width=\"35\" bgcolor=\"#E8562A\"></td><td width=\"30\" bgcolor=\"#8E2A4A\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"55\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"35\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"45\" bgcolor=\"#8E2A4A\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"65\" bgcolor=\"#8E2A4A\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"60\" height=\"5\"></td><td width=\"15\" bgcolor=\"#4A1640\"></td><td width=\"10\" bgcolor=\"#8E2A4A\"></td><td width=\"25\" bgcolor=\"#4A1640\"></td><td width=\"5\"></td><td width=\"65\" bgcolor=\"#4A1640\"></td><td width=\"45\" bgcolor=\"#8E2A4A\"></td><td width=\"25\" bgcolor=\"#4A1640\"></td><td width=\"30\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"65\" height=\"5\"></td><td width=\"35\" bgcolor=\"#4A1640\"></td><td width=\"25\"></td><td width=\"35\" bgcolor=\"#4A1640\"></td><td width=\"15\"></td><td width=\"70\" bgcolor=\"#4A1640\"></td><td width=\"35\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"70\" height=\"5\"></td><td width=\"5\" bgcolor=\"#4A1640\"></td><td width=\"110\"></td><td width=\"50\" bgcolor=\"#4A1640\"></td><td width=\"45\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"205\" height=\"5\"></td><td width=\"10\" bgcolor=\"#4A1640\"></td><td width=\"65\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"280\" height=\"15\"></td></tr></table></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_wbaav85f",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_x2b4ij56",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ulwsthf9",
+              "padding": [
+               22,
+               20,
+               0,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_sec7b5sv",
+                "type": "text",
+                "name": "Text",
+                "content": "AFROFUTURA",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 92,
+                 "fontWeight": 400,
+                 "lineHeight": 0.95,
+                 "letterSpacing": 2,
+                 "color": "#F6E7D8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 54,
+                "tag": "h1"
+               },
+               {
+                "id": "text_tm5mqwto",
+                "type": "text",
+                "name": "Text",
+                "content": "THREE NIGHTS UNDER THE OPEN SKY",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  12,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 700,
+                 "lineHeight": 1.4,
+                 "letterSpacing": 3,
+                 "color": "#FFC23D",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_rrth9h67",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_q8wehn19",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ps175m99",
+              "padding": [
+               30,
+               32,
+               0,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_bce51o6j",
+                "type": "text",
+                "name": "Text",
+                "content": "Six stages on a mountain plateau above the clouds, a planetarium dome for the after-hours sets, and a sunrise set on the final morning, when the stage lights go off and the sky takes over.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.65,
+                 "letterSpacing": 0,
+                 "color": "#C9A9C8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_0l7nb1mg",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_myynnjdh",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_rnztjq90",
+              "padding": [
+               30,
+               20,
+               0,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "img_pgl2cps4",
+                "type": "image",
+                "name": "Image",
+                "src": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&h=720&fit=crop&fm=jpg&q=80",
+                "alt": "A festival crowd with hands raised before a stage lit by orange beams",
+                "href": "https://example.com/afrofutura",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_4qm7ck6q",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_886i49jj",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_49gditua",
+              "padding": [
+               36,
+               16,
+               0,
+               16
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_rtk1ka2v",
+                "type": "text",
+                "name": "Text",
+                "content": "THE LINE-UP",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.4,
+                 "letterSpacing": 3,
+                 "color": "#FFC23D",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_8nz6t55u",
+                "type": "text",
+                "name": "Text",
+                "content": "TEMI OKON",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 58,
+                 "fontWeight": 400,
+                 "lineHeight": 1.12,
+                 "letterSpacing": 1,
+                 "color": "#F6E7D8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 38
+               },
+               {
+                "id": "text_n2znxue2",
+                "type": "text",
+                "name": "Text",
+                "content": "ÀṢÀ NOVA",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 58,
+                 "fontWeight": 400,
+                 "lineHeight": 1.12,
+                 "letterSpacing": 1,
+                 "color": "#FF6A2B",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 38
+               },
+               {
+                "id": "text_t2ihxwdz",
+                "type": "text",
+                "name": "Text",
+                "content": "BOLU BLACKSTAR",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 52,
+                 "fontWeight": 400,
+                 "lineHeight": 1.12,
+                 "letterSpacing": 1,
+                 "color": "#F6E7D8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 34
+               },
+               {
+                "id": "text_dbjwrul1",
+                "type": "text",
+                "name": "Text",
+                "content": "ZINA WAVES",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 58,
+                 "fontWeight": 400,
+                 "lineHeight": 1.12,
+                 "letterSpacing": 1,
+                 "color": "#FFC23D",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 38
+               },
+               {
+                "id": "text_0i0bwics",
+                "type": "text",
+                "name": "Text",
+                "content": "DJ KÁRÍ  ·  THE LAGOS DRUM ORCHESTRA  ·  NNEKA ODD  ·  SOUNDS OF ỌYỌ  ·  + 30 MORE",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 700,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 2,
+                 "color": "#C9A9C8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_zhb2x5ew",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_0h8gk7vw",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_r9wucq7l",
+              "padding": [
+               36,
+               14,
+               0,
+               14
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_jbcdbahn",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 },
+                 {
+                  "unit": "%",
+                  "value": 33.333333333333336
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_rm6rx5nh",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_vx0q6zlv_0",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_dv7j0ut9",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#2A1236",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 16
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_1nztz7p4",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_yg7t8kmy",
+                          "padding": [
+                           20,
+                           10,
+                           18,
+                           10
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_b6gl4v76",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "DAY",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.4,
+                             "letterSpacing": 3,
+                             "color": "#FFC23D",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_k1kguquk",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦45K",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              8,
+                              0,
+                              6,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                             "fontSize": 40,
+                             "fontWeight": 400,
+                             "lineHeight": 1.1,
+                             "letterSpacing": 0,
+                             "color": "#F6E7D8",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 30
+                           },
+                           {
+                            "id": "text_jbqr1bhh",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Any one day",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.45,
+                             "letterSpacing": 0,
+                             "color": "#C9A9C8",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_vx0q6zlv_1",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_orxlgq0j",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#FF6A2B",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 16
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_aywz53hg",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_vwgxu6hz",
+                          "padding": [
+                           20,
+                           10,
+                           18,
+                           10
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_kt3nhpye",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "WEEKEND",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.4,
+                             "letterSpacing": 3,
+                             "color": "#1B0A24",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_y8huxpw4",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦110K",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              8,
+                              0,
+                              6,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                             "fontSize": 40,
+                             "fontWeight": 400,
+                             "lineHeight": 1.1,
+                             "letterSpacing": 0,
+                             "color": "#1B0A24",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 30
+                           },
+                           {
+                            "id": "text_mbdssdqc",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "All three nights",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.45,
+                             "letterSpacing": 0,
+                             "color": "#1B0A24",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_vx0q6zlv_2",
+                    "padding": [
+                     0,
+                     6,
+                     0,
+                     6
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_knp7fs8o",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#2A1236",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 16
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_p7vld3id",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_4gk18cx5",
+                          "padding": [
+                           20,
+                           10,
+                           18,
+                           10
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_kbd5temv",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "ORBIT",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.4,
+                             "letterSpacing": 3,
+                             "color": "#FFC23D",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_c4to6ctc",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "₦280K",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              8,
+                              0,
+                              6,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                             "fontSize": 40,
+                             "fontWeight": 400,
+                             "lineHeight": 1.1,
+                             "letterSpacing": 0,
+                             "color": "#F6E7D8",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            },
+                            "mobileFontSize": 30
+                           },
+                           {
+                            "id": "text_w4zoryi9",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Dome + camping",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 400,
+                             "lineHeight": 1.45,
+                             "letterSpacing": 0,
+                             "color": "#C9A9C8",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_tn2lwyws",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_c124cqqn",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_f0d35uh2",
+              "padding": [
+               32,
+               24,
+               0,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_y8kyr9gf",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/afrofutura/tickets",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  48,
+                  18,
+                  48
+                 ],
+                 "backgroundColor": "#FFC23D",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "children": [
+                 {
+                  "id": "text_0asi7y6y",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Get tickets",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#1B0A24",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_3fmdqq4s",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_4fxrk4sj",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_mts6nt2c",
+              "padding": [
+               32,
+               32,
+               0,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_1namc2kb",
+                "type": "table",
+                "name": "Pill",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#2A1236",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 999
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_1khc61h5",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_qo6r3ivh",
+                    "padding": [
+                     7,
+                     14,
+                     7,
+                     14
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_23sb61gq",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "SUNRISE SET · SUNDAY 6:12AM",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.2,
+                       "letterSpacing": 1,
+                       "color": "#FFC23D",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ehm19bsi",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_53jpdng0",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_6tibl76l",
+              "padding": [
+               26,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1B0A24",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_sqkj4oev",
+                "type": "html",
+                "name": "Stars",
+                "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;border-collapse:collapse;table-layout:fixed;\"><tr><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td></tr><tr><td align=\"left\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#CFE3FF\" style=\"width:3px;height:3px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"21\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFFFFF\" style=\"width:3px;height:3px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"9\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFE7B8\" style=\"width:3px;height:3px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFE7B8\" style=\"width:2px;height:2px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#CFE3FF\" style=\"width:3px;height:3px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_8v6x32ef",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_9vvmo604",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_odo9tumj",
+              "padding": [
+               24,
+               32,
+               30,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#12061A",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_44e7a7ht",
+                "type": "text",
+                "name": "Text",
+                "content": "AFROFUTURA",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  10,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Anton', Arial, Helvetica, sans-serif",
+                 "fontSize": 22,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 4,
+                 "color": "#F6E7D8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_igno4eup",
+                "type": "text",
+                "name": "Text",
+                "content": "Obudu Mountain Resort, Cross River · Strictly 18+ · Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#C9A9C8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 52,
+                  "end": 63,
+                  "style": {
+                   "href": "https://example.com/unsubscribe",
+                   "color": "#C9A9C8"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

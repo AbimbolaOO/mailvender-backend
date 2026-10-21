@@ -5,6 +5,7 @@ import uuid
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from fastapi.openapi.utils import get_openapi
@@ -16,6 +17,7 @@ from app.api import (
     routes_data,
     routes_public,
     routes_sending,
+    routes_templates,
     routes_webhooks,
 )
 from app.api.deps import ADMIN_PREFIX, has_admin_secret
@@ -27,7 +29,8 @@ from app.logging import account_id_var, configure_logging, get_logger, log_event
 
 log = get_logger("http")
 
-PUBLIC_MODULES = (routes_public, routes_auth, routes_accounts, routes_sending, routes_data, routes_webhooks)
+PUBLIC_MODULES = (routes_public, routes_auth, routes_accounts, routes_sending, routes_data, routes_webhooks,
+                  routes_templates)
 
 DESCRIPTION = """
 Mailvender's REST API: identity, accounts, sending domains, assets, sending, suppressions and cloud sync.
@@ -58,6 +61,8 @@ def create_app() -> FastAPI:
         redoc_url=None,
     )
     install_error_handlers(app)
+    # Large JSON (e.g. the starter templates, ~1 MB) travels compressed (~80 KB).
+    app.add_middleware(GZipMiddleware, minimum_size=1024)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,

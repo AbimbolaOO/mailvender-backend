@@ -1,0 +1,2622 @@
+{
+ "id": "night-sky-club",
+ "name": "Night sky guide",
+ "category": "Newsletter",
+ "description": "A stargazing newsletter: the moon’s phases and Saturn drawn with table cells, Milky Way and Andromeda photos, a sky calendar and a star-party RSVP.",
+ "tags": [
+  "astronomy",
+  "space",
+  "moon",
+  "stars",
+  "planet",
+  "club",
+  "community",
+  "events",
+  "dark",
+  "showpiece",
+  "out of this world"
+ ],
+ "order": 13,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Your sky this month: Saturn, a full moon and Andromeda 🔭",
+   "previewText": "What to look for, when to look up, and a star party at Jabi Lake. Issue 27 of the Night Sky Club.",
+   "backgroundColor": "#0B1026",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#FFFFFF",
+   "webFonts": [
+    {
+     "family": "Instrument Serif",
+     "category": "serif",
+     "weights": [
+      400
+     ],
+     "italic": true
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_cjfyxlir",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#0B1026",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_ddtg1dem",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_9pjk9rwb",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_kqou6bf8",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_jqyrqxv6",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_y7q78g6m",
+              "padding": [
+               0,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_cvzovbkx",
+                "type": "html",
+                "name": "Stars",
+                "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;border-collapse:collapse;table-layout:fixed;\"><tr><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"8\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"10\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"11\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"center\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"9\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"10\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFE7B8\" style=\"width:2px;height:2px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFE7B8\" style=\"width:2px;height:2px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr><tr><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFE7B8\" style=\"width:3px;height:3px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"8\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#CFE3FF\" style=\"width:3px;height:3px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"15\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_0mynu4n4",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_7dmiq5tx",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_g5kabr9a",
+              "padding": [
+               8,
+               28,
+               0,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_0b7qy7k0",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 60
+                 },
+                 {
+                  "unit": "%",
+                  "value": 40
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_k4g7ayew",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_8ra0otn4_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_gehi2v6x",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "NIGHT SKY CLUB",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.4,
+                       "letterSpacing": 3,
+                       "color": "#F4EBD0",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_8ra0otn4_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_zyrvbk37",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "ISSUE 27",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.4,
+                       "letterSpacing": 3,
+                       "color": "#AEB6DA",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ti1iwsgi",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_mk0fy9a2",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_i7plpf17",
+              "padding": [
+               30,
+               28,
+               0,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_xt3vy7rx",
+                "type": "text",
+                "name": "Text",
+                "content": "Look up\ntonight.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                 "fontSize": 84,
+                 "fontWeight": 400,
+                 "lineHeight": 0.92,
+                 "letterSpacing": -2,
+                 "color": "#F4EBD0",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "tag": "h1",
+                "mobileFontSize": 58
+               },
+               {
+                "id": "text_iant0xb2",
+                "type": "text",
+                "name": "Text",
+                "content": "The longest nights of the year are coming, and the sky is putting on a show. Here’s what to find, and when.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#AEB6DA",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_maighads",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_ble6oluk",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_itxm00q1",
+              "padding": [
+               32,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "img_h1un1j6x",
+                "type": "image",
+                "name": "Image",
+                "src": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1200&h=700&fit=crop&fm=jpg&q=80",
+                "alt": "The Milky Way rising over dark mountains, the horizon glowing pink",
+                "href": "",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_yw4n9sum",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_1jm6sr65",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_xfb4daro",
+              "padding": [
+               36,
+               24,
+               6,
+               24
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_sk00qcgg",
+                "type": "text",
+                "name": "Text",
+                "content": "THIS MONTH’S MOON",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.4,
+                 "letterSpacing": 3,
+                 "color": "#FFC861",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "html_b7n3xpib",
+                "type": "html",
+                "name": "Moon phases",
+                "html": "<table role=\"img\" aria-label=\"The phases of the moon, from new to full\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;margin:0 auto;\"><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"3\"></td><td width=\"15\" bgcolor=\"#39427A\"></td><td width=\"45\"></td><td width=\"15\" bgcolor=\"#39427A\"></td><td width=\"45\"></td><td width=\"9\" bgcolor=\"#39427A\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"45\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"12\" bgcolor=\"#F4EBD0\"></td><td width=\"45\"></td><td width=\"15\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"9\" height=\"3\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"33\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"9\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"12\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"24\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"27\" bgcolor=\"#F4EBD0\"></td><td width=\"9\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"6\" height=\"3\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\" bgcolor=\"#1E2650\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"12\" bgcolor=\"#1E2650\"></td><td width=\"15\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"6\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"3\" height=\"3\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"15\" bgcolor=\"#1E2650\"></td><td width=\"18\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"3\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"3\" height=\"3\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"30\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"18\" bgcolor=\"#1E2650\"></td><td width=\"18\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"3\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"18\" bgcolor=\"#1E2650\"></td><td width=\"21\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"45\" bgcolor=\"#F4EBD0\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#39427A\"></td><td width=\"39\" bgcolor=\"#1E2650\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"15\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"36\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"21\" bgcolor=\"#1E2650\"></td><td width=\"21\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"45\" bgcolor=\"#F4EBD0\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"18\" bgcolor=\"#1E2650\"></td><td width=\"21\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td><td width=\"45\" bgcolor=\"#F4EBD0\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"3\" height=\"3\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#1E2650\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"30\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"18\" bgcolor=\"#1E2650\"></td><td width=\"18\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"3\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"3\" height=\"3\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"15\" bgcolor=\"#1E2650\"></td><td width=\"18\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"21\"></td><td width=\"39\" bgcolor=\"#F4EBD0\"></td><td width=\"3\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"6\" height=\"3\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\" bgcolor=\"#1E2650\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"21\" bgcolor=\"#1E2650\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"12\" bgcolor=\"#1E2650\"></td><td width=\"15\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"6\" bgcolor=\"#39427A\"></td><td width=\"27\" bgcolor=\"#F4EBD0\"></td><td width=\"27\"></td><td width=\"33\" bgcolor=\"#F4EBD0\"></td><td width=\"6\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"9\" height=\"3\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"33\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"9\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"12\" bgcolor=\"#39427A\"></td><td width=\"3\" bgcolor=\"#1E2650\"></td><td width=\"12\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"24\" bgcolor=\"#F4EBD0\"></td><td width=\"33\"></td><td width=\"27\" bgcolor=\"#F4EBD0\"></td><td width=\"9\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"15\" height=\"3\"></td><td width=\"15\" bgcolor=\"#39427A\"></td><td width=\"45\"></td><td width=\"15\" bgcolor=\"#39427A\"></td><td width=\"45\"></td><td width=\"9\" bgcolor=\"#39427A\"></td><td width=\"6\" bgcolor=\"#F4EBD0\"></td><td width=\"45\"></td><td width=\"3\" bgcolor=\"#39427A\"></td><td width=\"12\" bgcolor=\"#F4EBD0\"></td><td width=\"45\"></td><td width=\"15\" bgcolor=\"#F4EBD0\"></td><td width=\"15\"></td></tr></table></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  0,
+                  12,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               },
+               {
+                "id": "text_9qmvcj1j",
+                "type": "text",
+                "name": "Text",
+                "content": "NEW  →  FULL",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.4,
+                 "letterSpacing": 3,
+                 "color": "#AEB6DA",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_ic4tyts3",
+                "type": "text",
+                "name": "Text",
+                "content": "New moon in week one gives the darkest skies of the month – the best time for the Milky Way. Full moon arrives in week four.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 14,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#AEB6DA",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_jmyzywq6",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_9iyr9z3o",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_16wrep8r",
+              "padding": [
+               30,
+               20,
+               0,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_em7f5g3g",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#131A3A",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 24
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_fs8usu2p",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_hgyptk8i",
+                    "padding": [
+                     26,
+                     16,
+                     26,
+                     16
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_9rg9i45y",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 52
+                       },
+                       {
+                        "unit": "%",
+                        "value": 48
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_5e4ebh21",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_5l8n52f6_0",
+                          "padding": [
+                           0,
+                           8,
+                           0,
+                           8
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "html_gpk6noi9",
+                            "type": "html",
+                            "name": "Saturn",
+                            "html": "<table role=\"img\" aria-label=\"Saturn and its rings\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;margin:0 auto;\"><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"240\" height=\"4\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"208\" height=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"28\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"240\" height=\"8\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"148\" height=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"88\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"104\" height=\"4\"></td><td width=\"24\" bgcolor=\"#E6C98C\"></td><td width=\"8\" bgcolor=\"#C9A467\"></td><td width=\"60\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"40\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"96\" height=\"4\"></td><td width=\"24\" bgcolor=\"#FFF0C4\"></td><td width=\"12\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"96\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"16\" height=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"68\"></td><td width=\"36\" bgcolor=\"#FFF0C4\"></td><td width=\"12\" bgcolor=\"#E6C98C\"></td><td width=\"8\" bgcolor=\"#C9A467\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"52\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"32\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"84\" height=\"4\"></td><td width=\"40\" bgcolor=\"#FFF0C4\"></td><td width=\"12\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"4\"></td><td width=\"56\" bgcolor=\"#B79C6C\"></td><td width=\"24\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"80\" height=\"4\"></td><td width=\"44\" bgcolor=\"#FFF0C4\"></td><td width=\"8\" bgcolor=\"#E6C98C\"></td><td width=\"8\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"8\"></td><td width=\"28\" bgcolor=\"#E9D6A8\"></td><td width=\"8\"></td><td width=\"16\" bgcolor=\"#B79C6C\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"16\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"76\" height=\"4\"></td><td width=\"36\" bgcolor=\"#FFF0C4\"></td><td width=\"16\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"44\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"12\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"72\" height=\"4\"></td><td width=\"4\" bgcolor=\"#E6C98C\"></td><td width=\"32\" bgcolor=\"#FFF0C4\"></td><td width=\"20\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"8\" bgcolor=\"#5A3E1B\"></td><td width=\"8\"></td><td width=\"32\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"16\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"72\" height=\"4\"></td><td width=\"32\" bgcolor=\"#FFF0C4\"></td><td width=\"20\" bgcolor=\"#E6C98C\"></td><td width=\"24\" bgcolor=\"#C9A467\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"20\"></td><td width=\"20\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"16\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"68\" height=\"4\"></td><td width=\"4\" bgcolor=\"#E6C98C\"></td><td width=\"28\" bgcolor=\"#FFF0C4\"></td><td width=\"32\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"8\" bgcolor=\"#5A3E1B\"></td><td width=\"20\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"20\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"68\" height=\"4\"></td><td width=\"48\" bgcolor=\"#FFF0C4\"></td><td width=\"16\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"8\" bgcolor=\"#5A3E1B\"></td><td width=\"16\"></td><td width=\"20\" bgcolor=\"#E9D6A8\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"24\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"64\" height=\"4\"></td><td width=\"4\" bgcolor=\"#E6C98C\"></td><td width=\"44\" bgcolor=\"#FFF0C4\"></td><td width=\"16\" bgcolor=\"#E6C98C\"></td><td width=\"16\" bgcolor=\"#C9A467\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"12\" bgcolor=\"#5A3E1B\"></td><td width=\"12\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"28\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"64\" height=\"4\"></td><td width=\"4\" bgcolor=\"#E6C98C\"></td><td width=\"40\" bgcolor=\"#FFF0C4\"></td><td width=\"16\" bgcolor=\"#E6C98C\"></td><td width=\"16\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#5A3E1B\"></td><td width=\"8\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"32\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"56\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"4\" bgcolor=\"#E6C98C\"></td><td width=\"32\" bgcolor=\"#FFF0C4\"></td><td width=\"24\" bgcolor=\"#E6C98C\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#5A3E1B\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"36\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"16\" height=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"28\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"4\" bgcolor=\"#E9D6A8\"></td><td width=\"8\" bgcolor=\"#E6C98C\"></td><td width=\"20\" bgcolor=\"#FFF0C4\"></td><td width=\"28\" bgcolor=\"#E6C98C\"></td><td width=\"16\" bgcolor=\"#C9A467\"></td><td width=\"12\" bgcolor=\"#A57F45\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#5A3E1B\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"44\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"44\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"48\" bgcolor=\"#E6C98C\"></td><td width=\"16\" bgcolor=\"#C9A467\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"20\" bgcolor=\"#5A3E1B\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"48\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"36\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"4\"></td><td width=\"12\" bgcolor=\"#C9A467\"></td><td width=\"32\" bgcolor=\"#E6C98C\"></td><td width=\"4\" bgcolor=\"#C9A467\"></td><td width=\"20\" bgcolor=\"#A57F45\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#5A3E1B\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"20\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"24\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"32\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"8\"></td><td width=\"4\" bgcolor=\"#A57F45\"></td><td width=\"40\" bgcolor=\"#C9A467\"></td><td width=\"20\" bgcolor=\"#A57F45\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"12\" bgcolor=\"#5A3E1B\"></td><td width=\"12\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"52\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"8\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"28\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"12\"></td><td width=\"8\" bgcolor=\"#A57F45\"></td><td width=\"28\" bgcolor=\"#C9A467\"></td><td width=\"20\" bgcolor=\"#A57F45\"></td><td width=\"20\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"8\" bgcolor=\"#5A3E1B\"></td><td width=\"64\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"24\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"20\" bgcolor=\"#E9D6A8\"></td><td width=\"16\"></td><td width=\"4\" bgcolor=\"#C9A467\"></td><td width=\"36\" bgcolor=\"#A57F45\"></td><td width=\"4\" bgcolor=\"#C9A467\"></td><td width=\"16\" bgcolor=\"#A57F45\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"12\" bgcolor=\"#5A3E1B\"></td><td width=\"68\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"4\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"20\"></td><td width=\"4\" bgcolor=\"#A57F45\"></td><td width=\"28\" bgcolor=\"#C9A467\"></td><td width=\"20\" bgcolor=\"#A57F45\"></td><td width=\"16\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#5A3E1B\"></td><td width=\"8\" bgcolor=\"#B79C6C\"></td><td width=\"24\" bgcolor=\"#5A3E1B\"></td><td width=\"68\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"16\" height=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"20\" bgcolor=\"#E9D6A8\"></td><td width=\"16\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"32\" bgcolor=\"#A57F45\"></td><td width=\"20\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"28\" bgcolor=\"#5A3E1B\"></td><td width=\"72\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"16\" height=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"32\" bgcolor=\"#E9D6A8\"></td><td width=\"8\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"4\" bgcolor=\"#A57F45\"></td><td width=\"32\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"40\" bgcolor=\"#5A3E1B\"></td><td width=\"72\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"16\" height=\"4\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"64\" bgcolor=\"#E9D6A8\"></td><td width=\"4\" bgcolor=\"#7C5A2C\"></td><td width=\"12\" bgcolor=\"#B79C6C\"></td><td width=\"8\" bgcolor=\"#7C5A2C\"></td><td width=\"44\" bgcolor=\"#5A3E1B\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"72\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"20\" height=\"4\"></td><td width=\"16\" bgcolor=\"#B79C6C\"></td><td width=\"8\"></td><td width=\"28\" bgcolor=\"#E9D6A8\"></td><td width=\"8\"></td><td width=\"20\" bgcolor=\"#B79C6C\"></td><td width=\"12\" bgcolor=\"#7C5A2C\"></td><td width=\"48\" bgcolor=\"#5A3E1B\"></td><td width=\"80\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"24\" height=\"4\"></td><td width=\"56\" bgcolor=\"#B79C6C\"></td><td width=\"4\"></td><td width=\"72\" bgcolor=\"#5A3E1B\"></td><td width=\"84\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"88\" height=\"4\"></td><td width=\"64\" bgcolor=\"#5A3E1B\"></td><td width=\"88\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"96\" height=\"4\"></td><td width=\"48\" bgcolor=\"#5A3E1B\"></td><td width=\"24\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"68\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"104\" height=\"4\"></td><td width=\"32\" bgcolor=\"#5A3E1B\"></td><td width=\"104\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"44\" height=\"4\"></td><td width=\"4\" bgcolor=\"#FFFFFF\"></td><td width=\"192\"></td></tr></table></td></tr><tr><td><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:0;line-height:0;mso-line-height-rule:exactly\"><tr><td width=\"240\" height=\"16\"></td></tr></table></td></tr></table>",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            }
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_5l8n52f6_1",
+                          "padding": [
+                           0,
+                           8,
+                           0,
+                           8
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_jfvzcz3f",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "PLANET OF THE MONTH",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 12,
+                             "fontWeight": 700,
+                             "lineHeight": 1.4,
+                             "letterSpacing": 3,
+                             "color": "#FFC861",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_yp0xvx0y",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "Saturn",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              8,
+                              0,
+                              8,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                             "fontSize": 44,
+                             "fontWeight": 400,
+                             "lineHeight": 1.05,
+                             "letterSpacing": 0,
+                             "color": "#F4EBD0",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           },
+                           {
+                            "id": "text_zckbuown",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "High in the south after sunset, steady and golden. Any small telescope shows the rings – ours will be pointed at it all evening.",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "",
+                             "fontSize": 14,
+                             "fontWeight": 400,
+                             "lineHeight": 1.6,
+                             "letterSpacing": 0,
+                             "color": "#AEB6DA",
+                             "textAlign": "left",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": true
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_9d0o8mzt",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_3ev52eje",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_h4y1jjl3",
+              "padding": [
+               36,
+               28,
+               0,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_822nl6hq",
+                "type": "text",
+                "name": "Text",
+                "content": "When to look up",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                 "fontSize": 32,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#F4EBD0",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "table_53ikagpj",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 30
+                 },
+                 {
+                  "unit": "%",
+                  "value": 70
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_oi7001px",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_eybdc5hv_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_7sjq2psc",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Week 1",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 26,
+                       "fontWeight": 400,
+                       "lineHeight": 1.1,
+                       "letterSpacing": 0,
+                       "color": "#FFC861",
+                       "textAlign": "left",
+                       "italic": true,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_eybdc5hv_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_djshabsh",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Darkest skies",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 16,
+                       "fontWeight": 700,
+                       "lineHeight": 1.35,
+                       "letterSpacing": 0,
+                       "color": "#FFFFFF",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_xyhyktsp",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "No moon after 9pm. Find the Milky Way low in the south-west.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        4,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.55,
+                       "letterSpacing": 0,
+                       "color": "#AEB6DA",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               },
+               {
+                "id": "divider_fsmxoatp",
+                "type": "divider",
+                "name": "Divider",
+                "line": {
+                 "style": "solid",
+                 "thickness": 1,
+                 "color": "#2A3263"
+                },
+                "width": 100,
+                "align": "center",
+                "label": "",
+                "labelColor": "#71717a",
+                "labelSize": 12,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               },
+               {
+                "id": "table_ba7ytqtg",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 30
+                 },
+                 {
+                  "unit": "%",
+                  "value": 70
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_06jsxzfy",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_m9h9s3j3_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_ahb82imd",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Week 2",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 26,
+                       "fontWeight": 400,
+                       "lineHeight": 1.1,
+                       "letterSpacing": 0,
+                       "color": "#FFC861",
+                       "textAlign": "left",
+                       "italic": true,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_m9h9s3j3_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_fspzolrz",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Moon meets Saturn",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 16,
+                       "fontWeight": 700,
+                       "lineHeight": 1.35,
+                       "letterSpacing": 0,
+                       "color": "#FFFFFF",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_ylg7g8ei",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "A crescent moon sits just below the ringed planet at dusk.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        4,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.55,
+                       "letterSpacing": 0,
+                       "color": "#AEB6DA",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               },
+               {
+                "id": "divider_dh4r0g2n",
+                "type": "divider",
+                "name": "Divider",
+                "line": {
+                 "style": "solid",
+                 "thickness": 1,
+                 "color": "#2A3263"
+                },
+                "width": 100,
+                "align": "center",
+                "label": "",
+                "labelColor": "#71717a",
+                "labelSize": 12,
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               },
+               {
+                "id": "table_mxqzecg9",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 30
+                 },
+                 {
+                  "unit": "%",
+                  "value": 70
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_94fxsxsu",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_vdnwyzyp_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_hrt6y7bt",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Week 4",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 26,
+                       "fontWeight": 400,
+                       "lineHeight": 1.1,
+                       "letterSpacing": 0,
+                       "color": "#FFC861",
+                       "textAlign": "left",
+                       "italic": true,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_vdnwyzyp_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_p1gouxbf",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Full moon",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 16,
+                       "fontWeight": 700,
+                       "lineHeight": 1.35,
+                       "letterSpacing": 0,
+                       "color": "#FFFFFF",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_z9v4zpe3",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Bright enough to read by. Look for the dark “seas” with your eyes alone.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        4,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.55,
+                       "letterSpacing": 0,
+                       "color": "#AEB6DA",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_rh225na0",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_6moo20eh",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wcp8tup5",
+              "padding": [
+               36,
+               20,
+               0,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "img_jvcqu75z",
+                "type": "image",
+                "name": "Image",
+                "src": "https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1200&h=640&fit=crop&fm=jpg&q=80",
+                "alt": "The Andromeda galaxy, a glowing spiral among stars",
+                "href": "",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 22
+                }
+               },
+               {
+                "id": "text_g5kj6vw2",
+                "type": "text",
+                "name": "Text",
+                "content": "Andromeda, 2.5 million light years away – the farthest thing you can see without a telescope. On a dark night it’s a faint smudge north-east of the Great Square.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  14,
+                  8,
+                  0,
+                  8
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 13,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#AEB6DA",
+                 "textAlign": "center",
+                 "italic": true,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_yadrxc0b",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_xyumqhct",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_xbis3u39",
+              "padding": [
+               36,
+               20,
+               0,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_mzqj37zk",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#FFF6E0",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 24
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_3wp6kvtn",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_69eh5fkg",
+                    "padding": [
+                     30,
+                     24,
+                     30,
+                     24
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_68i7zr7a",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "STAR PARTY",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.4,
+                       "letterSpacing": 3,
+                       "color": "#7A4E00",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_dbrifqa4",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Saturday, 8pm · Jabi Lake, Abuja",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        10,
+                        0,
+                        10,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 30,
+                       "fontWeight": 400,
+                       "lineHeight": 1.15,
+                       "letterSpacing": 0,
+                       "color": "#0B1026",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_nembnm44",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Eight telescopes, hot chocolate and a guided tour of the sky. Free for members; bring a friend.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        22,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 15,
+                       "fontWeight": 400,
+                       "lineHeight": 1.6,
+                       "letterSpacing": 0,
+                       "color": "#3D3A52",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "button_qlbw6qh2",
+                      "type": "button",
+                      "name": "Button",
+                      "href": "https://example.com/nightsky/rsvp",
+                      "align": "center",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        16,
+                        36,
+                        16,
+                        36
+                       ],
+                       "backgroundColor": "#0B1026",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 999
+                      },
+                      "children": [
+                       {
+                        "id": "text_ovhs1sde",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "Save me a telescope",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 16,
+                         "fontWeight": 700,
+                         "lineHeight": 1.2,
+                         "letterSpacing": 0,
+                         "color": "#F4EBD0",
+                         "textAlign": "center",
+                         "italic": false,
+                         "underline": false
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_pxoss8yy",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_mlb03ynl",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_h8qvudeu",
+              "padding": [
+               24,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_u39t8wau",
+                "type": "html",
+                "name": "Stars",
+                "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:100%;border-collapse:collapse;table-layout:fixed;\"><tr><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td><td width=\"2.500%\" style=\"width:2.500%;height:0;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFFFFF\" style=\"width:3px;height:3px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"8\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFFFFF\" style=\"width:1px;height:1px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"22\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"7\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"3\" height=\"3\" bgcolor=\"#FFFFFF\" style=\"width:3px;height:3px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#FFE7B8\" style=\"width:1px;height:1px;background-color:#FFE7B8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"left\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"left\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#FFFFFF\" style=\"width:2px;height:2px;background-color:#FFFFFF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"right\" valign=\"bottom\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td><td align=\"center\" valign=\"middle\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"1\" height=\"1\" bgcolor=\"#CFE3FF\" style=\"width:1px;height:1px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td align=\"right\" valign=\"top\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"right\"><tr><td width=\"2\" height=\"2\" bgcolor=\"#CFE3FF\" style=\"width:2px;height:2px;background-color:#CFE3FF;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"8\" height=\"18\" style=\"height:18px;font-size:0;line-height:0;\"></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ukw4svz3",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_tw41hln9",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_vaqp1kjh",
+              "padding": [
+               16,
+               32,
+               32,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#0B1026",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_4e6x3r8x",
+                "type": "text",
+                "name": "Text",
+                "content": "Night Sky Club · 4 Example Crescent, Wuse 2, Abuja\nClear skies! · Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#AEB6DA",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 66,
+                  "end": 77,
+                  "style": {
+                   "href": "https://example.com/unsubscribe",
+                   "color": "#AEB6DA"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

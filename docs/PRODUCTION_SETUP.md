@@ -63,7 +63,8 @@ recommendations) is in [backlog.md](../../backlog.md).
 - [ ] Step 13a: Cloudflare Email Routing (`postmaster@`, `abuse@`, `dmarc@`), Google
       Postmaster Tools, Microsoft SNDS and JMRP. Doesn't need port 25.
 - [ ] Step 19: the admin dashboard (secrets, Vercel project, first sign-in, Email Worker for the role inboxes).
-- [ ] Step 14b: turn on bucket versioning and the two lifecycle rules in the AWS Console.
+- [ ] Step 14b: **bucket CORS** (without it the studio can't download datasets and keeps retrying),
+      bucket versioning and the two lifecycle rules, in the AWS Console.
 - [ ] IAM: allow `s3:ListBucket` on the `prod/` prefix (the admin's backup checks need it; RUNBOOK
       "Asset storage").
 - [ ] Settings for monitoring: `KNOWN_SENDING_IPS`, `ALERT_WEBHOOK_URL` in
@@ -764,6 +765,24 @@ Common mistakes:
 
 ### 14b. Protect the bucket (AWS Console, once)
 
+**First, CORS.** Browsers upload images and datasets straight to S3 and download
+dataset content from it, so the bucket must allow the studio's address. In
+**S3 → `mailvender` → Permissions → Cross-origin resource sharing (CORS) → Edit**,
+paste the contents of [`infra/bucket-cors.json`](../infra/bucket-cors.json) and save.
+Without it, signing in on a computer whose datasets aren't downloaded yet shows
+sync errors, and the browser console shows the S3 requests blocked by CORS.
+
+Check it from your Mac (any object works; the answer must include
+`access-control-allow-origin`):
+
+```sh
+curl -s -o /dev/null -D - -H 'Origin: https://www.mailvender.com' \
+  "$(ssh root@2.29.100.188 "cd /opt/mailvender/mailvender-backend && docker compose -f docker-compose.prod.yml exec -T api python -c \"from app.services.storage import S3Storage; print(S3Storage().presign_download('prod/cors-check', 60))\"" | tr -d '\r')" \
+  | grep -i access-control-allow-origin
+```
+
+(The object doesn't exist, so S3 answers 403 or 404 – that's fine; only the header matters.)
+
 In **S3 → `mailvender` → Properties → Bucket Versioning → Enable**. A deleted
 or overwritten backup can then still be recovered.
 
@@ -829,7 +848,10 @@ Three things deploy separately. When a change touches more than one, deploy in
 this order, so a newer web app never talks to an older API:
 
 1. **Backend** (server): API, worker, Postfix, OpenDKIM. Database migrations run
-   by themselves when the API starts.
+   by themselves when the API starts, and so does loading the starter templates.
+   **Changed or added a template?** Run `npm run templates:export` in
+   `mailvender/` first: it writes `backend/starter_templates/`, which this deploy
+   copies to the server. No studio deploy is needed for templates.
 2. **Studio** (`mailvender/`, Vercel project for www.mailvender.com).
 3. **Admin** (`mailvender-admin/`, Vercel project for backoffice.mailvender.com).
 
@@ -867,7 +889,12 @@ Rebuilding replaces the `api` and `worker` containers, and **Docker deletes a
 container's logs with it**. The first line uploads them to S3 before that
 (skip it until step 14 is set up).
 
-Database migrations run automatically when the API starts. Queued mail is kept
+Database migrations run automatically when the API starts, followed by the
+starter templates: `docker compose -f docker-compose.prod.yml logs api | grep templates.sync`
+shows what was added, updated and removed (`templates.sync_failed` means a file
+was invalid – the previous templates are still served; fix the file and
+redeploy, or run `docker compose -f docker-compose.prod.yml exec api python -m app.cli sync-templates`
+to see the error). Queued mail is kept
 across restarts (the `postfix-queue` volume). Check which migration is live:
 `docker compose -f docker-compose.prod.yml exec api alembic current` (the
 newest is the highest number in `backend/alembic/versions/`).

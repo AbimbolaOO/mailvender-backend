@@ -1,0 +1,1039 @@
+{
+ "id": "indigoyo-birthday",
+ "name": "Happy birthday",
+ "category": "Greetings",
+ "description": "Confetti drawn in cells, an italic serif greeting and a gift voucher.",
+ "tags": [
+  "birthday",
+  "celebration",
+  "gift",
+  "voucher",
+  "fashion",
+  "confetti"
+ ],
+ "order": 34,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Happy birthday, Adaeze 🎉 A gift inside",
+   "previewText": "₦10,000 off anything, on us – because it’s your day.",
+   "backgroundColor": "#F4EFE6",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#111111",
+   "webFonts": [
+    {
+     "family": "Instrument Serif",
+     "category": "serif",
+     "weights": [
+      400
+     ],
+     "italic": true
+    },
+    {
+     "family": "Archivo Black",
+     "category": "sans-serif",
+     "weights": [
+      400
+     ],
+     "italic": false
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_z4q544ly",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#F4EFE6",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_mwjygyyk",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_rs00729n",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_hy5ibjey",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_g1ts6pi1",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wonnmp38",
+              "padding": [
+               24,
+               0,
+               0,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F4EFE6",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_izudk65f",
+                "type": "html",
+                "name": "Confetti",
+                "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;margin:0 auto;\"><tr><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#6AB845\" style=\"width:7px;height:7px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" width=\"140\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#3AA0C8\" style=\"width:8px;height:8px;background-color:#3AA0C8;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" width=\"80\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#6AB845\" style=\"width:7px;height:7px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#8A55E0\" style=\"width:8px;height:8px;background-color:#8A55E0;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" width=\"60\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#8A55E0\" style=\"width:10px;height:10px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" width=\"60\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#6AB845\" style=\"width:9px;height:9px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#8A55E0\" style=\"width:8px;height:8px;background-color:#8A55E0;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#8A55E0\" style=\"width:8px;height:8px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#E85D75\" style=\"width:11px;height:11px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#D99A1E\" style=\"width:10px;height:10px;background-color:#D99A1E;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#6AB845\" style=\"width:12px;height:12px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" width=\"140\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#E85D75\" style=\"width:9px;height:9px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#D99A1E\" style=\"width:8px;height:8px;background-color:#D99A1E;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#E85D75\" style=\"width:12px;height:12px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#6AB845\" style=\"width:12px;height:12px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#E85D75\" style=\"width:8px;height:8px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" width=\"80\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td></tr><tr><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#8A55E0\" style=\"width:7px;height:7px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#3AA0C8\" style=\"width:7px;height:7px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"9\" width=\"180\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#E85D75\" style=\"width:8px;height:8px;background-color:#E85D75;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" width=\"100\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#D99A1E\" style=\"width:6px;height:6px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" width=\"60\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#E85D75\" style=\"width:11px;height:11px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#6AB845\" style=\"width:9px;height:9px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td></tr><tr><td colspan=\"8\" width=\"160\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#D99A1E\" style=\"width:8px;height:8px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#6AB845\" style=\"width:9px;height:9px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"10\" width=\"200\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#E85D75\" style=\"width:10px;height:10px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#8A55E0\" style=\"width:6px;height:6px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#E85D75\" style=\"width:12px;height:12px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#6AB845\" style=\"width:9px;height:9px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td></tr><tr><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#E85D75\" style=\"width:12px;height:12px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" width=\"60\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"9\" width=\"180\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#E85D75\" style=\"width:11px;height:11px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" width=\"80\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#D99A1E\" style=\"width:9px;height:9px;background-color:#D99A1E;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"3\" width=\"60\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#E85D75\" style=\"width:11px;height:11px;background-color:#E85D75;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#6AB845\" style=\"width:8px;height:8px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#3AA0C8\" style=\"width:11px;height:11px;background-color:#3AA0C8;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_rournxjr",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_2e1qcqqs",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_5jubr6oq",
+              "padding": [
+               16,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F4EFE6",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_mui0sslu",
+                "type": "text",
+                "name": "Text",
+                "content": "1 OCTOBER · YOUR DAY",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 700,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 3,
+                 "color": "#8D6413",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_ydwl7gtu",
+                "type": "text",
+                "name": "Text",
+                "content": "Happy birthday,\nAdaeze.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  14,
+                  0,
+                  18,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                 "fontSize": 68,
+                 "fontWeight": 400,
+                 "lineHeight": 0.98,
+                 "letterSpacing": -1,
+                 "color": "",
+                 "textAlign": "center",
+                 "italic": true,
+                 "underline": false
+                },
+                "mobileFontSize": 48,
+                "tag": "h1"
+               },
+               {
+                "id": "text_bvdie48p",
+                "type": "text",
+                "name": "Text",
+                "content": "Wishing you a year of good cloth, good food and even better company. Here’s a little something for the owambe outfit.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  28,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#6E665C",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "table_tzym633j",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#111111",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_5aokped8",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_1s627m7b",
+                    "padding": [
+                     30,
+                     28,
+                     30,
+                     28
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_jrgprc6e",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "A BIRTHDAY GIFT FROM US",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 3,
+                       "color": "#D99A1E",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_rf5zw6o7",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "₦10,000 off",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        14,
+                        0,
+                        10,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 56,
+                       "fontWeight": 400,
+                       "lineHeight": 1,
+                       "letterSpacing": 0,
+                       "color": "#F4EFE6",
+                       "textAlign": "center",
+                       "italic": true,
+                       "underline": false
+                      },
+                      "mobileFontSize": 44
+                     },
+                     {
+                      "id": "text_g87rj3r5",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "anything in store, for the next 30 days",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        18,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#CFC7BC",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "table_7jhqiri9",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#F4EFE6",
+                       "borderWidth": 2,
+                       "borderStyle": "dashed",
+                       "borderColor": "#D99A1E",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_pnf3o3hn",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_2hnqn9s2",
+                          "padding": [
+                           14,
+                           12,
+                           14,
+                           12
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "text_tvu2t2f4",
+                            "type": "text",
+                            "name": "Text",
+                            "content": "BDAY-ADAEZE",
+                            "style": {
+                             "width": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "typography": {
+                             "fontFamily": "'Archivo Black', Arial, Helvetica, sans-serif",
+                             "fontSize": 20,
+                             "fontWeight": 400,
+                             "lineHeight": 1,
+                             "letterSpacing": 4,
+                             "color": "",
+                             "textAlign": "center",
+                             "italic": false,
+                             "underline": false
+                            }
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_pxjndsw1",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_6zudvxik",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_0r3sitso",
+              "padding": [
+               28,
+               32,
+               12,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F4EFE6",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_9pb6hvu1",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/indigoyo",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  18,
+                  40,
+                  18,
+                  40
+                 ],
+                 "backgroundColor": "#111111",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "children": [
+                 {
+                  "id": "text_rq1a71n7",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Treat yourself",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#F4EFE6",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_s7nllyv1",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_s2mzdxn9",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wn3vbvxr",
+              "padding": [
+               16,
+               0,
+               32,
+               0
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#F4EFE6",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "html_3krl3dae",
+                "type": "html",
+                "name": "Confetti",
+                "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;margin:0 auto;\"><tr><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td><td width=\"20\" style=\"width:20px;height:0;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#8A55E0\" style=\"width:8px;height:8px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"11\" width=\"220\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#E85D75\" style=\"width:6px;height:6px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" width=\"100\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#D99A1E\" style=\"width:9px;height:9px;background-color:#D99A1E;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#D99A1E\" style=\"width:10px;height:10px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#E85D75\" style=\"width:8px;height:8px;background-color:#E85D75;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#6AB845\" style=\"width:8px;height:8px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td></tr><tr><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#6AB845\" style=\"width:6px;height:6px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"4\" width=\"80\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#D99A1E\" style=\"width:9px;height:9px;background-color:#D99A1E;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"7\" width=\"140\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#8A55E0\" style=\"width:7px;height:7px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#E85D75\" style=\"width:12px;height:12px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" width=\"100\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#8A55E0\" style=\"width:9px;height:9px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#3AA0C8\" style=\"width:9px;height:9px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#E85D75\" style=\"width:10px;height:10px;background-color:#E85D75;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"6\" height=\"6\" bgcolor=\"#E85D75\" style=\"width:6px;height:6px;background-color:#E85D75;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#3AA0C8\" style=\"width:8px;height:8px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td></tr><tr><td colspan=\"6\" width=\"120\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#3AA0C8\" style=\"width:7px;height:7px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#3AA0C8\" style=\"width:12px;height:12px;background-color:#3AA0C8;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"11\" height=\"11\" bgcolor=\"#6AB845\" style=\"width:11px;height:11px;background-color:#6AB845;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#D99A1E\" style=\"width:7px;height:7px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#6AB845\" style=\"width:10px;height:10px;background-color:#6AB845;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#D99A1E\" style=\"width:10px;height:10px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"8\" height=\"8\" bgcolor=\"#D99A1E\" style=\"width:8px;height:8px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"1\" width=\"20\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"9\" height=\"9\" bgcolor=\"#D99A1E\" style=\"width:9px;height:9px;background-color:#D99A1E;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"5\" width=\"100\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#8A55E0\" style=\"width:10px;height:10px;background-color:#8A55E0;border-radius:2px;font-size:0;line-height:0;\"></td></tr></table></td><td colspan=\"2\" width=\"40\" height=\"20\" style=\"height:20px;font-size:0;line-height:0;\"></td><td width=\"20\" height=\"20\" align=\"center\" valign=\"middle\" style=\"width:20px;height:20px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\"><tr><td width=\"7\" height=\"7\" bgcolor=\"#E85D75\" style=\"width:7px;height:7px;background-color:#E85D75;border-radius:50%;font-size:0;line-height:0;\"></td></tr></table></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_fyi5lyyg",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_00ae1j6h",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_kqslkblt",
+              "padding": [
+               28,
+               32,
+               28,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#111111",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_imu5r6ub",
+                "type": "text",
+                "name": "Text",
+                "content": "INDIGOYO",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  10,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Archivo Black', Arial, Helvetica, sans-serif",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 8,
+                 "color": "#F4EFE6",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_e53c2g7o",
+                "type": "text",
+                "name": "Text",
+                "content": "22 Example Road, Surulere, Lagos · Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#A8A097",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 35,
+                  "end": 46,
+                  "style": {
+                   "href": "https://example.com/unsubscribe",
+                   "color": "#A8A097"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

@@ -34,6 +34,7 @@ editors render them.
 20. [Admin dashboard](#20-admin-dashboard)
 21. [Webhooks](#21-webhooks)
 22. [Reputation, alerts and sign-in security](#22-reputation-alerts-and-sign-in-security)
+23. [Starter templates](#23-starter-templates)
 
 ---
 
@@ -989,4 +990,54 @@ sequenceDiagram
   revoked that way (409 `current_session`; use logout). All audited.
 - **Worker heartbeat** (`worker.heartbeat`, `HEARTBEAT_URL`): the outside
   monitor's dead-man's switch.
+
+## 23. Starter templates
+
+The New page gallery's templates are data the backend serves, written as code
+in the studio:
+
+```mermaid
+flowchart LR
+  B["Studio builders<br/>lib/editor/templates/*.ts"] -->|"npm run templates:export<br/>(checks first)"| J["backend/starter_templates/&lt;id&gt;.json"]
+  J -->|"ships in the image;<br/>API start: app.cli sync-templates"| T[("starter_templates")]
+  T -->|"categories · paged summaries · one document<br/>ETag, gzip"| G["Gallery<br/>(memory + IndexedDB cache, built-in fallback)"]
+```
+
+- **Why builders stay in the studio:** they're type-checked against `EmailDoc`
+  and tested (`templates.test.ts`: our checker, Import → "Editable design" gives
+  the same widgets and score). The JSON is the published form. Widget ids are
+  seeded per template, so an unchanged template exports byte-for-byte the same
+  and the sync sees nothing to do.
+- **Sync** (`services/templates.py`): validates every file (id = file name,
+  document version 3, ≤ 1 MB), then adds, updates (by content hash) and deletes
+  rows to match the folder, and stores a catalogue ETag in
+  `system_state["starter_templates"]`. A bad file fails the whole sync and the
+  previous templates stay served; the entrypoint logs `templates.sync_failed`
+  and the API starts anyway.
+- **Serving** (`api/routes_templates.py`), built so the catalogue can grow:
+  - `GET /v1/templates/categories` – names, counts, `total` and the
+    `catalog_version` (changes when any template does). ~1 KB.
+  - `GET /v1/templates?limit&cursor&category&q` – **summaries only** (no
+    documents), keyset-paginated on `(sort_order, id)`, filtered by category
+    and search words (every word must appear in name, category, description or
+    tags; `LIKE` wildcards escaped) on the server. Each has a `version`
+    (content hash prefix).
+  - `GET /v1/templates/{id}` – one template with its document.
+  - Every response has an ETag (`304` on `If-None-Match`) and
+    `Cache-Control: private, no-cache`; responses ≥ 1 KB are gzipped.
+- **Studio** (`lib/editor/templateCatalog.ts`, gallery
+  `component/ToolBox/TemplateGallery.tsx`):
+  - Opening the gallery reuses the session's catalogue for 5 minutes; after
+    that, one categories request checks `catalog_version` (concurrent callers
+    share it).
+  - List pages (24) load as you scroll and are cached per query in memory and
+    in IndexedDB under the catalogue version – a new version clears them.
+  - A card's document is fetched when the card has been within 400 px of the
+    view for 150 ms (flung-past cards don't download), at most 4 at a time,
+    deduplicated, and kept in IndexedDB under the template's `version`: an
+    unchanged template is never downloaded twice, even across reloads, and a
+    deploy that changes one template re-downloads only that one.
+  - Offline, the saved categories, pages and documents are used; with nothing
+    saved, the built-in templates (dynamic `import()`, not in the main bundle)
+    with the same paging and search. Documents of an unknown version are skipped.
 

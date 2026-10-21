@@ -13,6 +13,7 @@ COPY alembic.ini ./
 COPY alembic ./alembic
 COPY app ./app
 COPY scripts ./scripts
+COPY starter_templates ./starter_templates
 
 RUN useradd --system --uid 10001 mailvender && chown -R mailvender /app
 USER mailvender

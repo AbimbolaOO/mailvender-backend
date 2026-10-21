@@ -11,6 +11,7 @@
     python -m app.cli disable-admin you@example.com
     python -m app.cli list-admins
     python -m app.cli dev-verify-domain example.com   (ENVIRONMENT=development only)
+    python -m app.cli sync-templates [folder]   (starter templates: folder → database; the API runs it on start)
     python -m app.cli move-dataset-content   (one-off: datasets stored in Postgres → S3)
     python -m app.cli upload-log <service>/<YYYY>/<MM>/<DD>/<name>.log.gz < file   (infra/log-backup)
     python -m app.cli upload-backup db/<YYYY>/<MM>/<DD>/mailvender-<time>.dump.age < file   (infra/db-backup)
@@ -153,6 +154,19 @@ def main(argv: list[str]) -> int:
                 print(f"       {view.record_value}\n")
             print("Publish each record above (TXT, exactly as shown). A pending key becomes active once its\n"
                   "record is found; the worker checks every 5 minutes, or run this command again.")
+            return 0
+        if command == "sync-templates" and len(args) <= 1:
+            from pathlib import Path
+
+            from app.services.templates import FOLDER, TemplateService, read_folder
+
+            try:
+                result = TemplateService(uow).sync(read_folder(Path(args[0]) if args else FOLDER))
+            except ValueError as error:
+                print(f"Templates not synced: {error}", file=sys.stderr)
+                return 1
+            print(json.dumps({"event": "templates.sync", "added": result.added, "updated": result.updated,
+                              "removed": result.removed, "unchanged": result.unchanged}))
             return 0
         if command == "move-dataset-content" and not args:
             from app.services.storage import S3Storage

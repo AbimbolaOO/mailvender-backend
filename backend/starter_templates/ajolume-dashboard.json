@@ -1,0 +1,2362 @@
+{
+ "id": "ajolume-dashboard",
+ "name": "Savings dashboard",
+ "category": "Concept",
+ "description": "A statement that looks like a live dashboard: a 140-square streak heatmap, a bar chart and progress bars – no chart images.",
+ "tags": [
+  "fintech",
+  "money",
+  "statement",
+  "chart",
+  "heatmap",
+  "data",
+  "dark",
+  "no images",
+  "how",
+  "concept"
+ ],
+ "order": 19,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "41 days in a row 🔥 Your November in numbers",
+   "previewText": "Your saving streak, your best month yet and how close you are to your Detty December fund.",
+   "backgroundColor": "#1A0638",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#FFF6E9",
+   "webFonts": [
+    {
+     "family": "Unbounded",
+     "category": "sans-serif",
+     "weights": [
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": false
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_fohi8gky",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#1A0638",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_xek1i50v",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_yz184ueu",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_ahqp76ig",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_by5h4jev",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_xxt7fdu6",
+              "padding": [
+               8,
+               32,
+               8,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_b28whebl",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 40
+                 },
+                 {
+                  "unit": "%",
+                  "value": 60
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_1iatupn2",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_q4c9ndlg_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_wuud9gme",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "ajolume",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                       "fontSize": 20,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": -0.5,
+                       "color": "#D4FF3A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_q4c9ndlg_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_4e0zw4jn",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "NOVEMBER 2026 · STATEMENT",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        6,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#CBB8F2",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_vlztb1ah",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_whyvagbg",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_3jve4nop",
+              "padding": [
+               32,
+               32,
+               20,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_bswbsk2o",
+                "type": "text",
+                "name": "Text",
+                "content": "41 days in a row.\nYou’re on fire.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  14,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                 "fontSize": 42,
+                 "fontWeight": 900,
+                 "lineHeight": 1.05,
+                 "letterSpacing": -1.5,
+                 "color": "",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 0,
+                  "end": 2,
+                  "style": {
+                   "color": "#D4FF3A"
+                  }
+                 },
+                 {
+                  "start": 2,
+                  "end": 33,
+                  "style": {
+                   "color": "#FFF6E9"
+                  }
+                 }
+                ],
+                "tag": "h1",
+                "mobileFontSize": 30
+               },
+               {
+                "id": "text_qniwlhgc",
+                "type": "text",
+                "name": "Text",
+                "content": "Every square below is a day you saved. See that wall of lime at the end? That’s your streak.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.55,
+                 "letterSpacing": 0,
+                 "color": "#CBB8F2",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ws8r4dg3",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_nft5iiaq",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_byg1yzrp",
+              "padding": [
+               12,
+               20,
+               8,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_k19yjsu0",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#2A0B5C",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 28
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_vbmskfmu",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_otv1sq1a",
+                    "padding": [
+                     26,
+                     24,
+                     26,
+                     24
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_5m4jifqx",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "YOUR LAST 20 WEEKS",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#D4FF3A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "html_ppx6z7qm",
+                      "type": "html",
+                      "name": "Streak heatmap",
+                      "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"3\" border=\"0\" style=\"border-collapse:separate;border-spacing:3px;margin:0 auto;\"><tr><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr><tr><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#8A55E0\" style=\"width:12px;height:12px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#5B2FA8\" style=\"width:12px;height:12px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#3B1F6E\" style=\"width:12px;height:12px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#B98CFF\" style=\"width:12px;height:12px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td><td width=\"12\" height=\"12\" bgcolor=\"#D4FF3A\" style=\"width:12px;height:12px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:3px;\">&nbsp;</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     },
+                     {
+                      "id": "html_u08yqbg9",
+                      "type": "html",
+                      "name": "Heatmap key",
+                      "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;padding-right:6px;\">Less</td><td style=\"padding:0 2px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#3B1F6E\" style=\"width:10px;height:10px;background-color:#3B1F6E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td style=\"padding:0 2px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#5B2FA8\" style=\"width:10px;height:10px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td style=\"padding:0 2px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#8A55E0\" style=\"width:10px;height:10px;background-color:#8A55E0;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td style=\"padding:0 2px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#B98CFF\" style=\"width:10px;height:10px;background-color:#B98CFF;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td style=\"padding:0 2px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#D4FF3A\" style=\"width:10px;height:10px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;padding-left:6px;\">More</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        14,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_6ln0lqbo",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_krbzdp33",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_d76dszig",
+              "padding": [
+               12,
+               20,
+               8,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_r84bsqag",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#2A0B5C",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 28
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_i8623qmt",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_gxwz8xhv",
+                    "padding": [
+                     26,
+                     24,
+                     26,
+                     24
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_q67jua1e",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "SAVED EACH MONTH",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#D4FF3A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "html_c9jcguwz",
+                      "type": "html",
+                      "name": "Monthly savings chart",
+                      "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin:0 auto;\"><tr><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"24\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:24px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"31\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:31px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"22\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:22px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"35\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:35px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"40\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:40px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"38\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:38px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"48\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:48px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"45\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:45px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"54\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:54px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"69\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:69px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"86\" bgcolor=\"#5B2FA8\" style=\"width:16px;height:86px;background-color:#5B2FA8;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td><td valign=\"bottom\" style=\"padding:0 4px;height:138px;\"><div style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;color:#D4FF3A;font-weight:bold;padding-bottom:4px;white-space:nowrap;\">₦210k</div><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"16\" height=\"120\" bgcolor=\"#D4FF3A\" style=\"width:16px;height:120px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:4px 4px 0 0;\">&nbsp;</td></tr></table></td></tr><tr><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">D</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">J</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">F</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">M</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">A</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">M</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">J</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">J</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">A</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">S</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">O</td><td style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px;color:#CBB8F2;text-align:center;padding-top:6px;\">N</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     },
+                     {
+                      "id": "text_1n06cq20",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "November was your best month yet – up 40% on October.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        14,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 13,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#CBB8F2",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_puupfirr",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_1gpgyov4",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_iw9briv5",
+              "padding": [
+               12,
+               20,
+               8,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_0r9xol53",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#D4FF3A",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 28
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_t37ag8jd",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_gbl3bnne",
+                    "padding": [
+                     26,
+                     24,
+                     26,
+                     24
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_woirvwyv",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "GOAL · DETTY DECEMBER FUND",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#2A0B5C",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_jfk4w9zu",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "₦412,000",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Unbounded', Arial, Helvetica, sans-serif",
+                       "fontSize": 40,
+                       "fontWeight": 900,
+                       "lineHeight": 1,
+                       "letterSpacing": -1,
+                       "color": "#1A0638",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      },
+                      "mobileFontSize": 32
+                     },
+                     {
+                      "id": "text_3m8qax7o",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "of ₦500,000 · 82% there",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        6,
+                        0,
+                        16,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#1A0638",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "html_gru0g6gl",
+                      "type": "html",
+                      "name": "Goal progress",
+                      "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"82%\" height=\"14\" bgcolor=\"#1A0638\" style=\"width:82%;height:14px;background-color:#1A0638;font-size:0;line-height:0;border-radius:7px 0 0 7px;\">&nbsp;</td><td width=\"18%\" height=\"14\" bgcolor=\"#B6E52C\" style=\"width:18%;height:14px;background-color:#B6E52C;font-size:0;line-height:0;border-radius:0 7px 7px 0;\">&nbsp;</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     },
+                     {
+                      "id": "text_f504ttg8",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "₦88,000 to go – about 6 more Fridays at your pace.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        12,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 13,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#1A0638",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_a6900aet",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_44j8ro9j",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_vamsobi6",
+              "padding": [
+               12,
+               20,
+               8,
+               20
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_o188dt78",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#2A0B5C",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 28
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_6h2c7yi2",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_0v61cxfc",
+                    "padding": [
+                     26,
+                     24,
+                     26,
+                     24
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_1ck6rg05",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "WHERE NOVEMBER WENT",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        14,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#D4FF3A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "html_ldz6fj80",
+                      "type": "html",
+                      "name": "Spending split",
+                      "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"34%\" height=\"14\" bgcolor=\"#FF4FA3\" style=\"width:34%;height:14px;background-color:#FF4FA3;font-size:0;line-height:0;border-radius:7px 0 0 7px;\">&nbsp;</td><td width=\"28%\" height=\"14\" bgcolor=\"#43D9F5\" style=\"width:28%;height:14px;background-color:#43D9F5;font-size:0;line-height:0;\">&nbsp;</td><td width=\"22%\" height=\"14\" bgcolor=\"#FF8A1F\" style=\"width:22%;height:14px;background-color:#FF8A1F;font-size:0;line-height:0;\">&nbsp;</td><td width=\"16%\" height=\"14\" bgcolor=\"#D4FF3A\" style=\"width:16%;height:14px;background-color:#D4FF3A;font-size:0;line-height:0;border-radius:0 7px 7px 0;\">&nbsp;</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        16,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     },
+                     {
+                      "id": "table_ze9izb2q",
+                      "type": "table",
+                      "name": "Table",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 50
+                       },
+                       {
+                        "unit": "%",
+                        "value": 50
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_cjtd2e77",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_lnuignur_0",
+                          "padding": [
+                           0,
+                           0,
+                           0,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_e1okqxhy",
+                            "type": "table",
+                            "name": "Table",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 14
+                             },
+                             {
+                              "unit": "%",
+                              "value": 86
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_w3jolx07",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_4qmi45hr_0",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "html_cl50r43c",
+                                  "type": "html",
+                                  "name": "Key",
+                                  "html": "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#FF4FA3\" style=\"width:10px;height:10px;background-color:#FF4FA3;border-radius:5px;font-size:0;line-height:0;\">&nbsp;</td></tr></table>",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    4,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  }
+                                 }
+                                ]
+                               },
+                               {
+                                "id": "cell_4qmi45hr_1",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_oudkaajh",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "Food · 34%",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 13,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#FFF6E9",
+                                   "textAlign": "left",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           },
+                           {
+                            "id": "table_0y9uk8sj",
+                            "type": "table",
+                            "name": "Table",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 14
+                             },
+                             {
+                              "unit": "%",
+                              "value": 86
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_bh5wbnt5",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_g7zxeat3_0",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "html_b2zjj13r",
+                                  "type": "html",
+                                  "name": "Key",
+                                  "html": "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#43D9F5\" style=\"width:10px;height:10px;background-color:#43D9F5;border-radius:5px;font-size:0;line-height:0;\">&nbsp;</td></tr></table>",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    4,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  }
+                                 }
+                                ]
+                               },
+                               {
+                                "id": "cell_g7zxeat3_1",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_x44cg9b3",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "Bills · 28%",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 13,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#FFF6E9",
+                                   "textAlign": "left",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         },
+                         {
+                          "id": "cell_lnuignur_1",
+                          "padding": [
+                           0,
+                           0,
+                           0,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_q2rwzygk",
+                            "type": "table",
+                            "name": "Table",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 14
+                             },
+                             {
+                              "unit": "%",
+                              "value": 86
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_l2heyyjj",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_ae20lypd_0",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "html_gn7oqdms",
+                                  "type": "html",
+                                  "name": "Key",
+                                  "html": "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#FF8A1F\" style=\"width:10px;height:10px;background-color:#FF8A1F;border-radius:5px;font-size:0;line-height:0;\">&nbsp;</td></tr></table>",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    4,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  }
+                                 }
+                                ]
+                               },
+                               {
+                                "id": "cell_ae20lypd_1",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_nbd07wbt",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "Transport · 22%",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 13,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#FFF6E9",
+                                   "textAlign": "left",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           },
+                           {
+                            "id": "table_dafeommv",
+                            "type": "table",
+                            "name": "Table",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 14
+                             },
+                             {
+                              "unit": "%",
+                              "value": 86
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_vxvlyivp",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_w5iruw8m_0",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "html_ryvku0zq",
+                                  "type": "html",
+                                  "name": "Key",
+                                  "html": "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"10\" height=\"10\" bgcolor=\"#D4FF3A\" style=\"width:10px;height:10px;background-color:#D4FF3A;border-radius:5px;font-size:0;line-height:0;\">&nbsp;</td></tr></table>",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    4,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  }
+                                 }
+                                ]
+                               },
+                               {
+                                "id": "cell_w5iruw8m_1",
+                                "padding": [
+                                 0,
+                                 0,
+                                 0,
+                                 0
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "text_v129grut",
+                                  "type": "text",
+                                  "name": "Text",
+                                  "content": "Fun · 16%",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "typography": {
+                                   "fontFamily": "",
+                                   "fontSize": 13,
+                                   "fontWeight": 400,
+                                   "lineHeight": 1.5,
+                                   "letterSpacing": 0,
+                                   "color": "#FFF6E9",
+                                   "textAlign": "left",
+                                   "italic": false,
+                                   "underline": false
+                                  }
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_ahq1rqtt",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_nj9ul1pv",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_mezk6hi9",
+              "padding": [
+               32,
+               32,
+               16,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "button_cz1ge35v",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/ajolume/dashboard",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  36,
+                  16,
+                  36
+                 ],
+                 "backgroundColor": "#D4FF3A",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 999
+                },
+                "children": [
+                 {
+                  "id": "text_tffmsnay",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Open my dashboard",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#1A0638",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_6mv77gt7",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_0a2rp79c",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_6f40fmtf",
+              "padding": [
+               28,
+               32,
+               24,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#1A0638",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_11r1antq",
+                "type": "text",
+                "name": "Text",
+                "content": "Ajolume Technologies Ltd · Lekki, Lagos, Nigeria\nFigures from your Ajolume account to 30 Nov 2026. Email preferences",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.7,
+                 "letterSpacing": 0,
+                 "color": "#CBB8F2",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 99,
+                  "end": 116,
+                  "style": {
+                   "href": "https://example.com/ajolume/preferences",
+                   "color": "#CBB8F2"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

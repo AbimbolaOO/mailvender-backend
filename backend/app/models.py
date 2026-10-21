@@ -640,3 +640,26 @@ class WebhookDelivery(Base):
     next_attempt_at: Mapped[datetime | None]
     delivered_at: Mapped[datetime | None]
     created_at: Mapped[datetime] = _created()
+
+
+# ---- Starter templates ----
+
+
+class StarterTemplate(Base):
+    """A ready-made email offered in the studio's New page gallery (global, no account).
+
+    Written in the studio (`mailvender/lib/editor/templates/`), exported as JSON to
+    `backend/starter_templates/` and synced into this table when the API starts (services/templates.py).
+    """
+
+    __tablename__ = "starter_templates"
+    id: Mapped[str] = mapped_column(String(80), primary_key=True)
+    name: Mapped[str] = mapped_column(String(120))
+    category: Mapped[str] = mapped_column(String(40))
+    description: Mapped[str] = mapped_column(Text)
+    tags: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    doc: Mapped[dict[str, Any]] = mapped_column(JSONB)
+    sort_order: Mapped[int] = mapped_column(Integer)
+    content_hash: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = _created()
+    updated_at: Mapped[datetime] = mapped_column(default=_now, server_default=func.now())

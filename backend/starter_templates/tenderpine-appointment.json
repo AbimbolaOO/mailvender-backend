@@ -1,0 +1,1321 @@
+{
+ "id": "tenderpine-appointment",
+ "name": "Appointment confirmed",
+ "category": "Reminder",
+ "description": "A clinic booking with a month calendar drawn in the email, add-to-calendar and a checklist.",
+ "tags": [
+  "booking",
+  "clinic",
+  "health",
+  "doctor",
+  "calendar",
+  "reminder",
+  "schedule"
+ ],
+ "order": 25,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "You’re booked: Wed 14 Oct, 10:30am with Dr Nwosu",
+   "previewText": "Your check-up at Tenderpine Clinic, Yaba. Add it to your calendar.",
+   "backgroundColor": "#DDF3EA",
+   "fontFamily": "'Inter Tight', Arial, Helvetica, sans-serif",
+   "textColor": "#12463A",
+   "webFonts": [
+    {
+     "family": "Instrument Serif",
+     "category": "serif",
+     "weights": [
+      400
+     ],
+     "italic": true
+    },
+    {
+     "family": "Inter Tight",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_7gfo001n",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#DDF3EA",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_885ctel8",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_1yn1v496",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_8nuvle4w",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_ihu40kxy",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_wsm4huw4",
+              "padding": [
+               24,
+               32,
+               16,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#DDF3EA",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_r1zk21ew",
+                "type": "text",
+                "name": "Text",
+                "content": "tenderpine clinic",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                 "fontSize": 26,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#12463A",
+                 "textAlign": "left",
+                 "italic": true,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_scbkd0z5",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_21ehoqjn",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_4m7z22w6",
+              "padding": [
+               36,
+               28,
+               28,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_hd7lerht",
+                "type": "text",
+                "name": "Text",
+                "content": "You’re booked in,\nAdaeze.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  8,
+                  26,
+                  8
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                 "fontSize": 46,
+                 "fontWeight": 400,
+                 "lineHeight": 1,
+                 "letterSpacing": 0,
+                 "color": "#12463A",
+                 "textAlign": "left",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 36,
+                "tag": "h1"
+               },
+               {
+                "id": "table_xbmc1pck",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 56
+                 },
+                 {
+                  "unit": "%",
+                  "value": 44
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_3dgqus05",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_xzx4nqz4_0",
+                    "padding": [
+                     0,
+                     8,
+                     8,
+                     8
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "html_306txnc8",
+                      "type": "html",
+                      "name": "Calendar",
+                      "html": "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 auto;\"><tr><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">M</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">T</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">W</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">T</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">F</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">S</td><td width=\"38\" align=\"center\" style=\"width:38px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#667871;padding-bottom:6px;\">S</td></tr><tr><td width=\"38\" height=\"36\" style=\"width:38px;height:36px;\">&nbsp;</td><td width=\"38\" height=\"36\" style=\"width:38px;height:36px;\">&nbsp;</td><td width=\"38\" height=\"36\" style=\"width:38px;height:36px;\">&nbsp;</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">1</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">2</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">3</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">4</td></tr><tr><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">5</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">6</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">7</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">8</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">9</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">10</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">11</td></tr><tr><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">12</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667871;text-align:center;\">13</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;\"><table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"32\" height=\"32\" align=\"center\" valign=\"middle\" bgcolor=\"#12463A\" style=\"width:32px;height:32px;background-color:#12463A;border-radius:50%;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#FFFFFF;text-align:center;\">14</td></tr></table></td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">15</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">16</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">17</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">18</td></tr><tr><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">19</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">20</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">21</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">22</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">23</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">24</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">25</td></tr><tr><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">26</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">27</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">28</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">29</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">30</td><td width=\"38\" height=\"36\" align=\"center\" valign=\"middle\" style=\"width:38px;height:36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#12463A;text-align:center;\">31</td><td width=\"38\" height=\"36\" style=\"width:38px;height:36px;\">&nbsp;</td></tr></table>",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_xzx4nqz4_1",
+                    "padding": [
+                     0,
+                     8,
+                     8,
+                     8
+                    ],
+                    "align": "left",
+                    "verticalAlign": "middle",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_6wb9lp9o",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "OCTOBER 2026",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        8,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#547167",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_c2tezfy4",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Wednesday\n14 October",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        12,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Instrument Serif', Georgia, 'Times New Roman', serif",
+                       "fontSize": 36,
+                       "fontWeight": 400,
+                       "lineHeight": 1,
+                       "letterSpacing": 0,
+                       "color": "#12463A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_4zqfnwqj",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "10:30am · 30 minutes",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        4,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 15,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#12463A",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_gsdeh01s",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Dr Ifeoma Nwosu · General check-up",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        4,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#547167",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "text_t1z7r3og",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "7 Example Road, Yaba, Lagos",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#547167",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": true
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_5kn8zs85",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_z6mz00k9",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_1vkgh98l",
+              "padding": [
+               8,
+               28,
+               28,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_f33wykkj",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 50
+                 },
+                 {
+                  "unit": "%",
+                  "value": 50
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_lffjcurk",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_vpw28uvy_0",
+                    "padding": [
+                     6,
+                     4,
+                     6,
+                     4
+                    ],
+                    "align": "center",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "button_rmdvys0r",
+                      "type": "button",
+                      "name": "Button",
+                      "href": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tenderpine%20Clinic%20check-up&dates=20261014T093000Z/20261014T100000Z",
+                      "align": "center",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        16,
+                        32,
+                        16,
+                        32
+                       ],
+                       "backgroundColor": "#12463A",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 10
+                      },
+                      "children": [
+                       {
+                        "id": "text_9r4ht6ej",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "Add to calendar",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 16,
+                         "fontWeight": 700,
+                         "lineHeight": 1.2,
+                         "letterSpacing": 0,
+                         "color": "#FFFFFF",
+                         "textAlign": "center",
+                         "italic": false,
+                         "underline": false
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_vpw28uvy_1",
+                    "padding": [
+                     6,
+                     4,
+                     6,
+                     4
+                    ],
+                    "align": "center",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "button_3x93pzey",
+                      "type": "button",
+                      "name": "Button",
+                      "href": "https://example.com/tenderpine/reschedule",
+                      "align": "center",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        14,
+                        26,
+                        14,
+                        26
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 2,
+                       "borderStyle": "solid",
+                       "borderColor": "#12463A",
+                       "borderRadius": 10
+                      },
+                      "children": [
+                       {
+                        "id": "text_ftvsw3ng",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "Reschedule",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 16,
+                         "fontWeight": 700,
+                         "lineHeight": 1.2,
+                         "letterSpacing": 0,
+                         "color": "#12463A",
+                         "textAlign": "center",
+                         "italic": false,
+                         "underline": false
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": true
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_gcdimxhz",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_dhy1bh23",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_z4f2igiw",
+              "padding": [
+               8,
+               36,
+               32,
+               36
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFFFFF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_hikrezz5",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#DDF3EA",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 18
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_da3nqv1f",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_21wtipgd",
+                    "padding": [
+                     20,
+                     22,
+                     20,
+                     22
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_dtz0k8ha",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "BEFORE YOUR VISIT",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        12,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 700,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#547167",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     },
+                     {
+                      "id": "list_9pwbvjlg",
+                      "type": "list",
+                      "name": "List",
+                      "marker": {
+                       "kind": "check",
+                       "symbol": "✦",
+                       "image": "",
+                       "start": 1,
+                       "suffix": ".",
+                       "color": "#FFFFFF",
+                       "size": 0,
+                       "badge": "circle",
+                       "badgeColor": "#12463A"
+                      },
+                      "indent": 34,
+                      "gap": 10,
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "children": [
+                       {
+                        "id": "text_cmigluak",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "Bring a valid ID and your HMO card",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 15,
+                         "fontWeight": 400,
+                         "lineHeight": 1.5,
+                         "letterSpacing": 0,
+                         "color": "#12463A",
+                         "textAlign": "left",
+                         "italic": false,
+                         "underline": false
+                        }
+                       },
+                       {
+                        "id": "text_ud0ns8dm",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "Arrive 10 minutes early for check-in",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 15,
+                         "fontWeight": 400,
+                         "lineHeight": 1.5,
+                         "letterSpacing": 0,
+                         "color": "#12463A",
+                         "textAlign": "left",
+                         "italic": false,
+                         "underline": false
+                        }
+                       },
+                       {
+                        "id": "text_lizsu020",
+                        "type": "text",
+                        "name": "Text",
+                        "content": "No fasting needed for this visit",
+                        "style": {
+                         "width": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "height": {
+                          "unit": "auto",
+                          "value": 0
+                         },
+                         "padding": [
+                          0,
+                          0,
+                          0,
+                          0
+                         ],
+                         "backgroundColor": "",
+                         "borderWidth": 0,
+                         "borderStyle": "solid",
+                         "borderColor": "#000000",
+                         "borderRadius": 0
+                        },
+                        "typography": {
+                         "fontFamily": "",
+                         "fontSize": 15,
+                         "fontWeight": 400,
+                         "lineHeight": 1.5,
+                         "letterSpacing": 0,
+                         "color": "#12463A",
+                         "textAlign": "left",
+                         "italic": false,
+                         "underline": false
+                        }
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_mg4ef2vt",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_yhl51psm",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_66gadc79",
+              "padding": [
+               24,
+               32,
+               32,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#DDF3EA",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_21pmsodd",
+                "type": "text",
+                "name": "Text",
+                "content": "Need to cancel? Reply to this email or call 0800 000 0000 at least 24 hours before. Tenderpine Clinic · Yaba, Lagos.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#547167",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

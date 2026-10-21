@@ -1,0 +1,855 @@
+{
+ "id": "bukabolt-survey",
+ "name": "How did we do? (NPS)",
+ "category": "Feedback",
+ "description": "A one-tap 0–10 scale – every number is a link – for net promoter score.",
+ "tags": [
+  "nps",
+  "survey",
+  "rating",
+  "feedback",
+  "food",
+  "customer satisfaction"
+ ],
+ "order": 31,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Quick one, Adaeze: how did we do? 🙏",
+   "previewText": "One tap from 0 to 10 – it takes 2 seconds and we read every answer.",
+   "backgroundColor": "#C8321F",
+   "fontFamily": "'DM Sans', Arial, Helvetica, sans-serif",
+   "textColor": "#2A1A12",
+   "webFonts": [
+    {
+     "family": "Bowlby One",
+     "category": "display",
+     "weights": [
+      400
+     ],
+     "italic": false
+    },
+    {
+     "family": "DM Sans",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_42ibyy4f",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#C8321F",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_fijpw2hy",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_pes9skuu",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_a8rczhbh",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_qekj3apg",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_1fhrkbzt",
+              "padding": [
+               16,
+               28,
+               16,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#C8321F",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_l345iq1u",
+                "type": "text",
+                "name": "Text",
+                "content": "bukabolt ⚡",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Bowlby One', Arial, Helvetica, sans-serif",
+                 "fontSize": 22,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#FFF4DF",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_u5jygbd4",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_gjrqhyuh",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_d9gjmbp3",
+              "padding": [
+               40,
+               28,
+               12,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFF4DF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_wzoze0ti",
+                "type": "text",
+                "name": "Text",
+                "content": "ORDER BB-88213 · SUYA SKEWER JOLLOF",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  14,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 800,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 2,
+                 "color": "#7A5A44",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "text_zhf30atw",
+                "type": "text",
+                "name": "Text",
+                "content": "Quick one,\nAdaeze 🙏",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  14,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Bowlby One', Arial, Helvetica, sans-serif",
+                 "fontSize": 42,
+                 "fontWeight": 400,
+                 "lineHeight": 1.05,
+                 "letterSpacing": 0,
+                 "color": "",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 32,
+                "tag": "h1"
+               },
+               {
+                "id": "text_ifbmqgyy",
+                "type": "text",
+                "name": "Text",
+                "content": "How likely are you to recommend Bukabolt to a friend? Tap a number – that’s it, you’re done.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  26,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 16,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#7A5A44",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "html_2kmwt9wy",
+                "type": "html",
+                "name": "0–10 scale",
+                "html": "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\"><tr><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=0\" style=\"display:block;height:40px;line-height:40px;background-color:#D93B2B;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#FFFFFF;text-align:center;text-decoration:none;\">0</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=1\" style=\"display:block;height:40px;line-height:40px;background-color:#E04A2B;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">1</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=2\" style=\"display:block;height:40px;line-height:40px;background-color:#E85D2C;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">2</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=3\" style=\"display:block;height:40px;line-height:40px;background-color:#EE712D;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">3</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=4\" style=\"display:block;height:40px;line-height:40px;background-color:#F2852E;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">4</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=5\" style=\"display:block;height:40px;line-height:40px;background-color:#F5A030;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">5</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=6\" style=\"display:block;height:40px;line-height:40px;background-color:#F2B830;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">6</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=7\" style=\"display:block;height:40px;line-height:40px;background-color:#C8C233;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">7</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=8\" style=\"display:block;height:40px;line-height:40px;background-color:#9BC23A;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">8</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=9\" style=\"display:block;height:40px;line-height:40px;background-color:#6AB845;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">9</a></td><td width=\"9%\" style=\"width:9%;padding:2px;\"><a href=\"https://example.com/bukabolt/feedback?order=BB-88213&score=10\" style=\"display:block;height:40px;line-height:40px;background-color:#3AA853;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#111111;text-align:center;text-decoration:none;\">10</a></td></tr></table>",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                }
+               },
+               {
+                "id": "table_gs8dhsml",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 50
+                 },
+                 {
+                  "unit": "%",
+                  "value": 50
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_mvxq4ki6",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_veb3vco6_0",
+                    "padding": [
+                     8,
+                     2,
+                     0,
+                     2
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_nrx1bn8i",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Not likely",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#7A5A44",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_veb3vco6_1",
+                    "padding": [
+                     8,
+                     2,
+                     0,
+                     2
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_nf3cv486",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Very likely",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#7A5A44",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_kb0g66mb",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_biidic9s",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_4aqxt4fv",
+              "padding": [
+               24,
+               28,
+               40,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#FFF4DF",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_ecm4650l",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#FFFFFF",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 16
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_8uydwiik",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_gglf0log",
+                    "padding": [
+                     18,
+                     20,
+                     18,
+                     20
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_jr3egpi3",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "Every answer goes straight to our kitchen team in Ikeja. Low score? Tell us why on the next page – we fix things fast.",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 14,
+                       "fontWeight": 400,
+                       "lineHeight": 1.6,
+                       "letterSpacing": 0,
+                       "color": "#7A5A44",
+                       "textAlign": "center",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_943y3845",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_mtl1qaqv",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ys9sdc3e",
+              "padding": [
+               24,
+               32,
+               24,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#2A1A12",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_xzn1u71j",
+                "type": "text",
+                "name": "Text",
+                "content": "Bukabolt Foods Ltd · Ikeja, Lagos · Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#CDB8A8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 36,
+                  "end": 47,
+                  "style": {
+                   "href": "https://example.com/unsubscribe",
+                   "color": "#CDB8A8"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

@@ -1,0 +1,3360 @@
+{
+ "id": "bukabolt-chat",
+ "name": "Chat on a phone",
+ "category": "Concept",
+ "description": "A promo that arrives as a chat on a phone: bubbles, read ticks, a photo message and a voice-note waveform – built from tables.",
+ "tags": [
+  "food",
+  "delivery",
+  "chat",
+  "whatsapp style",
+  "phone",
+  "abandoned cart",
+  "no images",
+  "how",
+  "concept"
+ ],
+ "order": 18,
+ "doc": {
+  "version": 3,
+  "settings": {
+   "title": "Emeka sent you a voice note 🛵",
+   "previewText": "Ehen Adaeze! Your jollof is in the basket since yesterday o 👀",
+   "backgroundColor": "#C8321F",
+   "fontFamily": "'DM Sans', Arial, Helvetica, sans-serif",
+   "textColor": "#111B21",
+   "webFonts": [
+    {
+     "family": "Bowlby One",
+     "category": "display",
+     "weights": [
+      400
+     ],
+     "italic": false
+    },
+    {
+     "family": "DM Sans",
+     "category": "sans-serif",
+     "weights": [
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+     ],
+     "italic": true
+    }
+   ]
+  },
+  "children": [
+   {
+    "id": "table_utz8329j",
+    "type": "table",
+    "name": "Table",
+    "style": {
+     "width": {
+      "unit": "%",
+      "value": 100
+     },
+     "height": {
+      "unit": "auto",
+      "value": 0
+     },
+     "padding": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "backgroundColor": "#C8321F",
+     "borderWidth": 0,
+     "borderStyle": "solid",
+     "borderColor": "#000000",
+     "borderRadius": 0
+    },
+    "align": "center",
+    "columns": [
+     {
+      "unit": "%",
+      "value": 100
+     }
+    ],
+    "rows": [
+     {
+      "id": "row_xb41e0fb",
+      "height": {
+       "unit": "auto",
+       "value": 0
+      },
+      "cells": [
+       {
+        "id": "cell_pe6xbof3",
+        "padding": [
+         24,
+         0,
+         24,
+         0
+        ],
+        "align": "left",
+        "verticalAlign": "top",
+        "backgroundColor": "",
+        "borderWidth": 0,
+        "borderStyle": "solid",
+        "borderColor": "#000000",
+        "children": [
+         {
+          "id": "table_etwux73j",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_kbiknvh0",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_bylw42wo",
+              "padding": [
+               12,
+               28,
+               8,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#C8321F",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_aa7ulg2t",
+                "type": "table",
+                "name": "Table",
+                "style": {
+                 "width": {
+                  "unit": "%",
+                  "value": 100
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 50
+                 },
+                 {
+                  "unit": "%",
+                  "value": 50
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_c7p0cnd2",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_00y9gqo7_0",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_emm67go2",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "bukabolt ⚡",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "'Bowlby One', Arial, Helvetica, sans-serif",
+                       "fontSize": 22,
+                       "fontWeight": 400,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 0,
+                       "color": "#FFF4DF",
+                       "textAlign": "left",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   },
+                   {
+                    "id": "cell_00y9gqo7_1",
+                    "padding": [
+                     0,
+                     0,
+                     0,
+                     0
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "text_avkkw4py",
+                      "type": "text",
+                      "name": "Text",
+                      "content": "1 NEW MESSAGE",
+                      "style": {
+                       "width": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        8,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 0
+                      },
+                      "typography": {
+                       "fontFamily": "",
+                       "fontSize": 12,
+                       "fontWeight": 800,
+                       "lineHeight": 1.5,
+                       "letterSpacing": 2.5,
+                       "color": "#FFF4DF",
+                       "textAlign": "right",
+                       "italic": false,
+                       "underline": false
+                      }
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_5o4a3qno",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_p81rukh2",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_vegftslq",
+              "padding": [
+               20,
+               28,
+               26,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#C8321F",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_3n3crrtd",
+                "type": "text",
+                "name": "Text",
+                "content": "Your rider has\nsomething to say.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "'Bowlby One', Arial, Helvetica, sans-serif",
+                 "fontSize": 36,
+                 "fontWeight": 400,
+                 "lineHeight": 1.1,
+                 "letterSpacing": 0,
+                 "color": "#FFF4DF",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "mobileFontSize": 28,
+                "tag": "h1"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_fh24e1ec",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_2ogbp5th",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_slyten8f",
+              "padding": [
+               0,
+               12,
+               28,
+               12
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#C8321F",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "table_dy236yul",
+                "type": "table",
+                "name": "Tile",
+                "style": {
+                 "width": {
+                  "unit": "px",
+                  "value": 344
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "#121212",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 46
+                },
+                "align": "center",
+                "columns": [
+                 {
+                  "unit": "%",
+                  "value": 100
+                 }
+                ],
+                "rows": [
+                 {
+                  "id": "row_mjhnknre",
+                  "height": {
+                   "unit": "auto",
+                   "value": 0
+                  },
+                  "cells": [
+                   {
+                    "id": "cell_18jp9bmq",
+                    "padding": [
+                     12,
+                     12,
+                     12,
+                     12
+                    ],
+                    "align": "left",
+                    "verticalAlign": "top",
+                    "backgroundColor": "",
+                    "borderWidth": 0,
+                    "borderStyle": "solid",
+                    "borderColor": "#000000",
+                    "children": [
+                     {
+                      "id": "table_8t6yjug7",
+                      "type": "table",
+                      "name": "Tile",
+                      "style": {
+                       "width": {
+                        "unit": "%",
+                        "value": 100
+                       },
+                       "height": {
+                        "unit": "auto",
+                        "value": 0
+                       },
+                       "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                       ],
+                       "backgroundColor": "#EFE7DD",
+                       "borderWidth": 0,
+                       "borderStyle": "solid",
+                       "borderColor": "#000000",
+                       "borderRadius": 32
+                      },
+                      "align": "center",
+                      "columns": [
+                       {
+                        "unit": "%",
+                        "value": 100
+                       }
+                      ],
+                      "rows": [
+                       {
+                        "id": "row_iwimen9b",
+                        "height": {
+                         "unit": "auto",
+                         "value": 0
+                        },
+                        "cells": [
+                         {
+                          "id": "cell_izuiofxs",
+                          "padding": [
+                           0,
+                           0,
+                           0,
+                           0
+                          ],
+                          "align": "left",
+                          "verticalAlign": "top",
+                          "backgroundColor": "",
+                          "borderWidth": 0,
+                          "borderStyle": "solid",
+                          "borderColor": "#000000",
+                          "children": [
+                           {
+                            "id": "table_9er0a6vb",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "#0B5C4E",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_q39dah6u",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_gya61q98",
+                                "padding": [
+                                 12,
+                                 16,
+                                 12,
+                                 14
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "table_aozp2ur7",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 50
+                                   },
+                                   {
+                                    "unit": "%",
+                                    "value": 50
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_x92yfa7p",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_xck8na3g_0",
+                                      "padding": [
+                                       0,
+                                       0,
+                                       10,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "text_78fay2qv",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "9:41",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 12,
+                                         "fontWeight": 700,
+                                         "lineHeight": 1.5,
+                                         "letterSpacing": 0,
+                                         "color": "#FFFFFF",
+                                         "textAlign": "left",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       }
+                                      ]
+                                     },
+                                     {
+                                      "id": "cell_xck8na3g_1",
+                                      "padding": [
+                                       0,
+                                       0,
+                                       10,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "text_ht15mi09",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "●●●●  5G  ▮▮▮",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 12,
+                                         "fontWeight": 400,
+                                         "lineHeight": 1.5,
+                                         "letterSpacing": 0,
+                                         "color": "#FFFFFF",
+                                         "textAlign": "right",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_89k02jur",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 17
+                                   },
+                                   {
+                                    "unit": "%",
+                                    "value": 60
+                                   },
+                                   {
+                                    "unit": "%",
+                                    "value": 23
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_m1pz6wh6",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_pl45y0gj_0",
+                                      "padding": [
+                                       0,
+                                       0,
+                                       0,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_kr0knz7p",
+                                        "type": "table",
+                                        "name": "Sticker",
+                                        "style": {
+                                         "width": {
+                                          "unit": "px",
+                                          "value": 38
+                                         },
+                                         "height": {
+                                          "unit": "px",
+                                          "value": 38
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#C8321F",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 999
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_est9xwp1",
+                                          "height": {
+                                           "unit": "px",
+                                           "value": 38
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_0zkm397z",
+                                            "padding": [
+                                             0,
+                                             0,
+                                             0,
+                                             0
+                                            ],
+                                            "align": "center",
+                                            "verticalAlign": "middle",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_zav6wh87",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "B⚡",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 14,
+                                               "fontWeight": 800,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#FFFFFF",
+                                               "textAlign": "center",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     },
+                                     {
+                                      "id": "cell_pl45y0gj_1",
+                                      "padding": [
+                                       0,
+                                       0,
+                                       0,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "text_ykwn0edm",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "Bukabolt · Emeka",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 15,
+                                         "fontWeight": 700,
+                                         "lineHeight": 1.5,
+                                         "letterSpacing": 0,
+                                         "color": "#FFFFFF",
+                                         "textAlign": "left",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       },
+                                       {
+                                        "id": "text_0jiq7v34",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "your rider · online",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          1,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 12,
+                                         "fontWeight": 400,
+                                         "lineHeight": 1.5,
+                                         "letterSpacing": 0,
+                                         "color": "#BFE3D9",
+                                         "textAlign": "left",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       }
+                                      ]
+                                     },
+                                     {
+                                      "id": "cell_pl45y0gj_2",
+                                      "padding": [
+                                       0,
+                                       0,
+                                       0,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "text_ygfw1rg5",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "📞   ⋮",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          8,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 14,
+                                         "fontWeight": 400,
+                                         "lineHeight": 1.5,
+                                         "letterSpacing": 0,
+                                         "color": "#FFFFFF",
+                                         "textAlign": "right",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           },
+                           {
+                            "id": "table_5nhtwxv8",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_bqpv1dfy",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_05ym1xtv",
+                                "padding": [
+                                 12,
+                                 10,
+                                 8,
+                                 10
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "table_bvctowdg",
+                                  "type": "table",
+                                  "name": "Pill",
+                                  "style": {
+                                   "width": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "#E1F2FB",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 999
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_xsaoyai3",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_lm6yxd6y",
+                                      "padding": [
+                                       7,
+                                       14,
+                                       7,
+                                       14
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "text_4co3s3pr",
+                                        "type": "text",
+                                        "name": "Text",
+                                        "content": "TODAY",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 0
+                                        },
+                                        "typography": {
+                                         "fontFamily": "",
+                                         "fontSize": 12,
+                                         "fontWeight": 700,
+                                         "lineHeight": 1.2,
+                                         "letterSpacing": 1,
+                                         "color": "#54656F",
+                                         "textAlign": "left",
+                                         "italic": false,
+                                         "underline": false
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_g73ipigo",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_c2dl4s4v",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_d2l7a8sn_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_82diyynf",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12,
+                                         "maxWidth": 250
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_hxkybbhf",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_ztbqftb6",
+                                            "padding": [
+                                             7,
+                                             10,
+                                             6,
+                                             10
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_gmuzg8gd",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "Ehen Adaeze! Your jollof is in the basket since yesterday o 👀",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 14,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.4,
+                                               "letterSpacing": 0,
+                                               "color": "#111B21",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             },
+                                             {
+                                              "id": "text_rvr9g1ww",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "12:00",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                3,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "right",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_e8l5b6dn",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_qfx6y6k6",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_dpg2hlk8_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_uylnao1t",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "px",
+                                          "value": 232
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_1p12mcy3",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_p47np9ev",
+                                            "padding": [
+                                             4,
+                                             4,
+                                             6,
+                                             4
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "img_f5zjm8z8",
+                                              "type": "image",
+                                              "name": "Image",
+                                              "src": "https://images.unsplash.com/photo-1665332195309-9d75071138f0?w=520&h=360&fit=crop&fm=jpg&q=80",
+                                              "alt": "Party jollof rice with grilled fish and peppers",
+                                              "href": "https://example.com/bukabolt/order",
+                                              "align": "center",
+                                              "style": {
+                                               "width": {
+                                                "unit": "%",
+                                                "value": 100
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 8
+                                              }
+                                             },
+                                             {
+                                              "id": "text_lzb0wcn0",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "Party jollof + fish, still smoking 🔥 50% off till midnight.",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 14,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.4,
+                                               "letterSpacing": 0,
+                                               "color": "#111B21",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             },
+                                             {
+                                              "id": "text_u5khu0xr",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "12:01",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                3,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "right",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_w2yrd34u",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_w9jv3irt",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_dvby1dm0_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "right",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_1kpx4iby",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#D9FDD3",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12,
+                                         "maxWidth": 250
+                                        },
+                                        "align": "right",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_9cg2o4a7",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_09an7xw0",
+                                            "padding": [
+                                             7,
+                                             10,
+                                             6,
+                                             10
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_fdg2ff8y",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "Abeg is it still hot?",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 14,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.4,
+                                               "letterSpacing": 0,
+                                               "color": "#111B21",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             },
+                                             {
+                                              "id": "text_4ix2wls3",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "12:02  ✓✓",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                3,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "right",
+                                               "italic": false,
+                                               "underline": false
+                                              },
+                                              "spans": [
+                                               {
+                                                "start": 7,
+                                                "end": 9,
+                                                "style": {
+                                                 "color": "#21759A"
+                                                }
+                                               }
+                                              ]
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_5qquydak",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_fh2825x4",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_rh9ox9qd_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_f8q6hmra",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "px",
+                                          "value": 232
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_idvsw8cm",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_objo2oqc",
+                                            "padding": [
+                                             7,
+                                             10,
+                                             6,
+                                             10
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "table_nd6mi4rj",
+                                              "type": "table",
+                                              "name": "Table",
+                                              "style": {
+                                               "width": {
+                                                "unit": "%",
+                                                "value": 100
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "align": "center",
+                                              "columns": [
+                                               {
+                                                "unit": "%",
+                                                "value": 18
+                                               },
+                                               {
+                                                "unit": "%",
+                                                "value": 66
+                                               },
+                                               {
+                                                "unit": "%",
+                                                "value": 16
+                                               }
+                                              ],
+                                              "rows": [
+                                               {
+                                                "id": "row_hup2ro17",
+                                                "height": {
+                                                 "unit": "auto",
+                                                 "value": 0
+                                                },
+                                                "cells": [
+                                                 {
+                                                  "id": "cell_ney404su_0",
+                                                  "padding": [
+                                                   0,
+                                                   0,
+                                                   0,
+                                                   0
+                                                  ],
+                                                  "align": "left",
+                                                  "verticalAlign": "top",
+                                                  "backgroundColor": "",
+                                                  "borderWidth": 0,
+                                                  "borderStyle": "solid",
+                                                  "borderColor": "#000000",
+                                                  "children": [
+                                                   {
+                                                    "id": "table_bcv3nv2w",
+                                                    "type": "table",
+                                                    "name": "Sticker",
+                                                    "style": {
+                                                     "width": {
+                                                      "unit": "px",
+                                                      "value": 30
+                                                     },
+                                                     "height": {
+                                                      "unit": "px",
+                                                      "value": 30
+                                                     },
+                                                     "padding": [
+                                                      0,
+                                                      0,
+                                                      0,
+                                                      0
+                                                     ],
+                                                     "backgroundColor": "#1C7A52",
+                                                     "borderWidth": 0,
+                                                     "borderStyle": "solid",
+                                                     "borderColor": "#000000",
+                                                     "borderRadius": 999
+                                                    },
+                                                    "align": "left",
+                                                    "columns": [
+                                                     {
+                                                      "unit": "%",
+                                                      "value": 100
+                                                     }
+                                                    ],
+                                                    "rows": [
+                                                     {
+                                                      "id": "row_60ynsnbi",
+                                                      "height": {
+                                                       "unit": "px",
+                                                       "value": 30
+                                                      },
+                                                      "cells": [
+                                                       {
+                                                        "id": "cell_ok3hh251",
+                                                        "padding": [
+                                                         0,
+                                                         0,
+                                                         0,
+                                                         0
+                                                        ],
+                                                        "align": "center",
+                                                        "verticalAlign": "middle",
+                                                        "backgroundColor": "",
+                                                        "borderWidth": 0,
+                                                        "borderStyle": "solid",
+                                                        "borderColor": "#000000",
+                                                        "children": [
+                                                         {
+                                                          "id": "text_br4gg934",
+                                                          "type": "text",
+                                                          "name": "Text",
+                                                          "content": "▶",
+                                                          "style": {
+                                                           "width": {
+                                                            "unit": "auto",
+                                                            "value": 0
+                                                           },
+                                                           "height": {
+                                                            "unit": "auto",
+                                                            "value": 0
+                                                           },
+                                                           "padding": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                           ],
+                                                           "backgroundColor": "",
+                                                           "borderWidth": 0,
+                                                           "borderStyle": "solid",
+                                                           "borderColor": "#000000",
+                                                           "borderRadius": 0
+                                                          },
+                                                          "typography": {
+                                                           "fontFamily": "",
+                                                           "fontSize": 12,
+                                                           "fontWeight": 400,
+                                                           "lineHeight": 1.5,
+                                                           "letterSpacing": 0,
+                                                           "color": "#FFFFFF",
+                                                           "textAlign": "center",
+                                                           "italic": false,
+                                                           "underline": false
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      ]
+                                                     }
+                                                    ],
+                                                    "stackOnMobile": false
+                                                   }
+                                                  ]
+                                                 },
+                                                 {
+                                                  "id": "cell_ney404su_1",
+                                                  "padding": [
+                                                   0,
+                                                   0,
+                                                   0,
+                                                   0
+                                                  ],
+                                                  "align": "left",
+                                                  "verticalAlign": "top",
+                                                  "backgroundColor": "",
+                                                  "borderWidth": 0,
+                                                  "borderStyle": "solid",
+                                                  "borderColor": "#000000",
+                                                  "children": [
+                                                   {
+                                                    "id": "html_hqbbju2d",
+                                                    "type": "html",
+                                                    "name": "Voice note",
+                                                    "html": "<table role=\"presentation\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:separate;border-spacing:0px;margin:0 0;\"><tr><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"15\" bgcolor=\"#25A06B\" style=\"width:3px;height:15px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"16\" bgcolor=\"#25A06B\" style=\"width:3px;height:16px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"17\" bgcolor=\"#25A06B\" style=\"width:3px;height:17px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"17\" bgcolor=\"#25A06B\" style=\"width:3px;height:17px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"21\" bgcolor=\"#25A06B\" style=\"width:3px;height:21px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"16\" bgcolor=\"#25A06B\" style=\"width:3px;height:16px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"7\" bgcolor=\"#25A06B\" style=\"width:3px;height:7px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"16\" bgcolor=\"#25A06B\" style=\"width:3px;height:16px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"17\" bgcolor=\"#25A06B\" style=\"width:3px;height:17px;background-color:#25A06B;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"14\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:14px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"15\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:15px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"21\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:21px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"14\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:14px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"18\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:18px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"18\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:18px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"9\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:9px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"9\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:9px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"11\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:11px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"13\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:13px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"13\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:13px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"16\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:16px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"8\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:8px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"17\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:17px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"16\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:16px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"14\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:14px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td><td valign=\"middle\" style=\"padding:0 1px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td width=\"3\" height=\"21\" bgcolor=\"#0B5C4E\" style=\"width:3px;height:21px;background-color:#0B5C4E;font-size:0;line-height:0;border-radius:2px;\">&nbsp;</td></tr></table></td></tr></table>",
+                                                    "style": {
+                                                     "width": {
+                                                      "unit": "%",
+                                                      "value": 100
+                                                     },
+                                                     "height": {
+                                                      "unit": "auto",
+                                                      "value": 0
+                                                     },
+                                                     "padding": [
+                                                      0,
+                                                      0,
+                                                      0,
+                                                      0
+                                                     ],
+                                                     "backgroundColor": "",
+                                                     "borderWidth": 0,
+                                                     "borderStyle": "solid",
+                                                     "borderColor": "#000000",
+                                                     "borderRadius": 0
+                                                    }
+                                                   }
+                                                  ]
+                                                 },
+                                                 {
+                                                  "id": "cell_ney404su_2",
+                                                  "padding": [
+                                                   0,
+                                                   0,
+                                                   0,
+                                                   0
+                                                  ],
+                                                  "align": "left",
+                                                  "verticalAlign": "top",
+                                                  "backgroundColor": "",
+                                                  "borderWidth": 0,
+                                                  "borderStyle": "solid",
+                                                  "borderColor": "#000000",
+                                                  "children": [
+                                                   {
+                                                    "id": "text_gc1dh5b3",
+                                                    "type": "text",
+                                                    "name": "Text",
+                                                    "content": "0:12",
+                                                    "style": {
+                                                     "width": {
+                                                      "unit": "auto",
+                                                      "value": 0
+                                                     },
+                                                     "height": {
+                                                      "unit": "auto",
+                                                      "value": 0
+                                                     },
+                                                     "padding": [
+                                                      8,
+                                                      0,
+                                                      0,
+                                                      0
+                                                     ],
+                                                     "backgroundColor": "",
+                                                     "borderWidth": 0,
+                                                     "borderStyle": "solid",
+                                                     "borderColor": "#000000",
+                                                     "borderRadius": 0
+                                                    },
+                                                    "typography": {
+                                                     "fontFamily": "",
+                                                     "fontSize": 12,
+                                                     "fontWeight": 400,
+                                                     "lineHeight": 1.5,
+                                                     "letterSpacing": 0,
+                                                     "color": "#5C6B74",
+                                                     "textAlign": "right",
+                                                     "italic": false,
+                                                     "underline": false
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                ]
+                                               }
+                                              ],
+                                              "stackOnMobile": false
+                                             },
+                                             {
+                                              "id": "text_obaa9x9u",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "12:02",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                3,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "right",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_4oc1qt6g",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_jmd6fh0o",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_pf8boxjd_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_umivm95c",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12,
+                                         "maxWidth": 250
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_8rhljsbs",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_1bdg4k13",
+                                            "padding": [
+                                             7,
+                                             10,
+                                             6,
+                                             10
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_qvb0mj1w",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "Hotter than Lagos traffic. Order now, I’m 8 mins away 🛵",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 14,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.4,
+                                               "letterSpacing": 0,
+                                               "color": "#111B21",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             },
+                                             {
+                                              "id": "text_k1krlc65",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "12:03",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                3,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "right",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 },
+                                 {
+                                  "id": "table_kw1cixr8",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 100
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_vn41ugnm",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_q5l27n4q_0",
+                                      "padding": [
+                                       3,
+                                       0,
+                                       3,
+                                       0
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "top",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_nizlji94",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 12,
+                                         "maxWidth": 250
+                                        },
+                                        "align": "left",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_br3adglk",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_v0ilt26k",
+                                            "padding": [
+                                             7,
+                                             10,
+                                             6,
+                                             10
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_7dfi6m1t",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "●  ●  ●",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 12,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 2,
+                                               "color": "#6D757A",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           },
+                           {
+                            "id": "table_tgicmvi1",
+                            "type": "table",
+                            "name": "Tile",
+                            "style": {
+                             "width": {
+                              "unit": "%",
+                              "value": 100
+                             },
+                             "height": {
+                              "unit": "auto",
+                              "value": 0
+                             },
+                             "padding": [
+                              0,
+                              0,
+                              0,
+                              0
+                             ],
+                             "backgroundColor": "",
+                             "borderWidth": 0,
+                             "borderStyle": "solid",
+                             "borderColor": "#000000",
+                             "borderRadius": 0
+                            },
+                            "align": "center",
+                            "columns": [
+                             {
+                              "unit": "%",
+                              "value": 100
+                             }
+                            ],
+                            "rows": [
+                             {
+                              "id": "row_negwc6k1",
+                              "height": {
+                               "unit": "auto",
+                               "value": 0
+                              },
+                              "cells": [
+                               {
+                                "id": "cell_7xeml342",
+                                "padding": [
+                                 6,
+                                 8,
+                                 12,
+                                 8
+                                ],
+                                "align": "left",
+                                "verticalAlign": "top",
+                                "backgroundColor": "",
+                                "borderWidth": 0,
+                                "borderStyle": "solid",
+                                "borderColor": "#000000",
+                                "children": [
+                                 {
+                                  "id": "table_x6hf0akl",
+                                  "type": "table",
+                                  "name": "Table",
+                                  "style": {
+                                   "width": {
+                                    "unit": "%",
+                                    "value": 100
+                                   },
+                                   "height": {
+                                    "unit": "auto",
+                                    "value": 0
+                                   },
+                                   "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                   ],
+                                   "backgroundColor": "",
+                                   "borderWidth": 0,
+                                   "borderStyle": "solid",
+                                   "borderColor": "#000000",
+                                   "borderRadius": 0
+                                  },
+                                  "align": "center",
+                                  "columns": [
+                                   {
+                                    "unit": "%",
+                                    "value": 80
+                                   },
+                                   {
+                                    "unit": "%",
+                                    "value": 20
+                                   }
+                                  ],
+                                  "rows": [
+                                   {
+                                    "id": "row_vrb15q0x",
+                                    "height": {
+                                     "unit": "auto",
+                                     "value": 0
+                                    },
+                                    "cells": [
+                                     {
+                                      "id": "cell_lj52qra7_0",
+                                      "padding": [
+                                       0,
+                                       3,
+                                       0,
+                                       3
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "middle",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "table_wykgekr6",
+                                        "type": "table",
+                                        "name": "Tile",
+                                        "style": {
+                                         "width": {
+                                          "unit": "%",
+                                          "value": 100
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          0,
+                                          0,
+                                          0,
+                                          0
+                                         ],
+                                         "backgroundColor": "#FFFFFF",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 999
+                                        },
+                                        "align": "center",
+                                        "columns": [
+                                         {
+                                          "unit": "%",
+                                          "value": 100
+                                         }
+                                        ],
+                                        "rows": [
+                                         {
+                                          "id": "row_sg1oima8",
+                                          "height": {
+                                           "unit": "auto",
+                                           "value": 0
+                                          },
+                                          "cells": [
+                                           {
+                                            "id": "cell_bonm1fia",
+                                            "padding": [
+                                             10,
+                                             16,
+                                             10,
+                                             16
+                                            ],
+                                            "align": "left",
+                                            "verticalAlign": "top",
+                                            "backgroundColor": "",
+                                            "borderWidth": 0,
+                                            "borderStyle": "solid",
+                                            "borderColor": "#000000",
+                                            "children": [
+                                             {
+                                              "id": "text_tijmvkne",
+                                              "type": "text",
+                                              "name": "Text",
+                                              "content": "Reply “ORDER” to get it…",
+                                              "style": {
+                                               "width": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "height": {
+                                                "unit": "auto",
+                                                "value": 0
+                                               },
+                                               "padding": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                               ],
+                                               "backgroundColor": "",
+                                               "borderWidth": 0,
+                                               "borderStyle": "solid",
+                                               "borderColor": "#000000",
+                                               "borderRadius": 0
+                                              },
+                                              "typography": {
+                                               "fontFamily": "",
+                                               "fontSize": 13,
+                                               "fontWeight": 400,
+                                               "lineHeight": 1.5,
+                                               "letterSpacing": 0,
+                                               "color": "#5C6B74",
+                                               "textAlign": "left",
+                                               "italic": false,
+                                               "underline": false
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          ]
+                                         }
+                                        ],
+                                        "stackOnMobile": false
+                                       }
+                                      ]
+                                     },
+                                     {
+                                      "id": "cell_lj52qra7_1",
+                                      "padding": [
+                                       0,
+                                       3,
+                                       0,
+                                       3
+                                      ],
+                                      "align": "left",
+                                      "verticalAlign": "middle",
+                                      "backgroundColor": "",
+                                      "borderWidth": 0,
+                                      "borderStyle": "solid",
+                                      "borderColor": "#000000",
+                                      "children": [
+                                       {
+                                        "id": "button_gz1vg84r",
+                                        "type": "button",
+                                        "name": "Button",
+                                        "href": "https://example.com/bukabolt/order",
+                                        "align": "right",
+                                        "style": {
+                                         "width": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "height": {
+                                          "unit": "auto",
+                                          "value": 0
+                                         },
+                                         "padding": [
+                                          9,
+                                          12,
+                                          9,
+                                          13
+                                         ],
+                                         "backgroundColor": "#1C7A52",
+                                         "borderWidth": 0,
+                                         "borderStyle": "solid",
+                                         "borderColor": "#000000",
+                                         "borderRadius": 999
+                                        },
+                                        "children": [
+                                         {
+                                          "id": "text_yz2ivd68",
+                                          "type": "text",
+                                          "name": "Text",
+                                          "content": "➤",
+                                          "style": {
+                                           "width": {
+                                            "unit": "auto",
+                                            "value": 0
+                                           },
+                                           "height": {
+                                            "unit": "auto",
+                                            "value": 0
+                                           },
+                                           "padding": [
+                                            0,
+                                            0,
+                                            0,
+                                            0
+                                           ],
+                                           "backgroundColor": "",
+                                           "borderWidth": 0,
+                                           "borderStyle": "solid",
+                                           "borderColor": "#000000",
+                                           "borderRadius": 0
+                                          },
+                                          "typography": {
+                                           "fontFamily": "",
+                                           "fontSize": 16,
+                                           "fontWeight": 700,
+                                           "lineHeight": 1.2,
+                                           "letterSpacing": 0,
+                                           "color": "#FFFFFF",
+                                           "textAlign": "center",
+                                           "italic": false,
+                                           "underline": false
+                                          }
+                                         }
+                                        ]
+                                       }
+                                      ]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "stackOnMobile": false
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            "stackOnMobile": false
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "stackOnMobile": false
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                "stackOnMobile": false
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_wk47yzx8",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_epohwn8e",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_hg7aj9u4",
+              "padding": [
+               0,
+               28,
+               44,
+               28
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#C8321F",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_w5u6j5wp",
+                "type": "text",
+                "name": "Text",
+                "content": "Tap ➤ (or the button) to order – 50% off party jollof ends at midnight.",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  22,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 15,
+                 "fontWeight": 400,
+                 "lineHeight": 1.5,
+                 "letterSpacing": 0,
+                 "color": "#FFF4DF",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                }
+               },
+               {
+                "id": "button_eij2s0ds",
+                "type": "button",
+                "name": "Button",
+                "href": "https://example.com/bukabolt/order",
+                "align": "center",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  16,
+                  36,
+                  16,
+                  36
+                 ],
+                 "backgroundColor": "#FFF4DF",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 999
+                },
+                "children": [
+                 {
+                  "id": "text_i5ep57sp",
+                  "type": "text",
+                  "name": "Text",
+                  "content": "Order jollof now",
+                  "style": {
+                   "width": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "height": {
+                    "unit": "auto",
+                    "value": 0
+                   },
+                   "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                   ],
+                   "backgroundColor": "",
+                   "borderWidth": 0,
+                   "borderStyle": "solid",
+                   "borderColor": "#000000",
+                   "borderRadius": 0
+                  },
+                  "typography": {
+                   "fontFamily": "",
+                   "fontSize": 16,
+                   "fontWeight": 700,
+                   "lineHeight": 1.2,
+                   "letterSpacing": 0,
+                   "color": "#111B21",
+                   "textAlign": "center",
+                   "italic": false,
+                   "underline": false
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         },
+         {
+          "id": "table_0rqxwz8o",
+          "type": "table",
+          "name": "Table",
+          "style": {
+           "width": {
+            "unit": "%",
+            "value": 100
+           },
+           "height": {
+            "unit": "auto",
+            "value": 0
+           },
+           "padding": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "backgroundColor": "",
+           "borderWidth": 0,
+           "borderStyle": "solid",
+           "borderColor": "#000000",
+           "borderRadius": 0,
+           "maxWidth": 600
+          },
+          "align": "center",
+          "columns": [
+           {
+            "unit": "%",
+            "value": 100
+           }
+          ],
+          "rows": [
+           {
+            "id": "row_tbeaf5f2",
+            "height": {
+             "unit": "auto",
+             "value": 0
+            },
+            "cells": [
+             {
+              "id": "cell_ts1lqsi8",
+              "padding": [
+               26,
+               32,
+               26,
+               32
+              ],
+              "align": "left",
+              "verticalAlign": "top",
+              "backgroundColor": "#2A1A12",
+              "borderWidth": 0,
+              "borderStyle": "solid",
+              "borderColor": "#000000",
+              "children": [
+               {
+                "id": "text_r449h1ox",
+                "type": "text",
+                "name": "Text",
+                "content": "Bukabolt Foods Ltd · 3 Example Crescent, Ikeja, Lagos · You’re getting this because you left jollof in your basket. Unsubscribe",
+                "style": {
+                 "width": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "height": {
+                  "unit": "auto",
+                  "value": 0
+                 },
+                 "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                 ],
+                 "backgroundColor": "",
+                 "borderWidth": 0,
+                 "borderStyle": "solid",
+                 "borderColor": "#000000",
+                 "borderRadius": 0
+                },
+                "typography": {
+                 "fontFamily": "",
+                 "fontSize": 12,
+                 "fontWeight": 400,
+                 "lineHeight": 1.6,
+                 "letterSpacing": 0,
+                 "color": "#CDB8A8",
+                 "textAlign": "center",
+                 "italic": false,
+                 "underline": false
+                },
+                "spans": [
+                 {
+                  "start": 116,
+                  "end": 127,
+                  "style": {
+                   "href": "https://example.com/bukabolt/unsubscribe",
+                   "color": "#CDB8A8"
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          "stackOnMobile": false
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "stackOnMobile": false
+   }
+  ]
+ }
+}

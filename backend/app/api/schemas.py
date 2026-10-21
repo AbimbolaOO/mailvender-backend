@@ -531,3 +531,36 @@ class WebhookDeliveryOut(Model):
     delivered_at: datetime | None
     created_at: datetime
     payload: dict[str, Any]
+
+
+# ---- Starter templates ----
+
+
+class StarterTemplateSummaryOut(Model):
+    id: str
+    name: str
+    category: str
+    description: str
+    tags: list[str]
+    version: str = Field(description="Changes whenever the template does: cache its document by it.")
+
+
+class StarterTemplateOut(StarterTemplateSummaryOut):
+    doc: dict[str, Any] = Field(description="The email document (the studio's EmailDoc, version 3).")
+
+
+class StarterTemplatePageOut(Model):
+    items: list[StarterTemplateSummaryOut]
+    next_cursor: str | None = Field(None, description="Pass as `cursor` to get the next page; null on the last page.")
+    catalog_version: str = Field(description="Changes whenever any template does.")
+
+
+class TemplateCategoryOut(Model):
+    name: str
+    count: int
+
+
+class TemplateCategoriesOut(Model):
+    catalog_version: str = Field(description="Changes whenever any template does: cached pages are stale.")
+    total: int
+    categories: list[TemplateCategoryOut]
