@@ -26,7 +26,7 @@ jobs:
       TEST_DATABASE_URL: postgresql+psycopg://mailvender:mailvender@localhost:5432/mailvender_test
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync --frozen --python 3.12
       # Migrations, account isolation, auth, sending authorization and the rest.
       - run: uv run pytest
@@ -42,7 +42,7 @@ jobs:
         working-directory: backend
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - run: uv export --frozen --no-dev --format requirements-txt > /tmp/requirements.txt
       # Known exceptions: cryptography is pinned below 47 (newer wheels crash on the developer's Docker VM,
       # see CLAUDE.md). These advisories cover X.509 chain verification, PKCS#7 decryption and the OpenSSL
