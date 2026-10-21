@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from app import models as m
 from app.config import get_settings
-from app.errors import ApiError, Forbidden, Unauthenticated, ValidationFailed, field_error
+from app.errors import ApiError, Forbidden, NotFound, Unauthenticated, ValidationFailed, field_error
 from app.logging import get_logger, log_event
 from app.repositories.interfaces import UnitOfWork
 from app.security import hash_password, hash_token, new_token, utcnow, verify_password
@@ -221,6 +221,54 @@ class AuthService:
         session.revoked_at = utcnow()
         self.uow.commit()
         log_event(log, "auth.logout", session_id=str(session.id))
+
+    def sessions(self, user: m.User) -> list[m.Session]:
+        """The user's signed-in devices, newest first."""
+        found = self.uow.sessions.list_active_for_user(user.id, utcnow())
+        return sorted(found, key=lambda s: s.last_seen_at or s.created_at, reverse=True)
+
+    def revoke_session(self, user: m.User, current: m.Session, session_id: uuid.UUID) -> None:
+        if session_id == current.id:
+            raise ApiError("That's this device – use Sign out instead.", code="current_session", status_code=409)
+        session = self.uow.sessions.get_for_user(session_id, user.id)
+        if session is None or session.revoked_at is not None or session.expires_at <= utcnow():
+            raise NotFound("Session not found.")
+        session.revoked_at = utcnow()
+        audit(self.uow, user.default_account_id, Actor("user", user.id), "user.session_revoked",
+              target_type="user", target_id=user.id, session_id=str(session.id))
+        self.uow.commit()
+        log_event(log, "auth.session_revoked", user_id=str(user.id), session_id=str(session.id))
+
+    def revoke_other_sessions(self, user: m.User, current: m.Session) -> int:
+        revoked = self.uow.sessions.revoke_others(user.id, current.id, utcnow())
+        audit(self.uow, user.default_account_id, Actor("user", user.id), "user.sessions_revoked",
+              target_type="user", target_id=user.id, sessions=revoked)
+        self.uow.commit()
+        log_event(log, "auth.sessions_revoked", user_id=str(user.id), sessions=revoked)
+        return revoked
+
+    def change_password(self, user: m.User, current: m.Session, current_password: str, new_password: str) -> None:
+        """Changes the password while signed in: this device stays signed in, every other one is signed out."""
+        self.limits.hit("password_change:user", str(user.id), Limit.parse(self.settings.rate_limit_login_email))
+        if not verify_password(user.password_hash, current_password):
+            raise ValidationFailed([field_error("current_password", "That isn't your current password.",
+                                                "invalid_password")])
+        if current_password == new_password:
+            raise ValidationFailed([field_error("new_password", "Choose a password you haven't used here.",
+                                                "password_unchanged")])
+        validate_password(new_password, "new_password")
+        now = utcnow()
+        user.password_hash = hash_password(new_password)
+        self.uow.email_tokens.invalidate_for_user(user.id, RESET, now)
+        self.uow.sessions.revoke_others(user.id, current.id, now)
+        audit(self.uow, user.default_account_id, Actor("user", user.id), "user.password_changed",
+              target_type="user", target_id=user.id)
+        enqueue_system_email(self.uow, user.email, emails.password_changed(user.email, now,
+                                                                           app_url("/forgot-password"),
+                                                                           kept_device=True),
+                             kind="password_changed")
+        self.uow.commit()
+        log_event(log, "auth.password_changed", user_id=str(user.id))
 
     # ---- Password reset ----
 

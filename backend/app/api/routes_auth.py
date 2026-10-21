@@ -1,3 +1,4 @@
+import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request, Response
@@ -151,6 +152,39 @@ def disable_two_factor(body: s.TwoFactorDisableIn, user: CurrentUser, uow: Uow) 
              summary="Replace the recovery codes (needs the password; the old ones stop working)")
 def replace_recovery_codes(body: s.PasswordConfirmIn, user: CurrentUser, uow: Uow) -> s.RecoveryCodesOut:
     return s.RecoveryCodesOut(recovery_codes=TwoFactorService(uow).replace_recovery_codes(user, body.password))
+
+
+@router.post("/password", status_code=204,
+             summary="Change your password while signed in (every other device is signed out)",
+             description="422 `invalid_password` on `current_password` when it's wrong; the new password has "
+                         "the same rules as sign-up. An email tells the user it changed.")
+def change_password(body: s.PasswordChangeIn, auth_state: SessionUser, auth: Auth) -> Response:
+    user, session = auth_state
+    auth.change_password(user, session, body.current_password, body.new_password)
+    return Response(status_code=204)
+
+
+@router.get("/sessions", response_model=list[s.SessionInfoOut], summary="Devices where you're signed in")
+def list_sessions(auth_state: SessionUser, auth: Auth) -> list[s.SessionInfoOut]:
+    user, current = auth_state
+    return [s.SessionInfoOut.model_validate(x).model_copy(update={"current": x.id == current.id})
+            for x in auth.sessions(user)]
+
+
+@router.post("/sessions/revoke-others", response_model=s.RevokedOut,
+             summary="Sign out every other device (this one stays signed in)")
+def revoke_other_sessions(auth_state: SessionUser, auth: Auth) -> s.RevokedOut:
+    user, current = auth_state
+    return s.RevokedOut(revoked=auth.revoke_other_sessions(user, current))
+
+
+@router.delete("/sessions/{session_id}", status_code=204,
+               summary="Sign out one other device",
+               description="409 `current_session` for this device (use `/v1/auth/logout`).")
+def revoke_session(session_id: uuid.UUID, auth_state: SessionUser, auth: Auth) -> Response:
+    user, current = auth_state
+    auth.revoke_session(user, current, session_id)
+    return Response(status_code=204)
 
 
 @router.post("/me/export", summary="Download your personal data (ZIP of JSON; audited)",

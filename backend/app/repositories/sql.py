@@ -93,6 +93,18 @@ class SqlSessions(_Repo):
                 .order_by(m.Session.created_at))
         return list(self.s.execute(stmt).scalars())
 
+    def get_for_user(self, session_id: uuid.UUID, user_id: uuid.UUID) -> m.Session | None:
+        return self.s.execute(
+            select(m.Session).where(m.Session.id == session_id, m.Session.user_id == user_id)
+        ).scalar_one_or_none()
+
+    def revoke_others(self, user_id: uuid.UUID, keep: uuid.UUID, now: datetime) -> int:
+        return _rows(self.s.execute(
+            update(m.Session)
+            .where(m.Session.user_id == user_id, m.Session.id != keep, m.Session.revoked_at.is_(None))
+            .values(revoked_at=now)
+        ))
+
     def delete_expired_before(self, before: datetime) -> int:
         result = self.s.execute(
             delete(m.Session).where(or_(m.Session.expires_at < before, m.Session.revoked_at < before))

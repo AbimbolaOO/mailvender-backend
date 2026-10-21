@@ -18,6 +18,8 @@ from dataclasses import dataclass, field
 from datetime import timedelta
 from pathlib import Path
 
+import httpx
+
 from app import models as m
 from app.config import get_settings
 from app.db import get_session_factory
@@ -54,6 +56,21 @@ def sql_uow():
         session.close()
 
 
+def ping_heartbeat(url: str) -> None:
+    httpx.get(url, timeout=10).raise_for_status()
+
+
+def heartbeat(url: str, ping: Callable[[str], None]) -> str:
+    """Tells the outside monitor we're alive. A failed ping is logged, not raised: the monitor being
+    unreachable isn't a Mailvender fault, and it alerts by itself if pings stop arriving."""
+    try:
+        ping(url)
+    except Exception as exc:  # noqa: BLE001
+        log_event(log, "heartbeat.failed", logging.WARNING, error=str(exc)[:200])
+        return "failed"
+    return "sent"
+
+
 @dataclass
 class Job:
     name: str
@@ -71,6 +88,7 @@ class Worker:
         resolver: DnsResolver,
         port25: Port25Probe = port25_open,
         webhook_post: webhooks.Post = webhooks.http_post,
+        ping: Callable[[str], None] = ping_heartbeat,
     ):
         self.uow_factory = uow_factory
         self.transport = transport
@@ -89,6 +107,9 @@ class Worker:
             Job("reputation", timedelta(hours=1), lambda uow: len(ReputationService(uow, self.resolver).check())),
             Job("alerts", timedelta(minutes=10), lambda uow: AlertService(uow, self.storage, self.port25).run()),
         ]
+        if self.settings.heartbeat_url:  # run_job only gets here with a working database
+            self.jobs.append(Job("heartbeat", timedelta(minutes=self.settings.heartbeat_minutes),
+                                 lambda uow: heartbeat(self.settings.heartbeat_url, ping)))
         if self.settings.dkim_keys_dir:
             self.jobs.append(Job("dkim_key_sync", timedelta(seconds=30), lambda uow: sync_dkim_keys(
                 uow, Path(self.settings.dkim_keys_dir))))

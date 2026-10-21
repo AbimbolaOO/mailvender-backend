@@ -273,7 +273,10 @@ sequenceDiagram
 ```
 
 Password reset follows the same pattern (single-use, 60 minutes, revokes all
-sessions). Neither signup nor reset reveals whether an address is registered.
+sessions). Signed-in users can also change the password (`POST /v1/auth/password`,
+current password required; every *other* session is revoked, and an email
+tells them) and see and revoke their sessions (`GET /v1/auth/sessions`,
+`DELETE /v1/auth/sessions/{id}`, `POST /v1/auth/sessions/revoke-others`). Neither signup nor reset reveals whether an address is registered.
 Both refuse passwords found in breaches (§22).
 
 ### Tenancy
@@ -833,7 +836,7 @@ network has fixed addresses for exactly this reason.
 | **`cryptography<47` pin**                                                           | Newer wheels crash (SIGILL) on some older Docker VMs on Apple Silicon.                                                                              | Remove once all developer Docker installs are current (backlog 2.2); CI ignores four advisories in unused code until then. |
 | **Webhooks: Stripe-style signature over `"<t>.<body>"`, delivered through the outbox** | A familiar scheme for customers (replay-safe with the timestamp); events commit atomically with the state change that caused them.                 | At-least-once and unordered; receivers dedupe on `Mailvender-Event-Id`.                                       |
 | **Admin as a separate app, API gated by a proxy key**                               | The admin API is invisible (404) without the key; admins aren't customer users, so a customer bug can't grant admin rights.                       | A second Vercel project and secret to manage.                                                                 |
-| **Alerts from inside the platform, by email and webhook**                           | No extra monitoring service to run; the webhook still works when our own mail is broken.                                                            | If the whole server is down nothing alerts: add an outside uptime monitor (backlog 1.7).                      |
+| **Alerts from inside the platform, by email and webhook**                           | No extra monitoring service to run; the webhook still works when our own mail is broken.                                                            | If the whole server is down nothing inside alerts, so an outside monitor checks the URLs and the worker's heartbeat (PRODUCTION_SETUP step 20).                      |
 | **Breached-password check fails open**                                              | An HIBP outage must not block sign-ups.                                                                                                             | During an outage a leaked password can get through.                                                           |
 
 ---
@@ -980,4 +983,10 @@ sequenceDiagram
   password; recovery codes are single-use hashes; turning it off needs the
   password and a code; a password reset doesn't turn it off; admins can reset it
   (audited, the user is emailed).
+- **Password change and sessions** (`AuthService.change_password`, `sessions`,
+  `revoke_session`, `revoke_other_sessions`): Settings → You
+  (`component/Account/SignInSecurity.tsx`). The current session can't be
+  revoked that way (409 `current_session`; use logout). All audited.
+- **Worker heartbeat** (`worker.heartbeat`, `HEARTBEAT_URL`): the outside
+  monitor's dead-man's switch.
 

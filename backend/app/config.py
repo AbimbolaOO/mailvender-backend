@@ -68,6 +68,11 @@ class Settings(BaseSettings):
     # Discord-style {"text": …} POST too – useful because email alerts can't arrive while mail is broken.
     alert_emails: str = ""
     alert_webhook_url: str = ""
+    # An outside uptime monitor's heartbeat URL (Better Stack / UptimeRobot / Healthchecks.io). The
+    # worker requests it every HEARTBEAT_MINUTES while it can reach the database; the monitor alerts
+    # when the requests stop – a dead server, worker or database, which nothing inside can report.
+    heartbeat_url: str = ""
+    heartbeat_minutes: int = 5
     admin_app_url: str = ""  # production: https://backoffice.mailvender.com (docker-compose.prod.yml) – linked from alerts
 
     # Reject passwords found in known data breaches (Have I Been Pwned "range" API: only the first five

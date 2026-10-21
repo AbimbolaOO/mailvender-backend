@@ -121,6 +121,27 @@ class SessionOut(Model):
     expires_at: datetime
 
 
+class PasswordChangeIn(BaseModel):
+    current_password: str = Field(max_length=256)
+    new_password: str = Field(max_length=256)
+
+
+class SessionInfoOut(Model):
+    """A device where the user is signed in."""
+
+    id: uuid.UUID
+    created_at: datetime
+    last_seen_at: datetime | None
+    expires_at: datetime
+    user_agent: str | None
+    ip_address: str | None
+    current: bool = Field(False, description="The session making this request")
+
+
+class RevokedOut(BaseModel):
+    revoked: int
+
+
 class UserDeletionIn(BaseModel):
     password: str = Field(max_length=256, description="Your current password, to confirm")
 

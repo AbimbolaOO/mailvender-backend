@@ -40,8 +40,8 @@ work in the browser first.
 The **backend** (this folder) is the server behind it. It:
 
 - **Knows who you are.** It handles sign-up, email verification, login, logout,
-  password resets and optional two-factor sign-in, and refuses passwords known
-  from data breaches.
+  password resets and changes, signed-in devices (sign out any of them), optional
+  two-factor sign-in, and refuses passwords known from data breaches.
 - **Keeps your work safe.** It saves your pages, components, brand settings,
   data sources (spreadsheets) and version history in a database. You can
   then sign in on another computer and find everything there.
@@ -353,6 +353,12 @@ sent twice.
   type a code from an authenticator app (Google Authenticator, 1Password, …).
   Save the 10 recovery codes it shows – each signs you in once without your
   phone. Lost both? Support can turn it off after checking it's you.
+- **Settings → You → Change password**: needs your current password. This
+  browser stays signed in, every other device is signed out, and you get an
+  email about the change. Forgot it? Use **Forgot password** on the sign-in page.
+- **Settings → You → Where you're signed in** lists your devices (browser,
+  IP address, when you signed in and were last active). **Sign out** one, or
+  **Sign out all other devices** – e.g. after using a shared computer.
 - Passwords that appear in known data breaches are refused (only a partial
   hash is checked with Have I Been Pwned – never the password).
 

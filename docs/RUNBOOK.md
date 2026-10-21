@@ -226,9 +226,13 @@ Webhook", a Discord channel webhook, …): email alerts can't arrive while our o
 mail is broken. Alerts link to the admin at `ADMIN_APP_URL`
 (https://backoffice.mailvender.com, the default in `docker-compose.prod.yml`).
 
-**From outside**, also point a free uptime monitor (UptimeRobot, Better Stack)
-at `https://api.mailvender.com/health/ready` and the app's home page: if the
-whole server is down, nothing inside it can alert you.
+**From outside** (PRODUCTION_SETUP step 20): Better Stack checks
+`https://api.mailvender.com/health/ready`, the studio's and admin's `/login`
+pages and port 25 on `mail.mailvender.com`. The worker requests `HEARTBEAT_URL`
+every `HEARTBEAT_MINUTES` (5) while it can reach the database (job
+`heartbeat`, logged as `job.heartbeat.completed result=sent|failed`; a failed
+ping is only a warning). If the server, worker or database is down, the pings
+stop and Better Stack alerts. Nothing inside the server could report that.
 
 ### Blocklists
 

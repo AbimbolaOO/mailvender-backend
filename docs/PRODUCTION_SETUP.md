@@ -67,8 +67,9 @@ recommendations) is in [backlog.md](../../backlog.md).
 - [ ] IAM: allow `s3:ListBucket` on the `prod/` prefix (the admin's backup checks need it; RUNBOOK
       "Asset storage").
 - [ ] Settings for monitoring: `KNOWN_SENDING_IPS`, `ALERT_WEBHOOK_URL` in
-      `.env.production` (step 19), and an outside uptime monitor on `/health/ready` (RUNBOOK
-      "Monitoring and alerting").
+      `.env.production` (step 19).
+- [ ] Step 20: outside uptime monitors (API, studio, admin, mail port) and the worker
+      heartbeat (`HEARTBEAT_URL`).
 - [ ] Step 14c: test-restore one database backup.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
@@ -96,6 +97,7 @@ Steps 3 and 5–9 are best done in one sitting on the server.
 17. [Checking the server's status](#17-checking-the-servers-status)
 18. [Reading the logs](#18-reading-the-logs)
 19. [The admin dashboard](#19-the-admin-dashboard)
+20. [Uptime monitoring from outside](#20-uptime-monitoring-from-outside)
 
 ---
 
@@ -1098,3 +1100,72 @@ its own guide, **[ADMIN_SETUP.md](ADMIN_SETUP.md)**. In short:
 5. Deploy the Cloudflare Email Worker (`infra/email-worker/`) and point the
    four role addresses (`support@`, `postmaster@`, `abuse@`, `dmarc@`) at it, so
    their mail shows up in the admin's Inbox (13a must be done first).
+
+---
+
+## 20. Uptime monitoring from outside
+
+Mailvender's own alerts (step 19) run *inside* the server. If the server, the
+worker or the database is down, they can't run, so nothing tells you. A free
+outside service fixes that: it checks Mailvender from the internet, and the
+worker reports in to it regularly. Takes about 10 minutes.
+
+**Which service:** [Better Stack](https://betterstack.com/uptime) (free plan:
+website checks, a port check and heartbeats) is used below. UptimeRobot works
+the same way for the website checks; check its current plan for heartbeats, or
+use [Healthchecks.io](https://healthchecks.io) (free) for the heartbeat only.
+
+### 20a. Website checks
+
+Sign up, then **Monitors → Create monitor** four times:
+
+| Monitor | URL / host | Alert when |
+| --- | --- | --- |
+| API | `https://api.mailvender.com/health/ready` | It doesn't return 200 (it returns 503 when the database is unreachable). |
+| Studio | `https://www.mailvender.com/login` | It doesn't return 200. |
+| Admin | `https://backoffice.mailvender.com/login` | It doesn't return 200. |
+| Mail server | `mail.mailvender.com`, port **25** (type "TCP port") | The port doesn't answer – other mail servers can't hand us bounces or reports. |
+
+Check every 3 minutes (the free minimum). Under **On-call / Notifications**, add
+your email **and** the phone app (push), or Slack: email alone isn't enough if
+your mail is what's broken.
+
+The `/login` pages are used because they're public. The home pages redirect
+signed-out visitors to them.
+
+### 20b. Worker heartbeat
+
+The website checks can't see the **worker** (it sends all email and runs the
+jobs and the internal alerts). It checks in by itself instead:
+
+1. In Better Stack: **Heartbeats → Create heartbeat**. Name `Mailvender worker`,
+   expect a heartbeat **every 5 minutes**, grace period **5 minutes**. Copy
+   its URL (`https://uptime.betterstack.com/api/v1/heartbeat/…`).
+2. On your Mac, add it to `mailvender-backend/.env.production`:
+
+   ```
+   HEARTBEAT_URL=https://uptime.betterstack.com/api/v1/heartbeat/…
+   ```
+
+3. Copy the file to the server (step 7) and restart the worker:
+
+   ```bash
+   ssh -i ~/.ssh/hetzner-key root@2.29.100.188 \
+     'cd /opt/mailvender/mailvender-backend && docker compose -f docker-compose.prod.yml up -d worker'
+   ```
+
+4. Within 5 minutes the heartbeat shows **Up**. To confirm in the logs:
+   `infra/logs.sh worker -g heartbeat` shows `job.heartbeat.completed` with `result=sent`.
+
+The worker only reports in while it can reach the database. If the server, the
+worker or Supabase stops, the reports stop, and Better Stack alerts you after
+the grace period. `HEARTBEAT_MINUTES` changes the interval (default 5); keep it
+the same as in Better Stack.
+
+### Test it once
+
+- **Heartbeat:** on the server, `docker compose -f docker-compose.prod.yml stop worker`.
+  Within about 10 minutes you get an alert. Then `... start worker`, and a
+  "recovered" message follows.
+- **Website:** pause and resume a monitor in Better Stack. Its "Send test
+  alert" button checks that the notifications reach you.

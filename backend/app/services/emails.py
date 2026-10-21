@@ -103,13 +103,15 @@ def password_reset(url: str, ttl_minutes: int) -> RenderedEmail:
     )
 
 
-def password_changed(email: str, when: datetime, reset_url: str) -> RenderedEmail:
+def password_changed(email: str, when: datetime, reset_url: str, *, kept_device: bool = False) -> RenderedEmail:
+    """`kept_device`: changed while signed in, so the device that changed it stays signed in."""
     stamp = when.strftime("%d %B %Y, %H:%M UTC")
+    devices = "every other device" if kept_device else "every device"
     return RenderedEmail(
         subject="Your Mailvender password was changed",
         text=(
             f"The password for your Mailvender account ({email}) was changed on {stamp}.\n"
-            "For your security, every device that was signed in has been signed out.\n\n"
+            f"For your security, {devices} that was signed in has been signed out.\n\n"
             "Wasn't you? Reset your password right away:\n"
             f"{reset_url}\n"
         ),
@@ -120,8 +122,8 @@ def password_changed(email: str, when: datetime, reset_url: str) -> RenderedEmai
             title="Your password was changed",
             subtitle="Just making sure it was you.",
             body=(
-                _p("The password for your Mailvender account was just changed. For your security, every "
-                   "device that was signed in has been signed out.")
+                _p("The password for your Mailvender account was just changed. For your security, "
+                   f"{devices} that was signed in has been signed out.")
                 + _details([("Account", email), ("When", stamp)])
                 + _p("<strong>Wasn't you?</strong> Someone may have access to your email. Reset your "
                      "password now and secure your email account.", raw=True)

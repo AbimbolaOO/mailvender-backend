@@ -144,3 +144,22 @@ def test_turning_two_factor_off_needs_password_and_code(make_user) -> None:  # t
                                                          "code": totp_code(secret, totp_step() + 1)})
     assert off.status_code == 204
     assert user.get("/v1/auth/me").json()["user"]["two_factor_enabled"] is False
+
+
+def test_worker_heartbeat_pings_the_outside_monitor(transport, storage, resolver, monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    from app.worker import Worker
+
+    pings: list[str] = []
+    assert "heartbeat" not in [job.name for job in Worker(sql_uow, transport, storage, resolver).jobs]  # off by default
+
+    monkeypatch.setattr(get_settings(), "heartbeat_url", "https://uptime.example/api/v1/heartbeat/abc")
+    worker = Worker(sql_uow, transport, storage, resolver, ping=pings.append)
+    job = next(job for job in worker.jobs if job.name == "heartbeat")
+    worker.run_job(job)
+    assert pings == ["https://uptime.example/api/v1/heartbeat/abc"]
+
+    def unreachable(url: str) -> None:
+        raise OSError("connection refused")
+
+    failing = Worker(sql_uow, transport, storage, resolver, ping=unreachable)
+    assert next(job for job in failing.jobs if job.name == "heartbeat").run(None) == "failed"  # logged, not raised

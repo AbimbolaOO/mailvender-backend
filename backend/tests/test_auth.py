@@ -1,3 +1,4 @@
+import uuid
 from datetime import timedelta
 
 from app import models as m
@@ -195,3 +196,54 @@ def test_client_ip_trusts_the_frontend_proxy_only_with_the_shared_secret(monkeyp
 
     monkeypatch.setattr(deps, "get_settings", lambda: Settings(trust_forwarded_for=True))
     assert deps.client_ip(_request({**proxied, "X-Mailvender-Proxy-Secret": ""})) == "76.76.21.21"
+
+
+def test_change_password_while_signed_in_keeps_this_device_only(make_user, db) -> None:  # type: ignore[no-untyped-def]
+    from app.main import app as application
+    from fastapi.testclient import TestClient
+
+    user = make_user()
+    with TestClient(application, base_url="https://testserver") as laptop_client:
+        laptop = login(laptop_client, user.email)
+
+        wrong = user.post("/v1/auth/password", json={"current_password": "not it at all", "new_password": "x" * 12})
+        assert wrong.status_code == 422 and wrong.json()["error"]["fields"][0]["code"] == "invalid_password"
+        short = user.post("/v1/auth/password", json={"current_password": PASSWORD, "new_password": "short"})
+        assert short.json()["error"]["fields"][0]["field"] == "new_password"
+
+        assert user.post("/v1/auth/password", json={"current_password": PASSWORD,
+                                                    "new_password": "a brand new password"}).status_code == 204
+        assert user.get("/v1/auth/me").status_code == 200  # this device stays signed in
+        assert laptop.get("/v1/auth/me").status_code == 401  # every other one is signed out
+        login(laptop_client, user.email, "a brand new password")
+
+    sent = db.session.query(m.OutboxEvent).filter_by(kind="system_email").all()
+    assert any(e.payload["template"] == "password_changed" and e.payload["to"] == user.email for e in sent)
+    actions = [a.action for a in db.session.query(m.AuditEvent).filter_by(target_id=uuid.UUID(user.user_id))]
+    assert "user.password_changed" in actions
+
+
+def test_list_and_sign_out_other_sessions(make_user) -> None:  # type: ignore[no-untyped-def]
+    from app.main import app as application
+    from fastapi.testclient import TestClient
+
+    user, stranger = make_user(), make_user()
+    with (TestClient(application, base_url="https://testserver") as phone_client,
+          TestClient(application, base_url="https://testserver") as tablet_client):
+        phone = login(phone_client, user.email)
+        tablet = login(tablet_client, user.email)
+
+        sessions = user.get("/v1/auth/sessions").json()
+        assert len(sessions) == 3 and [s["current"] for s in sessions].count(True) == 1
+        current = next(s for s in sessions if s["current"])
+        phone_id = next(s["id"] for s in phone.get("/v1/auth/sessions").json() if s["current"])
+
+        assert user.delete(f"/v1/auth/sessions/{current['id']}").json()["error"]["code"] == "current_session"
+        assert stranger.delete(f"/v1/auth/sessions/{phone_id}").status_code == 404  # not theirs
+        assert user.delete(f"/v1/auth/sessions/{phone_id}").status_code == 204
+        assert phone.get("/v1/auth/me").status_code == 401
+        assert user.delete(f"/v1/auth/sessions/{phone_id}").status_code == 404  # already signed out
+
+        assert user.post("/v1/auth/sessions/revoke-others").json() == {"revoked": 1}
+        assert tablet.get("/v1/auth/me").status_code == 401
+        assert [s["id"] for s in user.get("/v1/auth/sessions").json()] == [current["id"]]
