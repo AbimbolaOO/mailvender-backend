@@ -25,7 +25,7 @@ jobs:
     env:
       TEST_DATABASE_URL: postgresql+psycopg://mailvender:mailvender@localhost:5432/mailvender_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen --python 3.12
       # Migrations, account isolation, auth, sending authorization and the rest.
@@ -41,7 +41,7 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v5
       - run: uv export --frozen --no-dev --format requirements-txt > /tmp/requirements.txt
       # Known exceptions: cryptography is pinned below 47 (newer wheels crash on the developer's Docker VM,
@@ -55,6 +55,6 @@ jobs:
   images:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # The web service mounts ../mailvender, which isn't needed to build these images.
       - run: docker compose build api postfix opendkim
