@@ -21,6 +21,7 @@ from app.services.auth import AuthService
 from app.services.common import RateLimiter
 from app.services.lifecycle import LifecycleService, deleted_accounts, purge_date
 from app.services.storage import ObjectStorage
+from app.services.two_factor import TwoFactorService
 
 router = APIRouter(prefix="/v1/auth", tags=["auth"], responses=ERROR_RESPONSES)
 
@@ -79,9 +80,11 @@ def resend_verification(body: s.EmailIn, request: Request, auth: Auth) -> s.Acce
 
 @router.post("/login", response_model=s.SessionOut, dependencies=Public,
              summary="Sign in; sets the HttpOnly session cookie",
-             description="Unverified users get 403 `email_not_verified`. Rate limited per IP and per email.")
+             description="Unverified users get 403 `email_not_verified`. With two-factor sign-in on, 401 "
+                         "`totp_required` until `code` is sent (`invalid_code` when it's wrong). Rate limited per IP "
+                         "and per email.")
 def login(body: s.LoginIn, request: Request, response: Response, auth: Auth, uow: Uow) -> s.SessionOut:
-    created = auth.login(body.email, body.password, client_ip(request), request.headers.get("user-agent"))
+    created = auth.login(body.email, body.password, client_ip(request), request.headers.get("user-agent"), body.code)
     settings = get_settings()
     response.set_cookie(
         settings.session_cookie_name,
@@ -123,6 +126,31 @@ def confirm_reset(body: s.ResetConfirmIn, auth: Auth) -> Response:
 def me(user: CurrentUser, uow: Uow) -> s.MeOut:
     return s.MeOut(user=s.UserOut.model_validate(user), accounts=accounts_for(uow, user.id),
                    deleted_accounts=deleted_accounts_for(uow, user))
+
+
+@router.post("/two-factor/setup", response_model=s.TwoFactorSetupOut,
+             summary="Start turning on two-factor sign-in: a new secret for the authenticator app")
+def start_two_factor(user: CurrentUser, uow: Uow) -> s.TwoFactorSetupOut:
+    secret, uri = TwoFactorService(uow).start(user)
+    return s.TwoFactorSetupOut(secret=secret, otpauth_uri=uri)
+
+
+@router.post("/two-factor/confirm", response_model=s.RecoveryCodesOut,
+             summary="Finish turning it on with a code from the app; returns the recovery codes once")
+def confirm_two_factor(body: s.TwoFactorCodeIn, user: CurrentUser, uow: Uow) -> s.RecoveryCodesOut:
+    return s.RecoveryCodesOut(recovery_codes=TwoFactorService(uow).confirm(user, body.code))
+
+
+@router.post("/two-factor/disable", status_code=204, summary="Turn two-factor sign-in off (password and a code)")
+def disable_two_factor(body: s.TwoFactorDisableIn, user: CurrentUser, uow: Uow) -> Response:
+    TwoFactorService(uow).disable(user, body.password, body.code)
+    return Response(status_code=204)
+
+
+@router.post("/two-factor/recovery-codes", response_model=s.RecoveryCodesOut,
+             summary="Replace the recovery codes (needs the password; the old ones stop working)")
+def replace_recovery_codes(body: s.PasswordConfirmIn, user: CurrentUser, uow: Uow) -> s.RecoveryCodesOut:
+    return s.RecoveryCodesOut(recovery_codes=TwoFactorService(uow).replace_recovery_codes(user, body.password))
 
 
 @router.post("/me/export", summary="Download your personal data (ZIP of JSON; audited)",

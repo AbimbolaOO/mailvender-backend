@@ -5,11 +5,12 @@
 | Service    | Image / command             | Notes                                                                                                                                                                                                                    |
 | ---------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | API        | `backend/Dockerfile`, `api` | Runs `alembic upgrade head` (advisory-locked, safe with several replicas), then uvicorn on :8000. Readiness: `/health/ready` (fails without the database). Liveness: `/health/live`.                                     |
-| Worker     | same image, `worker`        | Waits until migrations are at head. Consumes the outbox; runs DNS rechecks (10 min), account health (5 min), retention (daily), DKIM key publication (30 s). Jobs are advisory-locked – run as many workers as you like. |
+| Worker     | same image, `worker`        | Waits until migrations are at head. Consumes the outbox (customer sends, system emails, admin emails, customer webhooks, exports). Jobs: DNS rechecks (10 min), platform DKIM (5 min), account health (5 min), alerts (10 min), blocklists (`reputation`, 1 h), retention (daily), DKIM key publication (30 s). Jobs are advisory-locked – run as many workers as you like. |
 | Postfix    | `infra/postfix`             | Relays only for the worker's address (`POSTFIX_MYNETWORKS`); accepts inbound mail only for `b-<id>@bounce.*` (bounces), piped to `/internal/dsn`. Queue on the `postfix-queue` volume. See _Production mail server_. |
 | OpenDKIM   | `infra/opendkim`            | Sign-only milter. Reads keys the worker writes to a private volume shared with it only; reloads on change. Postfix defers (never sends unsigned) if it's down.                                                           |
-| Next.js    | `mailvender/`               | Proxies `/api/*` to the API (`API_INTERNAL_URL`), so cookies are first-party.                                                                                                                                            |
+| Next.js    | `mailvender/` (Vercel)      | The studio. Proxies `/api/*` to the API (`API_INTERNAL_URL`), so cookies are first-party.                                                                                                                                |
 | Admin      | `mailvender-admin/` (Vercel) | Staff dashboard. Proxies only `/api/v1/admin/*`, adding `X-Mailvender-Admin-Secret` (`ADMIN_PROXY_SECRET`); without it the API answers 404 to all of `/v1/admin`. See docs/ADMIN_SETUP.md.                            |
+| Email Worker | `infra/email-worker/` (Cloudflare) | Receives support@/postmaster@/abuse@/dmarc@ for the admin Inbox, keeps a Gmail copy, posts to `/internal/inbound-mail` signed with `INBOUND_MAIL_SECRET`. See docs/ADMIN_SETUP.md part C.                       |
 | PostgreSQL | managed                     | ≥ 14.                                                                                                                                                                                                                    |
 | S3 + CDN   | AWS                         | See _Asset storage_.                                                                                                                                                                                                     |
 
@@ -17,10 +18,20 @@
 
 All names are in [`.env.example`](../.env.example). Secrets come from your
 secret store and are never committed: `DATABASE_URL`, `SECRET_KEY`,
-`DKIM_ENCRYPTION_KEY`, `INTERNAL_API_TOKEN`, `API_PROXY_SECRET`, `FEEDBACK_LOOP_SECRETS`,
-`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`. The API never returns any of
-them; DKIM private keys are encrypted at rest (Fernet) and only decrypted onto
-the OpenDKIM volume.
+`DKIM_ENCRYPTION_KEY`, `INTERNAL_API_TOKEN`, `API_PROXY_SECRET`, `ADMIN_PROXY_SECRET`,
+`INBOUND_MAIL_SECRET`, `FEEDBACK_LOOP_SECRETS`, `AWS_ACCESS_KEY_ID`,
+`AWS_SECRET_ACCESS_KEY`, `ALERT_WEBHOOK_URL`. The API never returns any of them;
+DKIM private keys, TOTP secrets and customers' webhook signing secrets are
+encrypted at rest (Fernet) – DKIM keys are only decrypted onto the OpenDKIM
+volume.
+
+Optional groups (defaults are fine; each is described in `.env.example` and
+`backend/app/config.py`): sending limits and account health (`DEFAULT_*`,
+`HEALTH_*`), retention (`RETENTION_*`), the admin (`ADMIN_*`), alerts
+(`ALERT_*`, `ADMIN_APP_URL`), blocklists (`BLOCKLIST_*`, `LINK_BLOCKLIST_ZONES`,
+`KNOWN_SENDING_IPS`), webhooks (`WEBHOOK_*` – the two `WEBHOOK_ALLOW_*` flags are
+for local development only and refused in production), and
+`PWNED_PASSWORDS_CHECK`.
 
 Required in production: `ENVIRONMENT=production`, `APP_BASE_URL`,
 `PUBLIC_API_BASE_URL`, `ALLOWED_ORIGINS`, `TRUST_FORWARDED_FOR=true` (behind
@@ -152,6 +163,13 @@ back to `pending` and its sends are rejected.
 - **`API_PROXY_SECRET`**: set the new value on the frontend host (Vercel) and in
   the API's `.env`, then redeploy both. In between, requests via the frontend
   count against Vercel's IP in the per-IP rate limits.
+- **`ADMIN_PROXY_SECRET`**: new value in the server's `.env` and in the admin's
+  Vercel project; redeploy both back to back (the admin is down in between).
+- **`INBOUND_MAIL_SECRET`**: `npx wrangler secret put INBOUND_MAIL_SECRET` in
+  `infra/email-worker/` and the server's `.env`; until both match, the Gmail copy
+  still arrives but the admin Inbox misses messages.
+- **Customers' webhook secrets** are rotated by the customer (Settings →
+  Webhooks → New secret, or `POST /v1/webhooks/{id}/rotate-secret`).
 - **AWS keys**: create a new IAM key, deploy, then delete the old one.
 
 ## Asset storage (S3)
@@ -170,7 +188,10 @@ back to `pending` and its sends are rejected.
   (Postgres keeps a small summary + the key; each save is a new object, the old one is deleted);
   the bucket policy must not make them public.
 - IAM for the API: `s3:PutObject`, `s3:GetObject`, `s3:DeleteObject` on
-  `<bucket>/<prefix>*`.
+  `<bucket>/<prefix>*`, and `s3:ListBucket` on the bucket limited to that prefix
+  (`"Condition": {"StringLike": {"s3:prefix": ["prod/*"]}}`) – the admin's
+  backup checks list `prod/backups/db/` and `prod/logs/`. Without it they always
+  say "none found".
 - `AWS_S3_PUBLIC_BASE_URL` = the CDN URL. Finalized assets are immutable
   (`Cache-Control: max-age=31536000, immutable`); deleting one also needs a CDN
   invalidation if it must disappear immediately.
@@ -196,6 +217,39 @@ back to `pending` and its sends are rejected.
 
 ## Monitoring and alerting
 
+**Alerts are automatic.** The worker's `alerts` job runs the admin's health
+checks every 10 minutes (port 25, background jobs, the queue, platform DKIM,
+backups, blocklists) and, when one turns red, emails `ALERT_EMAILS` (blank = the
+active admins) and posts to `ALERT_WEBHOOK_URL` – once; again when it's fixed;
+and a daily reminder while it isn't. Set the webhook (a Slack "Incoming
+Webhook", a Discord channel webhook, …): email alerts can't arrive while our own
+mail is broken. Alerts link to the admin at `ADMIN_APP_URL`
+(https://backoffice.mailvender.com, the default in `docker-compose.prod.yml`).
+
+**From outside**, also point a free uptime monitor (UptimeRobot, Better Stack)
+at `https://api.mailvender.com/health/ready` and the app's home page: if the
+whole server is down, nothing inside it can alert you.
+
+### Blocklists
+
+The `reputation` job checks every IP in `KNOWN_SENDING_IPS` against
+`BLOCKLIST_IP_ZONES` (Spamhaus ZEN, SpamCop, Barracuda) and the platform domain
+against `BLOCKLIST_DOMAIN_ZONES` (Spamhaus DBL) each hour. A listing shows on
+the admin's Overview/System (with the removal page) and triggers an alert.
+Then: find the account that caused it (Spam & delivery → accounts with the most
+complaints), suspend it, and request removal.
+
+Spamhaus refuses queries that come through big public resolvers (8.8.8.8,
+1.1.1.1) – the admin then says "Blocklists couldn't be checked". The server's
+default (Hetzner's) resolvers work; if not, run a local resolver (`unbound`).
+Their free service is for low volumes; once we send a lot, get a free
+**Spamhaus DQS** key and set the zones to `<key>.zen.dq.spamhaus.net` and
+`<key>.dbl.dq.spamhaus.net`.
+
+Links in customers' emails are checked against `LINK_BLOCKLIST_ZONES`
+(Spamhaus DBL) when they send: an email linking to a known phishing, malware or
+spam domain is refused (422 `blocklisted_link`), before it can hurt our IP.
+
 Logs are JSON lines (`event`, `request_id`, `user_id`, `account_id`,
 `message_id`), backed up hourly to S3 (see Backup and restore).
 
@@ -204,7 +258,8 @@ platform DKIM, the mail queue, reverse DNS, TLS expiry, last log/database
 backups, recent errors and disk/memory, and exits 1 if anything needs
 attention: `ssh root@<server> /opt/mailvender/mailvender-backend/infra/status.sh`.
 
-Alert on:
+Beyond the automatic alerts, these log events are worth a dashboard or a
+log-based alert once there's volume:
 
 | Signal            | Source                                                                                                  | Suggested threshold                         |
 | ----------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -219,6 +274,7 @@ Alert on:
 | Rate limiting     | `rate_limit.exceeded`                                                                                   | spikes (credential stuffing)                |
 | Postfix           | `postfix/smtp … status=deferred`, queue size (`mailq`)                                                  | growing queue                               |
 | API               | 5xx rate, `/health/ready`                                                                               | 5xx > 1 %, readiness failing                |
+| Customer webhooks | `webhook.failed`, `webhook.disabled`                                                                    | many disabled at once = our side is failing |
 
 ## Account health
 
@@ -234,6 +290,23 @@ docs/ADMIN_SETUP.md) – or through `GET /v1/operator/accounts` with
 
 Soft bounces suppress an address after `SOFT_BOUNCE_THRESHOLD` (3) within
 `SOFT_BOUNCE_WINDOW_DAYS` (30); hard bounces and complaints suppress at once.
+
+## Webhooks (customer endpoints)
+
+Owners add https endpoints in Settings → Webhooks (or `/v1/webhooks`); the
+customer guide is [WEBHOOKS.md](WEBHOOKS.md). When an event happens the API
+writes one `webhook_deliveries` row per listening endpoint and an outbox event;
+the worker POSTs it signed (`Mailvender-Signature`), with a 10 s timeout, and
+retries non-2xx answers with backoff (30 s … 12 h, 10 tries, about 1.5 days).
+An endpoint whose every event fails for 3 days is turned off and its owners are
+emailed. Deliveries are kept `RETENTION_WEBHOOK_DELIVERIES_DAYS` (30).
+
+Safety: only https, never to private, loopback, link-local or cloud-metadata
+addresses (checked on save and again before every request, no redirects
+followed), only the first 1 KB of the answer is stored. A customer saying "we
+don't get webhooks": look at their endpoint's deliveries in the app (status,
+HTTP code, their server's answer) – most often their server answers 4xx/5xx or
+times out.
 
 ## Feedback loops (complaints)
 
@@ -257,7 +330,12 @@ Setup and daily use: docs/ADMIN_SETUP.md. Recovery, on the server
 | Admin key leaked | New `ADMIN_PROXY_SECRET` on the server and in Vercel; redeploy both |
 | Admin API must be off | Remove `ADMIN_PROXY_SECRET`, redeploy – all of `/v1/admin` answers 404 |
 
-Role inboxes (postmaster@, abuse@, dmarc@) reach the API from the Cloudflare
+Admins can also: write email with attachments from support@/postmaster@/abuse@
+(sent by the worker through Postfix, platform-DKIM signed; Inbox → Sent), sign a
+customer out everywhere, send a password reset, and turn off a customer's
+two-factor sign-in after checking it's really them – all audited.
+
+Role inboxes (support@, postmaster@, abuse@, dmarc@) reach the API from the Cloudflare
 Email Worker (`infra/email-worker/`) at `/internal/inbound-mail`, signed with
 `INBOUND_MAIL_SECRET`. If messages stop appearing, check the worker's logs in
 Cloudflare; the Gmail copy keeps arriving either way. ARF reports at abuse@ go

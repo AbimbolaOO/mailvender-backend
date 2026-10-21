@@ -174,7 +174,8 @@ def user_row(row: UserRow) -> a.AdminUserRowOut:
     user = row.user
     return a.AdminUserRowOut(id=user.id, email=user.email, status=row.status, created_at=user.created_at,
                              email_verified_at=user.email_verified_at, disabled_at=user.disabled_at,
-                             accounts=row.accounts, last_seen_at=row.last_seen_at, sent_30d=row.sent_30d)
+                             accounts=row.accounts, last_seen_at=row.last_seen_at, sent_30d=row.sent_30d,
+                             two_factor_enabled=user.totp_enabled_at is not None)
 
 
 def user_detail_out(detail: UserDetail) -> a.AdminUserDetailOut:
@@ -215,6 +216,14 @@ def unblock_user(user_id: uuid.UUID, body: a.DecisionIn, auth: Admin, uow: Uow) 
              summary="Sign a user out everywhere (without blocking them)")
 def sign_out_user(user_id: uuid.UUID, body: a.DecisionIn, auth: Admin, uow: Uow) -> a.AdminUserDetailOut:
     return user_detail_out(AdminCustomersService(uow).sign_out_everywhere(auth, user_id, body.reason))
+
+
+@router.post("/users/{user_id}/reset-two-factor", response_model=a.AdminUserDetailOut,
+             summary="Turn off a user's two-factor sign-in (they lost their phone and recovery codes)",
+             description="Check it's really them first (e.g. reply from their address and a detail only they know). "
+                         "They're emailed about it.")
+def reset_two_factor(user_id: uuid.UUID, body: a.DecisionIn, auth: Admin, uow: Uow) -> a.AdminUserDetailOut:
+    return user_detail_out(AdminCustomersService(uow).reset_two_factor(auth, user_id, body.reason))
 
 
 @router.post("/users/{user_id}/password-reset", response_model=a.AdminUserDetailOut,

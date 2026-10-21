@@ -79,6 +79,7 @@ class RetentionReport:
     dmarc_rows_deleted: int = 0
     admin_sessions_deleted: int = 0
     admin_mail_deleted: int = 0
+    webhook_deliveries_deleted: int = 0
 
 
 class LifecycleService:
@@ -425,6 +426,7 @@ class LifecycleService:
             SyncService(self.uow, self.storage).delete_account_content(account.id)
             self.uow.sync.delete_all_for_account(account.id)
             self.uow.memberships.delete_all_for_account(account.id)
+            self.uow.webhooks.delete_all_for_account(account.id)
             account.deleted_at = now
             account.physical_address = None
             audit(self.uow, account.id, Actor.system(), "account.purged", target_type="account", target_id=account.id)
@@ -435,6 +437,8 @@ class LifecycleService:
             now - timedelta(days=s.retention_inbound_mail_days))
         report.dmarc_rows_deleted = self.uow.inbound.delete_dmarc_before(now - timedelta(days=s.retention_dmarc_rows_days))
         report.admin_sessions_deleted = self.uow.admins.delete_sessions_before(now - timedelta(days=30))
+        report.webhook_deliveries_deleted = self.uow.webhooks.delete_deliveries_before(
+            now - timedelta(days=s.retention_webhook_deliveries_days))
         report.admin_mail_deleted = AdminMailService(self.uow, self.storage).delete_old(
             now - timedelta(days=s.retention_inbound_mail_days), now - timedelta(days=1))
         self.uow.commit()

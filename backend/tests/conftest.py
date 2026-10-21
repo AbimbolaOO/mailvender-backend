@@ -26,6 +26,7 @@ os.environ["AWS_S3_PUBLIC_BASE_URL"] = "https://cdn.test"
 os.environ["ADMIN_PROXY_SECRET"] = "admin-proxy-secret-for-tests-0123456789"
 os.environ["INBOUND_MAIL_SECRET"] = "inbound-mail-secret-for-tests-0123456789"
 os.environ["ADMIN_STATS_CACHE_SECONDS"] = "0"
+os.environ["PWNED_PASSWORDS_CHECK"] = "false"  # no network in tests (test_hardening.py fakes the API)
 
 import pytest  # noqa: E402
 from alembic import command  # noqa: E402
@@ -143,6 +144,7 @@ class FakeStorage:
 class FakeResolver:
     txt_records: dict[str, list[str]] = field(default_factory=dict)
     mx_records: dict[str, list[str]] = field(default_factory=dict)
+    a_records: dict[str, list[str]] = field(default_factory=dict)
     failing: bool = False
 
     def txt(self, name: str) -> list[str]:
@@ -154,6 +156,11 @@ class FakeResolver:
         if self.failing:
             raise DnsLookupError("timeout")
         return list(self.mx_records.get(name, []))
+
+    def a(self, name: str) -> list[str]:
+        if self.failing:
+            raise DnsLookupError("timeout")
+        return list(self.a_records.get(name, []))
 
 
 @dataclass

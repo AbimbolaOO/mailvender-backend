@@ -39,10 +39,20 @@ Next steps: [GETTING_STARTED.md](GETTING_STARTED.md) to run it,
 | **curl** or **HTTPie**                             | Calling the API from a terminal                                    | https://httpie.io/cli                                                                                  |
 | **swaks**                                          | Sending test SMTP messages (e.g. fake bounces to `localhost:2525`) | https://github.com/jetmore/swaks                                                                       |
 
+### Only for deploying (production)
+
+| Tool | Used for | Link |
+| --- | --- | --- |
+| **SSH + rsync** (built into macOS) | Copying the backend to the server, logging in | PRODUCTION_SETUP steps 3, 5, 15 |
+| **Vercel CLI** (`npx vercel`) | Deploying `mailvender-admin/` (not in git yet) | https://vercel.com/docs/cli |
+| **Wrangler** (`npx wrangler`) | Deploying the Cloudflare Email Worker | https://developers.cloudflare.com/workers/wrangler/ |
+| **age** (`brew install age`) | Decrypting database backups | https://age-encryption.org |
+| **AWS CLI** | Downloading backups, bucket checks | https://aws.amazon.com/cli/ |
+
 ### Ports your machine must have free
 
-`3000` studio · `8000` API · `5434` Postgres · `8025` Mailpit · `2525`
-Postfix. If you run a local Postgres, it's probably on `5432`.
+`3000` studio · `3100` admin dashboard · `8000` API · `5434` Postgres ·
+`8025` Mailpit · `2525` Postfix. If you run a local Postgres, it's probably on `5432`.
 The project deliberately uses `5434` to avoid it.
 
 ---
@@ -68,6 +78,9 @@ what you'll use every day; **Deeper** helps when working on that area.
 | AWS S3 & presigned uploads                       | —    | `services/assets.py`, `services/storage.py`                                           |
 | TypeScript, React, Next.js                       | —    | `../mailvender` (frontend integration)                                                |
 | Local-first sync, optimistic concurrency         | —    | `services/sync.py`, `../mailvender/lib/sync`                                          |
+| HMAC signing, SSRF, outbound HTTP                | —    | `services/webhooks.py`, `services/alerts.py`, `services/pwned.py`                     |
+| TOTP (authenticator codes)                       | —    | `security.py`, `services/two_factor.py`, `services/admin_auth.py`                     |
+| DNS blocklists, DMARC reports                    | —    | `services/reputation.py`, `services/dmarc.py`, `services/inbound.py`                  |
 
 ---
 
@@ -150,8 +163,15 @@ what you'll use every day; **Deeper** helps when working on that area.
 - **Cookies:** [MDN – Set-Cookie (HttpOnly, Secure, SameSite)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
 - **CORS:** [MDN – CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 - **argon2-cffi:** https://argon2-cffi.readthedocs.io/
-- **cryptography – Fernet** (encrypted DKIM keys, unsubscribe tokens):
+- **cryptography – Fernet** (encrypted DKIM keys, TOTP and webhook secrets, unsubscribe tokens):
   https://cryptography.io/en/latest/fernet/
+- **SSRF** (why webhook URLs must resolve to public addresses):
+  [OWASP SSRF prevention](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
+- **Webhook signing** (the same scheme customers verify):
+  [Stripe – verify webhook signatures](https://docs.stripe.com/webhooks#verify-events) ·
+  [standardwebhooks.com](https://www.standardwebhooks.com/)
+- **TOTP:** [RFC 6238](https://www.rfc-editor.org/rfc/rfc6238) ·
+  **Breached passwords:** [Have I Been Pwned range API](https://haveibeenpwned.com/API/v3#PwnedPasswords)
 
 ### Email delivery (the most specialised area – read before touching sending)
 

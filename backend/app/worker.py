@@ -32,7 +32,11 @@ from app.services.health import HealthService
 from app.services.lifecycle import LifecycleService
 from app.services.mta import MailTransport, PermanentDeliveryError, SmtpTransport, TemporaryDeliveryError
 from app.services.platform_dkim import PlatformDkimService
+from app.services import webhooks
+from app.services.admin_dashboard import Port25Probe, port25_open
 from app.services.admin_mail import AdminMailService
+from app.services.alerts import AlertService
+from app.services.reputation import ReputationService
 from app.services.sending import DeliveryService, system_email
 from app.services.storage import ObjectStorage, S3Storage
 
@@ -65,11 +69,15 @@ class Worker:
         transport: MailTransport,
         storage: ObjectStorage,
         resolver: DnsResolver,
+        port25: Port25Probe = port25_open,
+        webhook_post: webhooks.Post = webhooks.http_post,
     ):
         self.uow_factory = uow_factory
         self.transport = transport
         self.storage = storage
         self.resolver = resolver
+        self.port25 = port25
+        self.webhook_post = webhook_post
         self.settings = get_settings()
         self.stopping = False
         self.jobs = [
@@ -78,6 +86,8 @@ class Worker:
                 lambda uow: len(PlatformDkimService(uow, self.resolver).check())),
             Job("account_health", timedelta(minutes=5), lambda uow: HealthService(uow).evaluate_all()),
             Job("retention", timedelta(hours=24), lambda uow: LifecycleService(uow, self.storage).enforce_retention()),
+            Job("reputation", timedelta(hours=1), lambda uow: len(ReputationService(uow, self.resolver).check())),
+            Job("alerts", timedelta(minutes=10), lambda uow: AlertService(uow, self.storage, self.port25).run()),
         ]
         if self.settings.dkim_keys_dir:
             self.jobs.append(Job("dkim_key_sync", timedelta(seconds=30), lambda uow: sync_dkim_keys(
@@ -115,6 +125,8 @@ class Worker:
         elif event.kind == "account_export":
             LifecycleService(uow, self.storage).build_export(uuid.UUID(event.payload["export_id"]))
             event.status = "done"
+        elif event.kind == "webhook":
+            webhooks.WebhookService(uow).deliver(event, self.webhook_post)
         elif event.kind == "admin_mail":
             self.send_admin_mail(uow, event)
         elif event.kind == "account_assets_delete":

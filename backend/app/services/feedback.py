@@ -17,6 +17,7 @@ from app.logging import get_logger, log_event
 from app.pagination import Page, PageRequest
 from app.repositories.interfaces import UnitOfWork
 from app.security import read_recipient_token, utcnow
+from app.services import webhooks
 from app.services.common import AccountContext, Actor, audit, normalize_email
 from app.services.sending import personalize, recipient_from_envelope, recipient_links
 
@@ -159,7 +160,10 @@ class FeedbackService:
         recipient = self._recipient_from_token(token, "unsubscribe")
         if recipient is None:
             return None
-        self.suppress(recipient.account_id, recipient.email, "unsubscribe", source, Actor("public"), recipient.id)
+        _, created = self.suppress(recipient.account_id, recipient.email, "unsubscribe", source, Actor("public"),
+                                   recipient.id)
+        if created:
+            webhooks.recipient_event(self.uow, recipient, "recipient.unsubscribed", source=source)
         self.uow.commit()
         return recipient
 
@@ -206,6 +210,9 @@ class FeedbackService:
               status=report.status if report else None, event_id=str(event.id))
         if report and report.action != "delayed":
             recipient.status, recipient.bounced_at, recipient.updated_at = "bounced", now, now
+            webhooks.recipient_event(self.uow, recipient, "message.bounced", bounce={
+                "classification": classification, "status_code": report.status,
+                "diagnostic": (report.diagnostic or "")[:1000] or None})
         suppressed = False
         if classification == "hard":
             _, suppressed = self.suppress(recipient.account_id, recipient.email, "hard_bounce", "dsn",
@@ -254,6 +261,7 @@ class FeedbackService:
             )
         )
         recipient.status, recipient.complained_at, recipient.updated_at = "complained", now, now
+        webhooks.recipient_event(self.uow, recipient, "message.complained", source=source)
         audit(self.uow, recipient.account_id, Actor.system(), "delivery.complaint_received",
               target_type="message_recipient", target_id=recipient.id, source=source)
         _, suppressed = self.suppress(recipient.account_id, recipient.email, "complaint", f"fbl:{source}",

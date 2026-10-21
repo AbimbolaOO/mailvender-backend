@@ -964,6 +964,52 @@ def _domain_of(column: Any) -> Any:
     return func.lower(func.split_part(column, "@", 2))
 
 
+class SqlWebhooks(_Repo):
+    model = m.WebhookEndpoint
+
+    def get(self, endpoint_id: uuid.UUID, account_id: uuid.UUID) -> m.WebhookEndpoint | None:
+        return self._get(endpoint_id, account_id)
+
+    def get_by_id(self, endpoint_id: uuid.UUID) -> m.WebhookEndpoint | None:
+        return self.s.get(m.WebhookEndpoint, endpoint_id)
+
+    def list_for_account(self, account_id: uuid.UUID) -> list[m.WebhookEndpoint]:
+        return list(self.s.execute(select(m.WebhookEndpoint).where(m.WebhookEndpoint.account_id == account_id)
+                                   .order_by(m.WebhookEndpoint.created_at)).scalars())
+
+    def listening(self, account_id: uuid.UUID, event_type: str) -> list[m.WebhookEndpoint]:
+        return list(self.s.execute(select(m.WebhookEndpoint).where(
+            m.WebhookEndpoint.account_id == account_id, m.WebhookEndpoint.enabled.is_(True),
+            m.WebhookEndpoint.events.contains([event_type]))).scalars())
+
+    def delete(self, entity: Any) -> None:
+        self.s.delete(entity)
+        self.s.flush()
+
+    def get_delivery(self, delivery_id: uuid.UUID) -> m.WebhookDelivery | None:
+        return self.s.get(m.WebhookDelivery, delivery_id)
+
+    def deliveries_page(self, endpoint_id: uuid.UUID, page: PageRequest) -> Page[m.WebhookDelivery]:
+        stmt = select(m.WebhookDelivery).where(m.WebhookDelivery.endpoint_id == endpoint_id)
+        return _paginate(self.s, stmt, m.WebhookDelivery, page)
+
+    def delete_deliveries_before(self, before: datetime) -> int:
+        return _rows(self.s.execute(delete(m.WebhookDelivery).where(m.WebhookDelivery.created_at < before)))
+
+    def delete_all_for_account(self, account_id: uuid.UUID) -> None:
+        self.s.execute(delete(m.WebhookEndpoint).where(m.WebhookEndpoint.account_id == account_id))
+
+
+class SqlSystemState(_Repo):
+    def get(self, key: str) -> dict[str, Any] | None:
+        row = self.s.get(m.SystemState, key)
+        return dict(row.value) if row else None
+
+    def put(self, key: str, value: dict[str, Any], now: datetime) -> None:
+        self.s.execute(insert(m.SystemState).values(key=key, value=value, updated_at=now)
+                       .on_conflict_do_update(index_elements=["key"], set_={"value": value, "updated_at": now}))
+
+
 class SqlAdminMail(_Repo):
     model = m.AdminMail
 
@@ -1316,6 +1362,8 @@ class SqlUnitOfWork:
         self.inbound = SqlInbound(session)
         self.admin_stats = SqlAdminStats(session)
         self.admin_mail = SqlAdminMail(session)
+        self.system_state = SqlSystemState(session)
+        self.webhooks = SqlWebhooks(session)
 
     def commit(self) -> None:
         self.session.commit()

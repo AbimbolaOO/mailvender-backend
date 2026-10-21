@@ -33,8 +33,11 @@ from app.logging import get_logger, log_event
 from app.pagination import Page, PageRequest
 from app.repositories.interfaces import DuplicateError, UnitOfWork
 from app.security import sign_recipient_token, utcnow
+from app.services import webhooks
 from app.services.common import AccountContext, Actor, audit, try_normalize_email
+from app.services.dns import DnsResolver
 from app.services.mta import MailTransport, PermanentDeliveryError, TemporaryDeliveryError
+from app.services.reputation import ReputationService
 
 log = get_logger("sending")
 
@@ -104,8 +107,9 @@ def _usable_text(text: str | None) -> bool:
 
 
 class SendingService:
-    def __init__(self, uow: UnitOfWork):
+    def __init__(self, uow: UnitOfWork, resolver: DnsResolver | None = None):
         self.uow = uow
+        self.resolver = resolver  # for the link blocklist check; without one it's skipped
         self.settings = get_settings()
 
     # ---- Accepting ----
@@ -233,6 +237,11 @@ class SendingService:
         if len(request.html.encode()) > settings.max_html_bytes:
             errors.append(field_error("html", f"The HTML is larger than {settings.max_html_bytes // 1000} KB.",
                                       "too_large"))
+        if self.resolver and not errors:
+            for domain in ReputationService(self.uow, self.resolver).listed_links(request.html, request.text):
+                errors.append(field_error("html", f"The email links to {domain}, which is on a blocklist of "
+                                                  "phishing, malware and spam domains (Spamhaus DBL). Remove "
+                                                  "the link to send.", "blocklisted_link"))
         if request.text and len(request.text.encode()) > settings.max_text_bytes:
             errors.append(field_error("text", "The plain-text version is too large.", "too_large"))
         if request.category not in CATEGORIES:
@@ -438,6 +447,8 @@ class DeliveryService:
                 recipient.failed_at = now
             log_event(log, f"message.{status}", logging.WARNING if status == "failed" else logging.INFO,
                       error=error, **fields)
+            webhooks.recipient_event(self.uow, recipient, "message.failed",
+                                     reason="suppressed" if status == "suppressed" else "rejected", error=error)
 
         if account.status != "active" or account.sending_suspended_at:
             return finish("failed", "Account can no longer send")
@@ -472,6 +483,7 @@ class DeliveryService:
         recipient.updated_at = now
         recipient.last_error = None
         log_event(log, "message.accepted_by_mta", **fields)
+        webhooks.recipient_event(self.uow, recipient, "message.sent")
 
     def _attempt(self, recipient: m.MessageRecipient, outcome: str, code: int | None, detail: str) -> None:
         self.uow.delivery.add_attempt(

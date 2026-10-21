@@ -191,6 +191,67 @@ def login_deleted(email: str, when: datetime) -> RenderedEmail:
     )
 
 
+def alert(subject: str, new: list[tuple[str, str]], fixed: list[str], still: list[tuple[str, str]],
+          admin_url: str) -> RenderedEmail:
+    """To Mailvender's own staff when a health check turns red, is fixed, or is still red a day later."""
+    text = []
+    if new:
+        text += ["Needs attention now:"] + [f"- {title}: {detail}" for title, detail in new] + [""]
+    if fixed:
+        text += ["Fixed:"] + [f"- {title}" for title in fixed] + [""]
+    if still:
+        text += ["Still not fixed:"] + [f"- {title}: {detail}" for title, detail in still] + [""]
+    if admin_url:
+        text.append(f"Open the admin: {admin_url.rstrip('/')}/system")
+    body = "".join(_p(f"<strong>{escape(title)}</strong><br>{escape(detail)}", raw=True) for title, detail in new)
+    if fixed:
+        body += _p("Fixed: " + ", ".join(fixed))
+    if still:
+        body += _details([(title[:40], detail) for title, detail in still])
+    if admin_url:
+        body += _button("Open the admin", admin_url.rstrip("/") + "/system")
+    return RenderedEmail(
+        subject=subject,
+        text="\n".join(text) + "\n",
+        html=_layout(
+            preheader=subject,
+            badge="🚨" if new or still else "✅",
+            eyebrow="Mailvender alert",
+            title=subject.removeprefix("Mailvender: "),
+            subtitle="From the platform's health checks.",
+            body=body,
+            note="You get one email when something breaks, one when it's fixed, and a daily reminder meanwhile.",
+            reason="you're a Mailvender admin",
+        ),
+    )
+
+
+def webhook_disabled(url: str, days: int, settings_url: str) -> RenderedEmail:
+    return RenderedEmail(
+        subject="We turned off one of your Mailvender webhooks",
+        text=(
+            f"Every event we sent to {url} failed for {days} days, so we turned the webhook off.\n"
+            "No more events are sent to it. Fix the endpoint, then turn it back on and press \"Send test\" in "
+            f"Settings → Webhooks:\n{settings_url}\n"
+        ),
+        html=_layout(
+            preheader=f"Every event to {url} failed for {days} days.",
+            badge="🔌",
+            eyebrow="Webhook turned off",
+            title="We turned off a webhook",
+            subtitle=f"Every event failed for {days} days.",
+            body=(
+                _details([("Endpoint", url)])
+                + _p("No more events are sent to it. Recent attempts and your server's answers are listed in "
+                     "Settings → Webhooks. Fix the endpoint, then turn it back on and press “Send test”.")
+                + _button("Open Webhooks", settings_url)
+            ),
+            note="Events from while it was off aren't sent later; the message history in the API has them.",
+            reason="you own a Mailvender account with this webhook",
+        ),
+    )
+
+
 def admin_message(subject: str, body: str) -> RenderedEmail:
     """A message an admin wrote in the admin app, in the branded layout (links made clickable)."""
     paragraphs = [chunk.strip() for chunk in re.split(r"\n\s*\n", body.strip()) if chunk.strip()]
@@ -217,6 +278,36 @@ def _linkify(text: str) -> str:
     escaped = escape(text)
     return re.sub(r"https?://[^\s<]+[^\s<.,;:!?)\]'\"]",
                   lambda m: f'<a href="{m.group(0)}" style="color:{ACCENT};">{m.group(0)}</a>', escaped)
+
+
+def two_factor_changed(email: str, enabled: bool, when: datetime, reset_url: str) -> RenderedEmail:
+    stamp = when.strftime("%d %B %Y, %H:%M UTC")
+    state = "turned on" if enabled else "turned off"
+    return RenderedEmail(
+        subject=f"Two-factor sign-in was {state}",
+        text=(
+            f"Two-factor sign-in for your Mailvender account ({email}) was {state} on {stamp}.\n"
+            + ("Signing in now needs your password and a code from your authenticator app.\n" if enabled else
+               "Signing in now needs only your password.\n")
+            + f"\nWasn't you? Reset your password right away:\n{reset_url}\n"
+        ),
+        html=_layout(
+            preheader=f"Two-factor sign-in was {state} on {stamp}.",
+            badge="🔐",
+            eyebrow="Security alert",
+            title=f"Two-factor sign-in was {state}",
+            subtitle="Just making sure it was you.",
+            body=(
+                _p("Signing in now needs your password and a code from your authenticator app." if enabled else
+                   "Signing in now needs only your password. You can turn two-factor sign-in back on in Settings.")
+                + _details([("Account", email), ("When", stamp)])
+                + _p("<strong>Wasn't you?</strong> Reset your password now.", raw=True)
+                + _button("Secure my account", reset_url)
+            ),
+            note="If you made this change, there's nothing else to do.",
+            reason="it's an important notice about your Mailvender account",
+        ),
+    )
 
 
 def already_registered(login_url: str, reset_url: str) -> RenderedEmail:

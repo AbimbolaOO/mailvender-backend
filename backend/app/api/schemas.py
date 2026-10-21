@@ -41,6 +41,8 @@ class TokenIn(BaseModel):
 class LoginIn(BaseModel):
     email: str = Field(max_length=320)
     password: str = Field(max_length=256)
+    code: str | None = Field(None, max_length=32, description="Authenticator or recovery code, once two-factor "
+                                                               "sign-in is on (401 `totp_required` without it)")
 
 
 class ResetConfirmIn(BaseModel):
@@ -55,6 +57,30 @@ class UserOut(Model):
     is_operator: bool
     default_account_id: uuid.UUID | None
     created_at: datetime
+    two_factor_enabled: bool
+    recovery_codes_left: int
+
+
+class TwoFactorSetupOut(Model):
+    secret: str
+    otpauth_uri: str
+
+
+class TwoFactorCodeIn(BaseModel):
+    code: str = Field(max_length=32)
+
+
+class TwoFactorDisableIn(BaseModel):
+    password: str = Field(max_length=256)
+    code: str = Field(max_length=32, description="A current authenticator code or a recovery code")
+
+
+class PasswordConfirmIn(BaseModel):
+    password: str = Field(max_length=256)
+
+
+class RecoveryCodesOut(Model):
+    recovery_codes: list[str]
 
 
 class AccountOut(Model):
@@ -430,3 +456,57 @@ class ExportLinkOut(Model):
 
 class DeletionIn(BaseModel):
     confirm_name: str = Field(description="The account's current name.")
+
+
+# ---- Webhooks ----
+
+
+class WebhookEventTypeOut(Model):
+    type: str
+    description: str
+
+
+class WebhookEndpointOut(Model):
+    id: uuid.UUID
+    url: str
+    description: str | None
+    events: list[str]
+    enabled: bool
+    disabled_reason: str | None
+    consecutive_failures: int
+    last_success_at: datetime | None
+    last_failure_at: datetime | None
+    created_at: datetime
+
+
+class WebhookSecretOut(Model):
+    endpoint: WebhookEndpointOut
+    secret: str = Field(description="Signs every request (`Mailvender-Signature`). Shown only now – store it safely.")
+
+
+class WebhookIn(BaseModel):
+    url: str = Field(max_length=2000, description="https URL on the public internet")
+    events: list[str] = Field(min_length=1, max_length=20, description="See GET /v1/webhooks/events")
+    description: str | None = Field(None, max_length=200)
+
+
+class WebhookUpdateIn(BaseModel):
+    url: str | None = Field(None, max_length=2000)
+    events: list[str] | None = Field(None, min_length=1, max_length=20)
+    description: str | None = Field(None, max_length=200)
+    enabled: bool | None = None
+
+
+class WebhookDeliveryOut(Model):
+    id: uuid.UUID
+    event_id: uuid.UUID
+    event_type: str
+    status: Literal["pending", "delivered", "failed"]
+    attempts: int
+    response_status: int | None
+    response_body: str | None = Field(description="The first 1 KB of your server's answer")
+    error: str | None
+    next_attempt_at: datetime | None
+    delivered_at: datetime | None
+    created_at: datetime
+    payload: dict[str, Any]

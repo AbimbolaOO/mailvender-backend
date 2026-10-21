@@ -31,6 +31,9 @@ x-app: &app
     APP_BASE_URL: ${APP_BASE_URL:-https://www.mailvender.com}
     PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-https://www.mailvender.com/api}
     ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-["https://www.mailvender.com"]}
+    # The admin dashboard (mailvender-admin on Vercel), linked from alert emails. It calls the API
+    # server-to-server, so it isn't in ALLOWED_ORIGINS.
+    ADMIN_APP_URL: ${ADMIN_APP_URL:-https://backoffice.mailvender.com}
     TRUST_FORWARDED_FOR: "true" # behind the Next.js rewrite / reverse proxy
     SYSTEM_FROM_EMAIL: ${SYSTEM_FROM_EMAIL:-Mailvender <no-reply@mailvender.com>}
     RETURN_PATH_MX_HOST: ${RETURN_PATH_MX_HOST:-feedback.mailvender.com}

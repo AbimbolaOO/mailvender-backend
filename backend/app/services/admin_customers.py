@@ -19,6 +19,7 @@ from app.services.dns import DnsResolver
 from app.services.domains import DomainService, DomainView
 from app.services.health import AccountHealth, HealthService
 from app.services.sending import suspend
+from app.services.two_factor import TwoFactorService
 
 
 def user_status(user: m.User) -> str:
@@ -165,6 +166,15 @@ class AdminCustomersService:
         revoked = self.uow.sessions.revoke_for_users([user.id], utcnow())
         admin_audit(self.uow, auth, "user.signed_out_everywhere", target_type="user", target_id=user.id,
                     reason=reason, sessions=revoked)
+        self.uow.commit()
+        return self.user_detail(auth, user.id, record_view=False)
+
+    def reset_two_factor(self, auth: AdminAuth, user_id: uuid.UUID, reason: str) -> UserDetail:
+        user = self._live_user(user_id)
+        if not user.totp_enabled_at:
+            raise Conflict("Two-factor sign-in is already off for this user.", code="two_factor_disabled")
+        TwoFactorService(self.uow).reset_by_admin(user)
+        admin_audit(self.uow, auth, "user.two_factor_reset", target_type="user", target_id=user.id, reason=reason)
         self.uow.commit()
         return self.user_detail(auth, user.id, record_view=False)
 

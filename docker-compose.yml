@@ -27,6 +27,9 @@ x-api-env: &api-env
   # The admin app (mailvender-admin/, http://localhost:3100) sends this key; see docs/ADMIN_SETUP.md.
   ADMIN_PROXY_SECRET: dev-admin-proxy-secret
   INBOUND_MAIL_SECRET: dev-inbound-mail-secret
+  # Lets webhooks reach a test receiver on your Mac (http://host.docker.internal:<port>/…). Never in production.
+  WEBHOOK_ALLOW_HTTP: "true"
+  WEBHOOK_ALLOW_PRIVATE_ADDRESSES: "true"
   SMTP_HOST: 172.30.0.2 # Postfix on the mail network (relaying is allowed from the worker only)
   SMTP_PORT: "25"
   SYSTEM_FROM_EMAIL: Mailvender <no-reply@mailvender.localhost>

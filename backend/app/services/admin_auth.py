@@ -36,6 +36,7 @@ from app.security import (
     verify_password,
 )
 from app.services.common import Actor, Limit, RateLimiter, audit, normalize_email
+from app.services.pwned import BREACHED, times_breached
 
 log = get_logger("admin_auth")
 
@@ -109,6 +110,8 @@ def validate_admin_password(password: str, *, email: str, current: str | None = 
     if current is not None and password == current:
         raise ValidationFailed([field_error(field, "Choose a new password, not the one you have now.",
                                             "password_reused")])
+    if times_breached(password):
+        raise ValidationFailed([field_error(field, BREACHED, "password_breached")])
 
 
 class AdminAuthService:

@@ -15,6 +15,7 @@ class DnsLookupError(Exception):
 class DnsResolver(Protocol):
     def txt(self, name: str) -> list[str]: ...
     def mx(self, name: str) -> list[str]: ...
+    def a(self, name: str) -> list[str]: ...
 
 
 class SystemDnsResolver:
@@ -45,3 +46,10 @@ class SystemDnsResolver:
         if not answer:
             return []
         return [str(record.exchange).rstrip(".").lower() for record in answer]  # type: ignore[union-attr]
+
+    def a(self, name: str) -> list[str]:
+        """IPv4 addresses (DNS blocklists answer with 127.0.0.x)."""
+        answer = self._query(name, "A")
+        if not answer:
+            return []
+        return [record.address for record in answer]  # type: ignore[union-attr]

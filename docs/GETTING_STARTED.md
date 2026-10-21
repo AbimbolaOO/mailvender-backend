@@ -39,8 +39,9 @@ work in the browser first.
 
 The **backend** (this folder) is the server behind it. It:
 
-- **Knows who you are.** It handles sign-up, email verification, login, logout
-  and password resets.
+- **Knows who you are.** It handles sign-up, email verification, login, logout,
+  password resets and optional two-factor sign-in, and refuses passwords known
+  from data breaches.
 - **Keeps your work safe.** It saves your pages, components, brand settings,
   data sources (spreadsheets) and version history in a database. You can
   then sign in on another computer and find everything there.
@@ -51,8 +52,19 @@ The **backend** (this folder) is the server behind it. It:
 - **Sends email properly.** It only sends from domains you've proven you own,
   signs every email (DKIM), adds unsubscribe links, handles bounces and
   complaints, and never emails people who unsubscribed.
-- **Protects everyone's reputation.** It enforces sending limits and suspends
-  accounts that bounce or get too many spam complaints.
+- **Protects everyone's reputation.** It enforces sending limits, suspends
+  accounts that bounce or get too many spam complaints, refuses emails linking
+  to known phishing or malware sites, and watches spam blocklists.
+- **Tells your systems what happened.** Webhooks send a signed notification to
+  your server when an email is sent, bounces, gets a spam complaint, or someone
+  unsubscribes ([WEBHOOKS.md](WEBHOOKS.md)).
+- **Respects people's data.** Workspace and personal exports, account deletion
+  with a 30-day undo, and permanent login deletion ([RETENTION.md](RETENTION.md)).
+
+Mailvender's own staff run the platform from a separate **admin dashboard**
+(`mailvender-admin/`): usage and spam rates, customers who need help, the
+support@/abuse@ inboxes, writing email to customers, and blocking or suspending
+([ADMIN_SETUP.md](ADMIN_SETUP.md)).
 
 ---
 
@@ -70,8 +82,9 @@ container (a small isolated box):
 | **opendkim**   | The email signer                             | Adds a digital signature (DKIM) to each email so inboxes trust it.                                                                       |
 | **mailpit**    | A fake inbox for development                 | Catches **every** email sent locally so you can read it in your browser. Nothing reaches real inboxes.                                   |
 
-The **frontend** is _not_ started by Docker. You run it yourself (step 5),
-because it's hosted separately in production.
+The **studio** and the **admin dashboard** are _not_ started by Docker. You run
+them yourself (step 5), because they're hosted separately (on Vercel) in
+production.
 
 How they connect:
 
@@ -98,8 +111,8 @@ How they connect:
 
 Details and learning links are in [PREREQUISITES.md](PREREQUISITES.md).
 
-**Ports that must be free:** 3000 (studio), 8000 (API), 5434 (database),
-8025 (Mailpit), 2525 (mail server). If something else
+**Ports that must be free:** 3000 (studio), 3100 (admin dashboard, optional),
+8000 (API), 5434 (database), 8025 (Mailpit), 2525 (mail server). If something else
 uses one of them, see [Troubleshooting](#14-troubleshooting).
 
 ---
@@ -111,6 +124,8 @@ The folder layout:
 ```
 mailvender-repo/
 ├── mailvender/            ← the studio (frontend)
+├── mailvender-admin/      ← the staff dashboard (frontend)
+├── backlog.md             ← what isn't built yet
 └── mailvender-backend/    ← this folder
     ├── backend/           ← API + worker code (Python)
     ├── infra/             ← mail server, signer and storage setup
@@ -164,6 +179,9 @@ The studio sends everything under `/api/...` to the API at
 `http://localhost:8000`. That's why the browser only ever talks to
 `localhost:3000`. If your API runs somewhere else, start the studio with
 `API_INTERNAL_URL=http://that-address npm run dev`.
+
+The admin dashboard is optional for everyday work. To run it too
+(http://localhost:3100), follow [ADMIN_SETUP.md](ADMIN_SETUP.md) part A.
 
 ---
 
@@ -226,6 +244,23 @@ Click the **Images** icon in the left toolbar, then **Upload images**. Click an
 image to insert it, or select an image widget first to swap its picture. You
 can also use **Upload an image** in an image widget's settings.
 
+### 6.6 Try a webhook (optional)
+
+1. Start a tiny receiver on your Mac that prints each request and answers 200:
+   ```bash
+   python3 -c 'import http.server as h
+   class R(h.BaseHTTPRequestHandler):
+       def do_POST(s):
+           print(s.headers, s.rfile.read(int(s.headers["Content-Length"])).decode()); s.send_response(200); s.end_headers()
+   h.HTTPServer(("", 4999), R).serve_forever()'
+   ```
+2. **Settings → Webhooks → Add a webhook** with
+   `http://host.docker.internal:4999/hook` (locally, `http://` and your own
+   machine are allowed; production needs a public `https://` URL – e.g.
+   <https://webhook.site> to look at requests). Copy the secret it shows.
+3. Press **Send test**, then send a test email (6.4): a `message.sent` event
+   arrives. **Deliveries** shows each attempt and your receiver's answer.
+
 ---
 
 ## 7. How everyday things work
@@ -278,6 +313,12 @@ can also use **Upload an image** in an image widget's settings.
    "accepted by the mail server".
 5. If Postfix is temporarily unavailable, the worker retries (waiting longer
    each time, up to 6 attempts) and then marks it "failed".
+6. If you've set up a **webhook**, your server is told about each step
+   (`message.sent`, `message.failed`, and later `message.bounced`,
+   `message.complained`, `recipient.unsubscribed`). See [WEBHOOKS.md](WEBHOOKS.md).
+
+Emails that link to a domain on Spamhaus's list of phishing, malware and spam
+sites are refused before sending (`blocklisted_link`).
 
 **Every request to send needs an `Idempotency-Key`.** That's a unique label
 for that send. If your request is retried with the same key, the email is not
@@ -298,12 +339,22 @@ sent twice.
 
 ### Limits and suspension
 
-- New accounts can send to **100 recipients per hour and 500 per day**.
-  Operators can change this.
+- New accounts can send to **100 recipients per hour and 500 per day**
+  (counted over the last hour and the last 24 hours). Mailvender staff can
+  change this in the admin dashboard.
 - If more than 5% of an account's emails bounce, or more than 0.1% get spam
   complaints (once it has sent at least 100), sending is **suspended**
   automatically. The account can still sign in and export its data.
-  An operator reviews it and can reinstate it.
+  Staff review it in the admin dashboard and can reinstate it.
+
+### Signing in safely
+
+- **Settings → You → Turn on two-factor sign-in**: after your password you also
+  type a code from an authenticator app (Google Authenticator, 1Password, …).
+  Save the 10 recovery codes it shows – each signs you in once without your
+  phone. Lost both? Support can turn it off after checking it's you.
+- Passwords that appear in known data breaches are refused (only a partial
+  hash is checked with Have I Been Pwned – never the password).
 
 ### Your data
 
@@ -326,6 +377,7 @@ sent twice.
 | What                            | Address                                      | Login                              |
 | ------------------------------- | -------------------------------------------- | ---------------------------------- |
 | Studio                          | http://localhost:3000                        | your account                       |
+| Admin dashboard (optional)      | http://localhost:3100                        | an admin (ADMIN_SETUP.md A3)       |
 | API docs (try requests here)    | http://localhost:8000/docs                   | —                                  |
 | API contract (machine-readable) | http://localhost:8000/openapi.json           | —                                  |
 | Mailpit (all local email)       | http://localhost:8025                        | —                                  |
@@ -352,7 +404,8 @@ Run these from `mailvender-backend/`:
 | Rebuild after changing Python code | `docker compose up -d --build api worker`                                                                                |
 | Mark a domain verified (dev only)  | `docker compose exec api python -m app.cli dev-verify-domain example.test`                                               |
 | Make a user an operator            | `docker compose exec api python -m app.cli make-operator you@example.com`                                                |
-| Run a scheduled job now            | `docker compose exec worker python -m app.cli run-job retention` (also `dns_recheck`, `platform_dkim`, `account_health`, `dkim_key_sync`) |
+| Run a scheduled job now            | `docker compose exec worker python -m app.cli run-job retention` (also `dns_recheck`, `platform_dkim`, `account_health`, `dkim_key_sync`, `reputation`, `alerts`) |
+| Create / reset an admin            | `docker compose exec api python -m app.cli create-admin you@example.com` (also `reset-admin`, `disable-admin`, `list-admins`) |
 | Apply database migrations by hand  | `docker compose exec api alembic upgrade head` (normally automatic)                                                      |
 | Open a database shell              | `docker compose exec postgres psql -U mailvender mailvender`                                                             |
 
@@ -377,14 +430,15 @@ uv sync                                # first time: installs Python packages
 uv run pytest
 ```
 
-You should see `76 passed`. The tests wipe the `mailvender_test` database on
-each run, so never point them at a database you care about.
+Every test should pass (CI runs the same command). The tests wipe the
+`mailvender_test` database on each run, so never point them at a database you
+care about.
 
-Frontend checks:
+Frontend checks (the same for `mailvender-admin/`):
 
 ```bash
 cd mailvender-repo/mailvender
-npm run lint && npm run typecheck && npm run build
+npm run lint && npm run typecheck && npm test && npm run build
 ```
 
 ---
@@ -415,6 +469,10 @@ Main tables:
 | `assets`                                                                 | Uploaded images                                                                              |
 | `audit_events`                                                           | A permanent log of important actions. **Can't be edited or deleted** (the database refuses). |
 | `account_exports`, `rate_limit_counters`, `job_runs`                     | Exports, rate-limit counters, scheduled job history                                          |
+| `webhook_endpoints`, `webhook_deliveries`                                | Customers' webhook URLs (signing secrets encrypted) and each event sent to them               |
+| `admin_users`, `admin_sessions`, `admin_issue_states`, `admin_mails`, `admin_mail_attachments` | The admin dashboard: staff logins, "Needs help" notes, email written by admins |
+| `inbound_messages`, `dmarc_report_rows`                                  | Mail to support@/postmaster@/abuse@/dmarc@ (the message itself is in S3) and parsed DMARC reports |
+| `system_state`, `user_activity_days`                                     | Blocklist results and alerts already sent; who used Mailvender each day (admin charts)       |
 
 **Please don't fix things by editing rows by hand.** Many actions update
 several tables together (see the warning in 6.1). Use the app, the API or the
@@ -522,7 +580,9 @@ Lists return up to 25 items by default (maximum 100 with `?limit=100`). If
    uv run python -m app.cli openapi > openapi.json
    cd ../../mailvender && npm run api:types
    ```
-   CI fails if `openapi.json` doesn't match the code.
+   For the admin API (`/v1/admin/*`): `uv run python -m app.cli openapi --admin >
+   openapi-admin.json`, then `npm run api:types` in `mailvender-admin/`. CI fails
+   if either file doesn't match the code.
 5. Rebuild the containers: `docker compose up -d --build api worker`.
 
 Where things live in the code is explained in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -534,7 +594,7 @@ Where things live in the code is explained in [ARCHITECTURE.md](ARCHITECTURE.md)
 | Problem                                                       | Cause and fix                                                                                                                                                                                                                                                                            |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **No verification email**                                     | Local email goes to **Mailpit**, http://localhost:8025, not your real inbox. If it isn't there, check `docker compose logs worker` for `system_email.sent`.                                                                                                                              |
-| **Login shows "no workspace to open"**                        | The user has no account. This happens if they were verified by editing the database. A developer must create the missing personal account, an `owner` membership and `users.default_account_id`, in one transaction, or sign up again with a different email and verify through Mailpit. |
+| **Login shows "There's no workspace to open"**                | Every workspace was deleted or left. The screen offers **Restore** for workspaces deleted in the last 30 days, accepting an invitation, downloading your data or deleting the login. (If the user was verified by editing the database, they never got a personal account: sign up again and verify through Mailpit.) |
 | **"Verify your email address first"**                         | Open the link in Mailpit, or click "Send the verification email again" on the login page.                                                                                                                                                                                                |
 | **"Too many attempts"**                                       | Rate limiting. Wait (up to an hour for sign-up/reset, 15 minutes for login), or for local testing clear it: `docker compose exec postgres psql -U mailvender mailvender -c "TRUNCATE rate_limit_counters"`.                                                                              |
 | **DBeaver: `role "mailvender" does not exist`**               | You reached another Postgres on port 5432. Use port **5434**.                                                                                                                                                                                                                            |
@@ -542,8 +602,11 @@ Where things live in the code is explained in [ARCHITECTURE.md](ARCHITECTURE.md)
 | **Image upload fails**                                        | Check the `AWS_*` values in `.env` and the bucket's policy and CORS (RUNBOOK, \"Asset storage (S3)\"). Only PNG, JPEG, GIF and WebP up to 5 MB are allowed.                                                                                        |
 | **Test send: "Send from an approved sender"**                 | Add a domain, mark it verified (6.3), add a sender and click **Approve**.                                                                                                                                                                                                                |
 | **Test send stays "Queued"**                                  | Check `docker compose logs worker` and `docker compose logs postfix`. If Postfix says `milter-reject … Service unavailable`, OpenDKIM isn't reachable: `docker compose restart opendkim postfix`.                                                                                        |
-| **"Sending is suspended"**                                    | Limits, bounces or complaints. Make yourself an operator and reinstate it (`POST /v1/operator/accounts/{id}/reinstate`), or for local testing start fresh.                                                                                                                               |
-| **"sending_limit_exceeded"**                                  | Over 100 recipients/hour or 500/day. Change the limits with the operator API (`PUT /v1/operator/accounts/{id}/limits`).                                                                                                                                                                  |
+| **"Sending is suspended"**                                    | Limits, bounces or complaints. Reinstate it in the admin dashboard (**Accounts** → the account → **Reinstate sending**), or with the operator API (`POST /v1/operator/accounts/{id}/reinstate`).                                                                                         |
+| **"sending_limit_exceeded"**                                  | Over 100 recipients in the last hour or 500 in the last 24 hours. Raise the limits in the admin dashboard (**Change limits**) or with `PUT /v1/operator/accounts/{id}/limits`.                                                                                                           |
+| **Sign-up refuses the password ("appeared in a data breach")** | It's on Have I Been Pwned's list of leaked passwords. Choose another. (Offline? The check is skipped if the service can't be reached.)                                                                                                                                                  |
+| **"blocklisted_link" when sending**                           | A link in the email points to a domain Spamhaus lists for phishing, malware or spam. Remove the link.                                                                                                                                                                                    |
+| **Webhook test never arrives**                                | Look at **Settings → Webhooks → Deliveries**: the error or HTTP status says why. Locally use `http://host.docker.internal:<port>/…` (not `localhost`, which is the container itself).                                                                                                   |
 | **Studio says "Offline – changes are kept here"**             | The API isn't reachable from the studio. Is the backend running? Is `API_INTERNAL_URL` right? Your changes upload once it's back.                                                                                                                                                        |
 | **Signed in on Safari but immediately signed out**            | Safari doesn't keep "Secure" cookies on `http://localhost`. Use Chrome/Firefox, or add `SESSION_COOKIE_SECURE: "false"` to the API's environment in `docker-compose.yml` (local only).                                                                                                   |
 | **API container exits with code 132 ("illegal instruction")** | An old Docker Desktop on Apple Silicon can't run the newest `cryptography` library. It's pinned below 47 for this reason; update Docker Desktop before raising the pin.                                                                                                                  |
@@ -558,7 +621,9 @@ Local settings are not production settings. Before deploying, read
 listed in [`../.env.example`](../.env.example)), real secrets, DNS records,
 AWS S3 setup, the mail server, migrations, backups, key rotation and
 monitoring. For the first deployment of mailvender.com, follow
-[PRODUCTION_SETUP.md](PRODUCTION_SETUP.md) step by step. The production stack is
+[PRODUCTION_SETUP.md](PRODUCTION_SETUP.md) step by step; **redeploying** after
+changes (backend, studio, admin – in that order – and rolling back) is its
+step 15. The admin dashboard's setup is [ADMIN_SETUP.md](ADMIN_SETUP.md). The production stack is
 [`../docker-compose.prod.yml`](../docker-compose.prod.yml); its section
 "Production mail server" in the runbook lists what the sending host needs
 (static IP, reverse DNS, TLS certificate, port 25).
@@ -594,4 +659,7 @@ monitoring. For the first deployment of mailvender.com, follow
 | **AWS S3**                          | File storage. Local dev uses the bucket's `dev/` folder, production `prod/`.                                           |
 | **Postfix**                      | The mail server that delivers email.                                                                  |
 | **OpenDKIM**                     | The program that adds DKIM signatures.                                                                |
-| **Operator**                     | Mailvender staff who can review and suspend accounts.                                                 |
+| **Operator**                     | Mailvender staff who can review and suspend accounts (today through the admin dashboard).             |
+| **Webhook**                      | A notification Mailvender POSTs to your own server when something happens to your email.              |
+| **Two-factor sign-in (2FA)**     | A second step after the password: a 6-digit code from an authenticator app on your phone.             |
+| **Blocklist (DNSBL)**            | A public list of IPs/domains known for spam. Being on one gets mail rejected.                         |

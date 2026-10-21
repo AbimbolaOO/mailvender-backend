@@ -21,6 +21,8 @@ from app.services.common import (
     normalize_email,
     try_normalize_email,
 )
+from app.services.pwned import BREACHED, times_breached
+from app.services.two_factor import use_code
 
 log = get_logger("auth")
 
@@ -39,6 +41,8 @@ def validate_password(password: str, field: str = "password") -> None:
         raise ValidationFailed(
             [field_error(field, f"Use between {MIN_PASSWORD} and {MAX_PASSWORD} characters.", "password_length")]
         )
+    if times_breached(password):
+        raise ValidationFailed([field_error(field, BREACHED, "password_breached")])
 
 
 def send_password_reset(uow: UnitOfWork, user: m.User) -> None:
@@ -163,7 +167,7 @@ class AuthService:
 
     # ---- Sessions ----
 
-    def login(self, email: str, password: str, ip: str, user_agent: str | None) -> NewSession:
+    def login(self, email: str, password: str, ip: str, user_agent: str | None, code: str | None = None) -> NewSession:
         self.limits.hit("login:ip", ip, Limit.parse(self.settings.rate_limit_login_ip))
         normalized = try_normalize_email(email) or email.strip().lower()
         self.limits.hit("login:email", normalized, Limit.parse(self.settings.rate_limit_login_email))
@@ -176,6 +180,15 @@ class AuthService:
         if user.email_verified_at is None:
             raise Forbidden("Verify your email address first – check your inbox for the link.",
                             code="email_not_verified")
+        if user.totp_enabled_at:
+            if not code:
+                raise ApiError("Enter the 6-digit code from your authenticator app.", code="totp_required",
+                               status_code=401)
+            if not use_code(self.uow, user, code):
+                self.uow.commit()
+                log_event(log, "auth.login_failed", reason="bad_code")
+                raise ApiError("That code didn't work. Use the one showing in your app now, or a recovery code.",
+                               code="invalid_code", status_code=401)
         token = new_token()
         session = self.uow.sessions.add(
             m.Session(

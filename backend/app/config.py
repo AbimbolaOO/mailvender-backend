@@ -54,6 +54,35 @@ class Settings(BaseSettings):
     # The platform's own sending IPs (comma-separated): DMARC report rows from any other IP are flagged.
     known_sending_ips: str = ""
 
+    # Reputation (services/reputation.py). DNS blocklists our sending IPs (KNOWN_SENDING_IPS) and the
+    # platform domain are checked against hourly, and links in customers' emails at send time. Blank
+    # turns a check off. Spamhaus answers queries from big public resolvers (8.8.8.8, 1.1.1.1) with an
+    # error, so the server's own resolver must do these lookups; heavy commercial use needs a Spamhaus
+    # DQS key (then use <key>.zen.dq.spamhaus.net etc. here).
+    blocklist_ip_zones: str = "zen.spamhaus.org,bl.spamcop.net,b.barracudacentral.org"
+    blocklist_domain_zones: str = "dbl.spamhaus.org"
+    link_blocklist_zones: str = "dbl.spamhaus.org"
+
+    # Alerts (services/alerts.py): when a health check turns red (and when it's fixed). Emails go to
+    # ALERT_EMAILS (comma-separated; blank = the active admins); ALERT_WEBHOOK_URL gets a Slack/
+    # Discord-style {"text": …} POST too – useful because email alerts can't arrive while mail is broken.
+    alert_emails: str = ""
+    alert_webhook_url: str = ""
+    admin_app_url: str = ""  # production: https://backoffice.mailvender.com (docker-compose.prod.yml) – linked from alerts
+
+    # Reject passwords found in known data breaches (Have I Been Pwned "range" API: only the first five
+    # characters of the password's SHA-1 leave the server). If the service can't be reached, the
+    # password is allowed.
+    pwned_passwords_check: bool = True
+
+    # Webhooks (services/webhooks.py): customers' URLs that get signed event notifications.
+    webhook_max_endpoints: int = 10
+    webhook_timeout_seconds: float = 10.0
+    # Only https URLs on the public internet. Locally, a receiver on your machine needs both true.
+    webhook_allow_http: bool = False
+    webhook_allow_private_addresses: bool = False
+    retention_webhook_deliveries_days: int = 30
+
     # Email written in the admin app (see docs/ADMIN_SETUP.md). Sent from <mailbox>@<platform domain>.
     admin_mail_from_mailboxes: str = "support,postmaster,abuse"
     admin_mail_from_name: str = "Mailvender"
@@ -182,6 +211,8 @@ class Settings(BaseSettings):
                 problems.append(f"{name.upper()} must be at least 32 random characters")
         if self.admin_proxy_secret and self.admin_proxy_secret == self.api_proxy_secret:
             problems.append("ADMIN_PROXY_SECRET must differ from API_PROXY_SECRET")
+        if self.webhook_allow_http or self.webhook_allow_private_addresses:
+            problems.append("WEBHOOK_ALLOW_HTTP / WEBHOOK_ALLOW_PRIVATE_ADDRESSES are for local development only")
         if problems:
             raise ValueError("invalid production configuration: " + "; ".join(problems))
         return self
@@ -203,6 +234,26 @@ class Settings(BaseSettings):
     @property
     def known_sending_ip_set(self) -> set[str]:
         return {ip.strip() for ip in self.known_sending_ips.split(",") if ip.strip()}
+
+    @staticmethod
+    def _list(value: str) -> list[str]:
+        return [item.strip().lower() for item in value.split(",") if item.strip()]
+
+    @property
+    def blocklist_ip_zone_list(self) -> list[str]:
+        return self._list(self.blocklist_ip_zones)
+
+    @property
+    def blocklist_domain_zone_list(self) -> list[str]:
+        return self._list(self.blocklist_domain_zones)
+
+    @property
+    def link_blocklist_zone_list(self) -> list[str]:
+        return self._list(self.link_blocklist_zones)
+
+    @property
+    def alert_email_list(self) -> list[str]:
+        return self._list(self.alert_emails)
 
     @property
     def admin_mail_from_list(self) -> list[str]:

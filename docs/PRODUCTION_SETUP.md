@@ -10,6 +10,7 @@ The production layout:
 | --------------------------------------- | -------------------- | -------------------------------------------------------- |
 | `https://www.mailvender.com`            | Vercel               | The Next.js app; it forwards `/api/*` to the API         |
 | `mailvender.com`                        | Vercel               | Redirects to `www`                                       |
+| `https://backoffice.mailvender.com`          | Vercel (2nd project) | The staff dashboard (step 19); talks to `/v1/admin/*` only |
 | `https://api.mailvender.com`            | Hetzner server       | The API (Caddy → FastAPI on `localhost:8000`)            |
 | `mail.mailvender.com`                   | Hetzner server       | The outbound mail server (Postfix + OpenDKIM)            |
 | `feedback.mailvender.com`               | Hetzner server       | Where bounces come back                                  |
@@ -28,8 +29,9 @@ frontend is on Vercel, so the server doesn't need Node.js.
 
 ## Deployment status
 
-Where the mailvender.com deployment stands (last checked 2026-10-17). Tick
-items off as you go.
+Where the mailvender.com deployment stands (last checked 2026-10-22). Tick
+items off as you go. Work that isn't about this deployment (features, ideas,
+recommendations) is in [backlog.md](../../backlog.md).
 
 ### Done
 
@@ -62,6 +64,12 @@ items off as you go.
       Postmaster Tools, Microsoft SNDS and JMRP. Doesn't need port 25.
 - [ ] Step 19: the admin dashboard (secrets, Vercel project, first sign-in, Email Worker for the role inboxes).
 - [ ] Step 14b: turn on bucket versioning and the two lifecycle rules in the AWS Console.
+- [ ] IAM: allow `s3:ListBucket` on the `prod/` prefix (the admin's backup checks need it; RUNBOOK
+      "Asset storage").
+- [ ] Settings for monitoring: `KNOWN_SENDING_IPS`, `ALERT_WEBHOOK_URL` in
+      `.env.production` (step 19), and an outside uptime monitor on `/health/ready` (RUNBOOK
+      "Monitoring and alerting").
+- [ ] Step 14c: test-restore one database backup.
 
 Steps 3 and 5–9 are best done in one sitting on the server.
 
@@ -103,9 +111,10 @@ Steps 3 and 5–9 are best done in one sitting on the server.
   close to the server (the server is in Helsinki, `hel1`, so e.g. Stockholm or
   Frankfurt). Copy its
   connection string.
-- **The AWS S3 bucket** (images and dataset content). Required: the production
-  stack stores files under `prod/` in the bucket. Bucket setup:
-  [RUNBOOK.md](RUNBOOK.md).
+- **The AWS S3 bucket** (images, dataset content, exports, admin mail
+  attachments, backups). Required: the production stack stores files under
+  `prod/` in the bucket. Bucket setup and the IAM permissions:
+  [RUNBOOK.md](RUNBOOK.md), "Asset storage (S3)".
 
 ## 2. Hetzner: server, port 25 and reverse DNS
 
@@ -814,7 +823,24 @@ rm mailvender.dump
 
 ## 15. Redeploying after code changes
 
+Three things deploy separately. When a change touches more than one, deploy in
+this order, so a newer web app never talks to an older API:
+
+1. **Backend** (server): API, worker, Postfix, OpenDKIM. Database migrations run
+   by themselves when the API starts.
+2. **Studio** (`mailvender/`, Vercel project for www.mailvender.com).
+3. **Admin** (`mailvender-admin/`, Vercel project for backoffice.mailvender.com).
+
+The Cloudflare Email Worker (`infra/email-worker/`) only needs redeploying when
+its own code changes.
+
 ### Backend
+
+**0. Keep a copy of what's running** (so you can roll back), from your **Mac**:
+
+```sh
+ssh root@2.29.100.188 'cd /opt/mailvender && tar czf backend-previous.tgz --exclude=.env --exclude=certs mailvender-backend'
+```
 
 **1. Copy the code to the server.** In a terminal on your **Mac** (not the SSH
 session):
@@ -840,7 +866,9 @@ container's logs with it**. The first line uploads them to S3 before that
 (skip it until step 14 is set up).
 
 Database migrations run automatically when the API starts. Queued mail is kept
-across restarts (the `postfix-queue` volume).
+across restarts (the `postfix-queue` volume). Check which migration is live:
+`docker compose -f docker-compose.prod.yml exec api alembic current` (the
+newest is the highest number in `backend/alembic/versions/`).
 
 **3. Check it's healthy.** Run the status check (step 17), or by hand:
 
@@ -851,19 +879,55 @@ curl -s http://localhost:8000/health/ready                  # {"status":"ok","da
 ```
 
 From your Mac, `curl -s https://api.mailvender.com/health/ready` should give
-the same.
+the same. The admin's **System** page shows every background job; new ones
+appear there after their first run.
 
 **Changed a setting only?** Copy `.env.production` again (step 7), then on the
 server run `docker compose -f docker-compose.prod.yml up -d` (no `--build`).
+Every setting is listed in `.env.example` and RUNBOOK "Environment variables".
 
 **Changed `infra/log-backup/` or `infra/db-backup/`?** Re-run the `cp` and
 `systemctl daemon-reload` from step 14a.
 
-### Frontend
+**Rolling back.** If the new version misbehaves, put the copy from step 0 back
+and rebuild, on the server:
 
-Push to the branch Vercel deploys, or redeploy in the Vercel dashboard. Nothing
-changes on the server. After changing Vercel environment variables, redeploy
-too (step 10).
+```sh
+cd /opt/mailvender && mv mailvender-backend mailvender-backend.bad && tar xzf backend-previous.tgz
+cp mailvender-backend.bad/.env mailvender-backend/ && cp -a mailvender-backend.bad/certs mailvender-backend/
+cd mailvender-backend && docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Migrations so far only *add* tables and columns, so the previous code runs fine
+on the newer database; don't downgrade migrations unless a release note says so.
+
+### Studio (www.mailvender.com)
+
+Push to the branch Vercel deploys (`mailvender/` is a git repository), or
+redeploy in the Vercel dashboard. Nothing changes on the server. After
+changing Vercel environment variables, redeploy too (step 10): the `/api`
+rewrite is fixed at build time.
+
+### Admin (backoffice.mailvender.com)
+
+`mailvender-admin/` isn't in git yet, so deploy it from your Mac with the
+Vercel CLI (ADMIN_SETUP B5):
+
+```sh
+cd ~/Desktop/mailvender-repo/mailvender-admin
+npx vercel deploy --prod
+```
+
+### Rolling back a web app
+
+Vercel keeps every deployment: **Vercel → the project → Deployments → a
+previous one → ⋯ → Promote to Production** (or `npx vercel rollback`). It takes
+seconds and doesn't touch the API.
+
+### Email Worker (role inboxes)
+
+Only after changing `infra/email-worker/`: `cd infra/email-worker && npx
+wrangler deploy` (ADMIN_SETUP C1).
 
 ## 16. Troubleshooting
 
@@ -1012,19 +1076,25 @@ Notes:
 ## 19. The admin dashboard
 
 Mailvender Admin (`mailvender-admin/`, a second Vercel project) is the private
-dashboard for staff: the postmaster@/abuse@/dmarc@ inboxes, usage and spam
-rates, customers who need help, and blocking or suspending. Its setup is in
+dashboard for staff: the support@/postmaster@/abuse@/dmarc@ inboxes, writing
+email (with attachments) to customers or anyone, usage and spam rates,
+customers who need help, blocking or suspending, and the platform's health. Its setup is in
 its own guide, **[ADMIN_SETUP.md](ADMIN_SETUP.md)**. In short:
 
 1. Make `ADMIN_PROXY_SECRET` and `INBOUND_MAIL_SECRET` (`openssl rand -hex 32`),
-   add them and `KNOWN_SENDING_IPS=2.29.100.188` to `.env.production`, copy it
-   to the server (step 7) and redeploy (step 15). Migration `0004` runs by
-   itself.
+   add them, `KNOWN_SENDING_IPS=2.29.100.188` (also used for the hourly
+   blocklist check) and, ideally, `ALERT_WEBHOOK_URL=<a Slack or Discord
+   webhook>` (RUNBOOK "Monitoring and
+   alerting") to `.env.production`, copy it to the server (step 7) and redeploy
+   (step 15). Migrations run by themselves. Alert emails link to
+   `https://backoffice.mailvender.com` (`ADMIN_APP_URL`, set in
+   `docker-compose.prod.yml`).
 2. On the server: `docker compose -f docker-compose.prod.yml exec api python -m app.cli create-admin you@example.com`.
 3. Deploy `mailvender-admin/` to Vercel with `API_INTERNAL_URL` and
-   `ADMIN_PROXY_SECRET`, and give it a `CNAME` in Cloudflare.
+   `ADMIN_PROXY_SECRET`, add the domain `backoffice.mailvender.com` in Vercel,
+   and a `CNAME` `backoffice` → Vercel in Cloudflare (DNS only).
 4. Sign in: you'll change the temporary password and set up an authenticator
    app.
 5. Deploy the Cloudflare Email Worker (`infra/email-worker/`) and point the
-   three role addresses at it, so their mail shows up in the admin's Inbox
-   (13a must be done first).
+   four role addresses (`support@`, `postmaster@`, `abuse@`, `dmarc@`) at it, so
+   their mail shows up in the admin's Inbox (13a must be done first).

@@ -204,9 +204,10 @@ def send_message(
     body: s.SendIn,
     ctx: CtxOrKey,
     uow: Uow,
+    resolver: Resolver,
     idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None,
 ) -> s.MessageOut:
-    result = SendingService(uow).send(
+    result = SendingService(uow, resolver).send(
         ctx,
         SendRequest(
             from_email=body.from_, from_name=body.from_name, reply_to=body.reply_to, to=body.to,

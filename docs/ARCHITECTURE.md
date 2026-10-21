@@ -30,8 +30,10 @@ editors render them.
 16. [Testing strategy](#16-testing-strategy)
 17. [Deployment topology](#17-deployment-topology)
 18. [Design decisions](#18-design-decisions)
-19. [Known limitations and future work](#19-known-limitations-and-future-work)
+19. [Known limitations](#19-known-limitations)
 20. [Admin dashboard](#20-admin-dashboard)
+21. [Webhooks](#21-webhooks)
+22. [Reputation, alerts and sign-in security](#22-reputation-alerts-and-sign-in-security)
 
 ---
 
@@ -48,10 +50,13 @@ mail merge. The backend adds:
 | Authorised sending, DKIM, bounces, compliance | Backend + Postfix + OpenDKIM                  |
 | Image hosting                                 | Backend + S3/CDN                              |
 | Audit, health, data lifecycle                 | Backend                                       |
+| Telling customers' systems what happened      | Backend (webhooks, §21)                       |
+| Running the platform (staff)                  | Admin dashboard `mailvender-admin/` (§20)     |
 
-**Out of scope:** inbound mail and mailboxes (only DSNs to return-path
-addresses are accepted), campaign scheduling, analytics, billing,
-collaborative editing.
+**Out of scope:** mailboxes for customers (the platform receives only DSNs at
+return-path addresses, and – for staff – mail to its own role addresses).
+Campaign scheduling, analytics, billing and collaborative editing aren't built
+yet: see [backlog.md](../../backlog.md).
 
 ---
 
@@ -79,8 +84,10 @@ flowchart LR
     S3[("S3 bucket")]
     CDN["CDN"]
     MX["Recipients' MX"]
-    DNS["Public DNS"]
+    DNS["Public DNS<br/>(+ blocklists)"]
     FBL["Feedback-loop providers"]
+    HOOK["Customers' webhook<br/>endpoints"]
+    ADMIN["Admin app (Vercel)<br/>/api/v1/admin/*"]
 
     Studio -- "/api/* (cookie)" --> Next
     Next -- "rewrite" --> API
@@ -97,9 +104,14 @@ flowchart LR
     MX -- "DSN to b-id@bounce.domain" --> Postfix
     Postfix -- "pipe → POST /internal/dsn" --> API
     FBL -- "signed ARF → /internal/feedback-loop" --> API
-    API -. "TXT/MX lookups" .-> DNS
-    Worker -. "rechecks" .-> DNS
+    API -. "TXT/MX lookups,<br/>link blocklist" .-> DNS
+    Worker -. "rechecks, blocklists" .-> DNS
+    Worker -- "signed POST (webhooks)" --> HOOK
+    ADMIN -- "X-Mailvender-Admin-Secret" --> API
 ```
+
+The admin app and the Cloudflare Email Worker that feeds the role inboxes are
+shown in §20.
 
 **Local development** uses the same S3 bucket under a `dev/` folder
 (production uses `prod/`), delivers all mail to
@@ -121,21 +133,25 @@ backend/
 │   ├── logging.py              # JSON logs + request/user/account contextvars
 │   ├── security.py             # Argon2id, token hashing, Fernet, DKIM keygen, signed tokens
 │   ├── pagination.py           # cursor pagination
-│   ├── cli.py                  # make-operator, run-job, openapi, dev-verify-domain, platform-dkim
+│   ├── cli.py                  # make-operator, run-job, openapi [--admin], dev-verify-domain, platform-dkim,
+│   │                           # create/reset/disable/list-admin(s), upload-log, upload-backup, move-dataset-content
 │   ├── worker.py               # outbox consumer + scheduler + DKIM key sync
 │   ├── api/
 │   │   ├── deps.py             # DI: UoW, adapters, auth, account context
-│   │   ├── schemas.py          # request/response models (the contract)
-│   │   └── routes_*.py         # thin HTTP handlers
+│   │   ├── schemas.py          # request/response models (the public contract)
+│   │   ├── schemas_admin.py    # the admin contract (openapi-admin.json)
+│   │   └── routes_*.py         # thin HTTP handlers: auth, accounts, sending, data, webhooks, public, admin
 │   ├── services/               # application services (business rules)
 │   │   ├── common.py           # AccountContext, audit, RateLimiter, email normalisation
-│   │   ├── auth.py  accounts.py  domains.py  dns.py
-│   │   ├── sending.py  mta.py  feedback.py  health.py
+│   │   ├── auth.py  two_factor.py  pwned.py  accounts.py  domains.py  dns.py  platform_dkim.py
+│   │   ├── sending.py  mta.py  feedback.py  health.py  webhooks.py  reputation.py  emails.py
 │   │   ├── assets.py  storage.py  sync.py  lifecycle.py
+│   │   ├── admin_auth.py  admin_dashboard.py  admin_customers.py  admin_issues.py  admin_mail.py
+│   │   └── inbound.py  dmarc.py  alerts.py
 │   └── repositories/
 │       ├── interfaces.py       # Protocols + UnitOfWork
 │       └── sql.py              # SQLAlchemy implementations (the only persistence code)
-├── alembic/                    # migrations (0001 = initial schema + trigger + sequence)
+├── alembic/                    # migrations 0001 (initial schema + trigger + sequence) … 0008 (webhooks)
 ├── tests/                      # pytest against real Postgres, fakes for S3/DNS/SMTP
 ├── openapi.json                # published contract (CI-checked)
 ├── Dockerfile  scripts/entrypoint.sh
@@ -225,7 +241,9 @@ exceptions) are converted by handlers in `errors.py` to one shape:
 | Session cookie `mv_session`                          | Browsers                 | 256-bit random token. Only `HMAC-SHA256(SECRET_KEY, token)` is stored. `HttpOnly`, `Secure`, `SameSite=Lax`, 14-day expiry, revocable. Checked on every request (immediate revocation). |
 | API key `Authorization: Bearer mv_<lookup>_<secret>` | Servers                  | Per account, keyed hash stored, plaintext shown once. Accepted only on endpoints using the `CtxOrKey` dependency (send, read messages, domains, senders, suppressions).                 |
 | `X-Internal-Token`                                   | Postfix DSN pipe         | Shared secret, constant-time compare.                                                                                                                                                   |
-| `X-Mailvender-Signature`                             | Feedback-loop sources    | `sha256=HMAC(body, per-source secret)`.                                                                                                                                                 |
+| `X-Mailvender-Signature`                             | Feedback-loop sources, Email Worker | `sha256=HMAC(body, per-source secret)`; `INBOUND_MAIL_SECRET` for `/internal/inbound-mail`.                                                                                  |
+| Authenticator code (TOTP, RFC 6238)                  | Customers who turn it on | After the password: `401 totp_required` until `code` is sent; each code accepted once; 10 hashed recovery codes (§22).                                                                  |
+| `__Host-mv_admin_session` + `X-Mailvender-Admin-Secret` | Admin app             | Separate admins, sessions and proxy key (§20).                                                                                                                                         |
 | Signed recipient tokens                              | Unsubscribe / view links | Fernet (AES-CBC + HMAC with timestamp). Opaque, tamper-proof, expire after 90 days.                                                                                                     |
 
 **CSRF:** cookie-authenticated unsafe requests must carry
@@ -256,6 +274,7 @@ sequenceDiagram
 
 Password reset follows the same pattern (single-use, 60 minutes, revokes all
 sessions). Neither signup nor reset reveals whether an address is registered.
+Both refuse passwords found in breaches (§22).
 
 ### Tenancy
 
@@ -268,10 +287,12 @@ sessions). Neither signup nor reset reveals whether an address is registered.
   from a missing one (**404**). Selecting an account you're not a member of is
   **403** `not_a_member`.
 - Roles: `owner` and `member`. Owner-only actions: invitations, removing
-  members, ownership transfer, API keys, sender identities, export, deletion.
+  members, ownership transfer, API keys, sender identities, webhooks, export,
+  deletion and restore.
   The last owner can't leave or be removed (409 `last_owner`).
 - **Operators** are users with `is_operator` (set via CLI). They use
-  `/v1/operator/*` and are not account members.
+  `/v1/operator/*` and are not account members. Day-to-day operations moved to
+  the admin dashboard (§20), whose admins aren't users at all.
 
 ---
 
@@ -298,6 +319,8 @@ erDiagram
     accounts ||--o{ account_exports : exports
     accounts ||--o{ audit_events : logs
     accounts ||--o{ outbox_events : queues
+    accounts ||--o{ webhook_endpoints : notifies
+    webhook_endpoints ||--o{ webhook_deliveries : sent
 ```
 
 | Table                                                 | Notes                                                                                                                                                     |
@@ -318,12 +341,18 @@ erDiagram
 | `audit_events`                                        | **Immutable**: a `BEFORE UPDATE OR DELETE` trigger raises.                                                                                                |
 | `rate_limit_counters`                                 | PK (key, window_start).                                                                                                                                   |
 | `job_runs`                                            | Last run/error per scheduled job.                                                                                                                         |
+| `webhook_endpoints`, `webhook_deliveries`             | Customer URLs (secret Fernet-encrypted, events, failure counters) and each event sent with the last attempt's outcome (§21).                               |
+| `platform_dkim_keys`                                  | Mailvender's own DKIM key(s), not owned by any account.                                                                                                   |
+| `system_state`                                        | Small JSON state kept by jobs: blocklist results, alerts already sent (§22).                                                                              |
+| Admin tables                                          | `admin_users`, `admin_sessions`, `admin_issue_states`, `admin_mails`, `admin_mail_attachments`, `inbound_messages`, `dmarc_report_rows`, `user_activity_days` (§20). |
 
 All ids are UUIDs (v4 server-side; the frontend derives v5 UUIDs for synced
 records). All timestamps are `timestamptz`, and connections use `timezone=utc`.
 
-Migrations are Alembic. `0001_initial_schema` creates all tables, the
-`sync_seq` sequence and the audit trigger. A test asserts that the migrated
+Migrations are Alembic: `0001_initial_schema` (all original tables, the
+`sync_seq` sequence and the audit trigger), `0002` dataset content in S3,
+`0003` platform DKIM, `0004` admin, `0005` login deletion, `0006` admin mail,
+`0007` customer two-factor + `system_state`, `0008` webhooks. A test asserts that the migrated
 schema equals the models (`compare_metadata == []`) and that downgrade and
 upgrade round-trip.
 
@@ -341,7 +370,7 @@ flowchart TB
     B -- no --> C["SELECT account FOR UPDATE<br/>(serialises sends per account)"]
     C --> D{"active and<br/>not suspended?"}
     D -- no --> R3["403 account_suspended / account_inactive"]
-    D -- yes --> E["Validate everything, collect field errors:<br/>recipients (syntax, duplicates, count ≤ 50), subject (one line),<br/>html ≤ 1 MB, approved sender on verified domain of this account,<br/>bulk rules, suppressions per recipient"]
+    D -- yes --> E["Validate everything, collect field errors:<br/>recipients (syntax, duplicates, count ≤ 50), subject (one line),<br/>html ≤ 1 MB, links not on Spamhaus DBL, approved sender on verified<br/>domain of this account, bulk rules, suppressions per recipient"]
     E -- errors --> R4["422 with fields – nothing queued"]
     E -- ok --> F{"hourly/daily limit OK?<br/>(count recipients under the lock)"}
     F -- no --> R5["429 sending_limit_exceeded<br/>(+ violation counter → maybe suspend)"]
@@ -402,6 +431,10 @@ stateDiagram-v2
 Delivery is **at least once**: if the worker crashes after Postfix accepted
 but before the commit, the message is resent. That trade-off is accepted
 rather than risking lost mail.
+
+Each transition to `accepted_by_mta`, `failed` or `suppressed` (and later
+`bounced` and `complained`, and unsubscribes) also queues a webhook event in the
+same transaction (§21).
 
 ---
 
@@ -486,6 +519,8 @@ flowchart LR
 - Suppressions are checked **at acceptance** (field error per recipient,
   deliberately vague: "can't receive email from this account") **and again at
   delivery**.
+- Bounces, complaints and new unsubscribes queue `message.bounced`,
+  `message.complained` and `recipient.unsubscribed` webhook events (§21).
 
 ---
 
@@ -506,7 +541,11 @@ flowchart LR
   recipients at delivery. Login, sync and export keep working.
 - **Operator API** lists metrics, limits, state and the latest decision, and
   suspends, reinstates, changes limits or records reviews. Every action is an
-  immutable audit row with actor and reason.
+  immutable audit row with actor and reason. The admin dashboard (§20) uses the
+  same `HealthService` logic.
+- **Reputation:** links in an email are checked against Spamhaus DBL at
+  acceptance, and our sending IPs and domain are checked against blocklists
+  hourly (§22).
 
 ---
 
@@ -543,9 +582,9 @@ sequenceDiagram
 - Keys are unguessable (random UUIDs) and segregated by account prefix.
 - Delete removes the public object. Emails already delivered keep whatever the
   client cached. CDN invalidation is an operational step.
-- `AWS_S3_UPLOAD_ENDPOINT_URL` exists only so local presigned URLs point at
-  `localhost:9000` instead of `minio:9000`. A presigned POST's signature
-  doesn't cover the host.
+- `AWS_S3_UPLOAD_ENDPOINT_URL` exists for S3-compatible endpoints the browser
+  reaches under a different host than the API does (it was used with MinIO
+  locally). A presigned POST's signature doesn't cover the host.
 
 ---
 
@@ -640,8 +679,9 @@ Key choices:
   (the row stays for audit, `users.deleted_at`).
 - **Retention job** (daily): purge bodies at 30 days, messages at 90,
   delivery events at 180, expired tokens/sessions/counters/exports, retired
-  DKIM keys at 30, abandoned uploads after 1 h. See
-  [RETENTION.md](RETENTION.md).
+  DKIM keys at 30, abandoned uploads after 1 h, webhook deliveries at 30 days,
+  admin inbox and sent mail at 180, DMARC rows at 365, deleted accounts after
+  30. See [RETENTION.md](RETENTION.md).
 
 ---
 
@@ -657,6 +697,8 @@ flowchart LR
     J --> J2["account_health – 5 min"]
     J --> J3["retention – 24 h"]
     J --> J4["dkim_key_sync – 30 s"]
+    J --> J6["reputation – 1 h"]
+    J --> J7["alerts – 10 min"]
 ```
 
 | Outbox kind             | Handler                                                       |
@@ -664,6 +706,8 @@ flowchart LR
 | `deliver_recipient`     | `DeliveryService.deliver` (retry/backoff inside)              |
 | `system_email`          | Verification/reset/invitation mail, body erased after sending |
 | `account_export`        | `LifecycleService.build_export`                               |
+| `webhook`               | `WebhookService.deliver` (signed POST; its own retry schedule) |
+| `admin_mail`            | `AdminMailService.deliver` (email written in the admin)       |
 | `account_assets_delete` | Delete an account's assets (only events queued before restore existed; the purge does it now) |
 
 - Each event runs in a **savepoint**. An unexpected exception backs off
@@ -684,7 +728,8 @@ flowchart LR
 | **Pagination**       | Keyset on `(created_at, id)`, opaque base64 cursor, default 25, max 100 (422 above). Sync snapshot uses `(collection, id)` plus watermark.                                                                                                                                                 |
 | **Logging**          | JSON to stdout: `time, level, logger, event, request_id, user_id, account_id` + fields (`message_id`, …). `X-Request-ID` echoed. Health probes aren't logged.                                                                                                                              |
 | **Rate limiting**    | Fixed windows in `rate_limit_counters` via `INSERT … ON CONFLICT DO UPDATE … RETURNING`, committed in its **own** transaction so failed attempts still count. Per IP and per email for signup, login, verification resend and reset. 429 with `Retry-After`; `rate_limit.exceeded` logged. |
-| **Secrets**          | Env vars only. Argon2id for passwords. HMAC for tokens and keys. Fernet for DKIM keys and recipient tokens. Nothing secret is returned by the API (export excludes keys).                                                                                                                  |
+| **Secrets**          | Env vars only. Argon2id for passwords. HMAC for tokens and keys. Fernet for DKIM keys, TOTP secrets, webhook signing secrets and recipient tokens. Nothing secret is returned by the API (export excludes keys; a webhook secret is shown once).                                       |
+| **Outbound HTTP**    | Only webhooks (customer URLs), the HIBP range API and the alert webhook. Webhook targets must resolve to public addresses (checked on save and before each request), redirects aren't followed, 10 s timeout, 1 KB of the answer kept.                                                   |
 | **Contract**         | FastAPI generates `/openapi.json`, committed as `backend/openapi.json` (CI diff). The frontend generates `lib/api/schema.d.ts` with `openapi-typescript` and calls the API through typed `openapi-fetch`. No handwritten duplicate types.                                                  |
 | **Timestamps / ids** | UTC `timestamptz`, ISO 8601 with offset; UUIDs everywhere.                                                                                                                                                                                                                                 |
 | **Migrations**       | Alembic. The API entrypoint runs `upgrade head` under an advisory lock before serving.                                                                                                                                                                                                     |
@@ -707,7 +752,10 @@ flowchart LR
   retries, permanent failures, concurrency limits, suspension, API keys),
   feedback (unsubscribe, hard/soft bounces, complaints, signatures), health
   and operator, assets, sync (conflicts, tombstones, snapshot and changes,
-  versions), lifecycle (export, deletion, retention).
+  versions), lifecycle (export, deletion, restore, login deletion, retention),
+  the admin API (proxy key, sign-in and TOTP, inbox and DMARC parsing, admin
+  mail), webhooks (signing, retries, auto-disable, SSRF), blocklists, alerts,
+  breached passwords and customer two-factor.
 - A manual **end-to-end** pass through the real stack (Next.js proxy →
   API → worker → Postfix + OpenDKIM → Mailpit, DSN back through Postfix,
   MinIO policy) verified the infrastructure wiring.
@@ -723,7 +771,8 @@ flowchart TB
         CDN["CDN"]
     end
     subgraph App["App tier"]
-        FE["Next.js (separate host)"]
+        FE["Next.js studio (Vercel)"]
+        ADM["Admin app (Vercel)"]
         API1["API replica"]
         API2["API replica"]
         W1["Worker(s)"]
@@ -738,6 +787,7 @@ flowchart TB
         V[/"private DKIM volume"/]
     end
     U --> FE --> API1 & API2
+    ADM --> API1
     U --> CDN --> S3
     API1 & API2 & W1 --> PG
     API1 & API2 --> S3
@@ -780,11 +830,15 @@ network has fixed addresses for exactly this reason.
 | **Fingerprint scanning on the client**                                              | Minimal intrusion into existing editor stores. Robust to any mutation path.                                                                         | Periodic re-hashing of local data (cheap at these sizes).                                                     |
 | **Immutable audit via DB trigger**                                                  | Guaranteed even against application bugs or manual SQL.                                                                                             | Corrections must be new rows.                                                                                 |
 | **Community MinIO images (`pgsty/*`)**                                              | Retired: local development now uses the real S3 bucket (`dev/` folder).                                                                                              | Revisit if a maintained official image returns.                                                               |
-| **`cryptography<47` pin**                                                           | Newer wheels crash (SIGILL) on some older Docker VMs on Apple Silicon.                                                                              | Remove once all developer Docker installs are current.                                                        |
+| **`cryptography<47` pin**                                                           | Newer wheels crash (SIGILL) on some older Docker VMs on Apple Silicon.                                                                              | Remove once all developer Docker installs are current (backlog 2.2); CI ignores four advisories in unused code until then. |
+| **Webhooks: Stripe-style signature over `"<t>.<body>"`, delivered through the outbox** | A familiar scheme for customers (replay-safe with the timestamp); events commit atomically with the state change that caused them.                 | At-least-once and unordered; receivers dedupe on `Mailvender-Event-Id`.                                       |
+| **Admin as a separate app, API gated by a proxy key**                               | The admin API is invisible (404) without the key; admins aren't customer users, so a customer bug can't grant admin rights.                       | A second Vercel project and secret to manage.                                                                 |
+| **Alerts from inside the platform, by email and webhook**                           | No extra monitoring service to run; the webhook still works when our own mail is broken.                                                            | If the whole server is down nothing alerts: add an outside uptime monitor (backlog 1.7).                      |
+| **Breached-password check fails open**                                              | An HIBP outage must not block sign-ups.                                                                                                             | During an outage a leaked password can get through.                                                           |
 
 ---
 
-## 19. Known limitations and future work
+## 19. Known limitations
 
 - Feedback loops must POST signed reports. Providers that only email ARF
   reports need a small signing relay (or an inbound address routed like DSNs).
@@ -802,8 +856,8 @@ network has fixed addresses for exactly this reason.
   it's a pure MTA like Postfix, signs DKIM from files and accepts SMTP from
   the worker, so it can replace Postfix + OpenDKIM behind `SmtpTransport`
   without changing the API.
-- Out of scope by design: scheduling, A/B tests, open/click analytics,
-  billing, inbound mailboxes.
+- Not built yet (scheduling, A/B tests, analytics, billing, IP pools, …):
+  [backlog.md](../../backlog.md).
 
 ---
 
@@ -815,7 +869,7 @@ flowchart LR
     V -->|rewrite, server to server| A[API /v1/admin/*]
     X[Anyone else] -->|/v1/admin/* without the key| A
     A -.->|404 before routing| X
-    CF[Cloudflare Email Routing<br/>postmaster@ abuse@ dmarc@] --> W[Email Worker]
+    CF[Cloudflare Email Routing<br/>support@ postmaster@ abuse@ dmarc@] --> W[Email Worker]
     W -->|copy| G[Gmail]
     W -->|HMAC-signed raw message| I[API /internal/inbound-mail]
     I --> S3[(S3 inbox/…eml)]
@@ -849,3 +903,81 @@ flowchart LR
   refused. HTML is only served by `/v1/admin/inbox/{id}/body` with
   `default-src 'none'`, the CSP `sandbox` directive and images opt-in, inside a
   sandboxed iframe.
+- **Writing email.** Admins send from `ADMIN_MAIL_FROM_MAILBOXES` at the platform
+  domain (default support@, postmaster@, abuse@). Attachments are uploaded one
+  per request as the raw body (each ≤ 4 MB, under Vercel's request limit; ≤ 7 MB
+  per email, under Postfix's 10 MB once base64-encoded) to private S3; the
+  `admin_mail` outbox event builds the MIME message (branded HTML + text, or
+  text only; In-Reply-To/References for replies) and sends it through Postfix,
+  so it's platform-DKIM signed. The From address is also the envelope sender,
+  so replies and bounces return to that role inbox.
+
+---
+
+## 21. Webhooks
+
+```mermaid
+sequenceDiagram
+    participant S as Service (sending / feedback)
+    participant DB as PostgreSQL
+    participant W as Worker
+    participant C as Customer's endpoint
+
+    S->>DB: state change (e.g. recipient → bounced)
+    S->>DB: webhook_deliveries row per listening endpoint<br/>+ outbox event "webhook" (same transaction)
+    W->>DB: claim outbox event
+    W->>W: resolve host – public addresses only
+    W->>C: POST JSON, Mailvender-Signature: t=…,v1=HMAC(secret, "t.body")
+    alt 2xx
+        W->>DB: delivered; endpoint.consecutive_failures = 0
+    else other / timeout
+        W->>DB: attempts += 1; outbox event pending until next backoff step
+        Note over W,DB: 30 s, 2 m, 10 m, 30 m, 1 h, 3 h, 6 h, 12 h, 12 h – then failed
+    end
+```
+
+- **Events:** `message.sent`, `message.failed`, `message.bounced`,
+  `message.complained`, `recipient.unsubscribed` (one per recipient), and
+  `webhook.test`. `emit()` builds the payload once (`id`, `type`, `created_at`,
+  `account_id`, `data` with the message's `metadata`) and skips accounts that
+  aren't active.
+- **Endpoints** belong to an account (owners manage them, max 10). The secret
+  (`whsec_…`) is shown once and stored Fernet-encrypted because it must be used
+  to sign. Rotating replaces it at once.
+- **Retries** are handled inside `WebhookService.deliver` (not by raising), so
+  each attempt's status code, error and the first 1 KB of the answer are kept
+  for the customer's delivery log. Tests are tried once.
+- **Auto-disable:** when a delivery finally fails and the endpoint hasn't
+  succeeded for 3 days, it's turned off and the owners are emailed. Turning it
+  back on resets the counter; failed deliveries can be resent (same event id).
+- **SSRF protection:** https only (http and private targets only with the
+  development flags, refused in production), the host must resolve only to
+  global addresses – checked on save and again before every request (DNS can
+  change) – and redirects aren't followed.
+- Customer guide: [WEBHOOKS.md](WEBHOOKS.md).
+
+---
+
+## 22. Reputation, alerts and sign-in security
+
+- **Blocklists** (`services/reputation.py`): `DnsResolver.a()` looks up
+  `<reversed IP>.<zone>` and `<domain>.<zone>`. `127.0.0.x` = listed;
+  `127.255.255.x` = the list refused the query (unknown, never listed). The
+  hourly `reputation` job stores results in `system_state["blocklists"]` (with
+  the first time each listing was seen); the admin's health checks turn them
+  into problems. At send time, registered domains of http(s) links are looked up
+  in `LINK_BLOCKLIST_ZONES`, cached in-process for an hour.
+- **Alerts** (`services/alerts.py`): every 10 minutes the `alerts` job runs
+  `AdminDashboardService.checks()`. Checks carry a stable `key`; problems not in
+  `system_state["alerts"]` are new (alert), ones that disappeared are fixed
+  (alert), and open ones get a daily reminder. Email goes through the normal
+  system-email outbox; the optional webhook is posted directly.
+- **Breached passwords** (`services/pwned.py`): the first five hex characters of
+  the SHA-1 go to the HIBP range API with padding; a match refuses the password
+  for customers and admins. Errors or timeouts allow it.
+- **Customer two-factor** (`services/two_factor.py`): the same TOTP code as
+  admins (`security.py`), optional per user. Login asks for the code after the
+  password; recovery codes are single-use hashes; turning it off needs the
+  password and a code; a password reset doesn't turn it off; admins can reset it
+  (audited, the user is emailed).
+

@@ -7,7 +7,10 @@ Mailvender Admin is the private dashboard for Mailvender staff. In it you can:
   forward what came in (see [E. Writing email](#e-writing-email));
 - see daily usage, spam-complaint and bounce rates, and the health of the server;
 - find customers who are stuck, with a plain-words fix for each problem;
-- block and unblock users, and suspend, reinstate or change limits on accounts.
+- block and unblock users, sign them out, send password resets, reset their
+  two-factor sign-in, and suspend, reinstate or change limits on accounts;
+- get alerted (email and Slack/Discord) when the platform needs attention –
+  port 25, background jobs, backups, platform DKIM, spam blocklists.
 
 The code is in `mailvender-admin/` (Next.js, next to `mailvender/`). The admin API it
 uses is part of the backend (`/v1/admin/*`).
@@ -25,7 +28,7 @@ This guide has four parts:
 ## How it stays private
 
 ```text
-  your browser ──► admin.mailvender.com (Vercel) ──► api.mailvender.com (Hetzner)
+  your browser ──► backoffice.mailvender.com (Vercel) ──► api.mailvender.com (Hetzner)
                    proxy.ts adds the admin key          /v1/admin/* answers only
                    (ADMIN_PROXY_SECRET)                 requests carrying that key
 ```
@@ -190,10 +193,18 @@ Edit `mailvender-backend/.env.production` on your Mac and add:
 ADMIN_PROXY_SECRET=<the first secret>
 INBOUND_MAIL_SECRET=<the second secret>
 KNOWN_SENDING_IPS=2.29.100.188
+ALERT_WEBHOOK_URL=<optional: a Slack or Discord webhook URL>
 ```
 
-`KNOWN_SENDING_IPS` is our server's IP. Anyone else sending as mailvender.com
-is flagged in **Spam & delivery**.
+- `KNOWN_SENDING_IPS` is our server's IP. Anyone else sending as mailvender.com
+  is flagged in **Spam & delivery**, and the IP is checked against spam
+  blocklists every hour.
+- Alerts go by email to the active admin (or `ALERT_EMAILS`) when a health
+  check turns red. `ALERT_WEBHOOK_URL` sends them to Slack/Discord as well,
+  which still works when our own mail is broken (Slack: **Apps → Incoming
+  Webhooks**; Discord: **Channel settings → Integrations → Webhooks**).
+  Alerts link to `https://backoffice.mailvender.com` (`ADMIN_APP_URL`, already
+  set in `docker-compose.prod.yml`; only add it here if the address changes).
 
 Copy the file to the server, as in PRODUCTION_SETUP step 7:
 
@@ -203,14 +214,14 @@ scp mailvender-backend/.env.production root@2.29.100.188:/opt/mailvender/mailven
 
 ### B3. Redeploy the backend
 
-Follow PRODUCTION_SETUP step 15 (rsync, then rebuild). The API runs migration
-`0004` by itself when it starts.
+Follow PRODUCTION_SETUP step 15 (rsync, then rebuild). The API runs the
+migrations by itself when it starts.
 
 On the server, check that the migration ran and that the admin API is hidden:
 
 ```sh
 cd /opt/mailvender/mailvender-backend
-docker compose -f docker-compose.prod.yml exec api alembic current   # → 0004 (head)
+docker compose -f docker-compose.prod.yml exec api alembic current   # → the newest, e.g. 0008 (head)
 curl -s -o /dev/null -w "%{http_code}\n" https://api.mailvender.com/v1/admin/auth/me   # → 404 (good)
 ```
 
@@ -262,14 +273,16 @@ npx vercel deploy --prod
 ### B7. Give it its own address
 
 1. Vercel → **mailvender-admin → Settings → Domains → Add**, and type
-   `admin.mailvender.com`. Any less obvious name is a bit more private, for
-   example `ops-7k2.mailvender.com`.
+   `backoffice.mailvender.com` (the admin's production address).
 2. Vercel shows a CNAME record. In Cloudflare → **mailvender.com → DNS → Add
    record**:
 
    | Type | Name | Target | Proxy |
    | --- | --- | --- | --- |
-   | CNAME | `admin` (or your name) | `cname.vercel-dns.com` | **DNS only** (grey cloud) |
+   | CNAME | `backoffice` | `cname.vercel-dns.com` | **DNS only** (grey cloud) |
+
+   Use the target Vercel shows if it's different (newer projects get a
+   project-specific one).
 
 3. Wait until Vercel shows the domain as **Valid** (a few minutes). It gets an
    HTTPS certificate automatically.
@@ -279,7 +292,7 @@ emails.
 
 ### B8. First sign-in
 
-Open `https://admin.mailvender.com`, sign in with the temporary password from
+Open `https://backoffice.mailvender.com`, sign in with the temporary password from
 B4, and follow the steps: new password, authenticator app, save the recovery
 codes (A4 explains each one).
 
@@ -397,6 +410,10 @@ retention job deletes older ones.
 | Who did what | **Audit log** in the admin. Every sign-in, view, block, suspension and email sent, with the admin's email, IP and reason. Filter by kind (Emails, Users, …) and, when there has been more than one admin, by admin. |
 | Change your password, make new recovery codes, sign out other browsers | **Your login** (bottom of the sidebar). New recovery codes need your password; the old ones stop working. |
 | A customer lost a laptop / can't sign in | Open them in **Users**: **Sign out everywhere** (asks for a reason, doesn't block them) or **Send password reset link**. |
+| A customer lost their phone **and** recovery codes | **Users** → them → Two-factor sign-in: **Reset**. Check it's really them first (a reply from their address plus a detail only they know): an attacker with their password would ask for exactly this. They're emailed. |
+| An alert arrived | Open **System** (the alert links there): it says what's wrong and what to do. You get one email when it breaks, one when it's fixed, and a daily reminder in between. |
+| "… is on the … blocklist" | Our IP or domain is listed, so mail is being rejected. Find the cause in **Spam & delivery** (accounts with the most complaints), suspend that account, then request removal at the link shown (RUNBOOK "Blocklists"). |
+| A customer says webhooks don't arrive | Ask them to look at **Settings → Webhooks → Deliveries** in the app: it shows each attempt, the HTTP status and their server's answer. |
 | Turn the admin API off | Remove `ADMIN_PROXY_SECRET` from the server's `.env` and redeploy. All `/v1/admin` addresses then answer 404. |
 
 ### Settings reference
@@ -407,7 +424,10 @@ Backend (`.env` on the server; defaults in `backend/app/config.py`):
 | --- | --- | --- |
 | `ADMIN_PROXY_SECRET` | blank (admin off) | The admin key. ≥ 32 characters; must differ from `API_PROXY_SECRET`. |
 | `INBOUND_MAIL_SECRET` | blank (inbox off) | Shared with the Email Worker. ≥ 32 characters. |
-| `KNOWN_SENDING_IPS` | blank | Our sending IPs, comma-separated (`2.29.100.188`). |
+| `KNOWN_SENDING_IPS` | blank | Our sending IPs, comma-separated (`2.29.100.188`). Also checked against spam blocklists hourly. |
+| `ADMIN_APP_URL` | `https://backoffice.mailvender.com` in production (`docker-compose.prod.yml`), blank locally | This app's address, linked from alert emails. |
+| `ALERT_EMAILS` / `ALERT_WEBHOOK_URL` | blank (the active admins) / blank | Who gets alerts; a Slack/Discord webhook too. |
+| `BLOCKLIST_IP_ZONES` / `BLOCKLIST_DOMAIN_ZONES` / `LINK_BLOCKLIST_ZONES` | Spamhaus, SpamCop, Barracuda / Spamhaus DBL / Spamhaus DBL | Which blocklists are checked (RUNBOOK "Blocklists"). |
 | `ADMIN_SESSION_IDLE_MINUTES` | 30 | Sign out after this long without activity. |
 | `ADMIN_SESSION_TTL_HOURS` | 8 | Sign out after this long in total. |
 | `ADMIN_MAX_FAILED_LOGINS` / `ADMIN_LOCKOUT_MINUTES` | 10 / 30 | Lockout after wrong passwords or codes. |

@@ -16,6 +16,8 @@ from app.config import get_settings
 from app.logging import get_logger
 from app.repositories.interfaces import UnitOfWork
 from app.security import utcnow
+from app.services.reputation import DELIST
+from app.services.reputation import STATE_KEY as REPUTATION_KEY
 from app.services.storage import ObjectStorage
 
 log = get_logger("admin_dashboard")
@@ -29,6 +31,8 @@ JOB_INTERVALS = {
     "account_health": timedelta(minutes=5),
     "retention": timedelta(hours=24),
     "dkim_key_sync": timedelta(seconds=30),
+    "reputation": timedelta(hours=1),
+    "alerts": timedelta(minutes=10),
 }
 
 PROVIDERS: dict[str, str] = {
@@ -151,11 +155,19 @@ class _Cache:
 cache = _Cache()
 
 
+def checked_ago(value: str | None, now: datetime) -> str:
+    if not value:
+        return ""
+    minutes = int((now - datetime.fromisoformat(value)).total_seconds() // 60)
+    return "just now" if minutes < 2 else f"{minutes} min ago" if minutes < 120 else f"{minutes // 60} hours ago"
+
+
 @dataclass
 class Check:
     status: str  # ok | warning | problem
     title: str
     detail: str
+    key: str = ""  # stable across runs (the title can contain numbers) – alerts compare by it
 
 
 class AdminDashboardService:
@@ -307,59 +319,94 @@ class AdminDashboardService:
         if port is False:
             checks.append(Check("problem", "Outbound port 25 is blocked",
                                 "No email can reach Gmail, Outlook and others. Ask Hetzner to unblock port 25 "
-                                "(PRODUCTION_SETUP step 2)."))
+                                "(PRODUCTION_SETUP step 2).", "port25"))
         elif port is None:
-            checks.append(Check("warning", "Couldn't test outbound port 25", "The DNS lookup for Gmail failed."))
+            checks.append(Check("warning", "Couldn't test outbound port 25", "The DNS lookup for Gmail failed.", "port25"))
         else:
-            checks.append(Check("ok", "Outbound port 25 is open", "Our server can reach other mail servers."))
+            checks.append(Check("ok", "Outbound port 25 is open", "Our server can reach other mail servers.", "port25"))
 
         runs = {run.name: run for run in self.uow.jobs.list_runs()}
         if not runs:
             checks.append(Check("problem", "The worker has never run",
-                                "Background jobs and sending need the worker container."))
+                                "Background jobs and sending need the worker container.", "worker"))
         for name, run in sorted(runs.items()):
             interval = JOB_INTERVALS.get(name)
             if run.last_error:
-                checks.append(Check("problem", f"Job “{name}” failed", run.last_error.strip().splitlines()[-1][:300]))
+                checks.append(Check("problem", f"Job “{name}” failed", run.last_error.strip().splitlines()[-1][:300], f"job:{name}"))
             elif interval and run.last_finished_at and now - run.last_finished_at > interval * 3 + timedelta(minutes=5):
                 checks.append(Check("problem", f"Job “{name}” has stopped running",
-                                    f"Last finished {run.last_finished_at:%Y-%m-%d %H:%M} UTC. Is the worker up?"))
+                                    f"Last finished {run.last_finished_at:%Y-%m-%d %H:%M} UTC. Is the worker up?",
+                                    f"job:{name}"))
 
         outbox = self.uow.admin_stats.outbox_summary()
         dead = sum(count for _, status, count in outbox if status == "dead")
         if dead:
             checks.append(Check("warning", f"{dead} queued job(s) gave up",
-                                "They failed 10 times. See System → Queue for which kind."))
+                                "They failed 10 times. See System → Queue for which kind.", "outbox_dead"))
         oldest = self.uow.admin_stats.oldest_pending_outbox()
         if oldest and now - oldest > timedelta(minutes=15):
             minutes = int((now - oldest).total_seconds() // 60)
-            checks.append(Check("warning", "The sending queue is slow", f"The oldest waiting job is {minutes} min old."))
+            checks.append(Check("warning", "The sending queue is slow", f"The oldest waiting job is {minutes} min old.",
+                                "queue_slow"))
 
         keys = self.uow.platform_dkim_keys.list_for_domain(self.settings.platform_domain)
         if not any(key.status == "active" for key in keys):
             checks.append(Check("problem", "Mailvender's own DKIM key isn't active",
-                                "System emails aren't signed. Run app.cli platform-dkim (PRODUCTION_SETUP step 12)."))
+                                "System emails aren't signed. Run app.cli platform-dkim (PRODUCTION_SETUP step 12).",
+                                "platform_dkim"))
 
         suspended = self.uow.admin_stats.count_audit_since("account.suspended", start_of_day(now))
         if suspended:
-            checks.append(Check("warning", f"{suspended} account(s) suspended today", "See Needs help."))
+            checks.append(Check("warning", f"{suspended} account(s) suspended today", "See Needs help.", "suspended_today"))
 
         unread_abuse = self.uow.inbound.unread_counts().get("abuse", 0)
         if unread_abuse:
             checks.append(Check("warning", f"{unread_abuse} unread message(s) at abuse@",
-                                "Someone may be reporting one of our customers."))
+                                "Someone may be reporting one of our customers.", "abuse_unread"))
 
         for label, age, limit in (("Database backup", self._backup_age("backups/db/"), timedelta(hours=7)),
                                   ("Log backup", self._backup_age("logs/api/"), timedelta(hours=2))):
             if age is None:
                 checks.append(Check("warning", f"{label}: none found in the last week",
-                                    "Check the backup timers (PRODUCTION_SETUP step 14)."))
+                                    "Check the backup timers (PRODUCTION_SETUP step 14).", f"backup:{label}"))
             elif age > limit:
                 checks.append(Check("problem" if label.startswith("Database") else "warning",
                                     f"{label} is {int(age.total_seconds() // 3600)} hours old",
-                                    "Check the backup timers (PRODUCTION_SETUP step 14)."))
+                                    "Check the backup timers (PRODUCTION_SETUP step 14).", f"backup:{label}"))
+        checks.extend(self._blocklist_checks(now))
         order = {"problem": 0, "warning": 1, "ok": 2}
         return sorted(checks, key=lambda c: order[c.status])
+
+    def _blocklist_checks(self, now: datetime) -> list[Check]:
+        """From the hourly `reputation` job (services/reputation.py)."""
+        state = self.uow.system_state.get(REPUTATION_KEY)
+        if not state:
+            if self.settings.known_sending_ip_set:
+                return [Check("warning", "Blocklists haven't been checked yet",
+                              "The worker checks our IP and domain every hour.", "blocklists")]
+            return [Check("warning", "Blocklists aren't checked",
+                          "Set KNOWN_SENDING_IPS (our server's IP) so the worker can check them.", "blocklists")]
+        checks = []
+        results = state.get("results", [])
+        for item in results:
+            if item["status"] == "listed":
+                since = item.get("since", "")[:10]
+                checks.append(Check(
+                    "problem", f"{item['target']} is on the {item['zone']} blocklist",
+                    f"Listed since {since}. Mail from it is likely being rejected. Find the customer who caused it "
+                    f"(Spam & delivery), then ask for removal: {DELIST.get(item['zone'], item['zone'])}",
+                    f"blocklist:{item['zone']}:{item['target']}"))
+        if not checks:
+            unknown = sorted({item["zone"] for item in results if item["status"] == "unknown"})
+            if unknown and len(unknown) == len({item["zone"] for item in results}):
+                checks.append(Check("warning", "Blocklists couldn't be checked",
+                                    "The lists refused our server's DNS queries (a public resolver?). See "
+                                    "RUNBOOK “Blocklists”.", "blocklists"))
+            else:
+                checks.append(Check("ok", "Not on any blocklist",
+                                    f"Checked {len(results)} lists {checked_ago(state.get('checked_at'), now)}.",
+                                    "blocklists"))
+        return checks
 
     def _latest_object(self, folder: str) -> tuple[str, int, datetime] | None:
         """The newest object under <prefix><folder><YYYY>/<MM>/<DD>/, looking back a week."""

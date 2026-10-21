@@ -17,14 +17,14 @@ dependencies = [
     "cryptography>=42,<47",
     "dnspython>=2.6",
     "boto3>=1.34",
-    "pillow>=10.3",
+    "pillow>=13.0",  # 13.0 fixes crafted-image crashes (uploads are decoded)
     "python-multipart>=0.0.9",
+    "httpx>=0.27",  # breached-password check and alert webhooks
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=8.2",
-    "httpx>=0.27",
 ]
 
 [tool.pytest.ini_options]

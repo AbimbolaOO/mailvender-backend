@@ -255,6 +255,7 @@ class AdminUserRowOut(Model):
     accounts: int
     last_seen_at: datetime | None
     sent_30d: int
+    two_factor_enabled: bool
 
 
 class UserAccountOut(Model):

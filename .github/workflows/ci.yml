@@ -3,6 +3,8 @@ name: CI
 on:
   push:
   pull_request:
+  schedule:
+    - cron: "0 6 * * 1"  # weekly, so new advisories (audit job) show up even without changes
 
 jobs:
   backend:
@@ -30,6 +32,25 @@ jobs:
       - run: uv run pytest
       # The published contract must match the code.
       - run: uv run python -m app.cli openapi > /tmp/openapi.json && diff -q openapi.json /tmp/openapi.json
+      - run: uv run python -m app.cli openapi --admin > /tmp/openapi-admin.json && diff -q openapi-admin.json /tmp/openapi-admin.json
+
+  audit:
+    # Known vulnerabilities in the Python packages the API and worker run.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv export --frozen --no-dev --format requirements-txt > /tmp/requirements.txt
+      # Known exceptions: cryptography is pinned below 47 (newer wheels crash on the developer's Docker VM,
+      # see CLAUDE.md). These advisories cover X.509 chain verification, PKCS#7 decryption and the OpenSSL
+      # bundled in the wheel – we use cryptography only for Fernet and DKIM keys. Remove them with the pin.
+      - run: >-
+          uvx pip-audit --requirement /tmp/requirements.txt --disable-pip
+          --ignore-vuln PYSEC-2026-3552 --ignore-vuln PYSEC-2026-3553 --ignore-vuln PYSEC-2026-3554
+          --ignore-vuln GHSA-537c-gmf6-5ccf
 
   images:
     runs-on: ubuntu-latest
