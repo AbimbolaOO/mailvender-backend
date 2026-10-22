@@ -299,6 +299,19 @@ can also use **Upload an image** in an image widget's settings.
 - Logging out removes your designs from that browser (they're safe on the
   server). They come back when you sign in again.
 
+### Page links
+
+- Every page has its own link, shown in the address bar: `/w/<workspace>/p/<page-name>--<id>`.
+  Copy it from the address bar, from a page's actions in the Pages list, or with **Share** (top
+  right), which also emails it or opens the system share sheet.
+- Anyone in the page's workspace can open the link (signed out, they sign in first and land on
+  the page). Someone who isn't a member sees "You don't have access" – the page itself stays
+  private. A link into another of your workspaces switches to it. Renaming a page doesn't break
+  its links; a deleted page's link says so.
+- Back and Forward move between the pages you opened.
+- After signing out and in again – on any device – the studio reopens the page you last had open
+  in that workspace (remembered per person: `last_page_id`, `PUT /v1/account/last-page`).
+
 ### Starter templates
 
 - **Pages → New page** shows the ready-made templates. They come from the

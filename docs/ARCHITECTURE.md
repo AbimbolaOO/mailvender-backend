@@ -35,6 +35,7 @@ editors render them.
 21. [Webhooks](#21-webhooks)
 22. [Reputation, alerts and sign-in security](#22-reputation-alerts-and-sign-in-security)
 23. [Starter templates](#23-starter-templates)
+24. [Page links and the last open page](#24-page-links-and-the-last-open-page)
 
 ---
 
@@ -642,6 +643,14 @@ Key choices:
 - **Change detection by fingerprint** (cyrb53 of the JSON, or `updatedAt` for
   datasets) instead of instrumenting every mutation. Existing stores stay
   untouched apart from small sync hooks.
+- **Deletions are inferred, with a guard.** A record the server has but this
+  browser doesn't is a deletion – unless ≥ 3 and more than half of one kind
+  vanish in one scan (versions: whenever pages tripped it). That's lost local
+  data (a cleared or stale tab), so the records are forgotten and pulled again
+  from `since = 0`, the user is told, and `client.sync_mass_delete_blocked` is
+  logged. (On 2026-10-22 a stale login tab deleted 14 pages this way.) Stores
+  in `localStorage` also drop their cache on any cross-tab `storage` event,
+  listeners or not, so a tab never scans stale data.
 - **Deterministic ids.** Server ids are UUIDv5(`collection:localId`), so local
   ids (`page_x1y2`) stay unchanged and every device derives the same UUID
   without a mapping table.
@@ -1041,3 +1050,28 @@ flowchart LR
     saved, the built-in templates (dynamic `import()`, not in the main bundle)
     with the same paging and search. Documents of an unknown version are skipped.
 
+## 24. Page links and the last open page
+
+- **Format** (`mailvender/lib/editor/pageLinks.ts`): `/w/<account id>/p/<slug>--<page id>`. Only the
+  id after the last `--` counts, so renames don't break links. Pages are already per account (sync),
+  so a link needs no server-side sharing state: access is account membership, checked on every sync
+  request. A non-member's studio never receives the page.
+- **One route** (`app/(studio)/[[...path]]/page.tsx`) serves `/` and every page link (anything else is
+  404), so the editor stays mounted while the address changes. `proxy.ts` protects `/w/*` like `/`:
+  signed-out visitors go to `/login?next=<link>`.
+- **`usePageRoute`** (`lib/editor/pageRoute.ts`) keeps the address and the open page in step, with the
+  URL (`usePathname`) as the source of truth:
+  1. A link into another workspace you belong to switches to it (`selectAccount`, once; a veto – changes
+     still uploading – shows a "Switch to …" screen). Not a member: "no access".
+  2. A link's page opens as soon as it's in this browser; until the account's first sync completes
+     (`SyncSnapshot.syncedAccount` / `isAccountSynced`, which also trusts the tab that syncs for all
+     tabs) it waits ("Opening…" after 400 ms), then "doesn't exist".
+  3. `/` opens the last page you had open in this workspace.
+  4. The address follows the open page: opening another page `pushState`s (Back/Forward work);
+     renames, `/`, and pages that vanished `replaceState`. The tab title is the page name.
+- **Last page**: `memberships.last_page_id` (per person and account), sent in `MembershipAccountOut`
+  from `/v1/auth/me` and saved with `PUT /v1/account/last-page` 1.5 s after you settle on a page (best
+  effort). Signing out clears the browser, not this, so signing in – anywhere – reopens the page.
+- **Sharing UI**: Share (editor header) → `component/Studio/ShareDialog.tsx` (copy, open, email,
+  `navigator.share`, who can open it – personal workspaces: only you); Copy link on each page in the
+  Pages menu.

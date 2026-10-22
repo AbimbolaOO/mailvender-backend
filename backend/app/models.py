@@ -131,6 +131,8 @@ class Membership(Base):
     account_id: Mapped[uuid.UUID] = _account_fk()
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), index=True)
     role: Mapped[str] = mapped_column(String(16))  # owner | member
+    # The studio page this person last had open in this account (reopened after signing in).
+    last_page_id: Mapped[str | None] = mapped_column(String(100))
     created_at: Mapped[datetime] = _created()
 
 

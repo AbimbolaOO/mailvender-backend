@@ -44,8 +44,10 @@ Public = [Depends(csrf_header)]
 
 
 def accounts_for(uow: UnitOfWork, user_id) -> list[s.MembershipAccountOut]:
+    last_pages = uow.memberships.last_pages(user_id)
     return [
-        s.MembershipAccountOut.model_validate({**s.AccountOut.model_validate(account).model_dump(), "role": role})
+        s.MembershipAccountOut.model_validate({**s.AccountOut.model_validate(account).model_dump(), "role": role,
+                                               "last_page_id": last_pages.get(account.id)})
         for account, role in uow.accounts.list_for_user(user_id)
     ]
 

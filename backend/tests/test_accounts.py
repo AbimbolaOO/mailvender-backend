@@ -171,3 +171,32 @@ def test_list_pagination_is_bounded(make_user) -> None:  # type: ignore[no-untyp
     assert len(second["items"]) == 1 and second["next_cursor"] is None
     assert {k["name"] for k in first["items"] + second["items"]} == {"k0", "k1", "k2"}
     assert owner.get("/v1/account/api-keys?limit=101").status_code == 422
+
+
+def test_last_page_is_remembered_per_person_and_account(make_user) -> None:  # type: ignore[no-untyped-def]
+    owner, member = make_user(), make_user()
+    personal = owner.account_id
+    acme = team(owner)
+    invite_and_accept(owner, member)
+
+    last_pages = lambda session: {a["id"]: a["last_page_id"] for a in session.get("/v1/auth/me").json()["accounts"]}  # noqa: E731
+    assert set(last_pages(owner).values()) == {None}
+
+    assert owner.put("/v1/account/last-page", json={"page_id": "page_launch01"}).status_code == 204
+    owner.account_id = personal
+    assert owner.put("/v1/account/last-page", json={"page_id": "page_mine"}).status_code == 204
+    assert last_pages(owner) == {personal: "page_mine", acme: "page_launch01"}
+
+    # Each member has their own.
+    member.account_id = acme
+    assert last_pages(member)[acme] is None
+    member.put("/v1/account/last-page", json={"page_id": "page_other"})
+    assert last_pages(member)[acme] == "page_other"
+    assert last_pages(owner)[acme] == "page_launch01"
+
+    owner.account_id = acme
+    assert owner.put("/v1/account/last-page", json={"page_id": None}).status_code == 204
+    assert last_pages(owner)[acme] is None
+    for bad in ("", "../x", "a" * 101, "page id"):
+        assert owner.put("/v1/account/last-page", json={"page_id": bad}).status_code == 422, bad
+

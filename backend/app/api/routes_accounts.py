@@ -48,6 +48,14 @@ def get_account(ctx: Ctx) -> s.MembershipAccountOut:
                                                   "role": ctx.role})
 
 
+@router.put("/account/last-page", status_code=204, summary="Remember the studio page you have open",
+            description="Returned as `last_page_id` with your accounts (`/v1/auth/me`), so the studio reopens it "
+                        "after you sign in again, on any device.")
+def set_last_page(body: s.LastPageIn, ctx: Ctx, uow: Uow) -> Response:
+    AccountService(uow).set_last_page(ctx, body.page_id)
+    return Response(status_code=204)
+
+
 @router.patch("/account", response_model=s.AccountOut, summary="Rename or set sending settings (postal address)")
 def update_account(body: s.AccountUpdateIn, ctx: Ctx, uow: Uow) -> s.AccountOut:
     return s.AccountOut.model_validate(

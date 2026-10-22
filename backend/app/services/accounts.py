@@ -60,6 +60,17 @@ class AccountService:
     def list_for_user(self, user: m.User) -> list[tuple[m.Account, str]]:
         return self.uow.accounts.list_for_user(user.id)
 
+    def set_last_page(self, ctx: AccountContext, page_id: str | None) -> None:
+        """Remembers the studio page this person has open in this account (for their next sign-in)."""
+        if ctx.user is None:
+            raise Forbidden("Only a signed-in person has an open page.")
+        membership = self.uow.memberships.get(ctx.account_id, ctx.user.id)
+        if membership is None:
+            raise NotFound("Account not found.")
+        if membership.last_page_id != page_id:
+            membership.last_page_id = page_id
+            self.uow.commit()
+
     def create_team(self, user: m.User, name: str) -> m.Account:
         account = self.uow.accounts.add(
             m.Account(

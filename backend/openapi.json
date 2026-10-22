@@ -2997,6 +2997,121 @@
         }
       }
     },
+    "/v1/account/last-page": {
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Remember the studio page you have open",
+        "description": "Returned as `last_page_id` with your accounts (`/v1/auth/me`), so the studio reopens it after you sign in again, on any device.",
+        "operationId": "set_last_page_v1_account_last_page_put",
+        "parameters": [
+          {
+            "name": "x-account-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Active account (browser sessions)",
+              "title": "X-Account-Id"
+            },
+            "description": "Active account (browser sessions)"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LastPageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the session/API key is invalid, expired or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed for this user, role or account state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found (also returned for other accounts' resources)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict with the current state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed \u2013 see `fields`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate or sending limit reached \u2013 see the Retry-After header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/account/members": {
       "get": {
         "tags": [
@@ -12178,7 +12293,8 @@
             "type": "string",
             "enum": [
               "sync_stuck",
-              "sync_error"
+              "sync_error",
+              "sync_mass_delete_blocked"
             ],
             "title": "Kind"
           },
@@ -12815,6 +12931,28 @@
         ],
         "title": "InvitationOut"
       },
+      "LastPageIn": {
+        "properties": {
+          "page_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,100}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Id",
+            "description": "The studio page's id (null forgets it)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "page_id"
+        ],
+        "title": "LastPageIn"
+      },
       "LimitsIn": {
         "properties": {
           "hourly_recipient_limit": {
@@ -13010,6 +13148,18 @@
               "member"
             ],
             "title": "Role"
+          },
+          "last_page_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Page Id",
+            "description": "The studio page you last had open in this account."
           }
         },
         "type": "object",

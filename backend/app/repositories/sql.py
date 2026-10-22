@@ -175,6 +175,11 @@ class SqlAccounts(_Repo):
 class SqlMemberships(_Repo):
     model = m.Membership
 
+    def last_pages(self, user_id: uuid.UUID) -> dict[uuid.UUID, str]:
+        rows = self.s.execute(select(m.Membership.account_id, m.Membership.last_page_id)
+                              .where(m.Membership.user_id == user_id, m.Membership.last_page_id.is_not(None))).all()
+        return {account_id: page_id for account_id, page_id in rows}
+
     def get(self, account_id: uuid.UUID, user_id: uuid.UUID, *, for_update: bool = False) -> m.Membership | None:
         stmt = select(m.Membership).where(m.Membership.account_id == account_id, m.Membership.user_id == user_id)
         if for_update:

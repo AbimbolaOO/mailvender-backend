@@ -97,6 +97,12 @@ class AccountOut(Model):
 
 class MembershipAccountOut(AccountOut):
     role: Literal["owner", "member"]
+    last_page_id: str | None = Field(None, description="The studio page you last had open in this account.")
+
+
+class LastPageIn(BaseModel):
+    page_id: str | None = Field(pattern=r"^[A-Za-z0-9_-]{1,100}$",
+                                description="The studio page's id (null forgets it).")
 
 
 class DeletedAccountOut(Model):
@@ -439,7 +445,7 @@ class ContentUploadOut(Model):
 
 
 class ClientEventIn(BaseModel):
-    kind: Literal["sync_stuck", "sync_error"]
+    kind: Literal["sync_stuck", "sync_error", "sync_mass_delete_blocked"]
     status: str = Field(max_length=32)
     pending: int = Field(ge=0, le=1_000_000)
     seconds: int = Field(ge=0, le=10_000_000, description="How long the problem has lasted.")
