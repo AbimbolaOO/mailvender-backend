@@ -36,6 +36,7 @@ editors render them.
 22. [Reputation, alerts and sign-in security](#22-reputation-alerts-and-sign-in-security)
 23. [Starter templates](#23-starter-templates)
 24. [Page links and the last open page](#24-page-links-and-the-last-open-page)
+25. [Components and linked copies](#25-components-and-linked-copies)
 
 ---
 
@@ -1075,3 +1076,42 @@ flowchart LR
 - **Sharing UI**: Share (editor header) → `component/Studio/ShareDialog.tsx` (copy, open, email,
   `navigator.share`, who can open it – personal workspaces: only you); Copy link on each page in the
   Pages menu.
+
+## 25. Components and linked copies
+
+Saved components work like Figma's main components (studio only; components sync per account
+like any other collection, so a teammate's edit reaches your pages too). Code:
+`mailvender/lib/editor/componentLinks.ts` (pure), `componentLibrary.ts`, `componentCanvas.ts`.
+
+- **Linked copy.** Inserting a component (or saving a widget as one) adds a copy whose root carries
+  `component: {id, revision, structure, overrides, slot?}` and whose own nodes carry `sourceId` –
+  the component node they come from. Duplicating a copy keeps both, so it stays linked.
+- **Overrides vs detaching** (`reconcileLinks`, run inside the editor's `change` reducer, so undo
+  covers it): text (content, spans), image src/alt/href, button/link hrefs, video, code, calendar
+  and social content, divider labels, Custom HTML, layer names and display conditions may differ per
+  copy – changes are stored as `overrides[sourceId]`. Anything else (styles, layout, adding or
+  removing widgets) changes the copy's `structure` fingerprint (a hash of the subtree without ids
+  and content, keys sorted) and detaches it; the user is told, and ⌘Z restores the link.
+- **Updates** (`refreshComponents`): when a component's `revision` is newer than a copy's, the copy
+  is rebuilt from the component (keeping its ids and position) and its overrides re-applied. It runs
+  when a page opens and whenever the component library changes, as a `replace-doc` (no undo step).
+  A component this browser doesn't have (deleted, or not synced yet) leaves its copies untouched.
+- **Nested components.** A component can contain linked copies of others; they stay linked.
+  Inside its parent a nested copy is one unit: its nodes aren't the parent's own (`eachOwnNode`),
+  its edits are its own overrides, and the parent's fingerprint only records which component sits
+  there – so the nested component can change without detaching its parents. In a parent's copy each
+  nested copy has a `slot` (its node id in the parent component); rebuilding the parent keeps each
+  slot's own overrides (`keptFrom`). Copies are reconciled deepest first, so a structural edit
+  inside a nested copy detaches it and the copies around it. Loops can't grow: a component never
+  contains a copy of itself (`asComponentNode` unlinks it), you can't insert a component where it
+  (or one it contains) is already around the insertion point or on its own canvas
+  (`canInsertComponent`), and `refreshComponents` never expands a copy inside a copy of itself.
+- **Editing a component** happens on its own canvas (`componentCanvas.ts`; from the Components
+  menu or a copy's "Edit component"): the `EditorProvider` loads `component:<id>` instead of a page
+  – the component (non-tables in a frame) with the open page's settings for looks and a 48 px safe area above and below it (display only, never saved) – with its own
+  undo history, and each save (300 ms debounce) writes the component (`updateComponentNode`,
+  revision + 1). Version history and Share are page-only and hidden there, Import & audit is shown disabled (with why); opening
+  another page or **Done** leaves it.
+- "Update component" makes a copy's content the component's (`componentFromCopy` keeps the
+  component's ids so other copies' overrides still match); "Reset changes" drops a copy's own
+  overrides (nested copies keep theirs); "Detach" unlinks a copy (nested copies stay linked).
